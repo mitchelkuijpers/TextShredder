@@ -1,0 +1,47 @@
+COMPILER = gcc
+CFLAGS = -c -Wall
+
+COMPILE = $(COMPILER) $(CFLAGS)
+LINK = $(COMPILER)
+
+TARGET = bank
+TESTTARGET = banktest
+
+MAIN_O = main.o
+MAIN_C = main.c
+MAIN_H = main.h
+
+TESTMAIN_O = testmain.o
+TESTMAIN_C = testmain.c
+TESTMAIN_H = testmain.h
+
+BANKTESTSUITE_O = banktestsuite.o
+BANKTESTSUITE_C = banktestsuite.c
+BANKTESTSUITE_H = banktestsuite.h
+
+BANKACCOUNT_O = bankaccount.o
+BANKACCOUNT_C = bankaccount.c
+BANKACCOUNT_H = bankaccount.h
+
+MAINOBJECTS = $(MAIN_O) $(BANKACCOUNT_O)
+TESTOBJECTS = $(TESTMAIN_O) $(BANKTESTSUITE_O) $(BANKACCOUNT_O)
+
+all : $(TARGET) $(TESTTARGET)
+	
+$(TARGET) : $(MAINOBJECTS)
+	$(LINK) $(MAINOBJECTS) -o $(TARGET)
+
+$(TESTTARGET) : $(TESTOBJECTS)
+	$(LINK) $(TESTOBJECTS) -lcunit -o $(TESTTARGET)
+
+$(MAIN_O) : $(MAIN_C) $(MAIN_H)
+	$(COMPILE) $(MAIN_C)
+
+$(TESTMAIN_O) : $(TESTMAIN_C) $(TESTMAIN_H)
+	$(COMPILE) $(TESTMAIN_C)
+		
+$(BANKACCOUNT_O) : $(BANKACCOUNT_C) $(BANKACCOUNT_H)
+	$(COMPILE) $(BANKACCOUNT_C)
+	
+clean :
+	rm -rf *.o $(TARGET) $(TESTTARGET)
