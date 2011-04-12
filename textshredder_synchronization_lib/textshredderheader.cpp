@@ -6,13 +6,16 @@ TextShredderHeader::TextShredderHeader() :
 
 }
 
-TextShredderHeader::TextShredderHeader( unsigned char protocolVersion, unsigned int contentLength, unsigned char packetType) :
-        protocolVersion(protocolVersion), contentLength(contentLength), packetType(packetType)
+TextShredderHeader::TextShredderHeader( unsigned char protocolVersion,
+										unsigned int contentLength,
+										unsigned char packetType) :
+		protocolVersion(protocolVersion), contentLength(contentLength),
+		packetType(packetType)
 {
 }
 
-TextShredderHeader::TextShredderHeader( const QByteArray &buffer ) {
-
+TextShredderHeader::TextShredderHeader( const QByteArray &buffer )
+{
     int offset = 0;
     protocolVersion = buffer[offset];
 
@@ -23,20 +26,24 @@ TextShredderHeader::TextShredderHeader( const QByteArray &buffer ) {
     packetType = buffer[offset];
 }
 
-void TextShredderHeader::appendToQByteArray( QByteArray &buffer ) {
+void TextShredderHeader::appendToQByteArray( QByteArray &buffer )
+{
     buffer.append(protocolVersion);
     buffer.append((const char *)&contentLength, (int) sizeof(unsigned int));
     buffer.append(packetType);
 }
 
-unsigned char TextShredderHeader::getProtocolVersion() {
+unsigned char TextShredderHeader::getProtocolVersion()
+{
     return protocolVersion;
 }
 
-unsigned int TextShredderHeader::getPacketType() {
+unsigned int TextShredderHeader::getPacketType()
+{
     return packetType;
 }
 
-unsigned int TextShredderHeader::getContentLength() {
+unsigned int TextShredderHeader::getContentLength()
+{
     return contentLength;
 }
