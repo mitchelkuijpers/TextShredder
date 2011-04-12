@@ -1,6 +1,8 @@
 #ifndef TEXTSHREDDERHEADER_H
 #define TEXTSHREDDERHEADER_H
 
+#include <QtCore/QtCore>
+
 #define kProtocolVersion 1
 
 #define kPacketTypeEdits 0
@@ -9,25 +11,22 @@
 
 #define kHeaderLength 6
 
-class TextShredderHeader
+class TextShredderHeader : QObject
 {
 public:
     TextShredderHeader();
-    TextShredderHeader(char protocolVersion, int contentLength, char packetType);
+    TextShredderHeader(unsigned char protocolVersion, unsigned int contentLength, unsigned char packetType);
+    TextShredderHeader( const QByteArray & );
+    void appendToQByteArray( QByteArray & );
 
-    void writeInBuffer( char * );
-    static TextShredderHeader * headerFromBuffer( char * );
-
-    char getProtocolVersion();
-
-    int getPacketType();
-
-    int getContentLength();
+    unsigned char getProtocolVersion();
+    unsigned int getPacketType();
+    unsigned int getContentLength();
 
 private:
-    char protocolVersion;
-    int contentLength;
-    char packetType;
+    unsigned char protocolVersion;
+    unsigned int contentLength;
+    unsigned char packetType;
 };
 
 #endif // TEXTSHREDDERHEADER_H

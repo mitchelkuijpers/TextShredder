@@ -6,45 +6,37 @@ TextShredderHeader::TextShredderHeader() :
 
 }
 
-TextShredderHeader::TextShredderHeader(char protocolVersion, int contentLength, char packetType) :
+TextShredderHeader::TextShredderHeader( unsigned char protocolVersion, unsigned int contentLength, unsigned char packetType) :
         protocolVersion(protocolVersion), contentLength(contentLength), packetType(packetType)
 {
 }
 
-void TextShredderHeader::writeInBuffer( char * buffer ) {
+TextShredderHeader::TextShredderHeader( const QByteArray &buffer ) {
+
     int offset = 0;
+    protocolVersion = buffer[offset];
 
-    buffer[offset] = protocolVersion;
     offset += sizeof(protocolVersion);
+    memcpy(&contentLength, (const void *) &(buffer.data()[1]), sizeof(unsigned int));
 
-    buffer[offset] = contentLength;
     offset += sizeof(contentLength);
-
-    buffer[offset] = packetType;
+    packetType = buffer[offset];
 }
 
-static TextShredderHeader * headerFromBuffer( char * buffer ) {
-    int offset = 0;
-
-    int protocolVersion(buffer[offset]);
-    offset += sizeof(protocolVersion);
-
-    int contentLength = (int) buffer[offset];
-    offset += sizeof(contentLength);
-
-    int packetType = buffer[offset];
-
-    return new TextShredderHeader(protocolVersion, contentLength, packetType);
+void TextShredderHeader::appendToQByteArray( QByteArray &buffer ) {
+    buffer.append(protocolVersion);
+    buffer.append((const char *)&contentLength, (int) sizeof(unsigned int));
+    buffer.append(packetType);
 }
 
-char TextShredderHeader::getProtocolVersion() {
+unsigned char TextShredderHeader::getProtocolVersion() {
     return protocolVersion;
 }
 
-int TextShredderHeader::getPacketType() {
+unsigned int TextShredderHeader::getPacketType() {
     return packetType;
 }
 
-int TextShredderHeader::getContentLength() {
+unsigned int TextShredderHeader::getContentLength() {
     return contentLength;
 }
