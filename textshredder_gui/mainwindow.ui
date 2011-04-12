@@ -36,7 +36,7 @@
     <item>
      <widget class="QTabWidget" name="main_tab_widget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="ClientConnectWindow" name="clientTab">
        <attribute name="title">
@@ -46,6 +46,11 @@
       <widget class="ServerTabWindow" name="serverTab">
        <attribute name="title">
         <string>Server</string>
+       </attribute>
+      </widget>
+      <widget class="ClientActiveWindow" name="activeClientTab">
+       <attribute name="title">
+        <string>Active Client</string>
        </attribute>
       </widget>
      </widget>
@@ -65,6 +70,12 @@
    <class>ServerTabWindow</class>
    <extends>QWidget</extends>
    <header>servertabwindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ClientActiveWindow</class>
+   <extends>QWidget</extends>
+   <header>clientactivewindow.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

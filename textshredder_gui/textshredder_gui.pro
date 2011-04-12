@@ -13,12 +13,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     servertabwindow.cpp \
-    clientconnectwindow.cpp
+    clientconnectwindow.cpp \
+    clientactivewindow.cpp
 
 HEADERS  += mainwindow.h \
     servertabwindow.h \
-    clientconnectwindow.h
+    clientconnectwindow.h \
+    clientactivewindow.h
 
 FORMS    += mainwindow.ui \
     servertabwindow.ui \
-    clienttabwindow.ui
+    clienttabwindow.ui \
+    clientactivewindow.ui
