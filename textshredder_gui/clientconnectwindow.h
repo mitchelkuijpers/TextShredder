@@ -2,8 +2,6 @@
 #define CLIENTCONNECTWINDOW_H
 
 #include <QWidget>
-#include <QThread>
-#include <QProgressBar>
 
 namespace Ui {
     class ClientConnectWindow;
@@ -24,3 +22,5 @@ private slots:
 private:
     Ui::ClientConnectWindow *ui;
 };
+
+#endif // CLIENTCONNECTWINDOW_H
