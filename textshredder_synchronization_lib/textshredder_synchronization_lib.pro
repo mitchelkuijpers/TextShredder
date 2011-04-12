@@ -15,4 +15,8 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += \
+    textshredderheader.cpp
+
+HEADERS += \
+    textshredderheader.h

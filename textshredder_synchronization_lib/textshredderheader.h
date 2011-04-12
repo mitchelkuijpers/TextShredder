@@ -5,6 +5,8 @@
 
 #define kPacketTypeEdits 0
 #define kPacketTypeFileData 1
+#define kPacketTypeFileRequest 2
+
 #define kHeaderLength 6
 
 class TextShredderHeader
@@ -17,13 +19,10 @@ public:
     static TextShredderHeader * headerFromBuffer( char * );
 
     char getProtocolVersion();
-    void setProtocolVersion();
 
     int getPacketType();
-    void setPacketType();
 
     int getContentLength();
-    void setContentLength();
 
 private:
     char protocolVersion;
