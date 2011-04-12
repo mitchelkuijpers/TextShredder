@@ -32,23 +32,21 @@
      <height>16777215</height>
     </size>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QTabWidget" name="main_tab_widget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="ClientConnectWindow" name="clientTab">
        <attribute name="title">
         <string>Client</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_4"/>
       </widget>
       <widget class="ServerTabWindow" name="serverTab">
        <attribute name="title">
         <string>Server</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_2"/>
       </widget>
      </widget>
     </item>

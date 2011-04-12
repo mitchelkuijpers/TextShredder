@@ -36,3 +36,4 @@ Thumbs.db
 # QT generated files #
 ######################
 *.pro.user
+textshredder_*-*
