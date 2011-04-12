@@ -74,7 +74,6 @@ void TextShredderHeaderTests::testHeaderWriteToQByteArray()
     unsigned int contentLength = 256;
     unsigned char packetType = 4;
     unsigned char protocolVersion = 5;
-    unsigned char buffer[6];
 
     unsigned int bufferContentLength;
     unsigned char bufferPacketType;
