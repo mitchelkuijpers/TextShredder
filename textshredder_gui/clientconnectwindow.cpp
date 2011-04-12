@@ -13,8 +13,3 @@ ClientConnectWindow::~ClientConnectWindow()
     delete ui;
 }
 
-void ClientConnectWindow::on_clientConnectButton_clicked()
-{
-
-}
-

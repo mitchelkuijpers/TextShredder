@@ -17,8 +17,6 @@ public:
 
 private slots:
 
-    void on_clientConnectButton_clicked();
-
 private:
     Ui::ClientConnectWindow *ui;
 };
