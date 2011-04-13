@@ -12,3 +12,4 @@ ClientActiveWindow::~ClientActiveWindow()
 {
     delete ui;
 }
+
