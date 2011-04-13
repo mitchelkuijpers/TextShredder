@@ -16,7 +16,14 @@ TEMPLATE = app
 
 
 SOURCES += \
-    textshredderheader.cpp
+    editlist.cpp \
+    edit.cpp \
+    syncproperties.cpp \
+    ../textshredder_diff_match_patch/*.cpp
 
 HEADERS += \
-    textshredderheader.h
+    textshredderheader.h \
+    editlist.h \
+    edit.h \
+    syncproperties.h \
+    ../textshredder_diff_match_patch/*.h
