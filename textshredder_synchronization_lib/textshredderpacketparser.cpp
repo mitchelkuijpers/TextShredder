@@ -1,6 +1,6 @@
 #include "textshredderpacketparser.h"
 
-TextshredderPacketParser::TextshredderPacketParser(QObject *parent) :
+TextShredderPacketParser::TextShredderPacketParser(QObject *parent) :
     QObject(parent)
 {
 }

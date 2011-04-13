@@ -4,18 +4,18 @@
 #
 #-------------------------------------------------
 
-QT       += testlib
+QT       += core testlib network
 
 QT       -= gui
 
-TARGET = textshredderheadertests
+TARGET = editlisttests
 CONFIG   += console
 CONFIG   -= app_bundle
 
 TEMPLATE = app
 
 
-SOURCES += textshredderheadertests.cpp \
+SOURCES += editlisttests.cpp \
         ../textshredder_synchronization_lib/*.cpp
 HEADERS += ../textshredder_synchronization_lib/*.h
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

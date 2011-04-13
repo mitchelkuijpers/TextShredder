@@ -2,13 +2,13 @@
 #define TEXTSHREDDERPACKET_H
 
 #include <QObject>
-#include <textshredderheader.h>
+#include "textshredderheader.h"
 
 class TextShredderPacket : public QObject
 {
     Q_OBJECT
 public:
-    TextShredderPacket(QObject *parent = 0);
+    TextShredderPacket(QObject *parent);
 
 
 signals:
@@ -16,8 +16,8 @@ signals:
 public slots:
 
 private:
-    TextShredderHeader *textShredderHeader;
-    QByteArray *Content;
+    TextShredderHeader * textShredderHeader;
+    QByteArray * Content;
 
 };
 

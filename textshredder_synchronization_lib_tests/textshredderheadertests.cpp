@@ -20,7 +20,7 @@ private Q_SLOTS:
     void testHeaderWriteToQByteArray();
     void testHeaderCreationFromQByteArray();
 
-	void testHeaderSerializationAndDeserialization();
+        void testHeaderSerializationAndDeserialization();
 };
 
 TextShredderHeaderTests::TextShredderHeaderTests()
@@ -96,17 +96,17 @@ void TextShredderHeaderTests::testHeaderWriteToQByteArray()
 }
 
 void TextShredderHeaderTests::testHeaderSerializationAndDeserialization() {
-	QByteArray byteArray;
+        QByteArray byteArray;
         TextShredderHeader *firstHeader = new TextShredderHeader(this, 100, 800, 200);
-	firstHeader->appendToQByteArray (byteArray);
+        firstHeader->appendToQByteArray (byteArray);
         TextShredderHeader *secondHeader = new TextShredderHeader(this, byteArray);
 
-	QVERIFY2(firstHeader->getContentLength() == secondHeader->getContentLength(),
-			 "Failed to write and parse TextShredderHeader to and from buffer");
-	QVERIFY2(firstHeader->getContentLength() == secondHeader->getContentLength(),
-			 "Failed to write and parse TextShredderHeader to and from buffer");
-	QVERIFY2(firstHeader->getContentLength() == secondHeader->getContentLength(),
-			 "Failed to write and parse TextShredderHeader to and from buffer");
+        QVERIFY2(firstHeader->getContentLength() == secondHeader->getContentLength(),
+                         "Failed to write and parse TextShredderHeader to and from buffer");
+        QVERIFY2(firstHeader->getContentLength() == secondHeader->getContentLength(),
+                         "Failed to write and parse TextShredderHeader to and from buffer");
+        QVERIFY2(firstHeader->getContentLength() == secondHeader->getContentLength(),
+                         "Failed to write and parse TextShredderHeader to and from buffer");
 }
 
 QTEST_APPLESS_MAIN(TextShredderHeaderTests);

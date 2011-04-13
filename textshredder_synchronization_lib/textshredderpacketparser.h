@@ -2,13 +2,13 @@
 #define TEXTSHREDDERPACKETPARSER_H
 
 #include <QObject>
-#include <textshredderpacket.h>
+#include "textshredderpacket.h"
 
-class TextshredderPacketParser : public QObject
+class TextShredderPacketParser : public QObject
 {
     Q_OBJECT
 public:
-    TextshredderPacketParser(QObject *parent = 0);
+    TextShredderPacketParser(QObject *parent);
 
 signals:
 

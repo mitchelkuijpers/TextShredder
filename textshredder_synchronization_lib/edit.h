@@ -13,7 +13,7 @@ public:
     void setLocalVersion(unsigned int newLocalVersion);
 
 private:
-    Patch * patch;
+    QList<Patch> * patches;
     unsigned int localVersion;
 
 signals:

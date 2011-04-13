@@ -3,22 +3,20 @@
 
 #include <QObject>
 #include <QTcpSocket>
-#include <textshredderpacketparser.h>
+#include "textshredderpacketparser.h"
 
 class TextShredderSocket : public QTcpSocket
 {
     Q_OBJECT
 public:
-    TextShredderSocket(QObject *parent = 0);
-
-
+    TextShredderSocket(QObject *parent);
 
 signals:
 
 public slots:
 
 private:
-    TextshredderPacketParser *textShredderPacketParser;
+    TextShredderPacketParser * textShredderPacketParser;
 
 };
 
