@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core
+QT       += core network
 
 QT       -= gui
 
@@ -16,7 +16,11 @@ TEMPLATE = app
 
 
 SOURCES += \
-    textshredderheader.cpp
+    textshredderheader.cpp \
+    shadowcopy.cpp \
+    backupcopy.cpp
 
 HEADERS += \
-    textshredderheader.h
+    textshredderheader.h \
+    shadowcopy.h \
+    backupcopy.h
