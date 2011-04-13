@@ -23,7 +23,7 @@ public:
     TextShredderHeader();
 
 	/**
-	 * TextShredderHeader coonstructor which makes an object which properties
+	 * TextShredderHeader constructor which makes an object which properties
 	 * are set to the given parameters.
 	 *
 	 * @param the headers protocolVersion.
