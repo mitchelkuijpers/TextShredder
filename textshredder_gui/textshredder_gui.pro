@@ -16,13 +16,16 @@ SOURCES += main.cpp\
     clientconnectwindow.cpp \
     server.cpp \
     serverthread.cpp
+    clientactivewindow.cpp
 
 HEADERS  += mainwindow.h \
     servertabwindow.h \
     clientconnectwindow.h \
     server.h \
     serverthread.h
+    clientactivewindow.h
 
 FORMS    += mainwindow.ui \
     servertabwindow.ui \
-    clienttabwindow.ui
+    clienttabwindow.ui \
+    clientactivewindow.ui
