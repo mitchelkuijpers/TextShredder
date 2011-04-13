@@ -22,7 +22,11 @@ SOURCES += \
     ../textshredder_diff_match_patch/*.cpp \
     textshredderheader.cpp \
     shadowcopy.cpp \
-    backupcopy.cpp
+    backupcopy.cpp \
+    textshredderpacket.cpp \
+    textshredderpacketparser.cpp \
+    textshreddersocket.cpp \
+    workingcopy.cpp
 
 HEADERS += \
     textshredderheader.h \
@@ -32,4 +36,8 @@ HEADERS += \
     ../textshredder_diff_match_patch/*.h\
     textshredderheader.h \
     shadowcopy.h \
-    backupcopy.h
+    backupcopy.h \
+    textshredderpacket.h \
+    textshredderpacketparser.h \
+    textshreddersocket.h \
+    workingcopy.h
