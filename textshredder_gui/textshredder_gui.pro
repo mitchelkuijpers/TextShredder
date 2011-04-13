@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 TARGET = textshredder_gui
 TEMPLATE = app
@@ -13,11 +13,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     servertabwindow.cpp \
-    clientconnectwindow.cpp
+    clientconnectwindow.cpp \
+    server.cpp \
+    serverthread.cpp
 
 HEADERS  += mainwindow.h \
     servertabwindow.h \
-    clientconnectwindow.h
+    clientconnectwindow.h \
+    server.h \
+    serverthread.h
 
 FORMS    += mainwindow.ui \
     servertabwindow.ui \
