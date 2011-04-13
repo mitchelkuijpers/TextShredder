@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core
+QT       += core network
 
 QT       -= gui
 
@@ -16,7 +16,28 @@ TEMPLATE = app
 
 
 SOURCES += \
-    textshredderheader.cpp
+    editlist.cpp \
+    edit.cpp \
+    syncproperties.cpp \
+    ../textshredder_diff_match_patch/*.cpp \
+    textshredderheader.cpp \
+    shadowcopy.cpp \
+    backupcopy.cpp \
+    textshredderpacket.cpp \
+    textshredderpacketparser.cpp \
+    textshreddersocket.cpp \
+    workingcopy.cpp
 
 HEADERS += \
-    textshredderheader.h
+    textshredderheader.h \
+    editlist.h \
+    edit.h \
+    syncproperties.h \
+    ../textshredder_diff_match_patch/*.h\
+    textshredderheader.h \
+    shadowcopy.h \
+    backupcopy.h \
+    textshredderpacket.h \
+    textshredderpacketparser.h \
+    textshreddersocket.h \
+    workingcopy.h

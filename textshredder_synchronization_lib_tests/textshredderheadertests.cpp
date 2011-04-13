@@ -29,7 +29,7 @@ TextShredderHeaderTests::TextShredderHeaderTests()
 
 void TextShredderHeaderTests::testEmptyHeaderCreation()
 {
-    TextShredderHeader * newTextShredder = new TextShredderHeader();
+    TextShredderHeader * newTextShredder = new TextShredderHeader(this);
 
     QVERIFY2(newTextShredder != NULL, "Failed creating TSH object.");
     QVERIFY2(newTextShredder->getProtocolVersion() == kProtocolVersion, "Failed protocol test");
@@ -43,7 +43,7 @@ void TextShredderHeaderTests::testHeaderCreationWihParameters()
     unsigned int contentLength = 900;
     unsigned char contentType = 2;
 
-    TextShredderHeader * newTextShredder = new TextShredderHeader(protocolVersion, contentLength, contentType);
+    TextShredderHeader * newTextShredder = new TextShredderHeader(this, protocolVersion, contentLength, contentType);
 
     QVERIFY2(newTextShredder != NULL, "Failed creating TSH object.");
     QVERIFY2(newTextShredder->getProtocolVersion() == protocolVersion, "Failed protocol test, value has to be " + protocolVersion);
@@ -64,7 +64,7 @@ void TextShredderHeaderTests::testHeaderCreationFromQByteArray() {
 
     byteArray.append( (const char *)buffer, 6);
 
-    TextShredderHeader *newTextShredderHeader = new TextShredderHeader(byteArray);
+    TextShredderHeader *newTextShredderHeader = new TextShredderHeader(this, byteArray);
     QVERIFY2(newTextShredderHeader != NULL, "Failed to create TextShredderHeader from buffer");
     QVERIFY2(newTextShredderHeader->getProtocolVersion() == protocolVersion, "Failed to create TextShredderHeader from buffer");
     QVERIFY2(newTextShredderHeader->getContentLength() == contentLength, "Failed to create TextShredderHeader from buffer");
@@ -83,7 +83,7 @@ void TextShredderHeaderTests::testHeaderWriteToQByteArray()
 
     QByteArray byteBuffer;
 
-    TextShredderHeader * newTextShredderHeader = new TextShredderHeader(protocolVersion, contentLength, packetType);
+    TextShredderHeader * newTextShredderHeader = new TextShredderHeader(this, protocolVersion, contentLength, packetType);
     newTextShredderHeader->appendToQByteArray(byteBuffer);
 
     bufferProtocolVersion = byteBuffer[0];
@@ -97,9 +97,9 @@ void TextShredderHeaderTests::testHeaderWriteToQByteArray()
 
 void TextShredderHeaderTests::testHeaderSerializationAndDeserialization() {
 	QByteArray byteArray;
-	TextShredderHeader *firstHeader = new TextShredderHeader(100, 800, 200);
+        TextShredderHeader *firstHeader = new TextShredderHeader(this, 100, 800, 200);
 	firstHeader->appendToQByteArray (byteArray);
-	TextShredderHeader *secondHeader = new TextShredderHeader(byteArray);
+        TextShredderHeader *secondHeader = new TextShredderHeader(this, byteArray);
 
 	QVERIFY2(firstHeader->getContentLength() == secondHeader->getContentLength(),
 			 "Failed to write and parse TextShredderHeader to and from buffer");

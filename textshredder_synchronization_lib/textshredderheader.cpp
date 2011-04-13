@@ -1,21 +1,28 @@
 #include "textshredderheader.h"
 
-TextShredderHeader::TextShredderHeader() :
-        protocolVersion(kProtocolVersion), contentLength(0), packetType(0)
+TextShredderHeader::TextShredderHeader( QObject *parent ) :
+                                        QObject(parent),
+                                        protocolVersion(kProtocolVersion),
+                                        contentLength(0),
+                                        packetType(0)
 {
 
 }
 
-TextShredderHeader::TextShredderHeader( unsigned char protocolVersion,
+TextShredderHeader::TextShredderHeader( QObject *parent,
+                                        unsigned char protocolVersion,
                                         unsigned int contentLength,
                                         unsigned char packetType ) :
+QObject(parent),
 
 		protocolVersion(protocolVersion), contentLength(contentLength),
-		packetType(packetType)
+                packetType(packetType)
 {
 }
 
-TextShredderHeader::TextShredderHeader( const QByteArray &buffer )
+TextShredderHeader::TextShredderHeader( QObject *parent ,
+                                        const QByteArray &buffer ) :
+QObject(parent)
 {
     int offset = 0;
     protocolVersion = buffer[offset];
@@ -39,7 +46,7 @@ unsigned char TextShredderHeader::getProtocolVersion()
     return protocolVersion;
 }
 
-unsigned int TextShredderHeader::getPacketType()
+unsigned char TextShredderHeader::getPacketType()
 {
     return packetType;
 }
@@ -49,17 +56,17 @@ unsigned int TextShredderHeader::getContentLength()
     return contentLength;
 }
 
-unsigned char setProtocolVersion()
+void TextShredderHeader::setProtocolVersion( unsigned char newValue )
 {
-
+    protocolVersion = newValue;
 }
 
-unsigned int setPacketType()
+void TextShredderHeader::setContentLength( unsigned int newValue )
 {
-
+    contentLength = newValue;
 }
 
-unsigned int setContentLength()
+void TextShredderHeader::setPacketType( unsigned char newValue )
 {
-
+    packetType = newValue;
 }
