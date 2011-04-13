@@ -19,6 +19,8 @@ private Q_SLOTS:
 
     void testHeaderWriteToQByteArray();
     void testHeaderCreationFromQByteArray();
+
+	void testHeaderSerializationAndDeserialization();
 };
 
 TextShredderHeaderTests::TextShredderHeaderTests()
@@ -91,6 +93,20 @@ void TextShredderHeaderTests::testHeaderWriteToQByteArray()
     QVERIFY2(bufferContentLength == contentLength, "Failed to write contentLength from TextShredderHeader to buffer");
     QVERIFY2(bufferPacketType == packetType, "Failed to write packetType from TextShredderHeader to buffer");
     QVERIFY2(bufferProtocolVersion == protocolVersion, "Failed to write protocolVersion from TextShredderHeader to buffer");
+}
+
+void TextShredderHeaderTests::testHeaderSerializationAndDeserialization() {
+	QByteArray byteArray;
+	TextShredderHeader *firstHeader = new TextShredderHeader(100, 800, 200);
+	firstHeader->appendToQByteArray (byteArray);
+	TextShredderHeader *secondHeader = new TextShredderHeader(byteArray);
+
+	QVERIFY2(firstHeader->getContentLength() == secondHeader->getContentLength(),
+			 "Failed to write and parse TextShredderHeader to and from buffer");
+	QVERIFY2(firstHeader->getContentLength() == secondHeader->getContentLength(),
+			 "Failed to write and parse TextShredderHeader to and from buffer");
+	QVERIFY2(firstHeader->getContentLength() == secondHeader->getContentLength(),
+			 "Failed to write and parse TextShredderHeader to and from buffer");
 }
 
 QTEST_APPLESS_MAIN(TextShredderHeaderTests);
