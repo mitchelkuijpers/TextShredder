@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core
+QT       += core network
 
 QT       -= gui
 
@@ -19,11 +19,17 @@ SOURCES += \
     editlist.cpp \
     edit.cpp \
     syncproperties.cpp \
-    ../textshredder_diff_match_patch/*.cpp
+    ../textshredder_diff_match_patch/*.cpp \
+    textshredderheader.cpp \
+    shadowcopy.cpp \
+    backupcopy.cpp
 
 HEADERS += \
     textshredderheader.h \
     editlist.h \
     edit.h \
     syncproperties.h \
-    ../textshredder_diff_match_patch/*.h
+    ../textshredder_diff_match_patch/*.h\
+    textshredderheader.h \
+    shadowcopy.h \
+    backupcopy.h

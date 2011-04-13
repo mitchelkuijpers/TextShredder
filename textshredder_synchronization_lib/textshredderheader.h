@@ -1,19 +1,23 @@
 #ifndef TEXTSHREDDERHEADER_H
 #define TEXTSHREDDERHEADER_H
 
-#include <QtCore/QtCore>
+#include <QObject>
 
 #define kProtocolVersion 1
 
 #define kPacketTypeEdits 0
-#define kPacketTypeFileData 1
-#define kPacketTypeFileRequest 2
+#define kPacketTypeFileRequest 1
+#define kPacketTypeFileData 2
 
 #define kHeaderLength 6
 
 class TextShredderHeader : QObject
 {
+    Q_OBJECT
+
 public:
+
+    explicit TextShredderHeader(QObject *parent);
 
     /**
      * Default constructor which makes a TextShredderHeader
@@ -31,7 +35,8 @@ public:
      * @param the type of content representation which the heades is
                             followed by.
      */
-    TextShredderHeader( unsigned char protocolVersion,
+    TextShredderHeader( QObject *parent,
+                        unsigned char protocolVersion,
                         unsigned int contentLength,
                         unsigned char packetType );
 
@@ -41,7 +46,7 @@ public:
      *
      * @param the byte array on which the header will be based on.
      */
-    TextShredderHeader( const QByteArray & );
+    TextShredderHeader( QObject *parent, const QByteArray & );
 
     /**
      * Function to make a byte array representation of a TextShredderHeader
@@ -52,13 +57,13 @@ public:
 
     /* Getters */
     unsigned char getProtocolVersion();
-    unsigned int getPacketType();
     unsigned int getContentLength();
+    unsigned char getPacketType();
 
     /* Setters */
-    unsigned char setProtocolVersion();
-    unsigned int setPacketType();
-    unsigned int setContentLength();
+    void setProtocolVersion( unsigned char newValue );
+    void setContentLength( unsigned int newValue );
+    void setPacketType( unsigned char newValue );
 
 private:
     unsigned char protocolVersion;
