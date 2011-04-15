@@ -8,8 +8,8 @@ class BackupCopy : public QObject
     Q_OBJECT
 
 public:
-	BackupCopy( QObject *parent, QString & content );
-	BackupCopy( QObject *parent, QString & content, int localVersion );
+        BackupCopy( QObject *parent);
+        BackupCopy( QObject *parent, int localVersion );
         int getLocalVersion();
 
 signals:

@@ -16,7 +16,7 @@ signals:
 public slots:
 
 private:
-    TextShredderHeader * textShredderHeader;
+    TextShredderHeader * header;
     QByteArray * content;
 };
 

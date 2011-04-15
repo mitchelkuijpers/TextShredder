@@ -1,8 +1,7 @@
 #include "textshredderpacket.h"
 
 TextShredderPacket::TextShredderPacket(QObject *parent,
-                                       TextShredderHeader * header,
-                                       QByteArray * content) :
+                                       TextShredderHeader * header, QByteArray * content) :
     QObject(parent), header(header), content(content)
 {
 }

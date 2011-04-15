@@ -1,8 +1,8 @@
 #include "shadowcopy.h"
 #include "editlist.h"
 
-ShadowCopy::ShadowCopy(QObject *parent, QString * content, int localVersion ) :
-	QObject(parent), localVersion(localVersion), remoteVersion(0), content(content)
+ShadowCopy::ShadowCopy(QObject *parent, int localVersion) :
+        QObject(parent), localVersion(localVersion), remoteVersion(0)
 {
 }
 
@@ -21,17 +21,17 @@ void ShadowCopy::backup()
 
 }
 
-void ShadowCopy::applyEdits( QList<Edit> * edits )
-{
+//void ShadowCopy::applyEdits( QList<Edit> * edits )
+//{
 
-}
+//}
 
 int ShadowCopy::getRemoteVersion()
 {
     return 0;
 }
 
-void ShadowCopy::processPatches( QList<Patch> * patches)
-{
+//void ShadowCopy::processPatches( QList<Patch> * patches)
+//{
 
-}
+//}

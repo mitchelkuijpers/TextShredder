@@ -5,15 +5,15 @@ Patchable::Patchable(QObject *parent) :
 {
 }
 
-void Patchable::applyPatches(QList<Patch> *patches)
-{
+//void Patchable::applyPatches(QList<Patch> *patches)
+//{
 
-}
+//}
 
-QList<Patch> * Patchable::getPatchesToConvertString(QString *otherString)
-{
-    return NULL;
-}
+//QList<Patch> * Patchable::getPatchesToConvertString(QString *otherString)
+//{
+//    return NULL;
+//}
 
 QString * Patchable::getContent()
 {

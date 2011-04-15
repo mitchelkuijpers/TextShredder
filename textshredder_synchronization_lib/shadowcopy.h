@@ -10,13 +10,13 @@ class ShadowCopy : public QObject
     Q_OBJECT
 
 public:
-    ShadowCopy( QObject *parent, QString *, int );
+    ShadowCopy( QObject *parent, int );
     int getLocalVersion();
     void revert();
     void backup();
-    void applyEdits( QList<Edit> * );
+    //void applyEdits( QList<Edit> * );
     int getRemoteVersion();
-    void processPatches( QList<Patch> * );
+    //void processPatches( QList<Patch> * );
 
 signals:
 
