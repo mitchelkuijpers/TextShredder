@@ -1,0 +1,22 @@
+COMPILER = gcc
+CFLAGS = -c -Wall
+
+COMPILE = $(COMPILER) $(CFLAGS)
+LINK = $(COMPILER)
+
+TARGET = qttestparsertool
+
+TESTPARSER_O = testparser.o
+TESTPARSER_C = testparser.c
+TESTPARSER_H = testparser.h
+
+ALLOBJECTS = $(TESTPARSER_O)
+
+$(TARGET) : $(ALLOBJECTS)
+	$(LINK) $(ALLOBJECTS) -o $(TARGET)
+
+$(TESTPARSER_O) : $(TESTPARSER_C) $(TESTPARSER_H)
+	$(COMPILE) $(TESTPARSER_C)
+
+clean :
+	rm -rf *.o $(TARGET)
