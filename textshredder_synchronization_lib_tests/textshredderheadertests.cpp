@@ -1,4 +1,5 @@
 #include "textshredderheadertests.h"
+#include "../textshredder_synchronization_lib/textshredderheader.h"
 
 void TextShredderHeaderTests::testEmptyHeaderCreation()
 {

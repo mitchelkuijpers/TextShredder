@@ -1,12 +1,12 @@
 #include "backupcopy.h"
 
 BackupCopy::BackupCopy( QObject *parent, QString & content ) :
-    QObject(parent), content(content), localVersion(0)
+	QObject(parent), localVersion(0), content(content)
 {
 }
 
 BackupCopy::BackupCopy( QObject *parent, QString & content, int localVersion ) :
-    QObject(parent), content(content), localVersion(localVersion)
+	QObject(parent),  localVersion(localVersion), content(content)
 {
 }
 
@@ -15,7 +15,7 @@ int BackupCopy::getLocalVersion()
     return localVersion;
 }
 
-QString * BackupCopy::getContent()
+QString BackupCopy::getContent()
 {
     return content;
 }

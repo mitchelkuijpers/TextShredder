@@ -2,7 +2,6 @@
 #define TEXTSHREDDERHEADERTESTS_H
 
 #include <QtCore/QString>
-#include "../textshredder_synchronization_lib/textshredderheader.h"
 #include "autotest.h"
 
 class TextShredderHeaderTests : public QObject
