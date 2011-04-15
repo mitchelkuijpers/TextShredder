@@ -16,6 +16,7 @@ TEMPLATE = app
 
 
 SOURCES += editlisttests.cpp \
+           textshredderheadertests.cpp \
         ../textshredder_synchronization_lib/*.cpp
 HEADERS += ../textshredder_synchronization_lib/*.h
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
