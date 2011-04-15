@@ -14,9 +14,8 @@ class EditListTests: public QObject
 };
 
 EditListTests::EditListTests()
-    {
-
-    }
+{
+}
 
 void EditListTests::testHello()
 {
