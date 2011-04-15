@@ -23,7 +23,7 @@
 #define DIFF_MATCH_PATCH_H
 
 #include <QtCore>
-
+#include <limits>
 /*
  * Functions for diff, match and patch.
  * Computes the difference between two texts to create a patch.
