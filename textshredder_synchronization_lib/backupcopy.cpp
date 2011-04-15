@@ -14,8 +14,3 @@ int BackupCopy::getLocalVersion()
 {
     return localVersion;
 }
-
-QString BackupCopy::getContent()
-{
-    return content;
-}
