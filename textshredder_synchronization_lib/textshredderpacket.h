@@ -8,8 +8,8 @@ class TextShredderPacket : public QObject
 {
     Q_OBJECT
 public:
-    TextShredderPacket(QObject *parent);
-
+    TextShredderPacket(QObject *parent, TextShredderHeader *, QByteArray *);
+    bool isEditPacket();
 
 signals:
 
@@ -17,8 +17,7 @@ public slots:
 
 private:
     TextShredderHeader * textShredderHeader;
-    QByteArray * Content;
-
+    QByteArray * content;
 };
 
 #endif // TEXTSHREDDERPACKET_H

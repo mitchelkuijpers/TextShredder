@@ -10,8 +10,7 @@ class BackupCopy : public QObject
 public:
 	BackupCopy( QObject *parent, QString & content );
 	BackupCopy( QObject *parent, QString & content, int localVersion );
-    int getLocalVersion();
-	QString getContent();
+        int getLocalVersion();
 
 signals:
 
@@ -19,7 +18,6 @@ public slots:
 
 private:
     int localVersion;
-	QString content;
 };
 
 #endif // BACKUPCOPY_H
