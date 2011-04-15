@@ -24,7 +24,19 @@ SOURCES += editlisttests.cpp \
     textshredderpackettests.cpp \
     textshredderpacketparsertests.cpp \
     textshreddersockettests.cpp \
-    workingcopytests.cpp
+	workingcopytests.cpp \
+	edittests.cpp
 
-HEADERS += ../textshredder_synchronization_lib/*.h
+HEADERS += ../textshredder_synchronization_lib/*.h \
+    autotest.h \
+    backupcopytests.h \
+    editlisttests.h \
+    shadowcopytests.h \
+    syncpropertiestests.h \
+	textshredderheadertests.h \
+    textshredderpacketparsertests.h \
+    textshredderpackettests.h \
+    textshreddersockettests.h \
+    workingcopytests.h \
+    edittests.h
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

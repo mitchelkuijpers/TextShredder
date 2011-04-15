@@ -1,31 +1,4 @@
-#include <QtCore/QString>
-#include <QtTest/QtTest>
-#include "../textshredder_synchronization_lib/textshredderheader.h"
-#include <string>
-
-using namespace std;
-
-class TextShredderHeaderTests : public QObject
-{
-    Q_OBJECT
-
-public:
-    TextShredderHeaderTests();
-
-
-private Q_SLOTS:
-    void testEmptyHeaderCreation();
-    void testHeaderCreationWihParameters();
-
-    void testHeaderWriteToQByteArray();
-    void testHeaderCreationFromQByteArray();
-
-        void testHeaderSerializationAndDeserialization();
-};
-
-TextShredderHeaderTests::TextShredderHeaderTests()
-{
-}
+#include "textshredderheadertests.h"
 
 void TextShredderHeaderTests::testEmptyHeaderCreation()
 {
@@ -108,7 +81,3 @@ void TextShredderHeaderTests::testHeaderSerializationAndDeserialization() {
         QVERIFY2(firstHeader->getContentLength() == secondHeader->getContentLength(),
                          "Failed to write and parse TextShredderHeader to and from buffer");
 }
-
-QTEST_APPLESS_MAIN(TextShredderHeaderTests);
-
-#include "textshredderheadertests.moc"

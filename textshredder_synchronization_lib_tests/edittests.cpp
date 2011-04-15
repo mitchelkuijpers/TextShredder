@@ -1,21 +1,5 @@
-#include <QtCore/QString>
-#include <QtTest/QtTest>
-#include "../textshredder_synchronization_lib/edit.h"
+#include "edittests.h"
 
-class EditTests: public QObject
-{
-    Q_OBJECT
-
-    public:
-        EditTests();
-
-    private Q_SLOTS:
-        void testHello();
-};
-
-EditTests::EditTests()
-{
-}
 
 void EditTests::testHello()
 {
@@ -24,8 +8,4 @@ void EditTests::testHello()
 
     QVERIFY2(i == x, "I isn't equal to X");
 }
-
-QTEST_APPLESS_MAIN(EditTests);
-
-#include "edittests.moc"
 
