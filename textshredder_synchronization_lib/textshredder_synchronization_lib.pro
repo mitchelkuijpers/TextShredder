@@ -26,7 +26,9 @@ SOURCES += \
     textshredderpacket.cpp \
     textshredderpacketparser.cpp \
     textshreddersocket.cpp \
-    workingcopy.cpp
+    workingcopy.cpp \
+    patchable.cpp \
+    lockable.cpp
 
 HEADERS += \
     textshredderheader.h \
@@ -40,4 +42,7 @@ HEADERS += \
     textshredderpacket.h \
     textshredderpacketparser.h \
     textshreddersocket.h \
-    workingcopy.h
+    workingcopy.h \
+    ../textshredder_diff_match_patch/patchable.h \
+    patchable.h \
+    lockable.h
