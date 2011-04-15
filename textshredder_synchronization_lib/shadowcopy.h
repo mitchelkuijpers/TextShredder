@@ -8,12 +8,20 @@
 class ShadowCopy : public QObject
 {
     Q_OBJECT
+
 public:
-    ShadowCopy(QObject *parent);
+    ShadowCopy( QObject *parent, QString &, int );
+    void lock();
+    void unlock();
+    int getLocalVersion();
+    void revert();
+    void backup();
+    void applyEdits( QList<Edit> * );
+    int getRemoteVersion();
+    QString * getContent();
+    void processPatches( QList<Patch> * );
 
 signals:
-
-public slots:
 
 private:
     int localVersion;

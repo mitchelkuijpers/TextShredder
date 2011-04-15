@@ -10,19 +10,33 @@ class BackupCopyTests: public QObject
         BackupCopyTests();
 
     private Q_SLOTS:
-        void testHello();
+        void createBackupCopyWithoutLocalVersionNumber();
+        void createBackupCopyWithLocalVersionNumber();
 };
 
 BackupCopyTests::BackupCopyTests()
 {
 }
 
-void BackupCopyTests::testHello()
+void BackupCopyTests::createBackupCopyWithDefaultLocalVersionNumber()
 {
-    int i = 1;
-    int x = 1;
+    TextShredderHeader * newTextShredder = new TextShredderHeader(this);
 
-    QVERIFY2(i == x, "I isn't equal to X");
+    QVERIFY2(newTextShredder != NULL, "Failed creating TSH object.");
+}
+
+void BackupCopyTests::createBackupCopyWithGivenLocalVersionNumber()
+{
+    QString * content;
+    int localVersion = 5;
+
+    BackupCopy * newBackupCopy= new BackupCopy(this, content, localVersion);
+
+    QVERIFY2(newBackupCopy != NULL, "Failed creating BackupCopy object.");
+    QVERIFY2(localVersion == newBackupCopy->getLocalVersion(),
+             "Given localVersion is not equal to set localVersion in constructor");
+    QVERIFY2(content == newBackupCopy->getContent(),
+             "Given content is not equal to set content in constructor");
 }
 
 QTEST_APPLESS_MAIN(BackupCopyTests);
