@@ -10,7 +10,8 @@ class TextShredderSocket : public QTcpSocket
     Q_OBJECT
 public:
     TextShredderSocket(QObject *parent);
-
+    TextShredderPacket * readPacket();
+    void writePacket(TextShredderPacket *);
 signals:
 
 public slots:

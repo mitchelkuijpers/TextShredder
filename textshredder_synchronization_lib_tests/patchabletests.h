@@ -1,0 +1,23 @@
+#ifndef PATCHABLETESTS_H
+#define PATCHABLETESTS_H
+
+
+
+
+
+#include <QtCore/QString>
+#include "../textshredder_synchronization_lib/patchable.h"
+#include "autotest.h"
+
+
+class PatchAbleTests: public QObject
+{
+        Q_OBJECT
+
+        private Q_SLOTS:
+                void testHello();
+};
+
+DECLARE_TEST(PatchAbleTests);
+
+#endif // PATCHABLETESTS_H

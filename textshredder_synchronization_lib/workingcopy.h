@@ -8,14 +8,13 @@ class WorkingCopy : public QObject
 {
     Q_OBJECT
 public:
-    WorkingCopy(QObject *parent = 0);
+    WorkingCopy(QObject *parent);
 
 signals:
 
 public slots:
 
 private:
-    QString *content;
     QMutex *mutex;
 
 };
