@@ -9,9 +9,6 @@ class WorkingCopyTests: public QObject
 {
 	Q_OBJECT
 
-	public:
-		WorkingCopyTests();
-
 	private Q_SLOTS:
 		void testHello();
 };

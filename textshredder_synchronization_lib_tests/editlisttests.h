@@ -9,9 +9,6 @@ class EditListTests: public QObject
 {
 	Q_OBJECT
 
-	public:
-		EditListTests();
-
 	private Q_SLOTS:
 		void testHello();
 };

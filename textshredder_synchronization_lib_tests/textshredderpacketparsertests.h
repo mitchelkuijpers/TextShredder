@@ -9,9 +9,6 @@ class TextShredderPacketParserTests: public QObject
 {
 	Q_OBJECT
 
-	public:
-		TextShredderPacketParserTests();
-
 	private Q_SLOTS:
 		void testHello();
 };

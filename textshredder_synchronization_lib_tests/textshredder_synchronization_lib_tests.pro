@@ -24,7 +24,8 @@ SOURCES += editlisttests.cpp \
     textshredderpackettests.cpp \
     textshredderpacketparsertests.cpp \
     textshreddersockettests.cpp \
-	workingcopytests.cpp
+	workingcopytests.cpp \
+    main.cpp
 
 HEADERS += ../textshredder_synchronization_lib/*.h \
     autotest.h \

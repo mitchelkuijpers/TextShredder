@@ -8,9 +8,6 @@ class BackupCopyTests: public QObject
 {
 	Q_OBJECT
 
-	public:
-		BackupCopyTests();
-
 	private Q_SLOTS:
 		void createBackupCopyWithDefaultLocalVersionNumber();
 		void createBackupCopyWithGivenLocalVersionNumber();

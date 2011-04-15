@@ -9,9 +9,6 @@ class SyncPropertiesTests: public QObject
 {
 	Q_OBJECT
 
-	public:
-		SyncPropertiesTests();
-
 	private Q_SLOTS:
 		void testHello();
 };

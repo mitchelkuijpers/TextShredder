@@ -2,7 +2,7 @@
 #include "editlist.h"
 
 ShadowCopy::ShadowCopy(QObject *parent, QString * content, int localVersion ) :
-	QObject(parent), content(content), localVersion(localVersion), remoteVersion(0)
+	QObject(parent), localVersion(localVersion), remoteVersion(0), content(content)
 {
 }
 

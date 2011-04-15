@@ -8,10 +8,6 @@ class TextShredderHeaderTests : public QObject
 {
 	Q_OBJECT
 
-public:
-	TextShredderHeaderTests();
-
-
 private Q_SLOTS:
 	void testEmptyHeaderCreation();
 	void testHeaderCreationWihParameters();
