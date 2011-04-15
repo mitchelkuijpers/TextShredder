@@ -27,5 +27,5 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     servertabwindow.ui \
-    clienttabwindow.ui \
-    clientactivewindow.ui
+    clientactivewindow.ui \
+    clientconnectwindow.ui
