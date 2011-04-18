@@ -9,9 +9,11 @@ namespace TextShredderPacketParser
 {
     /*
      * Convert a QByteArray to a TextShredderPacket.
-     *
+	 *
      * @param QByteArray raw packet
      * @Return TextShredderPacket
+	 * @Throws QString when the protocolVersion is wrong
+	 *
      */
     TextShredderPacket* makePacketFromBytes(QByteArray * bytes);
 }

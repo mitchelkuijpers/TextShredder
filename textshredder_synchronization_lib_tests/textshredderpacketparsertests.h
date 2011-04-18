@@ -1,7 +1,8 @@
 #ifndef TEXTSHREDDERPACKETPARSERTESTS_H
 #define TEXTSHREDDERPACKETPARSERTESTS_H
 
-#include <QtCore/QString>
+#include <QByteArray>
+#include <QString>
 #include "../textshredder_synchronization_lib/textshredderpacketparser.h"
 #include "autotest.h"
 #include "../textshredder_synchronization_lib/textshredderheader.h"
@@ -14,6 +15,7 @@ class TextShredderPacketParserTests: public QObject
 
 	private Q_SLOTS:
                 void testWrongPacket();
+				void testPacket();
 };
 
 DECLARE_TEST(TextShredderPacketParserTests);

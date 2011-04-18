@@ -26,21 +26,22 @@ public:
 	  * @param the header.
 	  * @param the content.
 	  */
-	TextShredderPacket( QObject *, TextShredderHeader *, QByteArray * );
+	TextShredderPacket( QObject *, TextShredderHeader *, QByteArray & );
 
 	/**
 	  * Constructor which makes an TextShredderPacket with
 	  */
-	TextShredderPacket( QObject *, unsigned char, QByteArray * );
+	TextShredderPacket( QObject *, unsigned char, QByteArray & );
 
 	/**
 	  * Returns if the packet represents an packet containing edits.
 	  */
     bool isEditPacket();
 
+	TextShredderPacket & operator=(TextShredderPacket & otherPacket);
 
 	//Getters
-	QByteArray * getContent();
+	QByteArray & getContent();
 	TextShredderHeader * getHeader();
 
 signals:
@@ -49,7 +50,7 @@ public slots:
 
 private:
 	TextShredderHeader * header;
-	QByteArray * content;
+	QByteArray content;
 };
 
 #endif // TEXTSHREDDERPACKET_H
