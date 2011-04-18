@@ -25,7 +25,7 @@ SOURCES += editlisttests.cpp \
     textshredderpackettests.cpp \
     textshredderpacketparsertests.cpp \
     textshreddersockettests.cpp \
-	workingcopytests.cpp \
+    workingcopytests.cpp \
     patchabletests.cpp \
     main.cpp
 
@@ -36,7 +36,7 @@ HEADERS += ../textshredder_synchronization_lib/*.h \
     editlisttests.h \
     shadowcopytests.h \
     syncpropertiestests.h \
-	textshredderheadertests.h \
+    textshredderheadertests.h \
     textshredderpacketparsertests.h \
     textshredderpackettests.h \
     textshreddersockettests.h \
