@@ -10,7 +10,8 @@ class EditTests: public QObject
 	Q_OBJECT
 
 	private Q_SLOTS:
-		void testHello();
+                    void testCreateEmptyConstructor();
+                    void testCreateConstructorWithParameters();
 };
 
 DECLARE_TEST(EditTests);
