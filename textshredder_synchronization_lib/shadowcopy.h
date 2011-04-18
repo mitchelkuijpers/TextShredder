@@ -4,19 +4,24 @@
 #include <QObject>
 #include <QMutex>
 #include "backupcopy.h"
+#include "edit.h"
+#include "patchable.h"
 
-class ShadowCopy : public QObject
+
+class ShadowCopy : public Patchable, QMutex
 {
     Q_OBJECT
 
 public:
-    ShadowCopy( QObject *parent, int );
+	ShadowCopy( QObject *parent);
     int getLocalVersion();
+	int getRemoteVersion();
+
     void revert();
     void backup();
-    //void applyEdits( QList<Edit> * );
-    int getRemoteVersion();
-    //void processPatches( QList<Patch> * );
+	void applyEdits( QList<Edit> * );
+
+	void processPatches( QList<Patch> * );
 
 signals:
 
@@ -24,7 +29,6 @@ private:
     int localVersion;
     int remoteVersion;
 
-    QMutex * mutex;
     BackupCopy * backupCopy;
 };
 
