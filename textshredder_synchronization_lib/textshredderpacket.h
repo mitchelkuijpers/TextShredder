@@ -33,6 +33,8 @@ public:
 	  */
 	TextShredderPacket( QObject *, unsigned char, QByteArray & );
 
+	TextShredderPacket(TextShredderPacket & otherPacket);
+
 	/**
 	  * Returns if the packet represents an packet containing edits.
 	  */

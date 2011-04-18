@@ -17,15 +17,19 @@ TextShredderPacket::TextShredderPacket( QObject *parent,
 										QByteArray & content) :
 	QObject(parent), header(NULL), content(content)
 {
-	//if ( content == NULL ) {
-	//	throw QString("TextShredderPacket cannot be initialized with NULL content");
-	//}
-
 	header = new TextShredderHeader(this, kProtocolVersion, content.size(), packetType);
 }
 
+TextShredderPacket::TextShredderPacket(TextShredderPacket & otherPacket)
+	: QObject(NULL), header(otherPacket.getHeader()), content(otherPacket.getContent())
+{
+}
+
+
 TextShredderPacket & TextShredderPacket::operator=(TextShredderPacket & otherPacket)
 {
+	this->header = otherPacket.header;
+	this->content = otherPacket.content;
 	return *this;
 }
 

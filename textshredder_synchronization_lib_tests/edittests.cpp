@@ -14,7 +14,7 @@ void EditTests::testCreateConstructorWithParameters()
 {
     diff_match_patch *dmp = new diff_match_patch();
 
-    int localVersion = 4;
+	unsigned int localVersion = 4;
     QList<Patch> patches;
     QString text1 = "The quick brown fox jumps over the lazy dog.";
     QString text2 = "That quick brown fox jumped over a lazy dog.";
