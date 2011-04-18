@@ -3,14 +3,17 @@
 
 #include <QtCore/QString>
 #include "../textshredder_synchronization_lib/textshredderpacketparser.h"
-#import "autotest.h"
+#include "autotest.h"
+#include "../textshredder_synchronization_lib/textshredderheader.h"
+#include "../textshredder_synchronization_lib/textshredderpacket.h"
+
 
 class TextShredderPacketParserTests: public QObject
 {
 	Q_OBJECT
 
 	private Q_SLOTS:
-		void testHello();
+                void testWrongPacket();
 };
 
 DECLARE_TEST(TextShredderPacketParserTests);
