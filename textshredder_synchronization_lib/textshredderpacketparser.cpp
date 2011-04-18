@@ -1,4 +1,5 @@
 #include "textshredderpacketparser.h"
+
 namespace TextShredderPacketParser
 {
     TextShredderPacket * makePacketFromBytes(QByteArray * bytes)
