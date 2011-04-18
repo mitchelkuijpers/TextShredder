@@ -1,11 +1,14 @@
 #include "textshredderpacketparsertests.h"
 
-void TextShredderPacketParserTests::testHello()
+void TextShredderPacketParserTests::testWrongPacket()
 {
-    int i = 1;
-    int x = 1;
+//    QByteArray bytes = new QByteArray();
+//    bytes.append((char)0, (int )sizeof(unsigned char));
+//    try {
+//        TextShredderPacketParser::makePacketFromBytes();
+//    } catch (QString error) {
 
-    QVERIFY2(i == x, "I isn't equal to X");
+//    }
 }
 
 

@@ -8,6 +8,10 @@
 #define kPacketTypeEdits 0
 #define kPacketTypeFileRequest 1
 #define kPacketTypeFileData 2
+#define kProtocolVersionOffset 0
+#define kPacketLengthOffset 1
+#define kPacketTypeOffset 5
+
 
 #define kHeaderLength 6
 

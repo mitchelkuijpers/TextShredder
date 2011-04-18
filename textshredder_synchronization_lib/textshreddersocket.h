@@ -12,13 +12,6 @@ public:
     TextShredderSocket(QObject *parent);
     TextShredderPacket * readPacket();
     void writePacket(TextShredderPacket *);
-signals:
-
-public slots:
-
-private:
-    TextShredderPacketParser * textShredderPacketParser;
-
 };
 
 #endif // TEXTSHREDDERSOCKET_H

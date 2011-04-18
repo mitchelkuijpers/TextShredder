@@ -1,22 +1,19 @@
 #ifndef TEXTSHREDDERPACKETPARSER_H
 #define TEXTSHREDDERPACKETPARSER_H
 
-#include <QObject>
+#include <QByteArray>
 #include "textshredderpacket.h"
+#include "textshredderheader.h"
 
-class TextShredderPacketParser : public QObject
+namespace TextShredderPacketParser
 {
-    Q_OBJECT
-public:
-    TextShredderPacketParser(QObject *parent);
-
-signals:
-
-public slots:
-
-private:
-    TextShredderPacket *textShredderPacket;
-
-};
+    /*
+     * Convert a QByteArray to a TextShredderPacket.
+     *
+     * @param QByteArray raw packet
+     * @Return TextShredderPacket
+     */
+    TextShredderPacket* makePacketFromBytes(QByteArray * bytes);
+}
 
 #endif // TEXTSHREDDERPACKETPARSER_H
