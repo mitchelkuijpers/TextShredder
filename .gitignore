@@ -36,5 +36,5 @@ Thumbs.db
 # QT generated files #
 ######################
 *.pro.user
-textshredder_*-*
+*-build-desktop
 *.DS_Store
