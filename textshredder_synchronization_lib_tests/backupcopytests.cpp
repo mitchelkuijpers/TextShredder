@@ -7,7 +7,7 @@ void BackupCopyTests::createBackupCopyWithDefaultLocalVersionNumber()
 
     QVERIFY2(newBackupCopy != NULL, "Failed creating BackupCopy object.");
     QVERIFY2(newBackupCopy->getLocalVersion() == 0,
-             "Given localVersion is not equal to 0");
+             "Given localVersion is not equal to default 0");
 }
 
 void BackupCopyTests::createBackupCopyWithGivenLocalVersionNumber()
