@@ -1,11 +1,20 @@
 #include "edittests.h"
 
 
-void EditTests::testHello()
+void EditTests::testCreateEmptyConstructor()
 {
-    int i = 1;
-	int x = 1;
-
-    QVERIFY2(i == x, "I isn't equal to X");
+    Edit * testEdit = new Edit(this);
+    QVERIFY2(testEdit != NULL, "Failed to create new Edit");
 }
 
+void EditTests::testCreateConstructorWithParameters()
+{
+    diff_match_patch dmp;
+    int localVersion = 4;
+    QList<Patch> patches = "@@ -0,0 +1,3 @@\n+abc\n";
+    Edit * testEdit = new Edit(this, localVersion, patches);
+    QVERIFY2(testEdit != NULL, "Failed to create new Edit with parameters");
+    assertEquals(testEdit->getPatches(), "@@ -0,0 +1,3 @@\n+abc\n");
+    assertEquals(testEdit->getLocalVersion(), 4);
+
+}
