@@ -27,7 +27,7 @@ void EditTests::testCreateConstructorWithParameters()
     QVERIFY2(testEdit != NULL, "Failed to create new Edit with parameters");
 
     QVERIFY2(testEdit->getLocalVersion() == localVersion, "LocalVersion does not match");
-    //QVERIFY2(testEdit->getPatches()->)
+    QVERIFY2(QString::compare(testEdit->getPatches()->first().toString(), expectedPatch) != 0, "Invalid patch");
 
     delete dmp;
 }
