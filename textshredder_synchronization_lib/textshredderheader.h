@@ -5,13 +5,9 @@
 
 #define kProtocolVersion 1
 
-#define kPacketTypeEdits 0
-#define kPacketTypeFileRequest 1
-#define kPacketTypeFileData 2
 #define kProtocolVersionOffset 0
 #define kPacketLengthOffset 1
 #define kPacketTypeOffset 5
-
 
 #define kHeaderLength 6
 
@@ -28,7 +24,7 @@ public:
      * object with a protocolVersion set to kProtocolVersion
      * and other values set to 0
      */
-    TextShredderHeader();
+	TextShredderHeader();
 
     /**
      * TextShredderHeader constructor which makes an object which properties
