@@ -12,6 +12,7 @@ public:
       * Create new Edit without parameters
       */
     Edit(QObject *parent);
+
     /**
       * Create new Edit with a localVersion and patches given
       * @param localVersion of the Edit
@@ -19,14 +20,15 @@ public:
       */
     Edit(QObject *parent, unsigned int localVersion, QList<Patch> * patches);
 
+	Edit(const Edit &copy);
+
     unsigned int getLocalVersion();
     QList<Patch> * getPatches();
 
     void setLocalVersion(unsigned int newLocalVersion);
     void setPatches(QList<Patch> * newPatches);
 
-
-
+	Edit& operator = (const Edit&);
 signals:
 
 public slots:

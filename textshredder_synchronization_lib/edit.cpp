@@ -5,11 +5,22 @@ Edit::Edit(QObject *parent) :
 {
 }
 
+Edit::Edit(const Edit &copy) : QObject(copy.parent())
+{
+	this->localVersion = copy.localVersion;
+	this->patches = copy.patches;
+}
+
 Edit::Edit(QObject *parent, unsigned int localVersion, QList<Patch> *patches) :
         QObject(parent), localVersion(localVersion), patches(patches)
 {
-   //this->localVersion = localVersion;
-   //this->patches = patches;
+}
+
+Edit& Edit::operator = (const Edit& other)
+{
+	this->localVersion = other.localVersion;
+	this->patches = other.patches;
+	return *this;
 }
 
 unsigned int Edit::getLocalVersion()
