@@ -8,7 +8,19 @@ EditList::EditList(QObject *parent, int remoteVersion) :
 EditList::EditList(QObject *parent, TextShredderPacket &packet)
 	: QObject(parent)
 {
+	int offSet = 0;
 	QByteArray content = packet.getContent();
+	if (content[offSet++] != '{') {
+		throw QString("Edit packet is not starting with a accolade, cannot make EditList");
+	}
+	int tempRemoteVersion = 0;
+	while(content.at(offSet) != '{') {
+		int decimal = content[offSet];
+		tempRemoteVersion = (tempRemoteVersion * 10) + decimal;
+		offSet++;
+	}
+
+	remoteVersion = tempRemoteVersion;
 }
 
 unsigned int EditList::getRemoteVersion()
@@ -52,22 +64,21 @@ QList<Edit> & EditList::getEdits()
 TextShredderPacket * EditList::getAllocatedPacket()
 {
 	QByteArray packetContent;
-	packetContent.append('d');
-	packetContent.append("13:remoteVersion",16);
-	packetContent.append ('i');
+	packetContent.append('{');
 	packetContent.append (QString::number(remoteVersion));
-	packetContent.append ('e');
-	packetContent.append("5:edits",7);
-	packetContent.append('l');
+	packetContent.append (',');
+	packetContent.append('{');
+
 	for(int i = 0; i < edits.count(); i++ ) {
+		packetContent.append('{');
 		Edit currentEdit = edits.at(i);
 		QString *stringRep = currentEdit.allocateStringDictionaryRepresentation();
 		packetContent.append( *stringRep);
 		delete stringRep;
+		packetContent.append('}');
 	}
-	packetContent.append('e');
-	packetContent.append('e');
-
+	packetContent.append('}');
+	packetContent.append('}');
 	return new TextShredderPacket(NULL, kPacketTypeEdits ,packetContent);;
 }
 

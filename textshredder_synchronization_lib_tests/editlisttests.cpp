@@ -34,9 +34,11 @@ void EditListTests::testGetPacketAndConstructorWithPacket()
 
 	EditList newList(this, *packet);
 
-	QVERIFY2(list == newList, "Lists should be equally -> objects");
-	QVERIFY2(list.getEdits().count() == newList.getEdits().count(), "Lists should be equally -> lists");
-	QVERIFY2(list.getRemoteVersion() == list.getRemoteVersion (), "Lists should be equally -> version");
+	QVERIFY2(newList.getRemoteVersion() == list.getRemoteVersion (), "Lists should be equally -> version");
+
+	//QVERIFY2(list == newList, "Lists should be equally -> objects");
+	//QVERIFY2(list.getEdits().count() == newList.getEdits().count(), "Lists should be equally -> lists");
+	QVERIFY2(false, "Still have to implement test");
 
 	delete packet;
 }
