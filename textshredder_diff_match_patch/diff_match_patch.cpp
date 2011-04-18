@@ -23,7 +23,7 @@
 
 // Code known to compile and run with Qt 4.3 through Qt 4.7.
 #include <QtCore>
-#include <time.h>
+
 #include "diff_match_patch.h"
 
 

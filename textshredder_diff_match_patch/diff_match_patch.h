@@ -24,6 +24,8 @@
 
 #include <QtCore>
 #include <limits>
+#include <time.h>
+
 /*
  * Functions for diff, match and patch.
  * Computes the difference between two texts to create a patch.
