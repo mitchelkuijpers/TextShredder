@@ -1,15 +1,15 @@
 #include "edit.h"
 
 Edit::Edit(QObject *parent) :
-    QObject(parent), localVersion(0)
+    QObject(parent), localVersion(0), patches(NULL)
 {
 }
 
 Edit::Edit(QObject *parent, unsigned int localVersion, QList<Patch> *patches) :
-        QObject(parent)
+        QObject(parent), localVersion(localVersion), patches(patches)
 {
-   this->localVersion = localVersion;
-   this->patches = patches;
+   //this->localVersion = localVersion;
+   //this->patches = patches;
 }
 
 unsigned int Edit::getLocalVersion()

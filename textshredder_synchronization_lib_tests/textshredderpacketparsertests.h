@@ -3,7 +3,7 @@
 
 #include <QtCore/QString>
 #include "../textshredder_synchronization_lib/textshredderpacketparser.h"
-#import "autotest.h"
+#include "autotest.h"
 
 class TextShredderPacketParserTests: public QObject
 {

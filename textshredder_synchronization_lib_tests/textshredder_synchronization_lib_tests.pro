@@ -17,6 +17,7 @@ TEMPLATE = app
 SOURCES += editlisttests.cpp \
     textshredderheadertests.cpp \
     backupcopytests.cpp \
+    ../textshredder_diff_match_patch/diff_match_patch.cpp \
     ../textshredder_synchronization_lib/*.cpp \
     edittests.cpp \
     shadowcopytests.cpp \
@@ -31,6 +32,7 @@ SOURCES += editlisttests.cpp \
 HEADERS += ../textshredder_synchronization_lib/*.h \
     autotest.h \
     backupcopytests.h \
+    ../textshredder_diff_match_patch/diff_match_patch.h\
     editlisttests.h \
     shadowcopytests.h \
     syncpropertiestests.h \

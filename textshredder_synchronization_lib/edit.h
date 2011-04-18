@@ -25,13 +25,16 @@ public:
     void setLocalVersion(unsigned int newLocalVersion);
     void setPatches(QList<Patch> * newPatches);
 
-private:
-    QList<Patch> * patches;
-    unsigned int localVersion;
+
 
 signals:
 
 public slots:
+
+private:
+    unsigned int localVersion;
+    QList<Patch> * patches;
+
 
 };
 
