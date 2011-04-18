@@ -8,8 +8,11 @@ class TextShredderPacketTests: public QObject
 {
 	Q_OBJECT
 
-	private Q_SLOTS:
-		void testHello();
+private Q_SLOTS:
+	void testCreatingBlankPacket();
+	void testCreatingPacketWithHeaderAndContent();
+	void testCreatingPacketWithTypeAndContent();
+	void testCheckingOnEditPacket();
 };
 
 DECLARE_TEST(TextShredderPacketTests);

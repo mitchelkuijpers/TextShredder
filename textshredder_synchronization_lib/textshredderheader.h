@@ -5,10 +5,6 @@
 
 #define kProtocolVersion 1
 
-#define kPacketTypeEdits 0
-#define kPacketTypeFileRequest 1
-#define kPacketTypeFileData 2
-
 #define kHeaderLength 6
 
 class TextShredderHeader : QObject
@@ -24,7 +20,7 @@ public:
      * object with a protocolVersion set to kProtocolVersion
      * and other values set to 0
      */
-    TextShredderHeader();
+	TextShredderHeader();
 
     /**
      * TextShredderHeader constructor which makes an object which properties
