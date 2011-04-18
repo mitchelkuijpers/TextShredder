@@ -20,15 +20,35 @@ public:
       */
     Edit(QObject *parent, unsigned int localVersion, QList<Patch> * patches);
 
+	/**
+	  * Copy constructor.
+	  */
 	Edit(const Edit &copy);
 
-    unsigned int getLocalVersion();
-    QList<Patch> * getPatches();
+	/**
+	  * Overloaded the assign operator.
+	  */
+	Edit& operator = (const Edit&);
 
+	/**
+	  * Overloaded the equals operator.
+	  */
+	bool operator == (const Edit&);
+
+	/**
+	  * Will return a string representation in .torrentfile format.
+	  */
+	QString * allocateStringDictionaryRepresentation();
+
+	//Setters
     void setLocalVersion(unsigned int newLocalVersion);
     void setPatches(QList<Patch> * newPatches);
 
-	Edit& operator = (const Edit&);
+	//Getters
+	unsigned int getLocalVersion();
+	QList<Patch> * getPatches();
+
+
 signals:
 
 public slots:

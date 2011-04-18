@@ -23,6 +23,22 @@ Edit& Edit::operator = (const Edit& other)
 	return *this;
 }
 
+bool Edit::operator == (const Edit& other)
+{
+	if (this->localVersion == other.localVersion && this->patches == other.patches) {
+		return true;
+	}
+	return false;
+}
+
+
+QString * Edit::allocateStringDictionaryRepresentation()
+{
+	QString *stringRepresentation = new QString ();
+	return stringRepresentation;
+}
+
+
 unsigned int Edit::getLocalVersion()
 {
     return localVersion;
