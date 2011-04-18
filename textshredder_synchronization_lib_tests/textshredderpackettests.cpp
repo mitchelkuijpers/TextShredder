@@ -3,7 +3,7 @@
 
 void TextShredderPacketTests::testCreatingBlankPacket()
 {
-	TextShredderPacket *newPacket = new TextShredderPacket::TextShredderPacket(this);
+	TextShredderPacket *newPacket = new TextShredderPacket(this);
 
 	QVERIFY2(newPacket != NULL, "TextShredderPacket should not be initialized as null");
 	QVERIFY2(newPacket->getContent() != NULL, "TextShredderPacket should not be initialized with a null content");
