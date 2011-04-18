@@ -18,6 +18,7 @@ public slots:
 
 private:
     int localVersion;
+
 };
 
 #endif // BACKUPCOPY_H
