@@ -1,16 +1,21 @@
 #ifndef EDITLISTTESTS_H
 #define EDITLISTTESTS_H
 
-#include <QtCore/QString>
-#include "../textshredder_synchronization_lib/editlist.h"
+#include <QtCore/QtCore>
 #include "autotest.h"
 
 class EditListTests: public QObject
 {
 	Q_OBJECT
 
-	private Q_SLOTS:
-		void testHello();
+private Q_SLOTS:
+	void testEmptyConstructor();
+	void testConstructorWithRemoteVersion();
+	void testGetPacketAndConstructorWithPacket();
+	void testEmpty();
+	void testUpdateToRemoteVersion();
+	void testAddEdit();
+
 };
 
 DECLARE_TEST(EditListTests)

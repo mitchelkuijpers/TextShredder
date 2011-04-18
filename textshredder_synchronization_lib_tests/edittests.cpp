@@ -12,7 +12,7 @@ void EditTests::testCreateEmptyConstructor()
 
 void EditTests::testCreateConstructorWithParameters()
 {
-    diff_match_patch *dmp = new diff_match_patch::diff_match_patch();
+    diff_match_patch *dmp = new diff_match_patch();
 
     int localVersion = 4;
     QList<Patch> patches;

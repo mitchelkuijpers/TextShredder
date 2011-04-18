@@ -8,10 +8,12 @@
 
 class PatchableTests: public QObject
 {
-        Q_OBJECT
+    Q_OBJECT
 
-        private Q_SLOTS:
-                void testHello();
+private Q_SLOTS:
+    void testGetContent();
+    void testGetPatchesToConvertString();
+    void testApplyPatches();
 };
 
 DECLARE_TEST(PatchableTests);

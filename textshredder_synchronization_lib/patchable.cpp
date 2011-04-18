@@ -5,15 +5,22 @@ Patchable::Patchable(QObject *parent) :
 {
 }
 
-//void Patchable::applyPatches(QList<Patch> *patches)
-//{
+Patchable::Patchable(QObject *parent, QString *content):
+    QObject(parent), content(content)
+{
+}
 
-//}
+void Patchable::applyPatches(QList<Patch> patches)
+{
+	QPair<QString, QVector<bool> > results;
+	results = dmpAlgorithm.patch_apply(patches, *content);
+	*content = results.first;
+}
 
-//QList<Patch> * Patchable::getPatchesToConvertString(QString *otherString)
-//{
-//    return NULL;
-//}
+QList<Patch> Patchable::getPatchesToConvertString(QString &otherString)
+{
+	return dmpAlgorithm.patch_make((QString) *content, otherString);
+}
 
 QString * Patchable::getContent()
 {
