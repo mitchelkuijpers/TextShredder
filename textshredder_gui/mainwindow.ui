@@ -36,14 +36,14 @@
     <item>
      <widget class="QTabWidget" name="main_tab_widget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="ClientControlView" name="clientTab">
        <attribute name="title">
         <string>Client</string>
        </attribute>
       </widget>
-      <widget class="ServerTabWindow" name="serverTab">
+      <widget class="ServerControlView" name="serverTab">
        <attribute name="title">
         <string>Server</string>
        </attribute>
@@ -61,12 +61,6 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>ServerTabWindow</class>
-   <extends>QWidget</extends>
-   <header>servertabwindow.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>ClientEditingWindow</class>
    <extends>QWidget</extends>
    <header>clienteditingwindow.h</header>
@@ -76,6 +70,12 @@
    <class>ClientControlView</class>
    <extends>QWidget</extends>
    <header>clientcontrolview.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ServerControlView</class>
+   <extends>QWidget</extends>
+   <header>servercontrolview.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

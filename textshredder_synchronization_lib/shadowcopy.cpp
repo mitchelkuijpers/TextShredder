@@ -18,7 +18,7 @@ ShadowCopy::ShadowCopy(QObject *parent, QString content) :
 
 void ShadowCopy::revert()
 {
-	content = backupCopy->getContent();
+	content = *(backupCopy->getContent());
 	this->localVersion = backupCopy->getLocalVersion();
 
 }

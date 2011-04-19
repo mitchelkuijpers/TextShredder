@@ -22,9 +22,9 @@ QList<Patch> Patchable::getPatchesToConvertString(QString &otherString)
 	return dmpAlgorithm.patch_make((QString) content, otherString);
 }
 
-QString Patchable::getContent()
+QString * Patchable::getContent()
 {
-    return content;
+	return &content;
 }
 
 void Patchable::setContent(QString content){

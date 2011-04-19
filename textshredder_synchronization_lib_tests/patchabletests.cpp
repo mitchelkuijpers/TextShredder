@@ -40,5 +40,5 @@ void PatchableTests::testApplyPatches() {
 	patches = dmpAlgorithm.patch_fromText(patchText);
 	newPatchable->applyPatches(patches);
 
-	QVERIFY2(QString::compare(newPatchable->getContent(), text1) == 0, "Not patched right" );
+	QVERIFY2(QString::compare(*(newPatchable->getContent()), text1) == 0, "Not patched right" );
 }

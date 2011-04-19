@@ -8,7 +8,7 @@ void ShadowCopyTests::revertTest()
 	testShadow = new ShadowCopy(this, text1);
 	testShadow->setContent(text2);
 	testShadow->revert();
-	QVERIFY2(QString::compare(testShadow->getContent(), text1) == 0, "Revert failed");
+	QVERIFY2(QString::compare(*(testShadow->getContent()), text1) == 0, "Revert failed");
 	QVERIFY2(testShadow->getLocalVersion() == testShadow->getBackupCopy()->getLocalVersion(),
 			 "LocalVersion has not been reversed");
 
@@ -22,7 +22,7 @@ void ShadowCopyTests::backupTest()
 	testShadow = new ShadowCopy(this, text1);
 	testShadow->getBackupCopy()->setContent(text2);
 	testShadow->backup();
-	QVERIFY2(QString::compare(testShadow->getBackupCopy()->getContent(), text1) == 0, "Backup failed");
+	QVERIFY2(QString::compare(*(testShadow->getBackupCopy()->getContent()), text1) == 0, "Backup failed");
 	QVERIFY2(testShadow->getLocalVersion() == testShadow->getBackupCopy()->getLocalVersion(),
 			 "backupversion has not been updated");
 }
@@ -53,9 +53,7 @@ void ShadowCopyTests::applyEditsTestWithOnePatch()
 
 	testShadow->applyEdits(&testEdits);
 
-	qDebug("remote version %i", testShadow->getRemoteVersion());
-	qDebug("content = %s", testShadow->getContent().toStdString().c_str());
-	QVERIFY2(QString::compare(testShadow->getContent(), text1) == 0,
+	QVERIFY2(QString::compare(*(testShadow->getContent()), text1) == 0,
 			 "Shadow did not patch");
 	QVERIFY2(testShadow->getRemoteVersion() == oldRemoteVersion+1, "Didn't update remote version correctly");
 
@@ -87,9 +85,7 @@ void ShadowCopyTests::applyEditsTestWithMultiplePatches()
 	testEdits.insert(1, e2);
 
 	testShadow->applyEdits(&testEdits);
-	qDebug("remote version %i", testShadow->getRemoteVersion());
-	qDebug("content = %s", testShadow->getContent().toStdString().c_str());
-	QVERIFY2(QString::compare(testShadow->getContent(), text1) == 0,
+	QVERIFY2(QString::compare(*(testShadow->getContent()), text1) == 0,
 			 "Shadow did not patch");
 	QVERIFY2(testShadow->getRemoteVersion() == oldRemoteVersion+2, "Didnt patch twice");
 
@@ -122,7 +118,7 @@ void ShadowCopyTests::applyEditsTestWhenAlreadyUpToDate()
 
 	testShadow->applyEdits(&testEdits);
 
-	QVERIFY2(QString::compare(testShadow->getContent(), text1) == 0,
+	QVERIFY2(QString::compare(*(testShadow->getContent()), text1) == 0,
 			 "Shadow did not patch");
 	QVERIFY2(testShadow->getRemoteVersion() == oldRemoteVersion+1, "Didn't update remote version correctly");
 
@@ -152,9 +148,8 @@ void ShadowCopyTests::processPatchesTest()
 	testEdits.insert(1, e2);
 
 	testShadow->processPatches(&pList1);
-	qDebug("content = %s", testShadow->getContent().toStdString().c_str());
 
-	QVERIFY2(QString::compare(testShadow->getContent(), text1) == 0,
+	QVERIFY2(QString::compare(*(testShadow->getContent()), text1) == 0,
 			 "Shadow did not patch");
 	QVERIFY2(testShadow->getLocalVersion() == oldVersionNumber+1,
 			 "Version number didn't update");
