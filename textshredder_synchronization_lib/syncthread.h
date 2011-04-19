@@ -9,21 +9,21 @@
 
 class SyncThread : public QThread
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit SyncThread(QObject *parent, int socketDescriptor,
-                        WorkingCopy *workingCopy);
+	explicit SyncThread(QObject *parent, int socketDescriptor,
+						WorkingCopy *workingCopy);
 
 signals:
 
 public slots:
 
 private:
-    SyncProperties *syncProperties;
-    ReadThread *readThread;
-    WriteThread *writeThread;
+	SyncProperties *syncProperties;
+	ReadThread *readThread;
+	WriteThread *writeThread;
 
-    void run();
+	void run();
 };
 
 #endif // SYNCTHREAD_H
