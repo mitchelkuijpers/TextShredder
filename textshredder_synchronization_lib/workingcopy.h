@@ -3,8 +3,9 @@
 
 #include <QObject>
 #include <QMutex>
+#include "patchable.h"
 
-class WorkingCopy : public QObject
+class WorkingCopy : public QObject, public QMutex
 {
     Q_OBJECT
 public:
@@ -15,7 +16,6 @@ signals:
 public slots:
 
 private:
-    QMutex *mutex;
 
 };
 
