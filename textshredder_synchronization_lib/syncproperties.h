@@ -13,13 +13,15 @@ class SyncProperties : public QObject
     Q_OBJECT
 
 public:
-    SyncProperties(QObject *parent);
+	SyncProperties(QObject *parent);
+	SyncProperties(QObject *parent, int socketDescriptor,
+				   WorkingCopy * workingCopy);
 private:
-    EditList * editList;
-    WorkingCopy * workingCopy;
-    Patch * patch;
-    TextShredderSocket * textShredderSocket;
-    ShadowCopy * shadowCopy;
+	EditList * editList;
+	WorkingCopy * workingCopy;
+	Patch * patch;
+	TextShredderSocket * textShredderSocket;
+	ShadowCopy * shadowCopy;
 
 signals:
 
