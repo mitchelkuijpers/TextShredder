@@ -10,7 +10,7 @@ class WorkingCopyTests: public QObject
 	Q_OBJECT
 
 	private Q_SLOTS:
-		void testHello();
+		void testGetPatchableContent();
 };
 
 DECLARE_TEST(WorkingCopyTests);

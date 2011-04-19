@@ -11,5 +11,3 @@ void Server::incomingConnection(int socketDescriptor)
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
     thread->start();
 }
-
-
