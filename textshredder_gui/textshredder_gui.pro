@@ -12,22 +12,22 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    servertabwindow.cpp \
+	servercontrolview.cpp \
 	serverthread.cpp \
-    clientconnectwindow.cpp \
+	clientcontrolview.cpp \
     server.cpp \
-	clientactivewindow.cpp \
+	clienteditingwindow.cpp \
     guicontroller.cpp
 
 HEADERS  += mainwindow.h \
-    servertabwindow.h \
-    clientconnectwindow.h \
+	servercontrolview.h \
+	clientcontrolview.h \
     server.h \
     serverthread.h \
-    clientactivewindow.h \
+	clienteditingwindow.h \
     guicontroller.h
 
 FORMS    += mainwindow.ui \
-    servertabwindow.ui \
-    clientactivewindow.ui \
-    clientconnectwindow.ui
+	servercontrolview.ui \
+	clienteditingwindow.ui \
+	clientcontrolview.ui

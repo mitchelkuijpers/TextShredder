@@ -9,12 +9,13 @@ class ServerThread : public QThread
 {
     Q_OBJECT
 public:
-    ServerThread(int socketDescriptor, QObject *parent);
+	ServerThread(QObject *parent, int socketDescriptor, QByteArray * fileContent);
 signals:
     void error(QTcpSocket::SocketError socketError);
 private:
     int socketDescriptor;
-    void run();
+	void run();
+	QByteArray * fileContent;
 };
 
 #endif // SERVERTHREAD_H
