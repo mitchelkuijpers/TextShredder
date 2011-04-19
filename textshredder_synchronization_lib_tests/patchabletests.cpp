@@ -4,7 +4,7 @@
 void PatchableTests::testGetContent() {
     QString content = "TestStringContent";
     Patchable * newPatchable = NULL;
-    newPatchable = new Patchable(this, &content);
+	newPatchable = new Patchable(this, content);
 
     QVERIFY2(newPatchable->getContent() == content, "Unable to retrieve content");
 }
@@ -18,7 +18,7 @@ void PatchableTests::testGetPatchesToConvertString() {
 	diff_match_patch dmpAlgorithm;
 
 	Patchable * newPatchable = NULL;
-	newPatchable = new Patchable(this, &text1);
+	newPatchable = new Patchable(this, text1);
 	patches = newPatchable->getPatchesToConvertString(text2);
 
 	QVERIFY2(QString::compare(dmpAlgorithm.patch_toText(patches), expectedPatch) != 0, "Not the same" );
@@ -35,10 +35,10 @@ void PatchableTests::testApplyPatches() {
 	diff_match_patch dmpAlgorithm;
 
 	Patchable * newPatchable = NULL;
-	newPatchable = new Patchable(this, &text2);
+	newPatchable = new Patchable(this, text2);
 
 	patches = dmpAlgorithm.patch_fromText(patchText);
 	newPatchable->applyPatches(patches);
 
-	QVERIFY2(QString::compare(*newPatchable->getContent(), text1) == 0, "Not patched right" );
+	QVERIFY2(QString::compare(newPatchable->getContent(), text1) == 0, "Not patched right" );
 }

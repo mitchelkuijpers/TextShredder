@@ -17,6 +17,7 @@ public slots:
 
 private:
 
+
 };
 
 #endif // WORKINGCOPY_H

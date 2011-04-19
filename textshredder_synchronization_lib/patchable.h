@@ -9,16 +9,15 @@ class Patchable : public QObject
     Q_OBJECT
 public:
     Patchable(QObject *parent);
-    Patchable(QObject *parent, QString * content);
+	Patchable(QObject *parent, QString content);
 
 	void applyPatches(QList<Patch> patches);
     QList<Patch> getPatchesToConvertString(QString &otherString);
-    QString * getContent();
+	QString getContent();
+	void setContent(QString content);
 
 protected:
-	QString * content;
-
-private:
+	QString content;
 	diff_match_patch dmpAlgorithm;
 
 signals:

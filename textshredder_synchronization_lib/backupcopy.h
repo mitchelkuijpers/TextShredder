@@ -2,22 +2,24 @@
 #define BACKUPCOPY_H
 
 #include <QObject>
+#include "patchable.h"
 
-class BackupCopy : public QObject
+class BackupCopy : public Patchable
 {
     Q_OBJECT
 
 public:
         BackupCopy( QObject *parent);
-        BackupCopy( QObject *parent, int localVersion );
-        int getLocalVersion();
+		BackupCopy( QObject *parent, unsigned int localVersion, QString content );
+		unsigned int getLocalVersion();
+		void setLocalVersion(unsigned int newLocalVersion);
 
 signals:
 
 public slots:
 
 private:
-    int localVersion;
+	unsigned int localVersion;
 
 };
 

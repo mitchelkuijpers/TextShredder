@@ -20,9 +20,9 @@ void EditTests::testCreateConstructorWithParameters()
 	QString text2 = "That quick brown fox jumped over a lazy dog.";
 	QString expectedPatch = "@@ -1,8 +1,7 @@\n Th\n-at\n+e\n  qui\n@@ -21,17 +21,18 @@\n jump\n-ed\n+s\n  over \n-a\n+the\n  laz\n";
 
+
 	// The second patch must be "-21,17 +21,18", not "-22,17 +21,18" due to rolling context.
 	patches = dmp->patch_make(text2, text1);
-
 	Edit * testEdit = new Edit(this, localVersion, patches);
 	QVERIFY2(testEdit != NULL, "Failed to create new Edit with parameters");
 
