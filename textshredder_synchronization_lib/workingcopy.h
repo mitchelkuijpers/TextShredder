@@ -3,8 +3,11 @@
 
 #include <QObject>
 #include <QMutex>
+#include "patchable.h"
 
-class WorkingCopy : public QObject, QMutex
+
+class WorkingCopy : public QObject, public QMutex
+
 {
     Q_OBJECT
 public:

@@ -36,9 +36,9 @@
     <item>
      <widget class="QTabWidget" name="main_tab_widget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
-      <widget class="ClientConnectWindow" name="clientTab">
+      <widget class="ClientControlView" name="clientTab">
        <attribute name="title">
         <string>Client</string>
        </attribute>
@@ -48,7 +48,7 @@
         <string>Server</string>
        </attribute>
       </widget>
-      <widget class="ClientActiveWindow" name="activeClientTab">
+      <widget class="ClientEditingWindow" name="clientEditingTab">
        <attribute name="title">
         <string>Active Client</string>
        </attribute>
@@ -61,21 +61,21 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>ClientConnectWindow</class>
-   <extends>QWidget</extends>
-   <header>clientconnectwindow.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>ServerTabWindow</class>
    <extends>QWidget</extends>
    <header>servertabwindow.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>ClientActiveWindow</class>
+   <class>ClientEditingWindow</class>
    <extends>QWidget</extends>
-   <header>clientactivewindow.h</header>
+   <header>clienteditingwindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ClientControlView</class>
+   <extends>QWidget</extends>
+   <header>clientcontrolview.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

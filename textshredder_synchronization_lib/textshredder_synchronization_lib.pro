@@ -30,7 +30,8 @@ SOURCES += \
     patchable.cpp \
     readthread.cpp \
     writethread.cpp \
-    syncthread.cpp
+    syncthread.cpp \
+    downloadthread.cpp
 
 HEADERS += \
     textshredderheader.h \
@@ -49,4 +50,5 @@ HEADERS += \
     patchable.h \
     readthread.h \
     writethread.h \
-    syncthread.h
+    syncthread.h \
+    downloadthread.h
