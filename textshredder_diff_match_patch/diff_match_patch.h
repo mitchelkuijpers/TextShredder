@@ -118,6 +118,7 @@ class Patch {
   Patch();
   bool isNull() const;
   QString toString();
+  bool operator == (const Patch &);
 };
 
 
