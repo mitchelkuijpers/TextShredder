@@ -16,13 +16,16 @@ public:
 	SyncProperties(QObject *parent);
 	SyncProperties(QObject *parent, int socketDescriptor,
 				   WorkingCopy * workingCopy);
+
+	//Getters
+	TextShredderSocket * getSocket();
+	WorkingCopy * getWorkingCopy();
 private:
 	EditList * editList;
 	WorkingCopy * workingCopy;
 	Patch * patch;
 	TextShredderSocket * textShredderSocket;
 	ShadowCopy * shadowCopy;
-
 signals:
 
 public slots:

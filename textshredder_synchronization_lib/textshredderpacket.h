@@ -33,12 +33,26 @@ public:
 	  */
 	TextShredderPacket( QObject *, unsigned char, QByteArray & );
 
+	/**
+	  * Copy constructor
+	  */
 	TextShredderPacket(TextShredderPacket & otherPacket);
 
 	/**
 	  * Returns if the packet represents an packet containing edits.
 	  */
     bool isEditPacket();
+
+	/**
+	  * Returns if the packet represents an packet containing a file request.
+	  */
+	bool isFileRequestPacket();
+
+	/**
+	  * Returns if the packet represents an packet containing file data.
+	  */
+	bool isFileDataPacket();
+
 
 	TextShredderPacket & operator=(TextShredderPacket & otherPacket);
 

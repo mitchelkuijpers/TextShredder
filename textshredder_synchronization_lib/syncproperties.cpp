@@ -12,3 +12,13 @@ SyncProperties::SyncProperties(QObject *parent, int socketDescriptor,
 	textShredderSocket = new TextShredderSocket(this, socketDescriptor);
 	editList = new EditList(this);
 };
+
+TextShredderSocket * SyncProperties::getSocket()
+{
+	return textShredderSocket;
+}
+
+WorkingCopy * SyncProperties::getWorkingCopy()
+{
+	return workingCopy;
+}

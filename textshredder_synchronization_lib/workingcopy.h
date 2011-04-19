@@ -5,7 +5,7 @@
 #include <QMutex>
 #include "patchable.h"
 
-class WorkingCopy : public QObject, public QMutex
+class WorkingCopy : public Patchable, public QMutex
 {
     Q_OBJECT
 public:

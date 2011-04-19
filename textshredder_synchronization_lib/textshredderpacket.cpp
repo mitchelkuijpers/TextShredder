@@ -38,7 +38,18 @@ bool TextShredderPacket::isEditPacket()
 	return header->getPacketType() == kPacketTypeEdits;
 }
 
-QByteArray & TextShredderPacket::getContent() {
+bool TextShredderPacket::isFileDataPacket ()
+{
+	return header->getPacketType() == kPacketTypeFileData;
+}
+
+bool TextShredderPacket::isFileRequestPacket()
+{
+	return header->getPacketType() == kPacketTypeFileRequest;
+}
+
+QByteArray & TextShredderPacket::getContent()
+{
 	return content;
 }
 
