@@ -27,6 +27,6 @@ QString * Patchable::getContent()
 	return &content;
 }
 
-void Patchable::setContent(QString content){
+void Patchable::setContent(QString &content){
 	this->content = content;
 }

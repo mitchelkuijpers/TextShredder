@@ -44,11 +44,21 @@ void DownloadThread::makeFileRequest()
 	TextShredderSocket *socket = syncProperties->getSocket();
 	socket->writePacket (&fileRequestPacket);
 
-	TextShredderPacket *fileDataPacket = socket->readPacket();
-	if (fileDataPacket->isFileDataPacket()) {
-		//Signal
+	bool result = socket->waitForBytesWritten (15000);
+	if (!result) {
+		emit fileRequestFailed();
 		return;
 	}
+
+	TextShredderPacket *fileDataPacket = socket->readPacket();
+	socket->waitForReadyRead (15000);
+	if (! fileDataPacket->isFileDataPacket()) {
+		emit receiveTimeOut();
+		return;
+	}
+
+	QString *workingCopyContent = syncProperties->getWorkingCopy()->getContent();
+	*workingCopyContent = QString(fileDataPacket->getContent());
 }
 
 void DownloadThread::run()

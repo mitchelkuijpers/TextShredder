@@ -14,7 +14,7 @@ public:
 	void applyPatches(QList<Patch> patches);
     QList<Patch> getPatchesToConvertString(QString &otherString);
 	QString * getContent();
-	void setContent(QString content);
+	void setContent(QString &content);
 
 protected:
 	QString content;

@@ -14,7 +14,9 @@ public:
 signals:
 	void wrongPacketInDownloadThread(TextShredderPacket *);
 	void sendTimeOut();
+	void receiveTimeOut();
 	void fileDownloadCompleted();
+	void fileRequestFailed();
 
 public slots:
 
