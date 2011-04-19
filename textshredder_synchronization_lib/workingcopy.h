@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QMutex>
 
-class WorkingCopy : public QObject
+class WorkingCopy : public QObject, QMutex
 {
     Q_OBJECT
 public:
@@ -15,7 +15,7 @@ signals:
 public slots:
 
 private:
-    QMutex *mutex;
+
 
 };
 

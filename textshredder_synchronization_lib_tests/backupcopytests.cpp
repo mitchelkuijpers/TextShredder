@@ -12,9 +12,10 @@ void BackupCopyTests::createBackupCopyWithDefaultLocalVersionNumber()
 
 void BackupCopyTests::createBackupCopyWithGivenLocalVersionNumber()
 {
-    int localVersion = 5;
+	unsigned int localVersion = 5;
+	QString testContent = "HALALLAFLAJFLAJL AAKLAFSLKDFJIFELJ asdfadsf";
 
-    BackupCopy * newBackupCopy= new BackupCopy(this, localVersion);
+	BackupCopy * newBackupCopy= new BackupCopy(this, localVersion, testContent);
 
     QVERIFY2(newBackupCopy != NULL, "Failed creating BackupCopy object.");
     QVERIFY2(localVersion == newBackupCopy->getLocalVersion(),

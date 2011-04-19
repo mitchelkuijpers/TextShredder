@@ -12,13 +12,12 @@ class ShadowCopyTests: public QObject
 
 
 	private Q_SLOTS:
-				void revertTest();
-				void backupTest();
-				void applyEditsTest();
-				void processPatchesTest();
-
-
-
+		void revertTest();
+		void backupTest();
+		void applyEditsTestWithOnePatch();
+		void applyEditsTestWithMultiplePatches();
+		void applyEditsTestWhenAlreadyUpToDate();
+		void processPatchesTest();
 
 };
 

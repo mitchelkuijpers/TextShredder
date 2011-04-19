@@ -14,22 +14,42 @@ class ShadowCopy : public Patchable, QMutex
 
 public:
 	ShadowCopy( QObject *parent);
-    int getLocalVersion();
-	int getRemoteVersion();
+	ShadowCopy( QObject *parent, QString content);
 
-    void revert();
-    void backup();
-	void applyEdits( QList<Edit> * );
+	/*getters*/
+	unsigned int getLocalVersion();
+	unsigned int getRemoteVersion();
+	BackupCopy *getBackupCopy();
 
-	void processPatches( QList<Patch> * );
+	/**
+	  *  Function to revert content to previous version
+	  */
+	void revert();
+
+	/**
+	  *  Fucntion to make a backup of your current version
+	  */
+	void backup();
+
+	/**
+	  * Fucntion to apply edits if not done yet to the Shadow Copy
+	  * @param List of edits that need to be commited
+	  */
+	void applyEdits( QList<Edit> * edits);
+
+	/**
+	  * Function to apply the changes you have made in your workingcopy
+	  * @param List of patches from changes you made
+	  */
+	void processPatches( QList<Patch> * patches);
 
 signals:
 
 private:
-    int localVersion;
-    int remoteVersion;
+	unsigned int localVersion;
+	unsigned int remoteVersion;
 
-    BackupCopy * backupCopy;
+	BackupCopy * backupCopy;
 };
 
 #endif // SHADOWCOPY_H
