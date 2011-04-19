@@ -109,6 +109,11 @@ bool Patch::isNull() const {
   return false;
 }
 
+bool Patch::operator == (const Patch &otherPatch) {
+	QString thisStringRepresentation = this->toString();
+	QString otherStringRepresentation = ((Patch &)otherPatch).toString();
+	return (otherStringRepresentation == thisStringRepresentation);
+}
 
 /**
  * Emmulate GNU diff's format.

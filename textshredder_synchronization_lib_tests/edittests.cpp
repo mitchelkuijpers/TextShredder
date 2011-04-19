@@ -23,11 +23,11 @@ void EditTests::testCreateConstructorWithParameters()
 	// The second patch must be "-21,17 +21,18", not "-22,17 +21,18" due to rolling context.
 	patches = dmp->patch_make(text2, text1);
 
-	Edit * testEdit = new Edit(this, localVersion, &patches);
+	Edit * testEdit = new Edit(this, localVersion, patches);
 	QVERIFY2(testEdit != NULL, "Failed to create new Edit with parameters");
 
 	QVERIFY2(testEdit->getLocalVersion() == localVersion, "LocalVersion does not match");
-	QVERIFY2(QString::compare(testEdit->getPatches()->first().toString(), expectedPatch) != 0, "Invalid patch");
+	QVERIFY2(QString::compare(testEdit->getPatches().first().toString(), expectedPatch) != 0, "Invalid patch");
 
 	delete dmp;
 }

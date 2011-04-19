@@ -13,12 +13,20 @@ public:
       */
     Edit(QObject *parent);
 
-    /**
-      * Create new Edit with a localVersion and patches given
-      * @param localVersion of the Edit
-      * @param patches of the Edit
-      */
-    Edit(QObject *parent, unsigned int localVersion, QList<Patch> * patches);
+	/**
+	  * Create new Edit with a localVersion and patches given
+	  * @param localVersion of the Edit
+	  * @param patches of the Edit
+	  */
+	Edit(QObject *parent, unsigned int localVersion, QList<Patch> & patches);
+
+	/**
+	  * Constructor to make Edit from bytes. Normally used to send an edit
+	  * for synchronization, but can also be used for persistence.
+	  *
+	  * @param the bytes used to make the edit.
+	  */
+	Edit(QObject *, QByteArray &);
 
 	/**
 	  * Copy constructor.
@@ -36,17 +44,17 @@ public:
 	bool operator == (const Edit&);
 
 	/**
-	  * Will return a string representation in .torrentfile format.
+	  * Will append the string reprentation to a QByteArray
 	  */
-	QString * allocateStringDictionaryRepresentation();
+	void appendEditBytesToByteArray(QByteArray &bytesArray);
 
 	//Setters
-    void setLocalVersion(unsigned int newLocalVersion);
-    void setPatches(QList<Patch> * newPatches);
+	void setLocalVersion(unsigned int newLocalVersion);
+	void setPatches(QList<Patch> & newPatches);
 
 	//Getters
 	unsigned int getLocalVersion();
-	QList<Patch> * getPatches();
+	QList<Patch> & getPatches();
 
 
 signals:
@@ -55,7 +63,7 @@ public slots:
 
 private:
     unsigned int localVersion;
-    QList<Patch> * patches;
+	QList<Patch> patches;
 
 
 };

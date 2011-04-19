@@ -10,17 +10,38 @@ EditList::EditList(QObject *parent, TextShredderPacket &packet)
 {
 	int offSet = 0;
 	QByteArray content = packet.getContent();
+
 	if (content[offSet++] != '{') {
 		throw QString("Edit packet is not starting with a accolade, cannot make EditList");
 	}
-	int tempRemoteVersion = 0;
-	while(content.at(offSet) != '{') {
-		int decimal = content[offSet];
-		tempRemoteVersion = (tempRemoteVersion * 10) + decimal;
-		offSet++;
+
+	remoteVersion = atoi(&(content.data()[offSet]));
+	offSet += (QString::number (remoteVersion).length () + 1);
+
+	if (content[offSet++] != '{') {
+		throw QString("Edits part in EditList packet is not starting with a accolade, cannot make EditList");
 	}
 
-	remoteVersion = tempRemoteVersion;
+	int tempEditLength = 0;
+	while (1) {
+		if (content[offSet++] == '{') {
+			//Will start next edit
+			tempEditLength = atoi(&(content.data()[offSet]));
+			offSet += (QString::number (tempEditLength).length () + 1);
+
+			QByteArray editBytes = content.mid (offSet, tempEditLength);
+			offSet += tempEditLength;
+
+			if (content.at(offSet++) != '}') {
+				throw QString("Edits part in EditList packet is not starting with a accolade, cannot make EditList");
+			}
+
+			Edit newEdit(this, editBytes);
+			edits.push_back(newEdit);
+		} else {
+			return;
+		}
+	}
 }
 
 unsigned int EditList::getRemoteVersion()
@@ -72,9 +93,12 @@ TextShredderPacket * EditList::getAllocatedPacket()
 	for(int i = 0; i < edits.count(); i++ ) {
 		packetContent.append('{');
 		Edit currentEdit = edits.at(i);
-		QString *stringRep = currentEdit.allocateStringDictionaryRepresentation();
-		packetContent.append( *stringRep);
-		delete stringRep;
+
+		QByteArray editByteRepresentation;
+		currentEdit.appendEditBytesToByteArray(editByteRepresentation);
+		packetContent.append (QString::number(editByteRepresentation.length()));
+		packetContent.append(',');
+		packetContent.append(editByteRepresentation);
 		packetContent.append('}');
 	}
 	packetContent.append('}');

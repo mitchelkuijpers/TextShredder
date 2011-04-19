@@ -1,6 +1,7 @@
 #include "editlisttests.h"
 #include "../textshredder_synchronization_lib/editlist.h"
 #include "../textshredder_synchronization_lib/textshredderpacket.h"
+#include "../textshredder_diff_match_patch/diff_match_patch.h"
 
 void EditListTests::testEmptyConstructor()
 {
@@ -30,17 +31,35 @@ void EditListTests::testConstructorWithRemoteVersion()
 void EditListTests::testGetPacketAndConstructorWithPacket()
 {
 	EditList list(this);
+	diff_match_patch dmp;
+
+	QString s("@@ -1,8 +1,7 @@\n Th\n-at\n+e\n  qui\n@@ -21,17 +21,18 @@\n jump\n-ed\n+s\n  over \n-a\n+the\n  laz\n");
+	QList<Patch> pList1 = dmp.patch_fromText(s);
+	QList<Patch> pList2 = dmp.patch_fromText(s);
+
+	Edit e1(this, 400, pList1);
+	Edit e2(this, 255, pList2);
+
+	list.addEdit(e1);
+	list.addEdit(e2);
+
 	TextShredderPacket *packet = list.getAllocatedPacket();
 
 	EditList newList(this, *packet);
+	QVERIFY2(newList.getRemoteVersion() == list.getRemoteVersion(), "AAA");
 
-	QVERIFY2(newList.getRemoteVersion() == list.getRemoteVersion (), "Lists should be equally -> version");
+	QVERIFY2(list == newList, "TFU");
+	QVERIFY2(list.getEdits().count() == newList.getEdits().count(), "Lists should be equally -> lists");
+	for(int i = 0; i < list.getEdits().count(); i++) {
+		Edit originalEditObject = list.getEdits ().at(i);
+		Edit newEditObject = newList.getEdits ().at(i);
 
-	//QVERIFY2(list == newList, "Lists should be equally -> objects");
-	//QVERIFY2(list.getEdits().count() == newList.getEdits().count(), "Lists should be equally -> lists");
-	QVERIFY2(false, "Still have to implement test");
+		QVERIFY2(newEditObject.getLocalVersion () == originalEditObject.getLocalVersion(), "Local versions of edits should be equal");
+		QVERIFY2(newEditObject.getPatches () == originalEditObject.getPatches(), "CRAP");
+	}
+	//QVERIFY2(false, "Still have to implement test");
 
-	delete packet;
+	//delete packet;
 }
 
 void EditListTests::testEmpty()
@@ -56,10 +75,11 @@ void EditListTests::testEmpty()
 
 void EditListTests::testUpdateToRemoteVersion()
 {
-	Edit zeroEdit(this, 0, NULL);
-	Edit oneEdit(this, 1, NULL);
-	Edit twoEdit(this, 2, NULL);
-	Edit threeEdit(this, 3, NULL);
+	QList<Patch> list;
+	Edit zeroEdit(this, 0, list);
+	Edit oneEdit(this, 1, list);
+	Edit twoEdit(this, 2, list);
+	Edit threeEdit(this, 3, list);
 
 	EditList editList(this);
 	editList.addEdit(zeroEdit);
@@ -80,8 +100,9 @@ void EditListTests::testUpdateToRemoteVersion()
 
 void EditListTests::testAddEdit()
 {
-	const Edit zeroEdit(this, 0, NULL);
-	const Edit oneEdit(this, 1, NULL);
+	QList<Patch> list;
+	const Edit zeroEdit(this, 0, list);
+	const Edit oneEdit(this, 1, list);
 
 	EditList editList(this);
 
