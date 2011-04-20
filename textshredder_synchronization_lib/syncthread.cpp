@@ -1,19 +1,9 @@
 #include "syncthread.h"
 
 SyncThread::SyncThread(QObject *parent, int socketDescriptor,
-                       WorkingCopy *workingCopy) :
-    QThread(parent)
+						WorkingCopy &workingCopy, bool server) :
+	QThread(parent), syncProperties(this, socketDescriptor, &workingCopy), isServer(server)
 {
-	syncProperties = new SyncProperties(this, socketDescriptor, workingCopy);
-	isServer = true;
-}
-
-SyncThread::SyncThread(QObject *parent, int socketDescriptor) :
-	QThread(parent)
-{
-	WorkingCopy copy(this);
-	syncProperties = new SyncProperties(this, socketDescriptor, &copy);
-	isServer = false;
 }
 
 void SyncThread::run()

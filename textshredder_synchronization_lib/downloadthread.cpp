@@ -1,9 +1,9 @@
 #include "downloadthread.h"
 
 DownloadThread::DownloadThread(	QObject *parent,
-								SyncProperties *properties,
+								SyncProperties &properties,
 								bool isServer)
-	: QThread(parent), syncProperties(properties), isServer(isServer)
+	: QThread(parent), syncPropertiesPointer(&properties), isServer(isServer)
 {
 }
 
@@ -11,7 +11,7 @@ void DownloadThread::waitForFileRequest()
 {
 	//Wait for file request
 	QByteArray byteArray;
-	TextShredderSocket *socket = syncProperties->getSocket();
+	TextShredderSocket *socket = syncPropertiesPointer->getSocket();
 	TextShredderPacket *packet = socket->readPacket();
 	if(! packet->isFileRequestPacket()) {
 		emit wrongPacketInDownloadThread (packet);
@@ -20,9 +20,9 @@ void DownloadThread::waitForFileRequest()
 	}
 
 	//Get Working copy content
-	syncProperties->getWorkingCopy()->lock();
-	byteArray.append (*(syncProperties->getWorkingCopy()->getContent()));
-	syncProperties->getWorkingCopy()->unlock();
+	syncPropertiesPointer->getWorkingCopy()->lock();
+	byteArray.append (*(syncPropertiesPointer->getWorkingCopy()->getContent()));
+	syncPropertiesPointer->getWorkingCopy()->unlock();
 
 	//Write and error check sending working copy data
 	TextShredderPacket fileDataPacket(this,
@@ -41,7 +41,7 @@ void DownloadThread::makeFileRequest()
 {
 	QByteArray emptyByteArray;
 	TextShredderPacket fileRequestPacket(this, kPacketTypeFileRequest,emptyByteArray);
-	TextShredderSocket *socket = syncProperties->getSocket();
+	TextShredderSocket *socket = syncPropertiesPointer->getSocket();
 	socket->writePacket (&fileRequestPacket);
 
 	bool result = socket->waitForBytesWritten (15000);
@@ -57,7 +57,7 @@ void DownloadThread::makeFileRequest()
 		return;
 	}
 
-	QString *workingCopyContent = syncProperties->getWorkingCopy()->getContent();
+	QString *workingCopyContent = syncPropertiesPointer->getWorkingCopy()->getContent();
 	*workingCopyContent = QString(fileDataPacket->getContent());
 }
 

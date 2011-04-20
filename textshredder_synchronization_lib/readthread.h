@@ -8,7 +8,7 @@ class ReadThread : public QThread
 {
     Q_OBJECT
 public:
-    explicit ReadThread(QObject *parent, SyncProperties *syncProperties);
+	explicit ReadThread(QObject *, SyncProperties &);
 
 signals:
 	void newDataReady();

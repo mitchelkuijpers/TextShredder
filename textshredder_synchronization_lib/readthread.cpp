@@ -1,7 +1,7 @@
 #include "readthread.h"
 
-ReadThread::ReadThread(QObject *parent, SyncProperties *syncProperties) :
-    QThread(parent), syncProperties(syncProperties)
+ReadThread::ReadThread(QObject *parent, SyncProperties &properties) :
+	QThread(parent), syncProperties(&properties)
 {
 }
 

@@ -11,7 +11,7 @@ class WriteThread : public QThread
     Q_OBJECT
 
 public:
-    explicit WriteThread(QObject *parent, SyncProperties *syncProperties);
+	explicit WriteThread(QObject *parent, SyncProperties &properties);
 
 private:
     SyncProperties *syncProperties;

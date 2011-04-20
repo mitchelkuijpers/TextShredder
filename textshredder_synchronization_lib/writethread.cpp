@@ -1,7 +1,7 @@
 #include "writethread.h"
 
-WriteThread::WriteThread(QObject *parent, SyncProperties *syncProperties) :
-    QThread(parent), syncProperties(syncProperties)
+WriteThread::WriteThread(QObject *parent, SyncProperties &properties) :
+	QThread(parent), syncProperties(&properties)
 {
 }
 

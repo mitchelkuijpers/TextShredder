@@ -9,7 +9,7 @@ class DownloadThread : public QThread
 {
 	Q_OBJECT
 public:
-	DownloadThread(QObject *, SyncProperties *, bool);
+	DownloadThread(QObject *, SyncProperties &, bool);
 
 signals:
 	void wrongPacketInDownloadThread(TextShredderPacket *);
@@ -25,7 +25,7 @@ private:
 	void makeFileRequest();
 	void waitForFileRequest();
 
-	SyncProperties *syncProperties;
+	SyncProperties *syncPropertiesPointer;
 	bool isServer;
 };
 

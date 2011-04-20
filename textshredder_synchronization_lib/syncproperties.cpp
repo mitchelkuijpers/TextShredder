@@ -1,7 +1,7 @@
 #include "syncproperties.h"
 
 SyncProperties::SyncProperties(QObject *parent, int socketDescriptor,
-			   WorkingCopy * workingCopy) :
+			   WorkingCopy *workingCopy) :
 	QObject(parent), workingCopy(workingCopy), editList(this),
 	textShredderSocket(this, socketDescriptor), shadowCopy(this)
 {

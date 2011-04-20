@@ -11,19 +11,16 @@
 class SyncThread : public QThread
 {
 	Q_OBJECT
+
 public:
-	explicit SyncThread(QObject *parent, int socketDescriptor,
-						WorkingCopy *workingCopy);
-	explicit SyncThread(QObject *parent, int socketDescriptor);
+	explicit SyncThread(QObject *, int , WorkingCopy &, bool);
 
 signals:
 
 public slots:
 
 private:
-	SyncProperties *syncProperties;
-	ReadThread *readThread;
-	WriteThread *writeThread;
+	SyncProperties syncProperties;
 	bool isServer;
 
 	/**
