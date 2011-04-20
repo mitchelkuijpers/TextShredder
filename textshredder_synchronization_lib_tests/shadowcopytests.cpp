@@ -34,7 +34,6 @@ void ShadowCopyTests::applyEditsTestWithOnePatch()
 	QString text2 = "That quick brown fox jumped over a lazy dog.";
 	QString s1("@@ -1,8 +1,7 @@\n Th\n-at\n+e\n  qui\n@@ -21,17 +21,18 @@\n jump\n-ed\n+s\n  over \n-a\n+the\n  laz\n");
 
-
 	ShadowCopy * testShadow;
 	//create testShadowCopy with text2 as content
 	testShadow = new ShadowCopy(this, text2);
@@ -51,12 +50,12 @@ void ShadowCopyTests::applyEditsTestWithOnePatch()
 	testEdits.insert(0, e1);
 
 
-	testShadow->applyEdits(&testEdits);
+	testShadow->applyEdits(testEdits);
 
 	QVERIFY2(QString::compare(*(testShadow->getContent()), text1) == 0,
 			 "Shadow did not patch");
-	QVERIFY2(testShadow->getRemoteVersion() == oldRemoteVersion+1, "Didn't update remote version correctly");
-
+	QVERIFY2(testShadow->getRemoteVersion() == oldRemoteVersion+1,
+			 "Didn't update remote version correctly");
 }
 
 void ShadowCopyTests::applyEditsTestWithMultiplePatches()
@@ -84,11 +83,10 @@ void ShadowCopyTests::applyEditsTestWithMultiplePatches()
 	testEdits.insert(0, e1);
 	testEdits.insert(1, e2);
 
-	testShadow->applyEdits(&testEdits);
+	testShadow->applyEdits(testEdits);
 	QVERIFY2(QString::compare(*(testShadow->getContent()), text1) == 0,
 			 "Shadow did not patch");
 	QVERIFY2(testShadow->getRemoteVersion() == oldRemoteVersion+2, "Didnt patch twice");
-
 }
 
 void ShadowCopyTests::applyEditsTestWhenAlreadyUpToDate()
@@ -116,11 +114,12 @@ void ShadowCopyTests::applyEditsTestWhenAlreadyUpToDate()
 	testEdits.insert(0, e1);
 	testEdits.insert(1, e2);
 
-	testShadow->applyEdits(&testEdits);
+	testShadow->applyEdits(testEdits);
 
 	QVERIFY2(QString::compare(*(testShadow->getContent()), text1) == 0,
 			 "Shadow did not patch");
-	QVERIFY2(testShadow->getRemoteVersion() == oldRemoteVersion+1, "Didn't update remote version correctly");
+	QVERIFY2(testShadow->getRemoteVersion() == oldRemoteVersion+1,
+			 "Didn't update remote version correctly");
 
 }
 
