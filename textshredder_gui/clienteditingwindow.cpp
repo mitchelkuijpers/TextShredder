@@ -47,3 +47,11 @@ void ClientEditingWindow::on_disconnectButton_clicked()
 {
 	clientDisconnected();
 }
+
+void ClientEditingWindow::startWithSocketDescriptor(int socketDescriptor)
+{
+	workingCopy = new WorkingCopy(this);
+	SyncThread * thread = new SyncThread(this, socketDescriptor, *workingCopy,
+										 false);
+	thread->start();
+}

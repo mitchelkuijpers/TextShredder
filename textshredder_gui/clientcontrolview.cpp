@@ -13,3 +13,14 @@ ClientControlView::~ClientControlView()
     delete ui;
 }
 
+
+void ClientControlView::on_connectButton_clicked()
+{
+	QString portText(ui->portSpinner->text());
+	QString hostname(ui->serverAdressLineEdit->text());
+	int port = portText.toInt();
+	socket = new QTcpSocket(this);
+	socket->connectToHost(hostname, port);
+	int socketDescriptor = socket->socketDescriptor();
+	connectedToHost(socketDescriptor);
+}

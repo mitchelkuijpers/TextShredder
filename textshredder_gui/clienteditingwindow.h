@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "../textshredder_synchronization_lib/workingcopy.h"
+#include "../textshredder_synchronization_lib/syncthread.h"
 
 namespace Ui {
 	class ClientEditingWindow;
@@ -17,6 +18,7 @@ public:
 	~ClientEditingWindow();
 
 	void setWorkingCopy(WorkingCopy *);
+	void startWithSocketDescriptor(int);
 
 signals:
 	void clientDisconnected();

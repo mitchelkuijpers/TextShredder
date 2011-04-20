@@ -18,6 +18,7 @@ public:
 private slots:
 	void serverDidStart();
 	void clientDisconnected();
+	void clientConnected(int);
 
 private:
     Ui::MainWindow *ui;
