@@ -15,7 +15,6 @@ void Server::incomingConnection(int socketDescriptor)
 
 bool Server::listenWithFile(const QHostAddress &address, quint16 port, QByteArray * fileContent)
 {
-	//qDebug() << *fileContent;
 	this->fileContent = fileContent;
 	listen(address, port);
 

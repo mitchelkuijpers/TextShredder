@@ -3,6 +3,7 @@
 
 #include <QTcpServer>
 #include "serverthread.h"
+#include "../textshredder_synchronization_lib/workingcopy.h"
 
 class Server : public QTcpServer
 {

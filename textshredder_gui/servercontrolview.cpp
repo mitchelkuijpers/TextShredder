@@ -21,6 +21,9 @@ void ServerControlView::on_startButton_clicked()
         qDebug("Could not start the server");
 	}
 
+	WorkingCopy workingCopy(this);
+	workingCopy.setContent((QString &) fileContent);
+
 	ui->logBrowser->append("Server started. Ready to accept clients.");
 
     ui->stopButton->setEnabled(1);
