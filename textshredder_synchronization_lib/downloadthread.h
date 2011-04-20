@@ -2,6 +2,7 @@
 #define DOWNLOADTHREAD_H
 
 #include <QThread>
+#include <QString>
 
 #include "syncproperties.h"
 

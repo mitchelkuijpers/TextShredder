@@ -8,7 +8,13 @@ TextShredderSocket::TextShredderSocket(QObject *parent, int socketDescriptor) :
 
 TextShredderPacket * TextShredderSocket::readPacket()
 {
-	QByteArray buffer(this->read(this->bytesAvailable()));
+	qDebug("aa");
+	QByteArray buffer;
+	do{
+		buffer.append(this->readAll());
+	} while (buffer.size() == 0);
+
+	qDebug() << QString::number(buffer.size());
 	return TextShredderPacketParser::makePacketFromBytes(&buffer);
 }
 

@@ -17,7 +17,7 @@ TextShredderPacket::TextShredderPacket( QObject *parent,
 										QByteArray & content) :
 	QObject(parent), header(NULL), content(content)
 {
-	header = new TextShredderHeader(this, kProtocolVersion, content.size(), packetType);
+	header = new TextShredderHeader(NULL, kProtocolVersion, content.size(), packetType);
 }
 
 TextShredderPacket::TextShredderPacket(TextShredderPacket & otherPacket)

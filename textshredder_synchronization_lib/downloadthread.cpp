@@ -5,14 +5,24 @@ DownloadThread::DownloadThread(	QObject *parent,
 								bool isServer)
 	: QThread(parent), syncPropertiesPointer(&properties), isServer(isServer)
 {
+	qDebug("DownloadThread::DownloadThread();");
 }
 
 void DownloadThread::waitForFileRequest()
 {
+	qDebug("DownloadThread::waitForFileRequest();");
 	//Wait for file request
 	QByteArray byteArray;
 	TextShredderSocket *socket = syncPropertiesPointer->getSocket();
-	TextShredderPacket *packet = socket->readPacket();
+	socket->waitForReadyRead();
+	TextShredderPacket *packet;
+	try{
+		packet = socket->readPacket();
+	} catch (QString error) {
+		emit sendTimeOut();
+		return;
+	}
+
 	if(! packet->isFileRequestPacket()) {
 		emit wrongPacketInDownloadThread (packet);
 		delete packet;
@@ -39,30 +49,37 @@ void DownloadThread::waitForFileRequest()
 
 void DownloadThread::makeFileRequest()
 {
+	qDebug("DownloadThread::makeFileRequest();");
 	QByteArray emptyByteArray;
-	TextShredderPacket fileRequestPacket(this, kPacketTypeFileRequest,emptyByteArray);
+	TextShredderPacket fileRequestPacket(NULL, kPacketTypeFileRequest,emptyByteArray);
 	TextShredderSocket *socket = syncPropertiesPointer->getSocket();
 	socket->writePacket (&fileRequestPacket);
 
+	qDebug("DownloadThread::makeFileRequest(); did write packet");
 	bool result = socket->waitForBytesWritten (15000);
 	if (!result) {
+		qDebug("DownloadThread::makeFileRequest(); write file request failed");
 		emit fileRequestFailed();
 		return;
 	}
 
+	qDebug("DownloadThread::makeFileRequest(); write file request passed read file data");
 	TextShredderPacket *fileDataPacket = socket->readPacket();
 	socket->waitForReadyRead (15000);
 	if (! fileDataPacket->isFileDataPacket()) {
+		qDebug("DownloadThread::makeFileRequest(); read file data failed");
 		emit receiveTimeOut();
 		return;
 	}
 
+	qDebug("DownloadThread::makeFileRequest(); did read file data");
 	QString *workingCopyContent = syncPropertiesPointer->getWorkingCopy()->getContent();
 	*workingCopyContent = QString(fileDataPacket->getContent());
 }
 
 void DownloadThread::run()
 {
+	qDebug("DownloadThread::run();");
 	if (isServer) {
 		waitForFileRequest();
 	} else {

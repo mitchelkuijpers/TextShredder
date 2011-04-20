@@ -6,17 +6,18 @@ SyncThread::SyncThread(QObject *parent, int socketDescriptor,
 	isServer(server), downloadThread(this, syncProperties, isServer),
 	readThread(this, syncProperties), writeThread(this, syncProperties)
 {
-	;
+	qDebug("SyncThread::SyncThread();");
 }
 
 void SyncThread::run()
 {
-		downloadThread.start();
-		downloadThread.wait();
+	qDebug("SyncThread::run();");
+	downloadThread.start();
+	downloadThread.wait();
 
-		readThread.start();
-		writeThread.start();
+	readThread.start();
+	writeThread.start();
 
-		writeThread.wait();
-		readThread.wait();
+	writeThread.wait();
+	readThread.wait();
 }
