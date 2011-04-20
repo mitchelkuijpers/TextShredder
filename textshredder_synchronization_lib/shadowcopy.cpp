@@ -20,24 +20,21 @@ void ShadowCopy::revert()
 {
 	content = *(backupCopy->getContent());
 	this->localVersion = backupCopy->getLocalVersion();
-
 }
 
 void ShadowCopy::backup()
 {
 	backupCopy->setContent(this->content);
 	backupCopy->setLocalVersion(this->localVersion);
-
 }
 
-void ShadowCopy::applyEdits( QList<Edit> * edits )
+void ShadowCopy::applyEdits( QList<Edit> & edits )
 {
-
 	int count = 0;
-	while(count < edits->size()){
-		Edit e = edits->at(count);
+	while(count < edits.size()){
+		Edit e = edits.at(count);
 		if(e.getLocalVersion() < remoteVersion){
-			edits->removeAt(count);
+			edits.removeAt(count);
 			//qDebug("already patched");
 		}
 		else{
@@ -47,9 +44,6 @@ void ShadowCopy::applyEdits( QList<Edit> * edits )
 			//qDebug("patched");
 		}
 	}
-
-
-
 }
 
 
@@ -58,7 +52,6 @@ void ShadowCopy::processPatches( QList<Patch> * patches)
 {
 	this->applyPatches(*patches);
 	localVersion++;
-
 }
 
 unsigned int ShadowCopy::getRemoteVersion()

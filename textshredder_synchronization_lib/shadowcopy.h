@@ -35,7 +35,7 @@ public:
 	  * Fucntion to apply edits if not done yet to the Shadow Copy
 	  * @param List of edits that need to be commited
 	  */
-	void applyEdits( QList<Edit> * edits);
+	void applyEdits( QList<Edit> & edits);
 
 	/**
 	  * Function to apply the changes you have made in your workingcopy
