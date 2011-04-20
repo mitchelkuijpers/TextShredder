@@ -24,6 +24,11 @@ void SyncProperties::pushChanges()
 
 }
 
+void SyncProperties::processChanges()
+{
+
+}
+
 void SyncProperties::applyReceivedEditList(EditList &incomingEditList)
 {
 	shadowCopy.lock();

@@ -33,6 +33,7 @@ signals:
 
 public slots:
 	void pushChanges();
+	void processChanges();
 };
 
 #endif // SYNCPROPERTIES_H
