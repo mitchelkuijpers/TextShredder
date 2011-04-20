@@ -16,6 +16,8 @@ void DownloadThread::waitForFileRequest()
 	TextShredderSocket *socket = syncPropertiesPointer->getSocket();
 	socket->waitForReadyRead();
 	TextShredderPacket *packet;
+
+	qDebug("-- try receiving packet");
 	try{
 		packet = socket->readPacket();
 	} catch (QString error) {
@@ -23,26 +25,34 @@ void DownloadThread::waitForFileRequest()
 		return;
 	}
 
+	qDebug("-- received packet");
 	if(! packet->isFileRequestPacket()) {
+		qDebug("-- received packet is not file request packet");
 		emit wrongPacketInDownloadThread (packet);
 		delete packet;
 		return;
 	}
+
+	qDebug("-- did receive file request packet");
 
 	//Get Working copy content
 	syncPropertiesPointer->getWorkingCopy()->lock();
 	byteArray.append (*(syncPropertiesPointer->getWorkingCopy()->getContent()));
 	syncPropertiesPointer->getWorkingCopy()->unlock();
 
+	qDebug("-- try to write file data");
 	//Write and error check sending working copy data
 	TextShredderPacket fileDataPacket(this,
 									  kPacketTypeFileData,
 									  byteArray);
 	socket->writePacket(&fileDataPacket);
 	bool result = socket->waitForBytesWritten(15000);
+	qDebug("-- did write data");
 	if (!result) {
+		qDebug("-- failed to write data. did time out");
 		emit sendTimeOut();
 	} else {
+		qDebug("-- file transfer complet-o");
 		emit fileDownloadCompleted();
 	}
 }

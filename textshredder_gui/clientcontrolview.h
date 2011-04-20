@@ -15,7 +15,7 @@ class ClientControlView : public QWidget
 public:
 	explicit ClientControlView(QWidget *parent = 0);
 	~ClientControlView();
-
+	QTcpSocket *socket;
 signals:
 	void connectedToHost(int);
 private slots:
