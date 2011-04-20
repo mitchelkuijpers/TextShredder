@@ -23,13 +23,19 @@ void ServerControlView::on_startButton_clicked()
         qDebug("Could not start the server");
 	}
 
-	WorkingCopy workingCopy(this);
-	workingCopy.setContent((QString &) fileContent);
+	workingCopy = new WorkingCopy(this);
+	QString fileContentString = QString(fileContent);
+	workingCopy->setContent(fileContentString);
+	qDebug("Z");
+	qDebug() << fileContentString;
+	qDebug("Y");
 
 	ui->logBrowser->append("Server started. Ready to accept clients.");
 
     ui->stopButton->setEnabled(1);
     ui->startButton->setEnabled(0);
+
+	serverStarted();
 }
 
 
@@ -69,4 +75,9 @@ void ServerControlView::readSelectedFile()
 void ServerControlView::addNewConnectionToLog()
 {
 	ui->logBrowser->append("New client, connection opened.");
+}
+
+WorkingCopy * ServerControlView::getWorkingCopy()
+{
+	return workingCopy;
 }
