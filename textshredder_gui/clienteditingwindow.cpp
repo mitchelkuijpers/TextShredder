@@ -50,8 +50,17 @@ void ClientEditingWindow::on_disconnectButton_clicked()
 
 void ClientEditingWindow::startWithSocketDescriptor(int socketDescriptor)
 {
+	ui->textEdit->setEnabled(false);
 	workingCopy = new WorkingCopy(this);
 	SyncThread * thread = new SyncThread(this, socketDescriptor, *workingCopy,
 										 false);
+	connect(thread, SIGNAL(downloadFinished()), this, SLOT(enableEditing()));
 	thread->start();
+}
+
+void ClientEditingWindow::enableEditing()
+{
+	ui->textEdit->setEnabled(true);
+	qDebug() << workingCopy->getContent();
+	ui->textEdit->setPlainText(*workingCopy->getContent());
 }

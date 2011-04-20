@@ -38,9 +38,9 @@ void MainWindow::clientDisconnected()
 
 void MainWindow::clientConnected(int socketDescriptor)
 {
-	//ui->clientEditingTab->startWithSocketDescriptor(socketDescriptor);
-	WorkingCopy * workingCopy = new WorkingCopy(this);
-	SyncThread * thread = new SyncThread(this, socketDescriptor, *workingCopy,
-										 false);
-	thread->start();
+	ui->main_tab_widget->setCurrentWidget(ui->clientEditingTab);
+	ui->main_tab_widget->setTabEnabled(0, false);
+	ui->main_tab_widget->setTabEnabled(1, false);
+	ui->main_tab_widget->setTabEnabled(2, true);
+	ui->clientEditingTab->startWithSocketDescriptor(socketDescriptor);
 }

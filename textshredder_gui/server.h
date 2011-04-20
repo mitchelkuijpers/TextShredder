@@ -14,6 +14,7 @@ public:
 
 protected:
     void incomingConnection(int socketDescriptor);
+
 private:
 	WorkingCopy * copy;
 
