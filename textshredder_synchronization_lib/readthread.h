@@ -11,11 +11,16 @@ public:
     explicit ReadThread(QObject *parent, SyncProperties *syncProperties);
 
 signals:
+	void newDataReady();
+
 
 public slots:
 
 private:
     SyncProperties *syncProperties;
+	/**
+	  * Send signal to syncproperties when there are new changes waiting.
+	  */
     void run();
 };
 
