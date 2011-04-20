@@ -16,8 +16,10 @@ public:
 	explicit SyncThread(QObject *, int , WorkingCopy &, bool);
 
 signals:
+	void downloadFinished();
 
 public slots:
+	void downloadThreadFinished();
 
 private:
 	SyncProperties syncProperties;

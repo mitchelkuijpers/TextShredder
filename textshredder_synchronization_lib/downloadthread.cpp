@@ -14,9 +14,7 @@ void DownloadThread::waitForFileRequest()
 	//Wait for file request
 	QByteArray byteArray;
 	TextShredderSocket *socket = syncPropertiesPointer->getSocket();
-	socket->waitForReadyRead();
 	TextShredderPacket *packet;
-
 	qDebug("-- try receiving packet");
 	try{
 		packet = socket->readPacket();
@@ -75,7 +73,6 @@ void DownloadThread::makeFileRequest()
 
 	qDebug("DownloadThread::makeFileRequest(); write file request passed read file data");
 	TextShredderPacket *fileDataPacket = socket->readPacket();
-	socket->waitForReadyRead (15000);
 	if (! fileDataPacket->isFileDataPacket()) {
 		qDebug("DownloadThread::makeFileRequest(); read file data failed");
 		emit receiveTimeOut();
@@ -85,6 +82,8 @@ void DownloadThread::makeFileRequest()
 	qDebug("DownloadThread::makeFileRequest(); did read file data");
 	QString *workingCopyContent = syncPropertiesPointer->getWorkingCopy()->getContent();
 	*workingCopyContent = QString(fileDataPacket->getContent());
+	qDebug() << &workingCopyContent;
+	qDebug() << *syncPropertiesPointer->getWorkingCopy()->getContent();
 }
 
 void DownloadThread::run()

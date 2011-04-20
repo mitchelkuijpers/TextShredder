@@ -26,6 +26,7 @@ signals:
 private slots:
 	void on_disconnectButton_clicked();
 	void textChanged( int, int, int );
+	void enableEditing();
 
 private:
 	Ui::ClientEditingWindow *ui;

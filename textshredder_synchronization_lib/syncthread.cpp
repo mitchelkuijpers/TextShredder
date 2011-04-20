@@ -6,6 +6,7 @@ SyncThread::SyncThread(QObject *parent, int socketDescriptor,
 	isServer(server), downloadThread(this, syncProperties, isServer),
 	readThread(this, syncProperties), writeThread(this, syncProperties)
 {
+	connect(&downloadThread, SIGNAL(finished()), this, SLOT(downloadThreadFinished()));
 	qDebug("SyncThread::SyncThread();");
 }
 
@@ -20,4 +21,10 @@ void SyncThread::run()
 
 	writeThread.wait();
 	readThread.wait();
+}
+
+void SyncThread::downloadThreadFinished()
+{
+	qDebug("send downloadFinished signal");
+	downloadFinished();
 }

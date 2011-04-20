@@ -13,11 +13,10 @@ TextShredderPacket * TextShredderSocket::readPacket()
 	//this->waitForReadyRead ();
 	qDebug("-- ready read");
 	QByteArray buffer;//(this->readAll());
-
-
-	do{
-		buffer.append(this->readAll());
-	} while (buffer.size() == 0);
+	while (this->bytesAvailable() == 0) {
+		this->waitForReadyRead(100);
+	}
+	buffer.append(this->readAll());;
 	qDebug("-- did read");
 
 	qDebug() << QString::number(buffer.size());
