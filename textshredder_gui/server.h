@@ -2,7 +2,7 @@
 #define SERVER_H
 
 #include <QTcpServer>
-#include "serverthread.h"
+#include <QString>
 #include "../textshredder_synchronization_lib/workingcopy.h"
 
 class Server : public QTcpServer
@@ -15,7 +15,7 @@ public:
 protected:
     void incomingConnection(int socketDescriptor);
 private:
-	QByteArray * fileContent;
+	WorkingCopy * copy;
 
 };
 

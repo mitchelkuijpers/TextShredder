@@ -22,6 +22,7 @@ private slots:
 	void on_fileSelectButton_clicked();
 	void on_startButton_clicked();
 	void on_stopButton_clicked();
+	void addNewConnectionToLog();
 
 private:
 	Ui::ServerControlView *ui;

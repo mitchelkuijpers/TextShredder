@@ -16,6 +16,8 @@ ServerControlView::~ServerControlView()
 
 void ServerControlView::on_startButton_clicked()
 {
+	connect(server, SIGNAL(newConnection()),
+			this, SLOT(addNewConnectionToLog()));
     int portNumber = ui->portSpinBox->text().toInt();
 	if(!server->listenWithFile(QHostAddress::Any, portNumber, &fileContent)) {
         qDebug("Could not start the server");
@@ -62,4 +64,9 @@ void ServerControlView::readSelectedFile()
 	fileContent = file.readAll();
 	ui->logBrowser->append("File selected. Ready to start server.");
 	ui->startButton->setEnabled(1);
+}
+
+void ServerControlView::addNewConnectionToLog()
+{
+	ui->logBrowser->append("New client, connection opened.");
 }

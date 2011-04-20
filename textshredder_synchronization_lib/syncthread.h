@@ -22,6 +22,9 @@ public slots:
 private:
 	SyncProperties syncProperties;
 	bool isServer;
+	DownloadThread downloadThread;
+	ReadThread readThread;
+	WriteThread writeThread;
 
 	/**
 	  * Start DownloadThread, after finished start Read/WriteThread.
