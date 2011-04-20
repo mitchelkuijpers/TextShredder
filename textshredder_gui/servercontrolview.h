@@ -6,6 +6,9 @@
 #include <QFileDialog>
 #include <QFile>
 #include <QChar>
+
+#define SIMPLESTARTPORTNUMBER 1027
+
 namespace Ui {
 	class ServerControlView;
 }
@@ -23,6 +26,7 @@ signals:
 	void serverStarted();
 
 private slots:
+	void on_startSimpleButton_clicked();
 	void on_fileSelectButton_clicked();
 	void on_startButton_clicked();
 	void on_stopButton_clicked();
