@@ -7,7 +7,7 @@
 #include "edit.h"
 #include "textshredderpacket.h"
 
-class EditList : public QObject
+class EditList : public QObject, public QMutex
 {
     Q_OBJECT
 public:
@@ -27,10 +27,16 @@ public:
 
 
 	bool operator==(EditList &);
+
 	/**
 	  * Check whetter EditList does not contain any Edit objects.
 	  */
 	bool isEmpty();
+
+	/**
+	  * Empty the edit list.
+	  */
+	void empty();
 
 	/**
 	  * Function will add an Edit object to the edits in the EditList object

@@ -111,4 +111,7 @@ bool EditList::isEmpty()
 	return (this->edits.count() == 0);
 }
 
+void EditList::empty() {
+	edits.empty();
+}
 

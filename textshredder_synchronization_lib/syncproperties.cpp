@@ -5,7 +5,7 @@ SyncProperties::SyncProperties(QObject *parent, int socketDescriptor,
 	QObject(parent), workingCopy(workingCopy), editList(this),
 	textShredderSocket(this, socketDescriptor), shadowCopy(this)
 {
-
+	*(shadowCopy.getContent ()) = *workingCopy->getContent();
 };
 
 TextShredderSocket * SyncProperties::getSocket()
@@ -19,12 +19,22 @@ WorkingCopy * SyncProperties::getWorkingCopy()
 }
 
 
-void SyncProperties::pushChanges() {
+void SyncProperties::pushChanges()
+{
 
 }
 
-void SyncProperties::applyReceivedEditList(EditList &editList)
+void SyncProperties::applyReceivedEditList(EditList &incomingEditList)
 {
+	shadowCopy.lock();
+	int currentLocalVersion = shadowCopy.getLocalVersion ();
+	int incommingLocalVersion = incomingEditList.getRemoteVersion();
 
+	if(incommingLocalVersion < currentLocalVersion) {
+		shadowCopy.revert();
+		editList.lock();
+		editList.empty();
+		editList.unlock();
+	}
 }
 

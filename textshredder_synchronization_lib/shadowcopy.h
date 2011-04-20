@@ -8,7 +8,7 @@
 #include "patchable.h"
 
 
-class ShadowCopy : public Patchable, QMutex
+class ShadowCopy : public Patchable, public QMutex
 {
     Q_OBJECT
 
