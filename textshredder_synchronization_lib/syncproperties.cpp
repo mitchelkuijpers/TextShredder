@@ -18,7 +18,6 @@ WorkingCopy * SyncProperties::getWorkingCopy()
 	return workingCopy;
 }
 
-
 void SyncProperties::pushChanges()
 {
 	shadowCopy.lock();
@@ -79,7 +78,7 @@ void SyncProperties::applyReceivedEditList(EditList &incomingEditList)
 
 	editList.lock ();
 	editList.updateToRemoteAndLocalVersion(currentKnownRemoteVersion,
-										   currentKnownLocalVersion);
+											currentKnownLocalVersion);
 	editList.unlock ();
 
 	workingCopy->unlock();
