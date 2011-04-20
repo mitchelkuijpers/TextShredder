@@ -16,7 +16,7 @@ namespace TextShredderPacketParser
 	 * @throws QString when the protocolVersion is wrong
 	 *
 	 */
-    TextShredderPacket* makePacketFromBytes(QByteArray * bytes);
+	TextShredderPacket* makeAllocatedPacketFromBytes(QByteArray * bytes);
 }
 
 #endif // TEXTSHREDDERPACKETPARSER_H

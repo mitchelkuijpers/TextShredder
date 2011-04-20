@@ -26,7 +26,7 @@ public:
 	  * @param the header.
 	  * @param the content.
 	  */
-	TextShredderPacket( QObject *, TextShredderHeader *, QByteArray & );
+	TextShredderPacket( QObject *, TextShredderHeader &, QByteArray & );
 
 	/**
 	  * Constructor which makes an TextShredderPacket with
@@ -58,14 +58,14 @@ public:
 
 	//Getters
 	QByteArray & getContent();
-	TextShredderHeader * getHeader();
+	TextShredderHeader & getHeader();
 
 signals:
 
 public slots:
 
 private:
-	TextShredderHeader * header;
+	TextShredderHeader header;
 	QByteArray content;
 };
 

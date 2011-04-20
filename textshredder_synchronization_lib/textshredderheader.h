@@ -48,6 +48,10 @@ public:
      */
     TextShredderHeader( QObject *parent, const QByteArray & );
 
+	TextShredderHeader(const TextShredderHeader & other);
+
+	TextShredderHeader & operator=(const TextShredderHeader & other);
+
     /**
      * Function to make a byte array representation of a TextShredderHeader
      *

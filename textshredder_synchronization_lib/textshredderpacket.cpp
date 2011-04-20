@@ -3,11 +3,10 @@
 TextShredderPacket::TextShredderPacket( QObject *parent ) :
 	QObject(parent), header(NULL)
 {
-	header = new TextShredderHeader( this );
 }
 
 TextShredderPacket::TextShredderPacket(QObject *parent,
-									   TextShredderHeader * header, QByteArray & content) :
+									   TextShredderHeader & header, QByteArray & content) :
     QObject(parent), header(header), content(content)
 {
 }
@@ -15,9 +14,8 @@ TextShredderPacket::TextShredderPacket(QObject *parent,
 TextShredderPacket::TextShredderPacket( QObject *parent,
 										unsigned char packetType,
 										QByteArray & content) :
-	QObject(parent), header(NULL), content(content)
+	QObject(parent), header(NULL, kProtocolVersion, content.size (), packetType), content(content)
 {
-	header = new TextShredderHeader(NULL, kProtocolVersion, content.size(), packetType);
 }
 
 TextShredderPacket::TextShredderPacket(TextShredderPacket & otherPacket)
@@ -35,17 +33,17 @@ TextShredderPacket & TextShredderPacket::operator=(TextShredderPacket & otherPac
 
 bool TextShredderPacket::isEditPacket()
 {
-	return header->getPacketType() == kPacketTypeEdits;
+	return header.getPacketType() == kPacketTypeEdits;
 }
 
 bool TextShredderPacket::isFileDataPacket ()
 {
-	return header->getPacketType() == kPacketTypeFileData;
+	return header.getPacketType() == kPacketTypeFileData;
 }
 
 bool TextShredderPacket::isFileRequestPacket()
 {
-	return header->getPacketType() == kPacketTypeFileRequest;
+	return header.getPacketType() == kPacketTypeFileRequest;
 }
 
 QByteArray & TextShredderPacket::getContent()
@@ -53,6 +51,6 @@ QByteArray & TextShredderPacket::getContent()
 	return content;
 }
 
-TextShredderHeader * TextShredderPacket::getHeader() {
+TextShredderHeader & TextShredderPacket::getHeader() {
 	return header;
 }

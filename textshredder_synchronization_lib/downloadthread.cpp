@@ -32,7 +32,7 @@ void DownloadThread::waitForFileRequest()
 		delete packet;
 		return;
 	}
-
+	delete packet;
 	qDebug("-- did receive file request packet");
 
 	//Get Working copy content
@@ -85,6 +85,7 @@ void DownloadThread::makeFileRequest()
 	qDebug("DownloadThread::makeFileRequest(); did read file data");
 	QString *workingCopyContent = syncPropertiesPointer->getWorkingCopy()->getContent();
 	*workingCopyContent = QString(fileDataPacket->getContent());
+	delete fileDataPacket;
 }
 
 void DownloadThread::run()

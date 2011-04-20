@@ -21,14 +21,14 @@ TextShredderPacket * TextShredderSocket::readPacket()
 	qDebug("-- did read");
 
 	qDebug() << QString::number(buffer.size());
-	return TextShredderPacketParser::makePacketFromBytes(&buffer);
+	return TextShredderPacketParser::makeAllocatedPacketFromBytes(&buffer);
 }
 
 void TextShredderSocket::writePacket(TextShredderPacket * packet)
 {
 	QByteArray buffer;
 	QByteArray content(packet->getContent());
-	packet->getHeader()->appendToQByteArray(buffer);
+	packet->getHeader().appendToQByteArray(buffer);
 	buffer.append(content);
 	this->write(buffer);
 }

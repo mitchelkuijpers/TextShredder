@@ -34,6 +34,22 @@ QObject(parent)
     packetType = buffer[offset];
 }
 
+TextShredderHeader::TextShredderHeader(const TextShredderHeader & other)
+	: QObject(other.parent())
+{
+	this->contentLength = other.contentLength;
+	this->packetType = other.packetType;
+	this->protocolVersion = other.protocolVersion;
+}
+
+TextShredderHeader & TextShredderHeader::operator=(const TextShredderHeader & other)
+{
+	this->contentLength = other.contentLength;
+	this->packetType = other.packetType;
+	this->protocolVersion = other.protocolVersion;
+	return *this;
+}
+
 void TextShredderHeader::appendToQByteArray( QByteArray &buffer )
 {
     buffer.append( protocolVersion );
