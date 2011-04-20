@@ -21,7 +21,24 @@ WorkingCopy * SyncProperties::getWorkingCopy()
 
 void SyncProperties::pushChanges()
 {
+	shadowCopy.lock();
+	QString *shadowCopyContent = shadowCopy.getContent();
+	int shadowLocalVersion = shadowCopy.getLocalVersion();
 
+	workingCopy->lock();
+	QList<Patch> newPatches = workingCopy->getPatchesToConvertString (*shadowCopyContent);
+	editList.addEdit (Edit(this, shadowLocalVersion, newPatches));
+	shadowCopy.processPatches(newPatches);
+
+	editList.lock();
+	TextShredderPacket *newPacket =editList.getAllocatedPacket();
+	editList.unlock();
+
+	textShredderSocket.writePacket (newPacket);
+
+	workingCopy->unlock();
+	shadowCopy.unlock();
+	delete newPacket;
 }
 
 void SyncProperties::processChanges()

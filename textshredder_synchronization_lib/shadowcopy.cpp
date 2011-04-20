@@ -48,9 +48,9 @@ void ShadowCopy::applyEdits( QList<Edit> & edits )
 
 
 
-void ShadowCopy::processPatches( QList<Patch> * patches)
+void ShadowCopy::processPatches( QList<Patch> &patches)
 {
-	this->applyPatches(*patches);
+	this->applyPatches(patches);
 	localVersion++;
 }
 

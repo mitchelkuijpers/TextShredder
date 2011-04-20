@@ -41,7 +41,7 @@ public:
 	  * Function to apply the changes you have made in your workingcopy
 	  * @param List of patches from changes you made
 	  */
-	void processPatches( QList<Patch> * patches);
+	void processPatches( QList<Patch> & patches);
 
 signals:
 
