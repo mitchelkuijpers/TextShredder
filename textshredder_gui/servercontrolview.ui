@@ -58,6 +58,13 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="startSimpleButton">
+         <property name="text">
+          <string>Start Simple</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item row="1" column="1">

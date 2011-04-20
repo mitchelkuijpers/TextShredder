@@ -81,3 +81,24 @@ WorkingCopy * ServerControlView::getWorkingCopy()
 {
 	return workingCopy;
 }
+
+void ServerControlView::on_startSimpleButton_clicked()
+{
+	fileContent = "This is nice file content!\nHaha\n\nIt's working!";
+
+	if( !server->listenWithFile( QHostAddress::Any, SIMPLESTARTPORTNUMBER, &fileContent ) ) {
+		qDebug("Could not start the server");
+	}
+
+	workingCopy = new WorkingCopy(this);
+	QString fileContentString = QString(fileContent);
+	workingCopy->setContent(fileContentString);
+
+	ui->logBrowser->append("Server started. Ready to accept clients.");
+
+	ui->stopButton->setEnabled(1);
+	ui->startButton->setEnabled(0);
+	ui->startSimpleButton->setEnabled(0);
+
+	serverStarted();
+}
