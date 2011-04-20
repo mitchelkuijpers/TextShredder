@@ -8,14 +8,19 @@ class ReadThread : public QThread
 {
     Q_OBJECT
 public:
-    explicit ReadThread(QObject *parent, SyncProperties *syncProperties);
+	explicit ReadThread(QObject *, SyncProperties &);
 
 signals:
+	void newDataReady();
+
 
 public slots:
 
 private:
     SyncProperties *syncProperties;
+	/**
+	  * Send signal to syncproperties when there are new changes waiting.
+	  */
     void run();
 };
 

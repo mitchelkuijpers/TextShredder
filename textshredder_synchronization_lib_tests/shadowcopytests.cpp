@@ -146,7 +146,7 @@ void ShadowCopyTests::processPatchesTest()
 	testEdits.insert(0, e1);
 	testEdits.insert(1, e2);
 
-	testShadow->processPatches(&pList1);
+	testShadow->processPatches(pList1);
 
 	QVERIFY2(QString::compare(*(testShadow->getContent()), text1) == 0,
 			 "Shadow did not patch");

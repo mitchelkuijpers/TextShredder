@@ -60,11 +60,14 @@ void ServerControlView::readSelectedFile()
 	QFile file(openedFilePath);
 
 	if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+		ui->logBrowser->append("No file selected, try again.");
+		ui->startButton->setEnabled(0);
 		return;
 	}
 
 	fileContent = file.readAll();
 	ui->logBrowser->append("File selected. Ready to start server.");
+	ui->startButton->setEnabled(1);
 }
 
 WorkingCopy * ServerControlView::getWorkingCopy()

@@ -1,7 +1,7 @@
 #include "syncproperties.h"
 
 SyncProperties::SyncProperties(QObject *parent, int socketDescriptor,
-			   WorkingCopy * workingCopy) :
+			   WorkingCopy *workingCopy) :
 	QObject(parent), workingCopy(workingCopy), editList(this),
 	textShredderSocket(this, socketDescriptor), shadowCopy(this)
 {
@@ -18,10 +18,26 @@ WorkingCopy * SyncProperties::getWorkingCopy()
 	return workingCopy;
 }
 
-
 void SyncProperties::pushChanges()
 {
+	shadowCopy.lock();
+	QString *shadowCopyContent = shadowCopy.getContent();
+	int shadowLocalVersion = shadowCopy.getLocalVersion();
 
+	workingCopy->lock();
+	QList<Patch> newPatches = workingCopy->getPatchesToConvertString (*shadowCopyContent);
+	editList.addEdit (Edit(this, shadowLocalVersion, newPatches));
+	shadowCopy.processPatches(newPatches);
+
+	editList.lock();
+	TextShredderPacket *newPacket =editList.getAllocatedPacket();
+	editList.unlock();
+
+	textShredderSocket.writePacket (newPacket);
+
+	workingCopy->unlock();
+	shadowCopy.unlock();
+	delete newPacket;
 }
 
 void SyncProperties::processChanges()
@@ -62,7 +78,7 @@ void SyncProperties::applyReceivedEditList(EditList &incomingEditList)
 
 	editList.lock ();
 	editList.updateToRemoteAndLocalVersion(currentKnownRemoteVersion,
-										   currentKnownLocalVersion);
+											currentKnownLocalVersion);
 	editList.unlock ();
 
 	workingCopy->unlock();
