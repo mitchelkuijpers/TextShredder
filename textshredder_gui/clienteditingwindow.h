@@ -2,6 +2,7 @@
 #define CLIENTEDITINGWINDOW_H
 
 #include <QWidget>
+#include "../textshredder_synchronization_lib/workingcopy.h"
 
 namespace Ui {
 	class ClientEditingWindow;
@@ -15,8 +16,19 @@ public:
 	explicit ClientEditingWindow(QWidget *parent = 0);
 	~ClientEditingWindow();
 
+	void setWorkingCopy(WorkingCopy *);
+
+signals:
+	void clientDisconnected();
+
+private slots:
+	void on_disconnectButton_clicked();
+	void textChanged( int, int, int );
+
 private:
 	Ui::ClientEditingWindow *ui;
+
+	WorkingCopy *workingCopy;
 };
 
 #endif // CLIENTEDITINGWINDOW_H

@@ -18,6 +18,10 @@ public:
 	explicit ServerControlView(QWidget *parent = 0);
 	~ServerControlView();
 
+	WorkingCopy * getWorkingCopy();
+signals:
+	void serverStarted();
+
 private slots:
 	void on_fileSelectButton_clicked();
 	void on_startButton_clicked();
@@ -26,11 +30,13 @@ private slots:
 private:
 	Ui::ServerControlView *ui;
 	Server *server;
+	WorkingCopy *workingCopy;
 
 protected:
 	void readSelectedFile();
 	QString openedFilePath;
 	QByteArray fileContent;
+
 };
 
 #endif // SERVERCONTROLVIEW_H

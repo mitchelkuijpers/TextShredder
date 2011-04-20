@@ -35,8 +35,11 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QTabWidget" name="main_tab_widget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="ClientControlView" name="clientTab">
        <attribute name="title">
@@ -49,6 +52,9 @@
        </attribute>
       </widget>
       <widget class="ClientEditingWindow" name="clientEditingTab">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <attribute name="title">
         <string>Active Client</string>
        </attribute>
