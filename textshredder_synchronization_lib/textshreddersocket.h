@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTcpSocket>
+#include <QMutex>
 #include "textshredderpacketparser.h"
 #include "textshredderpacket.h"
 #include "textshredderheader.h"
@@ -36,6 +37,13 @@ public:
 	  * @param The packet to be written to the socket.
 	  */
 	void writePacket(TextShredderPacket * packet);
+	void socketIsDoneWithWriting(qint64);
+	void socketError(QAbstractSocket::SocketError);
+private:
+	QMutex mutex;
+private slots:
+	void socketIsReadyForReading();
+
 };
 
 #endif // TEXTSHREDDERSOCKET_H

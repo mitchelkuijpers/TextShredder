@@ -55,6 +55,13 @@
      </item>
     </layout>
    </item>
+   <item row="2" column="0">
+    <widget class="QPushButton" name="testButton">
+     <property name="text">
+      <string>Quick test</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>

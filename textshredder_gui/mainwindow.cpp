@@ -9,7 +9,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	connect(ui->serverTab, SIGNAL(serverStarted()), this, SLOT(serverDidStart()));
 	ui->main_tab_widget->setCurrentWidget(ui->serverTab);
-	ui->main_tab_widget->setTabEnabled(2, false);
 	connect(ui->clientTab, SIGNAL(connectedToHost(int)), this, SLOT(clientConnected(int)));
 	connect(ui->clientEditingTab, SIGNAL(clientDisconnected()), this, SLOT(clientDisconnected()));
 }

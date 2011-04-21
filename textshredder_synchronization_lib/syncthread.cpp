@@ -15,12 +15,13 @@ void SyncThread::run()
 	qDebug("SyncThread::run();");
 	downloadThread.start();
 	downloadThread.wait();
+//	readThread.start();
+//	writeThread.start();
 
-	readThread.start();
-	writeThread.start();
+//	writeThread.wait();
+//	readThread.wait();
 
-	writeThread.wait();
-	readThread.wait();
+	this->exit(0);
 }
 
 void SyncThread::downloadThreadFinished()

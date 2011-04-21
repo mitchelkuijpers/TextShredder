@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "../textshredder_synchronization_lib/workingcopy.h"
 #include "../textshredder_synchronization_lib/syncthread.h"
+#include "../textshredder_synchronization_lib/textshreddersocket.h"
 
 namespace Ui {
 	class ClientEditingWindow;
@@ -27,10 +28,12 @@ private slots:
 	void on_disconnectButton_clicked();
 	void textChanged( int, int, int );
 	void enableEditing();
+	void updateWorkingCopy();
+	void on_testButton_clicked();
 
 private:
 	Ui::ClientEditingWindow *ui;
-
+	QTcpSocket * socket;
 	WorkingCopy *workingCopy;
 };
 

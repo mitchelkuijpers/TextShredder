@@ -64,3 +64,24 @@ void ClientEditingWindow::enableEditing()
 	qDebug() << workingCopy->getContent();
 	ui->textEdit->setPlainText(*workingCopy->getContent());
 }
+
+void ClientEditingWindow::on_testButton_clicked()
+{
+	socket = new QTcpSocket(this);
+	socket->connectToHost("127.0.0.1", 1027);
+	int socketDescriptor = socket->socketDescriptor();
+
+	workingCopy = new WorkingCopy(this);
+	SyncThread * thread = new SyncThread(this, socketDescriptor, *workingCopy,
+										 false);
+	connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+	connect(thread, SIGNAL(downloadFinished()), this, SLOT(updateWorkingCopy()));
+	thread->start();
+
+}
+
+void ClientEditingWindow::updateWorkingCopy()
+{
+	qDebug() << workingCopy->getContent();
+	ui->textEdit->setPlainText(*workingCopy->getContent());
+}

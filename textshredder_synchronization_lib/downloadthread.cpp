@@ -3,7 +3,7 @@
 DownloadThread::DownloadThread(	QObject *parent,
 								SyncProperties &properties,
 								bool isServer)
-	: QThread(parent), syncPropertiesPointer(&properties), isServer(isServer)
+	: QThread(0), syncPropertiesPointer(&properties), isServer(isServer)
 {
 	qDebug("DownloadThread::DownloadThread();");
 }
