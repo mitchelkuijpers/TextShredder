@@ -35,6 +35,7 @@ private:
 	Ui::ClientEditingWindow *ui;
 	QTcpSocket * socket;
 	WorkingCopy *workingCopy;
+	void updateTextFieldToWorkingCopyContent();
 };
 
 #endif // CLIENTEDITINGWINDOW_H
