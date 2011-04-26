@@ -24,27 +24,18 @@ void MainWindow::serverDidStart()
 {
 	qDebug("MainWindow::serverDidStart()");
 	ui->main_tab_widget->setCurrentWidget(ui->clientEditingTab);
-	ui->main_tab_widget->setTabEnabled(0, false);
-	ui->main_tab_widget->setTabEnabled(1, false);
-	ui->main_tab_widget->setTabEnabled(2, true);
 }
 
 void MainWindow::clientDisconnected()
 {
 	qDebug("MainWindow::clientDisconnected()");
 	ui->main_tab_widget->setCurrentWidget(ui->clientTab);
-	ui->main_tab_widget->setTabEnabled(0, true);
-	ui->main_tab_widget->setTabEnabled(1, true);
-	ui->main_tab_widget->setTabEnabled(2, false);
 }
 
 void MainWindow::clientConnected(int socketDescriptor)
 {
 	qDebug("MainWindow::clientConnected()");
 	ui->main_tab_widget->setCurrentWidget(ui->clientEditingTab);
-	ui->main_tab_widget->setTabEnabled(0, false);
-	ui->main_tab_widget->setTabEnabled(1, false);
-	ui->main_tab_widget->setTabEnabled(2, true);
 	ui->clientEditingTab->startWithSocketDescriptor(socketDescriptor);
 }
 

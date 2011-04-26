@@ -40,7 +40,6 @@ void ClientEditingWindow::on_disconnectButton_clicked()
 void ClientEditingWindow::startWithSocketDescriptor(int socketDescriptor)
 {
 	qDebug("ClientEditingWindow::startWithSocketDescriptor()");
-	ui->textEdit->setEnabled(false);
 	SyncThread * thread = new SyncThread(this, socketDescriptor, *(new WorkingCopy(this)),
 										 false);
 	connect(thread, SIGNAL(downloadFinished()), this, SLOT(enableEditing()));
@@ -50,7 +49,6 @@ void ClientEditingWindow::startWithSocketDescriptor(int socketDescriptor)
 void ClientEditingWindow::enableEditing()
 {
 	qDebug("ClientEditingWindow::enableEditing()");
-	ui->textEdit->setEnabled(true);
 	qDebug() << syncFile->getWorkingCopy()->getContent();
 	this->updateTextFieldToWorkingCopyContent();
 }
