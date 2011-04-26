@@ -25,9 +25,8 @@ void TextShredderConnection::read()
 
 	QByteArray packet;
 	packet.append(buffer);
-
-	emit newIncomingPacket(
-				TextShredderPacketParser::makeAllocatedPacketFromBytes(&packet));
+	TextShredderPacket * tsPacket = TextShredderPacketParser::makeAllocatedPacketFromBytes(&packet);
+	emit newIncomingPacket( *tsPacket);
 }
 
 void TextShredderConnection::write(TextShredderPacket packet)

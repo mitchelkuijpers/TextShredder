@@ -30,7 +30,7 @@ private:
 signals:
 	void statusChanged(TextShredderConnectionStatus);
 	void queueChanged();
-	void newIncomingPacket(TextShredderPacket * packet);
+	void newIncomingPacket(TextShredderPacket packet);
 
 public slots:
 
