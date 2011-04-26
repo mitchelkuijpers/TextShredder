@@ -41,7 +41,6 @@ protected:
 	void readSelectedFile();
 	QString openedFilePath;
 	QByteArray fileContent;
-
 };
 
 #endif // SERVERCONTROLVIEW_H

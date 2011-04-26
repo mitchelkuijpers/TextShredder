@@ -27,6 +27,7 @@ public:
 	WorkingCopy * getWorkingCopy();
 	QList<QString> & getAvailableClients();
 
+	QString & getFileAlias();
 private:
 	FileType typeForSuffix(QString &suffix);
 	QString filePath;
