@@ -6,6 +6,7 @@
 #include <QList>
 #include <QTextStream>
 #include <QTextOStream>
+#include <QHostAddress>
 #include "textshredderpacket.h"
 #include "textshredderpacketparser.h"
 
@@ -14,6 +15,7 @@ class TextShredderConnection : public QObject
     Q_OBJECT
 public:
 	explicit TextShredderConnection(QObject *parent, int socketDescriptor);
+	QString getPeerAdress();
 
 private:
 	QTcpSocket socket;

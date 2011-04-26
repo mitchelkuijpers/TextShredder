@@ -58,3 +58,8 @@ void TextShredderConnection::socketError(QAbstractSocket::SocketError error)
 	this->status = TextShredderConnection::Error;
 	emit statusChanged(this->status);
 }
+
+QString TextShredderConnection::getPeerAdress() {
+	QHostAddress peerAdress = socket.peerAddress();
+	return peerAdress.toString();
+}
