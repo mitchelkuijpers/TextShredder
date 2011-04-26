@@ -35,6 +35,7 @@ private:
 	QList<QString> clients;
 
 	void notifyAvailableClientsChanged();
+	WorkingCopy * getWorkingCopy();
 signals:
 	void availableClientsChanged();
 

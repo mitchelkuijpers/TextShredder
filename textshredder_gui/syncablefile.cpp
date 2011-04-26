@@ -55,3 +55,8 @@ void SyncableFile::notifyAvailableClientsChanged()
 {
 	emit availableClientsChanged();
 }
+
+WorkingCopy * SyncableFile::getWorkingCopy()
+{
+	return workingCopy;
+}
