@@ -12,6 +12,8 @@ public:
 
 	void addFileWithPath(QString &path);
 	void removeFile(SyncableFile *file);
+	SyncableFile * getFirstSyncableFileFromFileList();
+
 private:
 	FileManager(QObject *parent = 0);
 	QList<SyncableFile *> fileList;
