@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "filemanager.h"
+#include "clienteditingwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
@@ -10,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->serverTab, SIGNAL(serverStarted()), this, SLOT(serverDidStart()));
 	ui->main_tab_widget->setCurrentWidget(ui->serverTab);
 	connect(ui->clientTab, SIGNAL(connectedToHost(int)), this, SLOT(clientConnected(int)));
-	connect(ui->clientEditingTab, SIGNAL(clientDisconnected()), this, SLOT(clientDisconnected()));
 	connect(FileManager::Instance(), SIGNAL(fileStarted(SyncableFile *)), this, SLOT(fileStarted(SyncableFile *)));
 
 }
@@ -22,26 +22,29 @@ MainWindow::~MainWindow()
 
 void MainWindow::serverDidStart()
 {
-	qDebug("MainWindow::serverDidStart()");
-	ui->main_tab_widget->setCurrentWidget(ui->clientEditingTab);
 }
 
-void MainWindow::clientDisconnected()
+void MainWindow::editingDisconnected()
 {
-	qDebug("MainWindow::clientDisconnected()");
-	ui->main_tab_widget->setCurrentWidget(ui->clientTab);
+	qDebug("MainWindow::editingDisconnected()");
+	ClientEditingWindow *editingWindow = (ClientEditingWindow *) sender();
+	int tabIndex = ui->main_tab_widget->indexOf (editingWindow);
+	ui->main_tab_widget->removeTab (tabIndex);
+	delete editingWindow;
+
+	ui->main_tab_widget->setCurrentWidget(ui->serverTab);
 }
 
 void MainWindow::clientConnected(int socketDescriptor)
 {
 	qDebug("MainWindow::clientConnected()");
-	ui->main_tab_widget->setCurrentWidget(ui->clientEditingTab);
-	ui->clientEditingTab->startWithSocketDescriptor(socketDescriptor);
 }
 
 void MainWindow::fileStarted(SyncableFile * file)
 {
 	ClientEditingWindow *editingWindow = new ClientEditingWindow(this);
+	connect(editingWindow, SIGNAL(clientDisconnected()), this, SLOT(editingDisconnected()));
 	ui->main_tab_widget->addTab (editingWindow, file->getFileAlias());
 	editingWindow->startEditingWithFile (file);
+	ui->main_tab_widget->setCurrentWidget (editingWindow);
 }

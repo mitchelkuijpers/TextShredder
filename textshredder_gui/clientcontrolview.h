@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QTcpSocket>
 
+#include "../textshredder_synchronization_lib/textshredderconnection.h"
+
 namespace Ui {
 	class ClientControlView;
 }
@@ -24,6 +26,7 @@ private slots:
 
 private:
 	Ui::ClientControlView *ui;
+	TextShredderConnection *connection;
 };
 
 #endif // CLIENTCONTROLVIEW_H

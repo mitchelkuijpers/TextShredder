@@ -18,7 +18,7 @@ public:
 
 private slots:
 	void serverDidStart();
-	void clientDisconnected();
+	void editingDisconnected();
 	void clientConnected(int);
 	void fileStarted(SyncableFile *);
 

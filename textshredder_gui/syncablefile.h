@@ -17,6 +17,7 @@ class SyncableFile : public QObject
 public:
 	explicit SyncableFile(QObject *parent, QString &path);
 	explicit SyncableFile(QObject *parent, QString &path, QString &alias);
+	SyncableFile(QObject *parent);
 
 	/**
 	  * Will change the file type for the SyncableFile

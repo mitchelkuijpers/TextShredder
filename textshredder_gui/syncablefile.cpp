@@ -1,5 +1,17 @@
 #include "syncablefile.h"
 
+#define kDefaultFileAlias QString("untitled.txt")
+
+SyncableFile::SyncableFile(QObject *parent) : QObject(parent)
+{
+	fileAlias = kDefaultFileAlias;
+	filePath = "";
+	fileType = FileTypeTXT;
+	workingCopy = new WorkingCopy(this);
+	QString workingCopyContent;
+	workingCopy->setContent(workingCopyContent);
+}
+
 SyncableFile::SyncableFile(QObject *parent, QString &path) :
 	QObject(parent), filePath(path)
 {

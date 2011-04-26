@@ -27,7 +27,8 @@ SyncableFile * FileManager::getFirstSyncableFileFromFileList()
 	return fileList.at(0);
 }
 
-void FileManager::removeFile (SyncableFile *file) {
+void FileManager::removeFile (SyncableFile *file)
+{
 	for (int i = 0; i < fileList.count(); i++ ) {
 		SyncableFile *fileFromList = fileList.at(i);
 		if (fileFromList == file) {
@@ -36,4 +37,10 @@ void FileManager::removeFile (SyncableFile *file) {
 			return;
 		}
 	}
+}
+
+void FileManager::addSyncFile(SyncableFile *file)
+{
+	fileList.append(file);
+	emit fileStarted(file);
 }

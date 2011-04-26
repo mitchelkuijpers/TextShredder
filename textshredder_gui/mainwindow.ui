@@ -39,7 +39,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="ClientControlView" name="clientTab">
        <attribute name="title">
@@ -51,14 +51,6 @@
         <string>Server</string>
        </attribute>
       </widget>
-      <widget class="ClientEditingWindow" name="clientEditingTab">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <attribute name="title">
-        <string>Active Client</string>
-       </attribute>
-      </widget>
      </widget>
     </item>
    </layout>
@@ -66,12 +58,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
-  <customwidget>
-   <class>ClientEditingWindow</class>
-   <extends>QWidget</extends>
-   <header>clienteditingwindow.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>ClientControlView</class>
    <extends>QWidget</extends>

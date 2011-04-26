@@ -13,6 +13,7 @@ public:
 	void addFileWithPath(QString &path);
 	void removeFile(SyncableFile *file);
 	SyncableFile * getFirstSyncableFileFromFileList();
+	void addSyncFile(SyncableFile *file);
 
 private:
 	FileManager(QObject *parent = 0);
