@@ -21,6 +21,11 @@ void FileManager::addFileWithPath(QString &path)
 	fileList.append(file);
 }
 
+SyncableFile * FileManager::getFirstSyncableFileFromFileList()
+{
+	return fileList.at(0);
+}
+
 void FileManager::removeFile (SyncableFile *file) {
 	for (int i = 0; i < fileList.count(); i++ ) {
 		SyncableFile *fileFromList = fileList.at(i);

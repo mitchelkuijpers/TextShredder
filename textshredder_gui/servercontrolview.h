@@ -22,6 +22,7 @@ public:
 	~ServerControlView();
 
 	WorkingCopy * getWorkingCopy();
+
 signals:
 	void serverStarted();
 
