@@ -10,8 +10,12 @@ class WorkingCopy : public Patchable, public QMutex
     Q_OBJECT
 public:
     WorkingCopy(QObject *parent);
+
 	using Patchable::applyPatches;
 	void applyPatches(QList<Patch> patches);
+
+	using Patchable::setContent;
+	void setContent(QString &content);
 signals:
 
 public slots:
