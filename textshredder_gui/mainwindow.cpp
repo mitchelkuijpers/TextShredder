@@ -27,7 +27,6 @@ void MainWindow::serverDidStart()
 	ui->main_tab_widget->setTabEnabled(0, false);
 	ui->main_tab_widget->setTabEnabled(1, false);
 	ui->main_tab_widget->setTabEnabled(2, true);
-	ui->clientEditingTab->setWorkingCopy(ui->serverTab->getWorkingCopy());
 }
 
 void MainWindow::clientDisconnected()

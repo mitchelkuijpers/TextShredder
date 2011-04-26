@@ -24,6 +24,7 @@ public:
 	void changeFileType(FileType type);
 	void addClientWithName(QString &name);
 
+	WorkingCopy * getWorkingCopy();
 	QList<QString> & getAvailableClients();
 
 private:
@@ -35,6 +36,7 @@ private:
 	QList<QString> clients;
 
 	void notifyAvailableClientsChanged();
+
 signals:
 	void availableClientsChanged();
 

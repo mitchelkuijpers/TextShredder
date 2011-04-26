@@ -18,6 +18,7 @@ void Server::incomingConnection(int socketDescriptor)
 
 	newIncomingConnection(tcp_sock_tmp->peerAddress().toString());
 	qDebug() << tcp_sock_tmp->peerAddress().toString();
+
 	thread->start();
 }
 

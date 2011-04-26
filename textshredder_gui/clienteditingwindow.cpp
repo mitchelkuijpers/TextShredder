@@ -41,8 +41,7 @@ void ClientEditingWindow::startWithSocketDescriptor(int socketDescriptor)
 {
 	qDebug("ClientEditingWindow::startWithSocketDescriptor()");
 	ui->textEdit->setEnabled(false);
-	workingCopy = new WorkingCopy(this);
-	SyncThread * thread = new SyncThread(this, socketDescriptor, *workingCopy,
+	SyncThread * thread = new SyncThread(this, socketDescriptor, *(new WorkingCopy(this)),
 										 false);
 	connect(thread, SIGNAL(downloadFinished()), this, SLOT(enableEditing()));
 	thread->start();
@@ -52,7 +51,7 @@ void ClientEditingWindow::enableEditing()
 {
 	qDebug("ClientEditingWindow::enableEditing()");
 	ui->textEdit->setEnabled(true);
-	qDebug() << workingCopy->getContent();
+	qDebug() << syncFile->getWorkingCopy()->getContent();
 	this->updateTextFieldToWorkingCopyContent();
 }
 
@@ -62,8 +61,7 @@ void ClientEditingWindow::on_testButton_clicked()
 	socket->connectToHost("127.0.0.1", 1027);
 	int socketDescriptor = socket->socketDescriptor();
 
-	workingCopy = new WorkingCopy(this);
-	SyncThread * thread = new SyncThread(this, socketDescriptor, *workingCopy,
+	SyncThread * thread = new SyncThread(this, socketDescriptor, *(new WorkingCopy(this)),
 										 false);
 	connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 	connect(thread, SIGNAL(downloadFinished()), this, SLOT(updateWorkingCopy()));
@@ -104,10 +102,12 @@ void ClientEditingWindow::startEditingWithFile(SyncableFile * file)
 	syncFile = file;
 	updateTextFieldToWorkingCopyContent();
 	connect(file, SIGNAL(availableClientsChanged()), this, SLOT(updateConnectedClientsTable()));
+	qDebug("Got here");
 }
 
 void ClientEditingWindow::updateConnectedClientsTable()
 {
-
+	QStringList list(syncFile->getAvailableClients());
+	ui->clientList->addItems(list);
 }
 
