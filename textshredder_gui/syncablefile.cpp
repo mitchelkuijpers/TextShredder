@@ -56,6 +56,11 @@ void SyncableFile::notifyAvailableClientsChanged()
 	emit availableClientsChanged();
 }
 
+QList<QString> & SyncableFile::getAvailableClients()
+{
+	return clients;
+}
+
 WorkingCopy * SyncableFile::getWorkingCopy()
 {
 	return workingCopy;

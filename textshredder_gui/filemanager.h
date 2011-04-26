@@ -18,6 +18,8 @@ private:
 	FileManager(QObject *parent = 0);
 	QList<SyncableFile *> fileList;
 	static FileManager* sharedInstance;
+signals:
+	void fileStarted(SyncableFile *);
 };
 
 #endif // FILEMANAGER_H

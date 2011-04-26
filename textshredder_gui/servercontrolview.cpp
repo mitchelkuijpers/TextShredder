@@ -7,7 +7,7 @@ ServerControlView::ServerControlView(QWidget *parent) :
     QWidget(parent),
 	ui(new Ui::ServerControlView)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 	server = new Server(this);
 }
 
@@ -24,13 +24,6 @@ void ServerControlView::on_startButton_clicked()
 	if(!server->listenWithFile(QHostAddress::Any, portNumber, &fileContent)) {
         qDebug("Could not start the server");
 	}
-
-	workingCopy = new WorkingCopy(this);
-	QString fileContentString = QString(fileContent);
-	workingCopy->setContent(fileContentString);
-	qDebug("Z");
-	qDebug() << fileContentString;
-	qDebug("Y");
 
 	ui->logBrowser->append("Server started. Ready to accept clients.");
 

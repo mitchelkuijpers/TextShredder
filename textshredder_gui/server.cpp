@@ -12,7 +12,8 @@ void Server::incomingConnection(int socketDescriptor)
 {
 	TextShredderConnection connection(this, socketDescriptor);
 	SyncableFile * syncfile = FileManager::Instance()->getFirstSyncableFileFromFileList();
-	syncfile->addClientWithName(connection.getPeerAdress());
+	QString ipAdress = connection.getPeerAdress();
+	syncfile->addClientWithName(ipAdress);
 }
 
 bool Server::listenWithFile(const QHostAddress &address, quint16 port, QByteArray * fileContent)

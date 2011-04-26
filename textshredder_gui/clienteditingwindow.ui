@@ -24,16 +24,6 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QListView" name="clientList">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="1" colspan="3">
     <widget class="QTextEdit" name="textEdit"/>
    </item>
@@ -59,6 +49,16 @@
     <widget class="QPushButton" name="testButton">
      <property name="text">
       <string>Quick test</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QListWidget" name="clientList">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
     </widget>
    </item>

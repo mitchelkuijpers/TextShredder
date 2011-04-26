@@ -1,9 +1,10 @@
 #include "clienteditingwindow.h"
 #include "ui_clienteditingwindow.h"
+#include <QHostAddress>
 
 ClientEditingWindow::ClientEditingWindow(QWidget *parent) :
 	QWidget(parent),
-	ui(new Ui::ClientEditingWindow), workingCopy(NULL)
+	ui(new Ui::ClientEditingWindow)
 {
     ui->setupUi(this);
 
@@ -16,27 +17,19 @@ ClientEditingWindow::~ClientEditingWindow()
     delete ui;
 }
 
-void ClientEditingWindow::setWorkingCopy(WorkingCopy *copy)
-{
-	qDebug("ClientEditingWindow::setWorkingCopy()");
-	workingCopy = copy;
-	this->updateTextFieldToWorkingCopyContent();
-}
-
-
 void ClientEditingWindow::textChanged(int position, int charsRemoved, int charsAdded )
 {
-	if(workingCopy == NULL)
+	if(syncFile == NULL)
 		return;
 
-	workingCopy->lock();
-	QString *workingCopyContent = workingCopy->getContent();
+	syncFile->getWorkingCopy()->lock();
+	QString *workingCopyContent = syncFile->getWorkingCopy()->getContent();
 	QString insertString = ui->textEdit->toPlainText().mid(position, charsAdded );
 	workingCopyContent->replace(position, charsRemoved, insertString);
-	workingCopy->unlock();
+	syncFile->getWorkingCopy()->unlock();
 
 	qDebug("\n");
-	qDebug() << *(workingCopy->getContent());
+	qDebug() << *(syncFile->getWorkingCopy()->getContent());
 }
 
 void ClientEditingWindow::on_disconnectButton_clicked()
@@ -47,9 +40,7 @@ void ClientEditingWindow::on_disconnectButton_clicked()
 void ClientEditingWindow::startWithSocketDescriptor(int socketDescriptor)
 {
 	qDebug("ClientEditingWindow::startWithSocketDescriptor()");
-	ui->textEdit->setEnabled(false);
-	workingCopy = new WorkingCopy(this);
-	SyncThread * thread = new SyncThread(this, socketDescriptor, *workingCopy,
+	SyncThread * thread = new SyncThread(this, socketDescriptor, *(new WorkingCopy(this)),
 										 false);
 	connect(thread, SIGNAL(downloadFinished()), this, SLOT(enableEditing()));
 	thread->start();
@@ -58,8 +49,7 @@ void ClientEditingWindow::startWithSocketDescriptor(int socketDescriptor)
 void ClientEditingWindow::enableEditing()
 {
 	qDebug("ClientEditingWindow::enableEditing()");
-	ui->textEdit->setEnabled(true);
-	qDebug() << workingCopy->getContent();
+	qDebug() << syncFile->getWorkingCopy()->getContent();
 	this->updateTextFieldToWorkingCopyContent();
 }
 
@@ -69,11 +59,13 @@ void ClientEditingWindow::on_testButton_clicked()
 	socket->connectToHost("127.0.0.1", 1027);
 	int socketDescriptor = socket->socketDescriptor();
 
-	workingCopy = new WorkingCopy(this);
-	SyncThread * thread = new SyncThread(this, socketDescriptor, *workingCopy,
+	SyncThread * thread = new SyncThread(this, socketDescriptor, *(new WorkingCopy(this)),
 										 false);
 	connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 	connect(thread, SIGNAL(downloadFinished()), this, SLOT(updateWorkingCopy()));
+
+	//addItemToClientListView();
+
 	thread->start();
 
 }
@@ -89,8 +81,31 @@ void ClientEditingWindow::updateTextFieldToWorkingCopyContent()
 	qDebug("ClientEditingWindow::updateTextFieldToWorkingCopyContent()");
 	disconnect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
-	ui->textEdit->setPlainText(*(workingCopy->getContent()));
+	ui->textEdit->setPlainText(*(syncFile->getWorkingCopy()->getContent()));
 
 	connect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
 }
+
+void ClientEditingWindow::addItemToClientListView(QString ip)
+{
+	qDebug() << ip;
+	ui->clientList->addItem(ip);
+}
+
+
+
+void ClientEditingWindow::startEditingWithFile(SyncableFile * file)
+{
+	syncFile = file;
+	updateTextFieldToWorkingCopyContent();
+	connect(file, SIGNAL(availableClientsChanged()), this, SLOT(updateConnectedClientsTable()));
+	qDebug("Got here");
+}
+
+void ClientEditingWindow::updateConnectedClientsTable()
+{
+	QStringList list(syncFile->getAvailableClients());
+	ui->clientList->addItems(list);
+}
+

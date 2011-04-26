@@ -19,6 +19,7 @@ void FileManager::addFileWithPath(QString &path)
 {
 	SyncableFile * file = new SyncableFile(this, path);
 	fileList.append(file);
+	emit fileStarted(file);
 }
 
 SyncableFile * FileManager::getFirstSyncableFileFromFileList()
