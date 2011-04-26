@@ -1,7 +1,7 @@
 #include "server.h"
 #include "../textshredder_synchronization_lib/syncthread.h"
 #include "../textshredder_synchronization_lib/workingcopy.h"
-#include "../textshredder_synchronization_lib/textshredderconnection.h"
+#include "clientrepresentation.h"
 
 Server::Server(QObject *parent):
     QTcpServer(parent)
@@ -10,14 +10,12 @@ Server::Server(QObject *parent):
 
 void Server::incomingConnection(int socketDescriptor)
 {
-	TextShredderConnection connection(this, socketDescriptor);
-	SyncableFile * syncfile = FileManager::Instance()->getFirstSyncableFileFromFileList();
-	QString ipAdress = connection.getPeerAdress();
-	syncfile->addClientWithName(ipAdress);
+	ClientRepresentation client(this, socketDescriptor);
 }
 
 bool Server::listenWithFile(const QHostAddress &address, quint16 port, QByteArray * fileContent)
 {
+	qDebug("start server");
 	copy = new WorkingCopy(this);
 
 	QString tempString;

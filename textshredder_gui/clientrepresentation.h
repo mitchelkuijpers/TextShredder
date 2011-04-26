@@ -3,14 +3,17 @@
 
 #include <QObject>
 #include "../textshredder_synchronization_lib/textshredderconnection.h"
+#include "filesync.h"
 
 class ClientRepresentation : public QObject
 {
     Q_OBJECT
 public:
-    explicit ClientRepresentation(QObject *parent = 0);
+	explicit ClientRepresentation(QObject *parent, int socketDescriptor);
 
 private:
+	TextShredderConnection * connection;
+	FileSync * sync;
 
 
 signals:
