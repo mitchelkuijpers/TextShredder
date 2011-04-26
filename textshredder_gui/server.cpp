@@ -13,6 +13,13 @@ void Server::incomingConnection(int socketDescriptor)
 										*copy, true);
 	connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 
+	QTcpSocket * tcp_sock_temp = new QTcpSocket();
+	tcp_sock_temp->setSocketDescriptor(socketDescriptor);
+
+	SyncableFile * syncfile = FileManager::Instance()->getFirstSyncableFileFromFileList();
+	QString ipAddr = tcp_sock_temp->peerAddress().toString();
+	syncfile->addClientWithName( ipAddr  );
+
 	thread->start();
 }
 
