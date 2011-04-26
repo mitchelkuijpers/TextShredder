@@ -20,7 +20,8 @@ SOURCES += main.cpp\
 	guicontroller.cpp \
 	../textshredder_diff_match_patch/diff_match_patch.cpp \
 	../textshredder_synchronization_lib/*.cpp \
-    syncablefile.cpp
+    syncablefile.cpp \
+    filemanager.cpp
 
 HEADERS  += mainwindow.h \
 	servercontrolview.h \
@@ -31,7 +32,8 @@ HEADERS  += mainwindow.h \
 	guicontroller.h \
 	../textshredder_diff_match_patch/diff_match_patch.h \
 	../textshredder_synchronization_lib/*.h \
-    syncablefile.h
+    syncablefile.h \
+    filemanager.h
 
 FORMS    += mainwindow.ui \
 	servercontrolview.ui \
