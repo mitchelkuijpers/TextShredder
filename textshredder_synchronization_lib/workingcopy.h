@@ -10,13 +10,14 @@ class WorkingCopy : public Patchable, public QMutex
     Q_OBJECT
 public:
     WorkingCopy(QObject *parent);
-
+	using Patchable::applyPatches;
+	void applyPatches(QList<Patch> patches);
 signals:
 
 public slots:
 
 private:
-
+	QDateTime lastEditDate;
 
 };
 

@@ -51,6 +51,7 @@ public:
 	TextShredderHeader(const TextShredderHeader & other);
 
 	TextShredderHeader & operator=(const TextShredderHeader & other);
+	bool operator==(const TextShredderHeader & other);
 
     /**
      * Function to make a byte array representation of a TextShredderHeader

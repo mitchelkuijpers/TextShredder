@@ -16,7 +16,7 @@ namespace TextShredderPacketParser
                                     (int) sizeof(unsigned char));
 		unsigned int iLength = *((unsigned int *)length.data());
 
-		QByteArray content(bytes->mid(kHeaderLength -1 , iLength + 1));
+		QByteArray content(bytes->mid(kHeaderLength, iLength));
 		TextShredderHeader header(
                     NULL,
 					(unsigned char) * protocolVersion.data(),

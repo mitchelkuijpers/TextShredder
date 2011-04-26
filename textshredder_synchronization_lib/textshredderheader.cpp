@@ -50,6 +50,17 @@ TextShredderHeader & TextShredderHeader::operator=(const TextShredderHeader & ot
 	return *this;
 }
 
+bool TextShredderHeader::operator==(const TextShredderHeader & other)
+{
+	if (this->contentLength == other.contentLength &&
+		this->packetType == other.packetType &&
+		this->protocolVersion == other.protocolVersion) {
+		return true;
+	}
+	return false;
+}
+
+
 void TextShredderHeader::appendToQByteArray( QByteArray &buffer )
 {
     buffer.append( protocolVersion );
