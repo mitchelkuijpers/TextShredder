@@ -8,7 +8,7 @@ void TextShredderPacketParserTests::testWrongPacket()
 	bytes.append((char)0, (int )sizeof(unsigned char));
 	bool throwed = false;
 	try {
-		TextShredderPacketParser::makePacketFromBytes(&bytes);
+		TextShredderPacketParser::makeAllocatedPacketFromBytes(&bytes);
 	} catch (QString error) {
 		throwed = true;
 	}
@@ -30,7 +30,7 @@ void TextShredderPacketParserTests::testPacket()
 	QByteArray packet((const char *)buffer, kHeaderLength);
 	packet.append(tempContent.data());
 
-	TextShredderPacket *tsPacket = TextShredderPacketParser::makePacketFromBytes(&packet);
+	TextShredderPacket *tsPacket = TextShredderPacketParser::makeAllocatedPacketFromBytes(&packet);
 
 	QVERIFY2(tsPacket->isEditPacket(), "Should be and edit packet..");
 

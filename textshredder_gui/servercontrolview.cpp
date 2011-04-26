@@ -1,6 +1,8 @@
 #include "servercontrolview.h"
 #include "ui_servercontrolview.h"
 
+#include "filemanager.h"
+
 ServerControlView::ServerControlView(QWidget *parent) :
     QWidget(parent),
 	ui(new Ui::ServerControlView)
@@ -35,6 +37,7 @@ void ServerControlView::on_startButton_clicked()
     ui->stopButton->setEnabled(1);
     ui->startButton->setEnabled(0);
 
+	FileManager::Instance()->addFileWithPath(openedFilePath);
 	serverStarted();
 }
 
@@ -54,51 +57,9 @@ void ServerControlView::on_fileSelectButton_clicked()
 	QString fileName = openedFilePath.mid(openedFilePath.lastIndexOf("/")+1,openedFilePath.length());
 	ui->fileName->setText(fileName);
 
-	readSelectedFile();
-}
-
-void ServerControlView::readSelectedFile()
-{
-	QFile file(openedFilePath);
-
-	if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-		ui->logBrowser->append("No file selected, try again.");
-		ui->startButton->setEnabled(0);
-		return;
-	}
-
-	fileContent = file.readAll();
-	ui->logBrowser->append("File selected. Ready to start server.");
-	ui->startButton->setEnabled(1);
 }
 
 void ServerControlView::addNewConnectionToLog()
 {
 	ui->logBrowser->append("New client, connection opened.");
-}
-
-WorkingCopy * ServerControlView::getWorkingCopy()
-{
-	return workingCopy;
-}
-
-void ServerControlView::on_startSimpleButton_clicked()
-{
-	fileContent = "This is nice file content!\nHaha\n\nIt's working!";
-
-	if( !server->listenWithFile( QHostAddress::Any, SIMPLESTARTPORTNUMBER, &fileContent ) ) {
-		qDebug("Could not start the server");
-	}
-
-	workingCopy = new WorkingCopy(this);
-	QString fileContentString = QString(fileContent);
-	workingCopy->setContent(fileContentString);
-
-	ui->logBrowser->append("Server started. Ready to accept clients.");
-
-	ui->stopButton->setEnabled(1);
-	ui->startButton->setEnabled(0);
-	ui->startSimpleButton->setEnabled(0);
-
-	serverStarted();
 }

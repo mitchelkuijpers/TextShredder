@@ -12,6 +12,7 @@ void Server::incomingConnection(int socketDescriptor)
 	SyncThread *thread = new SyncThread(this, socketDescriptor,
 										*copy, true);
 	connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
 	thread->start();
 }
 

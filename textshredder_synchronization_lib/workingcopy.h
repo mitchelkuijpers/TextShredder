@@ -11,12 +11,17 @@ class WorkingCopy : public Patchable, public QMutex
 public:
     WorkingCopy(QObject *parent);
 
+	using Patchable::applyPatches;
+	void applyPatches(QList<Patch> patches);
+
+	using Patchable::setContent;
+	void setContent(QString &content);
 signals:
 
 public slots:
 
 private:
-
+	QDateTime lastEditDate;
 
 };
 

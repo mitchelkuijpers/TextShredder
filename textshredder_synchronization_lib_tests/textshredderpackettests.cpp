@@ -7,12 +7,11 @@ void TextShredderPacketTests::testCreatingBlankPacket()
 
 	QVERIFY2(newPacket != NULL, "TextShredderPacket should not be initialized as null");
 	QVERIFY2(newPacket->getContent().isEmpty(), "TextShredderPacket should not be initialized with a content length");
-	QVERIFY2(newPacket->getHeader() != NULL, "TextShredderPacket should not be initialized with a null header");
 }
 
 void TextShredderPacketTests::testCreatingPacketWithHeaderAndContent()
 {
-	TextShredderHeader *header = new TextShredderHeader(this);
+	TextShredderHeader header(this);
 	QByteArray content;
 	TextShredderPacket *newPacket = new TextShredderPacket(this, header, content);
 
@@ -21,7 +20,6 @@ void TextShredderPacketTests::testCreatingPacketWithHeaderAndContent()
 	QVERIFY2(newPacket->getHeader() == header, "TextShredderPacket should be initialized with the header");
 
 	delete newPacket;
-	delete header;
 }
 
 void TextShredderPacketTests::testCreatingPacketWithTypeAndContent()
@@ -30,7 +28,6 @@ void TextShredderPacketTests::testCreatingPacketWithTypeAndContent()
 	TextShredderPacket *newPacket = new TextShredderPacket(this, kPacketTypeEdits, content);
 
 	QVERIFY2( newPacket != NULL, "TextShredderPacket should not be initialized as null");
-	QVERIFY2( newPacket->getHeader() != NULL, "TextShredderPacket should be initialized with a header");
 	QVERIFY2( newPacket->getContent() == content, "TextShredderPacket should be initialized with the content");
 	QVERIFY2( newPacket->isEditPacket() ,"TextShredderPacket should be a edit packet");
 

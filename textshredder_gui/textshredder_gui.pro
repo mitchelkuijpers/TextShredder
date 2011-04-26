@@ -19,7 +19,9 @@ SOURCES += main.cpp\
 	clienteditingwindow.cpp \
 	guicontroller.cpp \
 	../textshredder_diff_match_patch/diff_match_patch.cpp \
-	../textshredder_synchronization_lib/*.cpp
+	../textshredder_synchronization_lib/*.cpp \
+    syncablefile.cpp \
+    filemanager.cpp
 
 HEADERS  += mainwindow.h \
 	servercontrolview.h \
@@ -29,7 +31,9 @@ HEADERS  += mainwindow.h \
 	clienteditingwindow.h \
 	guicontroller.h \
 	../textshredder_diff_match_patch/diff_match_patch.h \
-	../textshredder_synchronization_lib/*.h
+	../textshredder_synchronization_lib/*.h \
+    syncablefile.h \
+    filemanager.h
 
 FORMS    += mainwindow.ui \
 	servercontrolview.ui \

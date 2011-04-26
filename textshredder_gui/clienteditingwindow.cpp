@@ -18,13 +18,9 @@ ClientEditingWindow::~ClientEditingWindow()
 
 void ClientEditingWindow::setWorkingCopy(WorkingCopy *copy)
 {
-	disconnect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
-			this, SLOT(textChanged(int, int, int)));
+	qDebug("ClientEditingWindow::setWorkingCopy()");
 	workingCopy = copy;
-	ui->textEdit->setPlainText(*(workingCopy->getContent()));
-
-	connect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
-			this, SLOT(textChanged(int, int, int)));
+	this->updateTextFieldToWorkingCopyContent();
 }
 
 
@@ -50,6 +46,7 @@ void ClientEditingWindow::on_disconnectButton_clicked()
 
 void ClientEditingWindow::startWithSocketDescriptor(int socketDescriptor)
 {
+	qDebug("ClientEditingWindow::startWithSocketDescriptor()");
 	ui->textEdit->setEnabled(false);
 	workingCopy = new WorkingCopy(this);
 	SyncThread * thread = new SyncThread(this, socketDescriptor, *workingCopy,
@@ -60,9 +57,10 @@ void ClientEditingWindow::startWithSocketDescriptor(int socketDescriptor)
 
 void ClientEditingWindow::enableEditing()
 {
+	qDebug("ClientEditingWindow::enableEditing()");
 	ui->textEdit->setEnabled(true);
 	qDebug() << workingCopy->getContent();
-	ui->textEdit->setPlainText(*workingCopy->getContent());
+	this->updateTextFieldToWorkingCopyContent();
 }
 
 void ClientEditingWindow::on_testButton_clicked()
@@ -82,6 +80,17 @@ void ClientEditingWindow::on_testButton_clicked()
 
 void ClientEditingWindow::updateWorkingCopy()
 {
-	qDebug() << workingCopy->getContent();
-	ui->textEdit->setPlainText(*workingCopy->getContent());
+	qDebug("ClientEditingWindow::updateWorkingCopy()");
+	this->updateTextFieldToWorkingCopyContent();
+}
+
+void ClientEditingWindow::updateTextFieldToWorkingCopyContent()
+{
+	qDebug("ClientEditingWindow::updateTextFieldToWorkingCopyContent()");
+	disconnect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
+			this, SLOT(textChanged(int, int, int)));
+	ui->textEdit->setPlainText(*(workingCopy->getContent()));
+
+	connect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
+			this, SLOT(textChanged(int, int, int)));
 }
