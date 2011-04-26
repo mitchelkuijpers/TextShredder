@@ -18,6 +18,10 @@ protected:
 private:
 	WorkingCopy * copy;
 
+signals:
+	void newIncomingConnection(QString);
+
+
 };
 
 #endif // SERVER_H

@@ -12,6 +12,12 @@ void Server::incomingConnection(int socketDescriptor)
 	SyncThread *thread = new SyncThread(this, socketDescriptor,
 										*copy, true);
 	connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+	QTcpSocket *tcp_sock_tmp = new QTcpSocket();
+	tcp_sock_tmp->setSocketDescriptor(socketDescriptor);
+
+	newIncomingConnection(tcp_sock_tmp->peerAddress().toString());
+	qDebug() << tcp_sock_tmp->peerAddress().toString();
 	thread->start();
 }
 

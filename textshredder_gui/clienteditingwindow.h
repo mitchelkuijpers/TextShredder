@@ -5,6 +5,7 @@
 #include "../textshredder_synchronization_lib/workingcopy.h"
 #include "../textshredder_synchronization_lib/syncthread.h"
 #include "../textshredder_synchronization_lib/textshreddersocket.h"
+#include "syncablefile.h"
 
 namespace Ui {
 	class ClientEditingWindow;
@@ -20,6 +21,7 @@ public:
 
 	void setWorkingCopy(WorkingCopy *);
 	void startWithSocketDescriptor(int);
+	void startEditingWithFile(SyncableFile *);
 
 signals:
 	void clientDisconnected();
@@ -30,11 +32,13 @@ private slots:
 	void enableEditing();
 	void updateWorkingCopy();
 	void on_testButton_clicked();
+	void addItemToClientListView(QString);
+	void updateConnectedClientsTable();
 
 private:
 	Ui::ClientEditingWindow *ui;
 	QTcpSocket * socket;
-	WorkingCopy *workingCopy;
+	SyncableFile *syncFile;
 	void updateTextFieldToWorkingCopyContent();
 };
 

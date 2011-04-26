@@ -7,6 +7,9 @@ ServerControlView::ServerControlView(QWidget *parent) :
 {
     ui->setupUi(this);
 	server = new Server(this);
+
+	connect(server, SIGNAL(newIncomingConnection(QString)),
+			this, SLOT(addItemToClientListView(QString)));
 }
 
 ServerControlView::~ServerControlView()

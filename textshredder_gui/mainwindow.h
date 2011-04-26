@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "syncablefile.h"
 
 namespace Ui {
     class MainWindow;
@@ -19,6 +20,7 @@ private slots:
 	void serverDidStart();
 	void clientDisconnected();
 	void clientConnected(int);
+	void fileStarted(SyncableFile *);
 
 private:
     Ui::MainWindow *ui;
