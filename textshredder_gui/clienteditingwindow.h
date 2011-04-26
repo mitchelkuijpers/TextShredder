@@ -32,7 +32,6 @@ private slots:
 	void enableEditing();
 	void updateWorkingCopy();
 	void on_testButton_clicked();
-	void addItemToClientListView(QString);
 	void updateConnectedClientsTable();
 
 private:

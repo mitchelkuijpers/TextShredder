@@ -22,7 +22,6 @@ private:
 signals:
 	void newIncomingConnection(QString);
 
-
 };
 
 #endif // SERVER_H

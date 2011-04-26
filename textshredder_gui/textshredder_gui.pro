@@ -22,7 +22,8 @@ SOURCES += main.cpp\
 	../textshredder_synchronization_lib/*.cpp \
     syncablefile.cpp \
     filemanager.cpp \
-    filesync.cpp
+    filesync.cpp \
+    clientrepresentation.cpp
 
 HEADERS  += mainwindow.h \
 	servercontrolview.h \
@@ -35,7 +36,8 @@ HEADERS  += mainwindow.h \
 	../textshredder_synchronization_lib/*.h \
     syncablefile.h \
     filemanager.h \
-    filesync.h
+    filesync.h \
+    clientrepresentation.h
 
 FORMS    += mainwindow.ui \
 	servercontrolview.ui \
