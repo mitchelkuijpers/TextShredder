@@ -10,33 +10,34 @@
 #include "textshredderpacket.h"
 #include "textshredderpacketparser.h"
 
+typedef enum {
+	Disconnected,
+	Error,
+	Neutral
+} TextShredderConnectionStatus;
+
 class TextShredderConnection : public QObject
 {
     Q_OBJECT
 public:
-	explicit TextShredderConnection(QObject *parent, int socketDescriptor);
+	TextShredderConnection(QObject *parent, int socketDescriptor);
+	TextShredderConnection(QObject *parent, QString &hostName, int port);
 	QString getPeerAdress();
 
 private:
 	QTcpSocket socket;
 	QList<TextShredderPacket> queue;
 
-	enum TextShredderConnectionStatus{
-		Disconnected,
-		Error,
-		Neutral
-	};
+
 	TextShredderConnectionStatus status;
 signals:
 	void statusChanged(TextShredderConnectionStatus);
 	void queueChanged();
-	void newIncomingPacket(TextShredderPacket packet);
+	void newIncomingPacket(TextShredderPacket &packet);
 
 public slots:
-
-private slots:
 	void read();
-	void write(TextShredderPacket);
+	void write(TextShredderPacket &);
 	void socketStateChanged(QAbstractSocket::SocketState);
 	void socketError(QAbstractSocket::SocketError);
 };

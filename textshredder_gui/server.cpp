@@ -10,7 +10,7 @@ Server::Server(QObject *parent):
 
 void Server::incomingConnection(int socketDescriptor)
 {
-	ClientRepresentation client(this, socketDescriptor);
+	new ClientRepresentation(this, socketDescriptor);
 }
 
 bool Server::listenWithFile(const QHostAddress &address, quint16 port, QByteArray * fileContent)

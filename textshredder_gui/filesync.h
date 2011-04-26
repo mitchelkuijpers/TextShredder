@@ -12,13 +12,13 @@ class FileSync : public QObject
 public:
 	explicit FileSync(QObject *parent, TextShredderConnection *);
 	void createDownload();
-	void processDownload(TextShredderPacket packet);
+	void processDownload(TextShredderPacket &packet);
 
 signals:
-	void sendDownload(TextShredderPacket);
+	void sendDownload(TextShredderPacket &);
 
 public slots:
-	void processNewPacket(TextShredderPacket);
+	void processNewPacket(TextShredderPacket &packet);
 private:
 	TextShredderConnection * connection;
 

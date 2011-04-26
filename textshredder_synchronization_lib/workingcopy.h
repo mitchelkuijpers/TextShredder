@@ -16,7 +16,9 @@ public:
 
 	using Patchable::setContent;
 	void setContent(QString &content);
+
 signals:
+	void workingCopyChanged();
 
 public slots:
 

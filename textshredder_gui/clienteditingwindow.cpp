@@ -85,6 +85,8 @@ void ClientEditingWindow::updateTextFieldToWorkingCopyContent()
 
 	connect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
+
+	qDebug("C");
 }
 
 
@@ -93,11 +95,20 @@ void ClientEditingWindow::startEditingWithFile(SyncableFile * file)
 	syncFile = file;
 	updateTextFieldToWorkingCopyContent();
 	connect(file, SIGNAL(availableClientsChanged()), this, SLOT(updateConnectedClientsTable()));
+	//TODO: make this connect go through the SyncableFile
+	connect(file->getWorkingCopy (), SIGNAL(workingCopyChanged()), this, SLOT(workingCopyChanged()));
 }
 
 void ClientEditingWindow::updateConnectedClientsTable()
 {
+	while (ui->clientList->count () > 0) {
+		ui->clientList->takeItem(0);
+	}
 	QStringList list(syncFile->getAvailableClients());
 	ui->clientList->addItems(list);
 }
 
+void ClientEditingWindow::workingCopyChanged()
+{
+	this->updateTextFieldToWorkingCopyContent();
+}

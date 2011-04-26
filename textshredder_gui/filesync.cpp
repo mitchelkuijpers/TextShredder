@@ -3,13 +3,13 @@
 FileSync::FileSync(QObject *parent, TextShredderConnection * connection) :
 	QObject(parent), connection(connection)
 {
-	connect(this, SIGNAL(sendDownload(TextShredderPacket)),
-			connection, SLOT(write(TextShredderPacket)));
-	connect(connection, SIGNAL(newIncomingPacket(TextShredderPacket)),
-			this, SLOT(processNewPacket(TextShredderPacket)));
+	connect(this, SIGNAL(sendDownload(TextShredderPacket &)),
+			connection, SLOT(write(TextShredderPacket &)));
+	connect(connection, SIGNAL(newIncomingPacket(TextShredderPacket &)),
+			this, SLOT(processNewPacket(TextShredderPacket &)));
 }
 
-void FileSync::processNewPacket(TextShredderPacket packet)
+void FileSync::processNewPacket(TextShredderPacket &packet)
 {
 	unsigned int type = packet.getHeader().getPacketType();
 	if(type == kPacketTypeFileRequest) {
@@ -32,7 +32,7 @@ void FileSync::createDownload() {
 	emit sendDownload(packet);
 }
 
-void FileSync::processDownload(TextShredderPacket packet)
+void FileSync::processDownload(TextShredderPacket &packet)
 {
 	qDebug("warning: processDownload not yet implemented.");
 }

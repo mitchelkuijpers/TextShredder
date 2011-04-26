@@ -1,5 +1,19 @@
 #include "textshredderconnection.h"
 
+TextShredderConnection::TextShredderConnection(QObject *parent,
+											   QString &hostName,
+											   int port) :
+	QObject(parent)
+{
+	socket.connectToHost (hostName, port);
+	connect(&socket, SIGNAL(readyRead()), this, SLOT(read()));
+	connect(&socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this,
+			SLOT(socketStateChanged(QAbstractSocket::SocketState)));
+	connect(&socket, SIGNAL(error(QAbstractSocket::SocketError)), this,
+			SLOT(socketError(QAbstractSocket::SocketError)));
+	this->status = Disconnected;
+}
+
 TextShredderConnection::TextShredderConnection(QObject *parent, int socketDescriptor) :
 	QObject(parent)
 {
@@ -10,11 +24,12 @@ TextShredderConnection::TextShredderConnection(QObject *parent, int socketDescri
 	connect(&socket, SIGNAL(error(QAbstractSocket::SocketError)), this,
 			SLOT(socketError(QAbstractSocket::SocketError)));
 	socket.setSocketDescriptor(socketDescriptor);
-	this->status = TextShredderConnection::Neutral;
+	this->status = Neutral;
 }
 
 void TextShredderConnection::read()
 {
+	qDebug("Before read");
 	QTextStream inputStream(&socket);
 
 	QString buffer;
@@ -26,11 +41,14 @@ void TextShredderConnection::read()
 	QByteArray packet;
 	packet.append(buffer);
 	TextShredderPacket * tsPacket = TextShredderPacketParser::makeAllocatedPacketFromBytes(&packet);
-	emit newIncomingPacket( *tsPacket);
+	emit newIncomingPacket(*tsPacket);
+	delete tsPacket;
+	qDebug("After read");
 }
 
-void TextShredderConnection::write(TextShredderPacket packet)
+void TextShredderConnection::write(TextShredderPacket &packet)
 {
+	qDebug("Before write");
 	QTextStream outputStream(&socket);
 	QByteArray raw;
 	packet.getHeader().appendToQByteArray(raw);
@@ -38,24 +56,30 @@ void TextShredderConnection::write(TextShredderPacket packet)
 
 	outputStream << raw;
 	outputStream.flush();
+	qDebug("After write");
 }
 
 void TextShredderConnection::socketStateChanged(QAbstractSocket::SocketState state)
 {
+	qDebug() << QString("TSConnection State changed: ") << state;
 	if(	state == QAbstractSocket::UnconnectedState) {
-		status = TextShredderConnection::Disconnected;
+		status = Disconnected;
 		emit statusChanged(this->status);
 	} else if (state == QAbstractSocket::ConnectedState) {
-		this->status = TextShredderConnection::Neutral;
+		this->status = Neutral;
 		emit statusChanged(this->status);
 	}
+	qDebug("After State changed");
 }
 
 void TextShredderConnection::socketError(QAbstractSocket::SocketError error)
 {
+	qDebug("Before Socket error");
 	// @TODO make good error messages
-	this->status = TextShredderConnection::Error;
+	qDebug() << error;
+	this->status = Error;
 	emit statusChanged(this->status);
+	qDebug("After Socket error");
 }
 
 QString TextShredderConnection::getPeerAdress() {

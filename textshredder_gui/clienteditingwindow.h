@@ -33,6 +33,7 @@ private slots:
 	void updateWorkingCopy();
 	void on_testButton_clicked();
 	void updateConnectedClientsTable();
+	void workingCopyChanged();
 
 private:
 	Ui::ClientEditingWindow *ui;
