@@ -39,7 +39,6 @@ private:
 
 signals:
 	void availableClientsChanged();
-
 };
 
 #endif // SYNCABLEFILE_H
