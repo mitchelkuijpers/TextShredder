@@ -22,6 +22,9 @@ public:
 	  * Will change the file type for the SyncableFile
 	  */
 	void changeFileType(FileType type);
+	void addClientWithName(QString &name);
+
+	QList<QString> & getAvailableClients();
 
 private:
 	FileType typeForSuffix(QString &suffix);
@@ -29,6 +32,12 @@ private:
 	QString fileAlias;
 	WorkingCopy *workingCopy;
 	FileType fileType;
+	QList<QString> clients;
+
+	void notifyAvailableClientsChanged();
+signals:
+	void availableClientsChanged();
+
 };
 
 #endif // SYNCABLEFILE_H

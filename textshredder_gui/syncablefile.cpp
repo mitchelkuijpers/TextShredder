@@ -44,3 +44,14 @@ FileType SyncableFile::typeForSuffix(QString &suffix)
 	}
 	return FileTypeUNKNOWN;
 }
+
+void SyncableFile::addClientWithName(QString &name)
+{
+	clients.append(name);
+	notifyAvailableClientsChanged();
+}
+
+void SyncableFile::notifyAvailableClientsChanged()
+{
+	emit availableClientsChanged();
+}
