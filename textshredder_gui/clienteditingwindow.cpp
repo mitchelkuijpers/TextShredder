@@ -87,20 +87,12 @@ void ClientEditingWindow::updateTextFieldToWorkingCopyContent()
 			this, SLOT(textChanged(int, int, int)));
 }
 
-void ClientEditingWindow::addItemToClientListView(QString ip)
-{
-	qDebug() << ip;
-	ui->clientList->addItem(ip);
-}
-
-
 
 void ClientEditingWindow::startEditingWithFile(SyncableFile * file)
 {
 	syncFile = file;
 	updateTextFieldToWorkingCopyContent();
 	connect(file, SIGNAL(availableClientsChanged()), this, SLOT(updateConnectedClientsTable()));
-	qDebug("Got here");
 }
 
 void ClientEditingWindow::updateConnectedClientsTable()

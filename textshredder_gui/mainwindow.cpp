@@ -41,5 +41,7 @@ void MainWindow::clientConnected(int socketDescriptor)
 
 void MainWindow::fileStarted(SyncableFile * file)
 {
-	ui->clientEditingTab->startEditingWithFile(file);
+	ClientEditingWindow *editingWindow = new ClientEditingWindow(this);
+	ui->main_tab_widget->addTab (editingWindow, file->getFileAlias());
+	editingWindow->startEditingWithFile (file);
 }

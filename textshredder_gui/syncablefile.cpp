@@ -65,3 +65,8 @@ WorkingCopy * SyncableFile::getWorkingCopy()
 {
 	return workingCopy;
 }
+
+QString & SyncableFile::getFileAlias()
+{
+	return fileAlias;
+}
