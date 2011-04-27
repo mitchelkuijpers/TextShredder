@@ -8,7 +8,7 @@
 #include "shadowcopy.h"
 #include "workingcopy.h"
 
-#define WRITETHREAD_INTERVAL 2000
+#define WRITETHREAD_INTERVAL 500
 
 class SyncThread : public QObject
 {
