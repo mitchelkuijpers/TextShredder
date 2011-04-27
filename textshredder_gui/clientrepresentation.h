@@ -14,10 +14,10 @@ public:
 private:
 	TextShredderConnection * connection;
 	FileSync * sync;
-	QString * alias;
+	QString alias;
 	QList<SyncableFile *> syncableFiles;
 
-	void setClientName();
+	void addClientNameToClientsList();
 
 
 
@@ -26,7 +26,7 @@ signals:
 
 public slots:
 	void getDisconnected();
-	void getNameChanged();
+	void getNameChanged(QString & changedName);
 
 };
 

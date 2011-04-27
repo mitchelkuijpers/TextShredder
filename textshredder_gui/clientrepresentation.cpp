@@ -12,22 +12,15 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 	connect(sync, SIGNAL(sendDownload(TextShredderPacket &)),
 			connection, SLOT(write(TextShredderPacket &)));
 
-	connect(sync, SIGNAL(sendDownload(TextShredderPacket &)),
-			connection, SLOT(write(TextShredderPacket &)));
-
-	setClientName();
+	addClientNameToClientsList();
 }
 
-void ClientRepresentation::setClientName()
+void ClientRepresentation::addClientNameToClientsList()
 {
-	// only gets first fileb
+	// only gets first file
 	syncableFiles.append(FileManager::Instance()->getFirstSyncableFileFromFileList());
-	alias->append(connection->getPeerAdress());
-
-	if(syncableFiles.last()->addClientWithName(*alias)){
-
-	}
-
+	alias.append(connection->getPeerAdress());
+	syncableFiles.at(0)->addClientWithName(alias);
 }
 
 
@@ -35,10 +28,8 @@ void ClientRepresentation::getDisconnected()
 {
 	int i;
 	for(i=0; i < syncableFiles.size(); i++ ){
-		if(QString::compare(this->alias, syncableFiles.at(i)->getFileAlias())){
-			if(syncableFiles.at(i)->removeClientWithName(*alias)){
-
-			}
+		if(QString::compare(alias, syncableFiles.at(i)->getFileAlias()) == 0){
+			syncableFiles.at(i)->removeClientWithName(alias);
 			break;
 		}
 	}
@@ -49,10 +40,8 @@ void ClientRepresentation::getNameChanged(QString & changedName)
 
 	int i;
 	for(i=0; i< syncableFiles.size(); i++){
-		if(QString::compare(this->alias, syncableFiles.at(i)->getFileAlias())){
-			if(syncableFiles.at(i)->changeClientName(*alias, changedName)){
-
-			}
+		if(QString::compare(alias, syncableFiles.at(i)->getFileAlias()) == 0){
+			syncableFiles.at(i)->changeClientName(alias, changedName);
 			break;
 		}
 	}
