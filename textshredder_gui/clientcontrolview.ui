@@ -40,16 +40,6 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="connectButton">
-       <property name="toolTip">
-        <string>Connect to the server with given IP and port</string>
-       </property>
-       <property name="text">
-        <string>Connect</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="1">
       <widget class="QSpinBox" name="portSpinner">
        <property name="toolTip">
@@ -67,9 +57,45 @@
       </widget>
      </item>
      <item row="2" column="0">
+      <widget class="QPushButton" name="connectButton">
+       <property name="toolTip">
+        <string>Connect to the server with given IP and port</string>
+       </property>
+       <property name="text">
+        <string>Connect</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
       <widget class="QProgressBar" name="downloadBar">
        <property name="value">
         <number>0</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="aliasLineEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>150</width>
+         <height>16777215</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QPushButton" name="setAliasButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Set Alias</string>
        </property>
       </widget>
      </item>

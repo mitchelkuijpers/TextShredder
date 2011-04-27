@@ -50,8 +50,12 @@ void MainWindow::editingDisconnected()
 void MainWindow::fileStarted(SyncableFile * file)
 {
 	ClientEditingWindow *editingWindow = new ClientEditingWindow(this);
-	connect(editingWindow, SIGNAL(clientDisconnected()), this, SLOT(editingDisconnected()));
+
 	connect(editingWindow, SIGNAL(fileSaved()), this, SLOT(saveFileMe()));
+
+	connect(editingWindow, SIGNAL(clientDisconnected()),
+			ui->clientTab, SLOT(closeCurrentConnection()));
+
 	ui->main_tab_widget->addTab (editingWindow, file->getFileAlias());
 	editingWindow->startEditingWithFile (file);
 	ui->main_tab_widget->setCurrentWidget (editingWindow);

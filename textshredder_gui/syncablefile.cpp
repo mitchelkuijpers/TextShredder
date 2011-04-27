@@ -81,11 +81,14 @@ bool SyncableFile::addClientWithName(QString &name)
 
 bool SyncableFile::removeClientWithName(QString &name)
 {
+	qDebug("A");
 	if(hasClientWithName(name)) {
+		qDebug("B");
 		clients.removeOne(name);
 		notifyAvailableClientsChanged();
 		return true;
 	}
+	qDebug("C");
 	return false;
 }
 

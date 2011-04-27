@@ -5,7 +5,8 @@
 
 ClientControlView::ClientControlView(QWidget *parent) :
 	QWidget(parent),
-	ui(new Ui::ClientControlView),  connection(NULL), syncFile(NULL)
+	ui(new Ui::ClientControlView),  connection(NULL), syncFile(NULL),
+	syncThread(NULL)
 {
     ui->setupUi(this);
 }
@@ -50,10 +51,12 @@ void ClientControlView::makeNewConnection(QString &hostname, int port)
 			this, SLOT(receivedDownload(TextShredderPacket &)));
 	connect (connection, SIGNAL(statusChanged(TextShredderConnectionStatus)),
 			 this, SLOT(connectionStateChanged(TextShredderConnectionStatus)));
+	ui->setAliasButton->setEnabled(true);
 }
 
 void ClientControlView::closeConnection()
 {
+	ui->setAliasButton->setEnabled(false);
 	delete connection;
 }
 
@@ -62,6 +65,7 @@ void ClientControlView::receivedDownload(TextShredderPacket &packet)
 	if(packet.getHeader().getPacketType() == kPacketTypeFileData) {
 		QString contentString(packet.getContent());
 		syncFile->getWorkingCopy ()->setContent(contentString);
+		startSyncThread();
 	} else {
 		qDebug() << "ClientControlView::receivedDownload got a wrong packet";
 	}
@@ -83,11 +87,20 @@ void ClientControlView::askForDownload()
 
 void ClientControlView::startSyncThread()
 {
-	if (syncThread != NULL) {
-		syncThread->stop();
-		delete syncThread;
-	}
-	syncThread = new SyncThread(this, *connection, *(syncFile->getWorkingCopy()));
 	disconnect(connection, SIGNAL(newIncomingPacket(TextShredderPacket&)),
 			   this, SLOT(receivedDownload(TextShredderPacket&)));
+	syncThread = new SyncThread(this, *connection, *(syncFile->getWorkingCopy()));
+}
+
+void ClientControlView::closeCurrentConnection()
+{
+	syncThread->stop();
+	syncThread->deleteLater();
+}
+
+void ClientControlView::on_setAliasButton_clicked()
+{
+	QByteArray newAlias("MyName");
+	TextShredderPacket packet(this, kPacketTypeSetAlias, newAlias);
+	connection->write(packet);
 }

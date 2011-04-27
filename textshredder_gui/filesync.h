@@ -16,6 +16,7 @@ public:
 
 signals:
 	void sendDownload(TextShredderPacket &);
+	void fileSyncFinished();
 
 public slots:
 	void processNewPacket(TextShredderPacket &packet);

@@ -20,14 +20,10 @@ private:
 
 	void addClientNameToClientsList();
 
-
-
-
-signals:
-
 public slots:
 	void getDisconnected();
 	void getNameChanged(QString & changedName);
+	void fileSyncReady();
 
 };
 
