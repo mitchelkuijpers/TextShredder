@@ -20,6 +20,7 @@ void FileManager::addFileWithPath(QString &path)
 	SyncableFile * file = new SyncableFile(this, path);
 	fileList.append(file);
 	emit fileStarted(file);
+	emit availableFilesChanged();
 }
 
 SyncableFile * FileManager::getFirstSyncableFileFromFileList()
@@ -34,6 +35,8 @@ void FileManager::removeFile (SyncableFile *file)
 		if (fileFromList == file) {
 			fileList.removeAt(i);
 			delete file;
+
+			emit availableFilesChanged();
 			return;
 		}
 	}
@@ -43,6 +46,7 @@ void FileManager::addSyncFile(SyncableFile *file)
 {
 	fileList.append(file);
 	emit fileStarted(file);
+	emit availableFilesChanged();
 }
 
 void FileManager::fillListWithAllFileNames(QList<QString> &fileNames)

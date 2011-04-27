@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>471</width>
+    <width>589</width>
     <height>187</height>
    </rect>
   </property>
@@ -34,24 +34,56 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTabWidget" name="main_tab_widget">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="currentIndex">
-       <number>1</number>
-      </property>
-      <widget class="ClientControlView" name="clientTab">
-       <attribute name="title">
-        <string>Client</string>
-       </attribute>
-      </widget>
-      <widget class="ServerControlView" name="serverTab">
-       <attribute name="title">
-        <string>Server</string>
-       </attribute>
-      </widget>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QTabWidget" name="main_tab_widget">
+        <widget class="ClientControlView" name="clientTab">
+         <attribute name="title">
+          <string>Client</string>
+         </attribute>
+        </widget>
+        <widget class="ServerControlView" name="serverTab">
+         <attribute name="title">
+          <string>Server</string>
+         </attribute>
+         <zorder>availableFilesTable</zorder>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="availableFilesLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Available Files</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QListWidget" name="availableFilesList">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>200</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -61,7 +93,7 @@
   <customwidget>
    <class>ClientControlView</class>
    <extends>QWidget</extends>
-   <header>clientcontrolview.h</header>
+   <header location="global">clientcontrolview.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
