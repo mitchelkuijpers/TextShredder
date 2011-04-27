@@ -31,7 +31,6 @@ private slots:
 	void textChanged( int, int, int );
 	void enableEditing();
 	void updateWorkingCopy();
-	void on_testButton_clicked();
 	void updateConnectedClientsTable();
 	void workingCopyChanged();
 

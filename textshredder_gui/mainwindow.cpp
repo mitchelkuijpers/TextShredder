@@ -33,11 +33,6 @@ void MainWindow::editingDisconnected()
 	ui->main_tab_widget->setCurrentWidget(ui->serverTab);
 }
 
-void MainWindow::clientConnected(int socketDescriptor)
-{
-	qDebug("MainWindow::clientConnected()");
-}
-
 void MainWindow::fileStarted(SyncableFile * file)
 {
 	ClientEditingWindow *editingWindow = new ClientEditingWindow(this);

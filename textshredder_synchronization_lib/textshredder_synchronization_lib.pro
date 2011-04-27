@@ -28,8 +28,6 @@ SOURCES += \
     textshreddersocket.cpp \
     workingcopy.cpp \
     patchable.cpp \
-    readthread.cpp \
-    writethread.cpp \
     syncthread.cpp \
     downloadthread.cpp
 
@@ -48,7 +46,5 @@ HEADERS += \
     workingcopy.h \
     ../textshredder_diff_match_patch/patchable.h \
     patchable.h \
-    readthread.h \
-    writethread.h \
     syncthread.h \
     downloadthread.h
