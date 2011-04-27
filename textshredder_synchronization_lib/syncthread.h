@@ -20,7 +20,7 @@ public:
 signals:
 
 public slots:
-	void processChanges(TextShredderPacket&);
+	void processChanges(QByteArray &content);
 	void stop();
 
 private:

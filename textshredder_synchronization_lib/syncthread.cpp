@@ -8,19 +8,18 @@ SyncThread::SyncThread(QObject * parent, TextShredderConnection & newConnection,
 	*(shadowCopy.getContent ()) = *workingCopy->getContent(); // set shadow copy
 
 	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
-	connect(connection, SIGNAL(newIncomingPacket(TextShredderPacket&)),
-			this, SLOT(processChanges(TextShredderPacket&)));
+
+	connect(connection, SIGNAL(incomingEditPacketContent(QByteArray&)),
+			this, SLOT(processChanges(QByteArray&)));
 	connect(connection, SIGNAL(clientDisconnected()),
 			this, SLOT(stop()));
 	timer.start(WRITETHREAD_INTERVAL);
 }
 
-void SyncThread::processChanges(TextShredderPacket & packet)
+void SyncThread::processChanges(QByteArray & content)
 {
-	if (packet.isEditPacket()) {
-		EditList incomingEditList(this, packet);
-		this->applyReceivedEditList(incomingEditList);
-	}
+	EditList incomingEditList(this, content);
+	this->applyReceivedEditList(incomingEditList);
 }
 
 

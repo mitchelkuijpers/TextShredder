@@ -19,7 +19,7 @@ signals:
 	void fileSyncFinished();
 
 public slots:
-	void processNewPacket(TextShredderPacket &packet);
+	void processFileRequest(QByteArray &content);
 private:
 	TextShredderConnection * connection;
 

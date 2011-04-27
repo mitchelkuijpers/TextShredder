@@ -24,6 +24,7 @@ public slots:
 	void getDisconnected();
 	void getNameChanged(QString & changedName);
 	void fileSyncReady();
+	void processSetAliasPacketContent(QByteArray &bytes);
 
 };
 

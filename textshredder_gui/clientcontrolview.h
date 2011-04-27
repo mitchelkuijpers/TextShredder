@@ -24,7 +24,7 @@ public:
 
 private slots:
 	void on_setAliasButton_clicked();
- void on_connectButton_clicked();
+	void on_connectButton_clicked();
 
 	/**
 	  * Function that will be fired when the TextShredderConnection received
@@ -32,7 +32,7 @@ private slots:
 	  *
 	  * @param the packet that is received.
 	  */
-	void receivedDownload(TextShredderPacket &);
+	void receivedDownload(QByteArray &content);
 
 	/**
 	  * Function that will be fired when the TextShredderConnection status

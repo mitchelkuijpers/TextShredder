@@ -54,6 +54,12 @@ public:
 	  */
 	bool isFileDataPacket();
 
+	/**
+	  * Returns if the packet represents an packet containing file data.
+	  */
+	bool isSetAliasPacket();
+
+
 	bool isIncomplete();
 
 	void appendContentData(QByteArray & data);

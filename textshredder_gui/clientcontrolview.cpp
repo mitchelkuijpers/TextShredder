@@ -40,15 +40,15 @@ void ClientControlView::makeNewSyncFile()
 void ClientControlView::makeNewConnection(QString &hostname, int port)
 {
 	if (connection != NULL) {
-		disconnect(connection,SIGNAL(newIncomingPacket(TextShredderPacket &)),
-				this, SLOT(receivedDownload(TextShredderPacket &)));
+		disconnect(connection,SIGNAL(incomingFileDataPacketContent(QByteArray&)),
+				this, SLOT(receivedDownload(QByteArray &)));
 		disconnect(connection, SIGNAL(statusChanged(TextShredderConnectionStatus)),
 				 this, SLOT(connectionStateChanged(TextShredderConnectionStatus)));
 		delete connection;
 	}
 	connection = new TextShredderConnection(this, hostname, port);
-	connect(connection,SIGNAL(newIncomingPacket(TextShredderPacket &)),
-			this, SLOT(receivedDownload(TextShredderPacket &)));
+	connect(connection,SIGNAL(incomingFileDataPacketContent(QByteArray&)),
+			this, SLOT(receivedDownload(QByteArray &)));
 	connect (connection, SIGNAL(statusChanged(TextShredderConnectionStatus)),
 			 this, SLOT(connectionStateChanged(TextShredderConnectionStatus)));
 	ui->setAliasButton->setEnabled(true);
@@ -60,15 +60,11 @@ void ClientControlView::closeConnection()
 	delete connection;
 }
 
-void ClientControlView::receivedDownload(TextShredderPacket &packet)
+void ClientControlView::receivedDownload(QByteArray &content)
 {
-	if(packet.getHeader().getPacketType() == kPacketTypeFileData) {
-		QString contentString(packet.getContent());
-		syncFile->getWorkingCopy ()->setContent(contentString);
-		startSyncThread();
-	} else {
-		qDebug() << "ClientControlView::receivedDownload got a wrong packet";
-	}
+	QString contentString(content);
+	syncFile->getWorkingCopy ()->setContent(contentString);
+	startSyncThread();
 }
 
 void ClientControlView::connectionStateChanged(TextShredderConnectionStatus status) {
@@ -88,8 +84,8 @@ void ClientControlView::askForDownload()
 void ClientControlView::startSyncThread()
 {
 	syncThread = new SyncThread(this, *connection, *(syncFile->getWorkingCopy()));
-	disconnect(connection, SIGNAL(newIncomingPacket(TextShredderPacket&)),
-			   this, SLOT(receivedDownload(TextShredderPacket&)));
+	disconnect(connection, SIGNAL(incomingFileDataPacketContent(QByteArray&)),
+			   this, SLOT(receivedDownload(QByteArray&)));
 }
 
 void ClientControlView::closeCurrentConnection()
@@ -100,7 +96,11 @@ void ClientControlView::closeCurrentConnection()
 
 void ClientControlView::on_setAliasButton_clicked()
 {
-	QByteArray newAlias("MyName");
-	TextShredderPacket packet(this, kPacketTypeSetAlias, newAlias);
-	connection->write(packet);
+	if (ui->aliasLineEdit->text().length () > 0 ) {
+		QString newAliasString = ui->aliasLineEdit->text();
+		QByteArray newAlias;
+		newAlias.append (newAliasString);
+		TextShredderPacket packet(this, kPacketTypeSetAlias, newAlias);
+		connection->write(packet);
+	}
 }

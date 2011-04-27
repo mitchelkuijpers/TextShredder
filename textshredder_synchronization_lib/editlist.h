@@ -19,6 +19,12 @@ public:
     EditList(QObject *parent, int remoteVersion = 0);
 
 	/**
+	  * Constructor which makes an EditList with QByteArray
+	  *
+	  * @param the remoteVersion which will be used.
+	  */
+	EditList(QObject *parent, QByteArray &content);
+	/**
 	  * Constructor which makes an EditList with a TextShredderPacket object
 	  *
 	  * @param the remoteVersion which will be used.

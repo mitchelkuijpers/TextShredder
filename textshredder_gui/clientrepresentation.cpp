@@ -9,6 +9,20 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 	this->sync = new FileSync(this, this->connection);
 	connect(sync, SIGNAL(fileSyncFinished()), this, SLOT(fileSyncReady()));
 	addClientNameToClientsList();
+
+	connect(connection, SIGNAL(incomingSetAliasPacketContent(QByteArray&)),
+			this, SLOT(processSetAliasPacketContent(QByteArray &)));
+}
+
+void ClientRepresentation::processSetAliasPacketContent(QByteArray &bytes)
+{
+	qDebug("Change alias");
+	QString oldAlias(alias);
+	alias = QString(bytes);
+	for (int i = 0; i < syncableFiles.count(); i++ ) {
+		qDebug("For every file ->");
+		syncableFiles.at(i)->changeClientName (oldAlias, alias);
+	}
 }
 
 void ClientRepresentation::addClientNameToClientsList()
