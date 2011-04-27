@@ -6,6 +6,7 @@
 #include "syncablefile.h"
 
 #include "../textshredder_synchronization_lib/textshredderconnection.h"
+#include "../textshredder_synchronization_lib/syncthread.h"
 
 namespace Ui {
 	class ClientControlView;
@@ -40,7 +41,15 @@ private slots:
 	void connectionStateChanged(TextShredderConnectionStatus status);
 
 private:
+	/**
+	  * Will send a File Download request on the TextShredderConnection
+	  * instance.
+	  */
 	void askForDownload();
+
+	/**
+	  * Will start a new SyncThread object and stops the existing one.
+	  */
 	void startSyncThread();
 	/**
 	  * Makes a new SyncFile object and removes the existing one.
@@ -53,9 +62,11 @@ private:
 	  * It will disconnect and delete the previous connection if it exists.
 	  */
 	void makeNewConnection(QString &hostname, int port);
+
 	Ui::ClientControlView *ui;
 	TextShredderConnection *connection;
 	SyncableFile *syncFile;
+	SyncThread *syncThread;
 };
 
 #endif // CLIENTCONTROLVIEW_H

@@ -57,7 +57,6 @@ void ClientControlView::receivedDownload(TextShredderPacket &packet)
 	if(packet.getHeader().getPacketType() == kPacketTypeFileData) {
 		QString contentString(packet.getContent());
 		syncFile->getWorkingCopy ()->setContent(contentString);
-
 	} else {
 		qDebug() << "ClientControlView::receivedDownload got a wrong packet";
 	}
@@ -79,6 +78,11 @@ void ClientControlView::askForDownload()
 
 void ClientControlView::startSyncThread()
 {
+	if (syncThread != NULL) {
+		syncThread->stop();
+		delete syncThread;
+	}
+	syncThread = new SyncThread(this, *connection, *(syncFile->getWorkingCopy()));
 	disconnect(connection, SIGNAL(newIncomingPacket(TextShredderPacket&)),
 			   this, SLOT(receivedDownload(TextShredderPacket&)));
 }
