@@ -28,6 +28,15 @@ void MainWindow::serverDidStart()
 void MainWindow::editingDisconnected()
 {
 	qDebug("MainWindow::editingDisconnected()");
+
+	FileManager *fileManager = FileManager::Instance();
+	if(fileManager->getFirstSyncableFileFromFileList()->getFileAlias() == "untitled.txt"){
+		qDebug("unsaved file");
+
+	}
+	//only deletes first file at the moment
+	fileManager->removeFile(fileManager->getFirstSyncableFileFromFileList());
+	qDebug("file removed from list");
 	ClientEditingWindow *editingWindow = (ClientEditingWindow *) sender();
 	int tabIndex = ui->main_tab_widget->indexOf (editingWindow);
 	ui->main_tab_widget->removeTab (tabIndex);
@@ -35,12 +44,14 @@ void MainWindow::editingDisconnected()
 	ui->main_tab_widget->setCurrentWidget(ui->serverTab);
 	ui->clientTab->closeConnection();
 
+
 }
 
 void MainWindow::fileStarted(SyncableFile * file)
 {
 	ClientEditingWindow *editingWindow = new ClientEditingWindow(this);
 	connect(editingWindow, SIGNAL(clientDisconnected()), this, SLOT(editingDisconnected()));
+	connect(editingWindow, SIGNAL(fileSaved()), this, SLOT(saveFileMe()));
 	ui->main_tab_widget->addTab (editingWindow, file->getFileAlias());
 	editingWindow->startEditingWithFile (file);
 	ui->main_tab_widget->setCurrentWidget (editingWindow);
@@ -55,3 +66,4 @@ void MainWindow::updateAvailableFiles()
 	FileManager::Instance ()->fillListWithAllFileNames (nameList);
 	ui->availableFilesList->addItems(nameList);
 }
+

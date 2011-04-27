@@ -35,7 +35,14 @@ void ClientEditingWindow::textChanged(int position, int charsRemoved, int charsA
 void ClientEditingWindow::on_disconnectButton_clicked()
 {
 	emit clientDisconnected();
+
 	qDebug("Stopped");
+}
+
+void ClientEditingWindow::on_saveButton_clicked()
+{
+	emit fileSaved();
+	qDebug("Saved");
 }
 
 void ClientEditingWindow::enableEditing()
@@ -86,4 +93,33 @@ void ClientEditingWindow::updateConnectedClientsTable()
 void ClientEditingWindow::workingCopyChanged()
 {
 	this->updateTextFieldToWorkingCopyContent();
+}
+
+void ClientEditingWindow::saveFileMe()
+{
+	saveFileAs();
+	/*if(saveFilePath.isEmpty()){
+		saveFileAs();
+	}else{
+		saveFile(saveFilePath);
+	}*/
+}
+
+void ClientEditingWindow::saveFile(const QString &name)
+{
+	QFile file(name);
+	if (file.open(QIODevice::WriteOnly|QIODevice::Text))
+	{
+		file.write(ui->textEdit->toPlainText().toUtf8());
+
+	}
+}
+
+void ClientEditingWindow::saveFileAs()
+{
+	saveFilePath = QFileDialog::getSaveFileName(this);
+	if(saveFilePath.isEmpty()){
+		return;
+	}
+	saveFile(saveFilePath);
 }

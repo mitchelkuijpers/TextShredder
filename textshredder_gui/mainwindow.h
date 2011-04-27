@@ -26,6 +26,8 @@ private slots:
 	  */
 	void updateAvailableFiles();
 
+
+
 private:
     Ui::MainWindow *ui;
 };

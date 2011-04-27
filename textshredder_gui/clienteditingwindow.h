@@ -2,6 +2,7 @@
 #define CLIENTEDITINGWINDOW_H
 
 #include <QWidget>
+#include <QFileDialog>
 #include "../textshredder_synchronization_lib/workingcopy.h"
 #include "../textshredder_synchronization_lib/syncthread.h"
 #include "syncablefile.h"
@@ -24,18 +25,25 @@ public:
 
 signals:
 	void clientDisconnected();
+	void fileSaved();
 
 private slots:
 	void on_disconnectButton_clicked();
+	void on_saveButton_clicked();
 	void textChanged( int, int, int );
 	void enableEditing();
 	void updateWorkingCopy();
 	void updateConnectedClientsTable();
 	void workingCopyChanged();
 
+	void saveFileMe();
+	void saveFile(const QString &name);
+	void saveFileAs();
+
 private:
 	Ui::ClientEditingWindow *ui;
 	QTcpSocket * socket;
+	QString saveFilePath;
 	SyncableFile *syncFile;
 	void updateTextFieldToWorkingCopyContent();
 };

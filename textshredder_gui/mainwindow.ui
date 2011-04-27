@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>TextShredder</string>
+   <string>TextShredder - Annabel</string>
   </property>
   <widget class="QWidget" name="containerHorizontal">
    <property name="sizePolicy">
@@ -46,7 +46,6 @@
          <attribute name="title">
           <string>Server</string>
          </attribute>
-         <zorder>availableFilesTable</zorder>
         </widget>
        </widget>
       </item>
