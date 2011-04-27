@@ -22,33 +22,63 @@ void ClientControlView::on_connectButton_clicked()
 	QString hostname(ui->serverAdressLineEdit->text());
 	int port = portText.toInt();
 
-	if (connection != NULL)
-		delete connection;
-	connection = new TextShredderConnection(this, hostname, port);
+	makeNewSyncFile();
+	makeNewConnection(hostname, port);
+}
 
-	//TODO remove syncfile if exists (also from file manager)
+void ClientControlView::makeNewSyncFile()
+{
+	if (syncFile != NULL) {
+		FileManager::Instance()->removeFile (syncFile);
+		syncFile = NULL;
+	}
 	syncFile = new SyncableFile(this);
-
 	FileManager::Instance()->addSyncFile(syncFile);
+}
 
+void ClientControlView::makeNewConnection(QString &hostname, int port)
+{
+	if (connection != NULL) {
+		disconnect(connection,SIGNAL(newIncomingPacket(TextShredderPacket &)),
+				this, SLOT(receivedDownload(TextShredderPacket &)));
+		disconnect(connection, SIGNAL(statusChanged(TextShredderConnectionStatus)),
+				 this, SLOT(connectionStateChanged(TextShredderConnectionStatus)));
+		delete connection;
+	}
+	connection = new TextShredderConnection(this, hostname, port);
 	connect(connection,SIGNAL(newIncomingPacket(TextShredderPacket &)),
 			this, SLOT(receivedDownload(TextShredderPacket &)));
 	connect (connection, SIGNAL(statusChanged(TextShredderConnectionStatus)),
 			 this, SLOT(connectionStateChanged(TextShredderConnectionStatus)));
-
 }
 
 void ClientControlView::receivedDownload(TextShredderPacket &packet)
 {
-	QString contentString(packet.getContent());
-	qDebug() << contentString;
-	syncFile->getWorkingCopy ()->setContent(contentString);
+	if(packet.getHeader().getPacketType() == kPacketTypeFileData) {
+		QString contentString(packet.getContent());
+		syncFile->getWorkingCopy ()->setContent(contentString);
+
+	} else {
+		qDebug() << "ClientControlView::receivedDownload got a wrong packet";
+	}
 }
 
 void ClientControlView::connectionStateChanged(TextShredderConnectionStatus status) {
 	if (status == Neutral) {
-		QByteArray emptyContent;
-		TextShredderPacket packet(this, kPacketTypeFileRequest, emptyContent);
-		connection->write(packet);
+		qDebug("succesfully connected");
+		this->askForDownload();
 	}
+}
+
+void ClientControlView::askForDownload()
+{
+	QByteArray emptyContent;
+	TextShredderPacket packet(this, kPacketTypeFileRequest, emptyContent);
+	connection->write(packet);
+}
+
+void ClientControlView::startSyncThread()
+{
+	disconnect(connection, SIGNAL(newIncomingPacket(TextShredderPacket&)),
+			   this, SLOT(receivedDownload(TextShredderPacket&)));
 }
