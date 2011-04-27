@@ -40,7 +40,6 @@ void ShadowCopy::applyEdits( QList<Edit> & edits )
 			this->applyPatches(e.getPatches());
 			remoteVersion++;
 			count++;
-			//qDebug("patched");
 		}
 	}
 }

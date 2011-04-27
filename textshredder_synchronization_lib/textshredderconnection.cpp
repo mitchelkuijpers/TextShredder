@@ -35,7 +35,6 @@ void TextShredderConnection::setupSignalsForSocket()
 
 void TextShredderConnection::read()
 {
-	qDebug("Before read");
 	QTextStream inputStream(&socket);
 	QString buffer;
 
@@ -54,7 +53,6 @@ void TextShredderConnection::read()
 		delete packet;
 		inputStream.reset();
 	}
-	qDebug("After read");
 }
 
 void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)

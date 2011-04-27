@@ -54,6 +54,7 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 	int incomingLocalVersion = incomingEditList.getRemoteVersion();
 
 	if(incomingLocalVersion < currentLocalVersion) {
+		qDebug("Revert");
 		shadowCopy.revert();
 		editList.lock();
 		editList.empty();
@@ -64,9 +65,14 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 	shadowCopy.applyEdits(edits);
 
 	workingCopy->lock();
+	qDebug("Going to process edits");
 	for (int i = 0; i < edits.size(); i++) {
 		Edit e = edits.at(i);
 		QList<Patch> patches = e.getPatches();
+		for(int j=0; j < patches.count(); j++) {
+			Patch p = patches.at (j);
+			qDebug() << p.toString ();
+		}
 		workingCopy->applyPatches (patches);
 	}
 
