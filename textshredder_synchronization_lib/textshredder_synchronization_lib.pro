@@ -25,7 +25,6 @@ SOURCES += \
     backupcopy.cpp \
     textshredderpacket.cpp \
     textshredderpacketparser.cpp \
-    textshreddersocket.cpp \
     workingcopy.cpp \
     patchable.cpp \
     syncthread.cpp \
@@ -42,7 +41,6 @@ HEADERS += \
     backupcopy.h \
     textshredderpacket.h \
     textshredderpacketparser.h \
-    textshreddersocket.h \
     workingcopy.h \
     ../textshredder_diff_match_patch/patchable.h \
     patchable.h \

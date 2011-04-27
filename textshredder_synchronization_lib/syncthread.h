@@ -3,10 +3,10 @@
 
 #include <QObject>
 #include <QTimer>
-#include "syncproperties.h"
-#include "textshreddersocket.h"
-#include "downloadthread.h"
 #include "textshredderconnection.h"
+#include "editlist.h"
+#include "shadowcopy.h"
+#include "workingcopy.h"
 
 #define WRITETHREAD_INTERVAL 2000
 

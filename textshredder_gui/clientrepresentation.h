@@ -2,6 +2,7 @@
 #define CLIENTREPRESENTATION_H
 
 #include <QObject>
+#include <QString>
 #include "../textshredder_synchronization_lib/textshredderconnection.h"
 #include "filesync.h"
 

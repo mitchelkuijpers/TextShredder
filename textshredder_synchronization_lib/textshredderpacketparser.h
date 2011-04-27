@@ -5,8 +5,10 @@
 #include "textshredderpacket.h"
 #include "textshredderheader.h"
 
-namespace TextShredderPacketParser
+class TextShredderPacketParser
 {
+public:
+	TextShredderPacketParser();
 	/**
 	 * Convert a QByteArray to a TextShredderPacket. Returns is NULL if something
 	 * went wrong
@@ -17,6 +19,15 @@ namespace TextShredderPacketParser
 	 *
 	 */
 	TextShredderPacket* makeAllocatedPacketFromBytes(QByteArray * bytes);
-}
+	void handleData(QByteArray &);
+	bool hasMorePackets();
+	TextShredderPacket * nextPacket();
+private:
+	void queueIncompletPacket();
+	QList<TextShredderPacket *> queuedPackets;
+	TextShredderPacket * incompletePacket;
+	QByteArray incompleteData;
+
+};
 
 #endif // TEXTSHREDDERPACKETPARSER_H
