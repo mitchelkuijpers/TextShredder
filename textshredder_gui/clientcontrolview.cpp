@@ -79,10 +79,10 @@ void ClientControlView::askForDownload()
 void ClientControlView::startSyncThread()
 {
 	if (syncThread != NULL) {
-		syncThread->stop();
+	//	syncThread->stop();
 		delete syncThread;
 	}
-	syncThread = new SyncThread(this, *connection, *(syncFile->getWorkingCopy()));
+//	syncThread = new SyncThread(this, *connection, *(syncFile->getWorkingCopy()));
 	disconnect(connection, SIGNAL(newIncomingPacket(TextShredderPacket&)),
 			   this, SLOT(receivedDownload(TextShredderPacket&)));
 }

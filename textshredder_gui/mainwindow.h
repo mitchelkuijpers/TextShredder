@@ -22,6 +22,11 @@ private slots:
 	void clientConnected(int);
 	void fileStarted(SyncableFile *);
 
+	/**
+	  * Function that will update the available files table in the GUI
+	  */
+	void updateAvailableFiles();
+
 private:
     Ui::MainWindow *ui;
 };
