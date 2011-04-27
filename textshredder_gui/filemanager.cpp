@@ -44,3 +44,24 @@ void FileManager::addSyncFile(SyncableFile *file)
 	fileList.append(file);
 	emit fileStarted(file);
 }
+
+void FileManager::fillListWithAllFileNames(QList<QString> &fileNames)
+{
+	SyncableFile *fileFromList;
+	for(int i = 0; i < fileList.count(); i++ ) {
+		fileFromList = fileList.at(i);
+		fileNames.append(fileFromList->getFileAlias());
+	}
+}
+
+SyncableFile * FileManager::getSyncableFileWithName(QString &name)
+{
+	SyncableFile *fileFromList;
+	for(int i = 0; i < fileList.count(); i++ ) {
+		fileFromList = fileList.at(i);
+		if (fileFromList->getFileAlias() == name) {
+			return fileFromList;
+		}
+	}
+	return NULL;
+}

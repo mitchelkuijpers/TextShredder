@@ -14,7 +14,7 @@ public:
 private:
 	TextShredderConnection * connection;
 	FileSync * sync;
-
+	QString * alias;
 
 signals:
 
