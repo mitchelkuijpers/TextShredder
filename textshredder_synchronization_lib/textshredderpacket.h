@@ -8,6 +8,7 @@
 #define kPacketTypeEdits 1
 #define kPacketTypeFileRequest 2
 #define kPacketTypeFileData 3
+#define kPacketTypeSetAlias 4
 
 
 class TextShredderPacket : public QObject
