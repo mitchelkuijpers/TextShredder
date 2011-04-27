@@ -50,10 +50,12 @@ void ClientControlView::makeNewConnection(QString &hostname, int port)
 			this, SLOT(receivedDownload(TextShredderPacket &)));
 	connect (connection, SIGNAL(statusChanged(TextShredderConnectionStatus)),
 			 this, SLOT(connectionStateChanged(TextShredderConnectionStatus)));
+	ui->setAliasButton->setEnabled(true);
 }
 
 void ClientControlView::closeConnection()
 {
+	ui->setAliasButton->setEnabled(false);
 	delete connection;
 }
 

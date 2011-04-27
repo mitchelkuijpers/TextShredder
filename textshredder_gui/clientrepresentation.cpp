@@ -7,7 +7,7 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 	connect(connection, SIGNAL(clientDisconnected()), this, SLOT(getDisconnected()));
 
 	this->sync = new FileSync(this, this->connection);
-
+	connect(sync, SIGNAL(fileSyncFinished()), this, SLOT(fileSyncReady()));
 	addClientNameToClientsList();
 }
 
@@ -21,6 +21,10 @@ void ClientRepresentation::addClientNameToClientsList()
 	syncableFiles.at(0)->addClientWithName(alias);
 }
 
+void ClientRepresentation::fileSyncReady()
+{
+	qDebug("TODO: Start the SyncThread -> FOR THE SERVER, YEAH MITCHEL, IT HAS TO BE DONE TWICE! ARGGH");
+}
 
 void ClientRepresentation::getDisconnected()
 {
