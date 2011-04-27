@@ -33,6 +33,7 @@ private:
 	QTcpSocket socket;
 	QList<TextShredderPacket> queue;
 	TextShredderConnectionStatus status;
+	TextShredderPacketParser parser;
 
 signals:
 	void statusChanged(TextShredderConnectionStatus);

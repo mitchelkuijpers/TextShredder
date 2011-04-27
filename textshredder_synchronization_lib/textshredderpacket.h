@@ -53,6 +53,12 @@ public:
 	  */
 	bool isFileDataPacket();
 
+	bool isIncomplete();
+
+	void appendContentData(QByteArray & data);
+
+	unsigned int length();
+	unsigned int numberOfBytesNeeded();
 
 	TextShredderPacket & operator=(TextShredderPacket & otherPacket);
 

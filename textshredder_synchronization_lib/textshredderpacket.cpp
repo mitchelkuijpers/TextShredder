@@ -54,3 +54,29 @@ QByteArray & TextShredderPacket::getContent()
 TextShredderHeader & TextShredderPacket::getHeader() {
 	return header;
 }
+
+void TextShredderPacket::appendContentData(QByteArray &data)
+{
+	this->content.append(data);
+}
+
+unsigned int TextShredderPacket::numberOfBytesNeeded()
+{
+	unsigned int currentSize = this->content.length();
+	unsigned int expectedSize = this->getHeader().getContentLength();
+	if (expectedSize > currentSize) {
+		return expectedSize - currentSize;
+	}
+	return 0;
+}
+
+bool TextShredderPacket::isIncomplete()
+{
+	return (this->getHeader().getContentLength() > (unsigned int) this->content.length());
+
+}
+
+unsigned int TextShredderPacket::length()
+{
+	return kHeaderLength + this->content.length();
+}

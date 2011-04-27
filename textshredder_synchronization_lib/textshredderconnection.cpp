@@ -43,21 +43,23 @@ TextShredderConnection::TextShredderConnection(QObject *parent, int socketDescri
 
 void TextShredderConnection::read()
 {
-	qDebug("Before read");
 	QTextStream inputStream(&socket);
-
 	QString buffer;
+
 	while(!inputStream.atEnd()) {
-		 buffer = inputStream.readAll();
-		 qDebug() << buffer;
+		 buffer.append(inputStream.readAll());
 	}
 
-	QByteArray packet;
-	packet.append(buffer);
-	TextShredderPacket * tsPacket = TextShredderPacketParser::makeAllocatedPacketFromBytes(&packet);
-	emit newIncomingPacket(*tsPacket);
-	delete tsPacket;
-	qDebug("After read");
+	QByteArray packetData;
+	packetData.append(buffer);
+	parser.handleData(packetData);
+	qDebug() << QString("parsed Data: ") << packetData.length();
+	while(parser.hasMorePackets()) {
+		qDebug("handlepacket");
+		TextShredderPacket * packet = parser.nextPacket();
+		emit newIncomingPacket(*packet);
+		delete packet;
+	}
 }
 
 void TextShredderConnection::write(TextShredderPacket &packet)

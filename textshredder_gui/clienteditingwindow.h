@@ -4,7 +4,6 @@
 #include <QWidget>
 #include "../textshredder_synchronization_lib/workingcopy.h"
 #include "../textshredder_synchronization_lib/syncthread.h"
-#include "../textshredder_synchronization_lib/textshreddersocket.h"
 #include "syncablefile.h"
 
 namespace Ui {

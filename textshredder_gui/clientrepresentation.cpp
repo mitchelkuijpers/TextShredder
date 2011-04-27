@@ -12,9 +12,6 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 	connect(sync, SIGNAL(sendDownload(TextShredderPacket &)),
 			connection, SLOT(write(TextShredderPacket &)));
 
-	connect(sync, SIGNAL(sendDownload(TextShredderPacket &)),
-			connection, SLOT(write(TextShredderPacket &)));
-
 	SyncableFile * syncfile = FileManager::Instance()->getFirstSyncableFileFromFileList();
 	QString ipAdress = connection->getPeerAdress();
 	syncfile->addClientWithName(ipAdress);
