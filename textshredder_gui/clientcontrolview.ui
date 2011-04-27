@@ -25,6 +25,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="serverAdressLineEdit">
+       <property name="toolTip">
+        <string>Insert a Server IP Address to connect with</string>
+       </property>
        <property name="text">
         <string>127.0.0.1</string>
        </property>
@@ -39,6 +42,9 @@
      </item>
      <item row="2" column="1">
       <widget class="QPushButton" name="connectButton">
+       <property name="toolTip">
+        <string>Connect to the server with given IP and port</string>
+       </property>
        <property name="text">
         <string>Connect</string>
        </property>
@@ -46,6 +52,9 @@
      </item>
      <item row="1" column="1">
       <widget class="QSpinBox" name="portSpinner">
+       <property name="toolTip">
+        <string>Select a port number</string>
+       </property>
        <property name="minimum">
         <number>1024</number>
        </property>
