@@ -20,7 +20,6 @@ class ServerControlView : public QWidget
 public:
 	explicit ServerControlView(QWidget *parent = 0);
 	~ServerControlView();
-
 	WorkingCopy * getWorkingCopy();
 
 signals:

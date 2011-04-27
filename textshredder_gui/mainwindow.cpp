@@ -10,9 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->setupUi(this);
 	connect(ui->serverTab, SIGNAL(serverStarted()), this, SLOT(serverDidStart()));
 	ui->main_tab_widget->setCurrentWidget(ui->serverTab);
-	connect(ui->clientTab, SIGNAL(connectedToHost(int)), this, SLOT(clientConnected(int)));
-	connect(FileManager::Instance(), SIGNAL(fileStarted(SyncableFile *)), this, SLOT(fileStarted(SyncableFile *)));
-
+	connect(FileManager::Instance(), SIGNAL(fileStarted(SyncableFile *)),
+			this, SLOT(fileStarted(SyncableFile *)));
+	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()),
+			this, SLOT(updateAvailableFiles()));
 }
 
 MainWindow::~MainWindow()
@@ -47,4 +48,14 @@ void MainWindow::fileStarted(SyncableFile * file)
 	ui->main_tab_widget->addTab (editingWindow, file->getFileAlias());
 	editingWindow->startEditingWithFile (file);
 	ui->main_tab_widget->setCurrentWidget (editingWindow);
+}
+
+void MainWindow::updateAvailableFiles()
+{
+	while (ui->availableFilesList->count () > 0) {
+		ui->availableFilesList->takeItem(0);
+	}
+	QList<QString> nameList;
+	FileManager::Instance ()->fillListWithAllFileNames (nameList);
+	ui->availableFilesList->addItems(nameList);
 }
