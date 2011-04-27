@@ -12,6 +12,11 @@
 
 typedef enum {
 	Disconnected,
+	HostLookup,
+	Establishing,
+	Connected,
+	Bound,
+	Closing,
 	Error,
 	Neutral
 } TextShredderConnectionStatus;
@@ -27,18 +32,20 @@ public:
 private:
 	QTcpSocket socket;
 	QList<TextShredderPacket> queue;
-
-
 	TextShredderConnectionStatus status;
+
 signals:
 	void statusChanged(TextShredderConnectionStatus);
 	void queueChanged();
 	void newIncomingPacket(TextShredderPacket &packet);
+	void clientDisconnected();
 
 public slots:
 	void read();
 	void write(TextShredderPacket &);
 	void socketStateChanged(QAbstractSocket::SocketState);
 	void socketError(QAbstractSocket::SocketError);
+	void clientHasDisconnected();
+
 };
 #endif // TEXTSHREDDERCONNECTION_H

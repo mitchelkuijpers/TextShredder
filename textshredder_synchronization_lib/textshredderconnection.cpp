@@ -6,11 +6,18 @@ TextShredderConnection::TextShredderConnection(QObject *parent,
 	QObject(parent)
 {
 	socket.connectToHost (hostName, port);
+
 	connect(&socket, SIGNAL(readyRead()), this, SLOT(read()));
+
 	connect(&socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this,
 			SLOT(socketStateChanged(QAbstractSocket::SocketState)));
+
 	connect(&socket, SIGNAL(error(QAbstractSocket::SocketError)), this,
 			SLOT(socketError(QAbstractSocket::SocketError)));
+
+	connect(&socket, SIGNAL(disconnected()), this,
+			SLOT(clientHasDisconnected()));
+
 	this->status = Disconnected;
 }
 
@@ -18,11 +25,18 @@ TextShredderConnection::TextShredderConnection(QObject *parent, int socketDescri
 	QObject(parent)
 {
 	qDebug("set SocketDescriptor!");
+
 	connect(&socket, SIGNAL(readyRead()), this, SLOT(read()));
+
 	connect(&socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this,
 			SLOT(socketStateChanged(QAbstractSocket::SocketState)));
+
 	connect(&socket, SIGNAL(error(QAbstractSocket::SocketError)), this,
 			SLOT(socketError(QAbstractSocket::SocketError)));
+
+	connect(&socket, SIGNAL(disconnected()), this,
+			SLOT(clientHasDisconnected()));
+
 	socket.setSocketDescriptor(socketDescriptor);
 	this->status = Neutral;
 }
@@ -62,10 +76,7 @@ void TextShredderConnection::write(TextShredderPacket &packet)
 void TextShredderConnection::socketStateChanged(QAbstractSocket::SocketState state)
 {
 	qDebug() << QString("TSConnection State changed: ") << state;
-	if(	state == QAbstractSocket::UnconnectedState) {
-		status = Disconnected;
-		emit statusChanged(this->status);
-	} else if (state == QAbstractSocket::ConnectedState) {
+	if (state == QAbstractSocket::ConnectedState) {
 		this->status = Neutral;
 		emit statusChanged(this->status);
 	}
@@ -80,6 +91,13 @@ void TextShredderConnection::socketError(QAbstractSocket::SocketError error)
 	this->status = Error;
 	emit statusChanged(this->status);
 	qDebug("After Socket error");
+}
+
+void TextShredderConnection::clientHasDisconnected()
+{
+	qDebug() << QString("Client disconnected");
+	status = Disconnected;
+	emit clientDisconnected();
 }
 
 QString TextShredderConnection::getPeerAdress() {
