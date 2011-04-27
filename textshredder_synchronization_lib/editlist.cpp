@@ -5,6 +5,44 @@ EditList::EditList(QObject *parent, int remoteVersion) :
 {
 }
 
+EditList::EditList(QObject *parent, QByteArray &content)
+	: QObject(parent)
+{
+	int offSet = 0;
+
+	if (content[offSet++] != '{') {
+		throw QString("Edit packet is not starting with a accolade, cannot make EditList");
+	}
+
+	remoteVersion = atoi(&(content.data()[offSet]));
+	offSet += (QString::number (remoteVersion).length () + 1);
+
+	if (content[offSet++] != '{') {
+		throw QString("Edits part in EditList packet is not starting with a accolade, cannot make EditList");
+	}
+
+	int tempEditLength = 0;
+	while (1) {
+		if (content[offSet++] == '{') {
+			//Will start next edit
+			tempEditLength = atoi(&(content.data()[offSet]));
+			offSet += (QString::number (tempEditLength).length () + 1);
+
+			QByteArray editBytes = content.mid (offSet, tempEditLength);
+			offSet += tempEditLength;
+
+			if (content.at(offSet++) != '}') {
+				throw QString("Edits part in EditList packet is not starting with a accolade, cannot make EditList");
+			}
+
+			Edit newEdit(this, editBytes);
+			edits.push_back(newEdit);
+		} else {
+			return;
+		}
+	}
+}
+
 EditList::EditList(QObject *parent, TextShredderPacket &packet)
 	: QObject(parent)
 {

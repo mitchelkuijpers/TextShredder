@@ -38,12 +38,17 @@ bool TextShredderPacket::isEditPacket()
 
 bool TextShredderPacket::isFileDataPacket ()
 {
-	return header.getPacketType() == kPacketTypeFileData;
+	return (header.getPacketType() == kPacketTypeFileData);
 }
 
 bool TextShredderPacket::isFileRequestPacket()
 {
-	return header.getPacketType() == kPacketTypeFileRequest;
+	return (header.getPacketType() == kPacketTypeFileRequest);
+}
+
+bool TextShredderPacket::isSetAliasPacket()
+{
+	return (header.getPacketType() == kPacketTypeSetAlias);
 }
 
 QByteArray & TextShredderPacket::getContent()

@@ -5,22 +5,17 @@ FileSync::FileSync(QObject *parent, TextShredderConnection * connection) :
 {
 	connect(this, SIGNAL(sendDownload(TextShredderPacket &)),
 			connection, SLOT(write(TextShredderPacket &)));
-	connect(connection, SIGNAL(newIncomingPacket(TextShredderPacket &)),
-			this, SLOT(processNewPacket(TextShredderPacket &)));
+	connect(connection, SIGNAL(incomingFileRequestPacketContent(QByteArray&)),
+			this, SLOT(processFileRequest(QByteArray &)));
 }
 
-void FileSync::processNewPacket(TextShredderPacket &packet)
+void FileSync::processFileRequest(QByteArray &)
 {
-	unsigned int type = packet.getHeader().getPacketType();
-	if(type == kPacketTypeFileRequest) {
-		createDownload();
-	} else {
-		qDebug("warning: Got a packet with a unhandable type.");
-	}
+	//TODO: Implement which file is requested
+	createDownload();
 }
 
 void FileSync::createDownload() {
-	qDebug("FileSync::createDownload()");
 	FileManager * manager = FileManager::Instance();
 	SyncableFile * file = manager->getFirstSyncableFileFromFileList();
 	WorkingCopy * workingCopy = file->getWorkingCopy();

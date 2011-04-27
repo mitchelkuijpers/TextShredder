@@ -35,11 +35,19 @@ private:
 	TextShredderConnectionStatus status;
 	TextShredderPacketParser parser;
 
+	void setupSignalsForSocket();
+	void emitNewIncomingPacket(TextShredderPacket &packet);
+
 signals:
 	void statusChanged(TextShredderConnectionStatus);
 	void queueChanged();
-	void newIncomingPacket(TextShredderPacket &packet);
 	void clientDisconnected();
+
+	//Incoming packet signals
+	void incomingSetAliasPacketContent(QByteArray &content);
+	void incomingFileRequestPacketContent(QByteArray &content);
+	void incomingFileDataPacketContent(QByteArray &content);
+	void incomingEditPacketContent(QByteArray &content);
 
 public slots:
 	void read();
