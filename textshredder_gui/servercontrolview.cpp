@@ -50,6 +50,12 @@ void ServerControlView::on_fileSelectButton_clicked()
 	QString fileName = openedFilePath.mid(openedFilePath.lastIndexOf("/")+1,openedFilePath.length());
 	ui->fileName->setText(fileName);
 
+	if ( !openedFilePath.isEmpty() ) {
+		ui->startButton->setEnabled(true);
+	} else {
+		ui->startButton->setEnabled(false);
+		ui->fileName->setText("No File Selected");
+	}
 }
 
 void ServerControlView::addNewConnectionToLog()
