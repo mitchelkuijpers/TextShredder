@@ -22,9 +22,9 @@ signals:
 public slots:
 	void processChanges(TextShredderPacket&);
 	void stop();
+	void pushChanges();
 
 private:
-	void pushChanges();
 	void applyReceivedEditList(EditList &incomingEditList);
 
 	TextShredderConnection * connection;

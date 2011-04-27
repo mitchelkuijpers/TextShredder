@@ -12,7 +12,7 @@ public:
     WorkingCopy(QObject *parent);
 
 	using Patchable::applyPatches;
-	void applyPatches(QList<Patch> patches);
+	void applyPatches(QList<Patch> &patches);
 
 	using Patchable::setContent;
 	void setContent(QString &content);

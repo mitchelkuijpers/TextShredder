@@ -11,7 +11,7 @@ public:
     Patchable(QObject *parent);
 	Patchable(QObject *parent, QString content);
 
-	void applyPatches(QList<Patch> patches);
+	void applyPatches(QList<Patch> &patches);
     QList<Patch> getPatchesToConvertString(QString &otherString);
 	QString * getContent();
 	void setContent(QString &content);

@@ -60,17 +60,21 @@ void TextShredderConnection::read()
 		TextShredderPacket * packet = parser.nextPacket();
 		emit newIncomingPacket(*packet);
 		delete packet;
+		inputStream.reset();
 	}
 }
 
 void TextShredderConnection::write(TextShredderPacket &packet)
 {
 	qDebug("before write");
+	qDebug() << packet.length();
 	QTextStream outputStream(&socket);
 	QByteArray raw;
 	packet.getHeader().appendToQByteArray(raw);
 	raw.append(packet.getContent());
-
+	qDebug() << QString("sended: ") << raw.length();
+	qDebug() << QString(raw);
+	qDebug() << packet.length();
 	outputStream << raw;
 	outputStream.flush();
 	qDebug("After write");

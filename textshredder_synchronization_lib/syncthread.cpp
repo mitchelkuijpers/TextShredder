@@ -27,23 +27,25 @@ void SyncThread::processChanges(TextShredderPacket & packet)
 void SyncThread::pushChanges()
 {
 	shadowCopy.lock();
-	QString *shadowCopyContent = shadowCopy.getContent();
+	QString *shadowCopyContent = workingCopy->getContent();
 	int shadowLocalVersion = shadowCopy.getLocalVersion();
 
 	workingCopy->lock();
-	QList<Patch> newPatches = workingCopy->getPatchesToConvertString (*shadowCopyContent);
-	editList.addEdit (Edit(this, shadowLocalVersion, newPatches));
-	shadowCopy.processPatches(newPatches);
-
+	qDebug() << *workingCopy->getContent();
+	qDebug() << *shadowCopyContent;
+	QList<Patch> newPatches = shadowCopy.getPatchesToConvertString (*shadowCopyContent);
+	if(newPatches.length() > 0) {
+		editList.addEdit (Edit(this, shadowLocalVersion, newPatches));
+		shadowCopy.processPatches(newPatches);
+	}
 	editList.lock();
+	qDebug() << QString("edits: ") << editList.getEdits().length();
 	TextShredderPacket *newPacket = editList.getAllocatedPacket();
 	editList.unlock();
-
 	connection->write(*newPacket);
-
+	delete newPacket;
 	workingCopy->unlock();
 	shadowCopy.unlock();
-	delete newPacket;
 }
 
 void SyncThread::applyReceivedEditList(EditList &incomingEditList)
