@@ -65,6 +65,7 @@ void ClientControlView::receivedDownload(TextShredderPacket &packet)
 	if(packet.getHeader().getPacketType() == kPacketTypeFileData) {
 		QString contentString(packet.getContent());
 		syncFile->getWorkingCopy ()->setContent(contentString);
+		startSyncThread();
 	} else {
 		qDebug() << "ClientControlView::receivedDownload got a wrong packet";
 	}
