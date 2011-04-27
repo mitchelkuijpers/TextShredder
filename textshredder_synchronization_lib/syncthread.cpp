@@ -26,10 +26,12 @@ void SyncThread::processChanges(QByteArray & content)
 void SyncThread::pushChanges()
 {
 	shadowCopy.lock();
+	workingCopy->lock();
+
 	QString *shadowCopyContent = workingCopy->getContent();
 	int shadowLocalVersion = shadowCopy.getLocalVersion();
 
-	workingCopy->lock();
+
 	QList<Patch> newPatches = shadowCopy.getPatchesToConvertString (*shadowCopyContent);
 	if(newPatches.length() > 0) {
 		qDebug("We have new local edits");
