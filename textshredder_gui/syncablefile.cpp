@@ -57,10 +57,48 @@ FileType SyncableFile::typeForSuffix(QString &suffix)
 	return FileTypeUNKNOWN;
 }
 
-void SyncableFile::addClientWithName(QString &name)
+bool SyncableFile::hasClientWithName(QString &name)
 {
+	for (int i = 0; i < clients.size(); ++i) {
+		if (clients.at(i) == name) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool SyncableFile::addClientWithName(QString &name)
+{	
+	if(hasClientWithName(name)) {
+		return false;
+	}
+
 	clients.append(name);
 	notifyAvailableClientsChanged();
+
+	return true;
+}
+
+bool SyncableFile::removeClientWithName(QString &name)
+{
+	if(hasClientWithName(name)) {
+		clients.removeOne(name);
+		notifyAvailableClientsChanged();
+		return true;
+	}
+	return false;
+}
+
+bool SyncableFile::changeClientName(QString &name, QString &toName)
+{
+	if(QString::compare(name,toName,Qt::CaseInsensitive) == 0) {
+		return false;
+	}
+
+	if(clients.indexOf(name) != -1 ) {
+		clients.replace(clients.indexOf(name), toName);
+	}
+	return true;
 }
 
 void SyncableFile::notifyAvailableClientsChanged()
