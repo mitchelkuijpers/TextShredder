@@ -23,12 +23,17 @@ public:
 	  * Will change the file type for the SyncableFile
 	  */
 	void changeFileType(FileType type);
-	void addClientWithName(QString &name);
+
+	bool hasClientWithName(QString &name);
+	bool addClientWithName(QString &name);
+	bool removeClientWithName(QString &name);
+	bool changeClientName(QString &name, QString &toName);
 
 	WorkingCopy * getWorkingCopy();
 	QList<QString> & getAvailableClients();
-
 	QString & getFileAlias();
+
+
 private:
 	FileType typeForSuffix(QString &suffix);
 	QString filePath;

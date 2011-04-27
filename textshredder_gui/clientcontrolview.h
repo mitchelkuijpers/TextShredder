@@ -20,16 +20,39 @@ public:
 	~ClientControlView();
 	QTcpSocket *socket;
 
-signals:
-	void connectedToHost(int);
-
 private slots:
 	void on_connectButton_clicked();
+
+	/**
+	  * Function that will be fired when the TextShredderConnection received
+	  * a file donwload packet.
+	  *
+	  * @param the packet that is received.
+	  */
 	void receivedDownload(TextShredderPacket &);
+
+	/**
+	  * Function that will be fired when the TextShredderConnection status
+	  * changes.
+	  *
+	  * @param the new status of the connection.
+	  */
 	void connectionStateChanged(TextShredderConnectionStatus status);
 
 private:
 	void askForDownload();
+	void startSyncThread();
+	/**
+	  * Makes a new SyncFile object and removes the existing one.
+	  */
+	void makeNewSyncFile();
+
+	/**
+	  * Makes a new TextShredderConnection object, connects the signals and
+	  * stores it in the connection variable.
+	  * It will disconnect and delete the previous connection if it exists.
+	  */
+	void makeNewConnection(QString &hostname, int port);
 	Ui::ClientControlView *ui;
 	TextShredderConnection *connection;
 	SyncableFile *syncFile;

@@ -22,20 +22,34 @@ void ClientControlView::on_connectButton_clicked()
 	QString hostname(ui->serverAdressLineEdit->text());
 	int port = portText.toInt();
 
-	if (connection != NULL)
-		delete connection;
-	connection = new TextShredderConnection(this, hostname, port);
+	makeNewSyncFile();
+	makeNewConnection(hostname, port);
+}
 
-	//TODO remove syncfile if exists (also from file manager)
+void ClientControlView::makeNewSyncFile()
+{
+	if (syncFile != NULL) {
+		FileManager::Instance()->removeFile (syncFile);
+		syncFile = NULL;
+	}
 	syncFile = new SyncableFile(this);
-
 	FileManager::Instance()->addSyncFile(syncFile);
+}
 
+void ClientControlView::makeNewConnection(QString &hostname, int port)
+{
+	if (connection != NULL) {
+		disconnect(connection,SIGNAL(newIncomingPacket(TextShredderPacket &)),
+				this, SLOT(receivedDownload(TextShredderPacket &)));
+		disconnect(connection, SIGNAL(statusChanged(TextShredderConnectionStatus)),
+				 this, SLOT(connectionStateChanged(TextShredderConnectionStatus)));
+		delete connection;
+	}
+	connection = new TextShredderConnection(this, hostname, port);
 	connect(connection,SIGNAL(newIncomingPacket(TextShredderPacket &)),
 			this, SLOT(receivedDownload(TextShredderPacket &)));
 	connect (connection, SIGNAL(statusChanged(TextShredderConnectionStatus)),
 			 this, SLOT(connectionStateChanged(TextShredderConnectionStatus)));
-
 }
 
 void ClientControlView::receivedDownload(TextShredderPacket &packet)
