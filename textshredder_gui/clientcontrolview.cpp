@@ -96,3 +96,8 @@ void ClientControlView::closeCurrentConnection()
 	syncThread->stop();
 	syncThread->deleteLater();
 }
+
+void ClientControlView::on_setAliasButton_clicked()
+{
+	//TODO -> implement send alias packet.
+}
