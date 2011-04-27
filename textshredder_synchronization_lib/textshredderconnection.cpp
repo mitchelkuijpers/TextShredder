@@ -6,17 +6,7 @@ TextShredderConnection::TextShredderConnection(QObject *parent,
 	QObject(parent)
 {
 	socket.connectToHost (hostName, port);
-
-	connect(&socket, SIGNAL(readyRead()), this, SLOT(read()));
-
-	connect(&socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this,
-			SLOT(socketStateChanged(QAbstractSocket::SocketState)));
-
-	connect(&socket, SIGNAL(error(QAbstractSocket::SocketError)), this,
-			SLOT(socketError(QAbstractSocket::SocketError)));
-
-	connect(&socket, SIGNAL(disconnected()), this,
-			SLOT(clientHasDisconnected()));
+	setupSignalsForSocket();
 
 	this->status = Disconnected;
 }
@@ -26,6 +16,13 @@ TextShredderConnection::TextShredderConnection(QObject *parent, int socketDescri
 {
 	qDebug("set SocketDescriptor!");
 
+	setupSignalsForSocket();
+	socket.setSocketDescriptor(socketDescriptor);
+	this->status = Neutral;
+}
+
+void TextShredderConnection::setupSignalsForSocket()
+{
 	connect(&socket, SIGNAL(readyRead()), this, SLOT(read()));
 
 	connect(&socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this,
@@ -36,31 +33,42 @@ TextShredderConnection::TextShredderConnection(QObject *parent, int socketDescri
 
 	connect(&socket, SIGNAL(disconnected()), this,
 			SLOT(clientHasDisconnected()));
-
-	socket.setSocketDescriptor(socketDescriptor);
-	this->status = Neutral;
 }
 
 void TextShredderConnection::read()
 {
+	qDebug("Before read");
 	QTextStream inputStream(&socket);
 	QString buffer;
 
 	while(!inputStream.atEnd()) {
 		 buffer.append(inputStream.readAll());
 	}
-	qDebug() << buffer;
+
 
 	QByteArray packetData;
 	packetData.append(buffer);
 	parser.handleData(packetData);
-	qDebug() << QString("parsed Data: ") << packetData.length();
+
 	while(parser.hasMorePackets()) {
-		qDebug("handlepacket");
 		TextShredderPacket * packet = parser.nextPacket();
-		emit newIncomingPacket(*packet);
+		emitNewIncomingPacket(*packet);
 		delete packet;
 		inputStream.reset();
+	}
+	qDebug("After read");
+}
+
+void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
+{
+	if (packet.isEditPacket ()) {
+		emit incomingEditPacketContent(packet.getContent());
+	} else if (packet.isFileDataPacket ()) {
+		emit incomingFileDataPacketContent(packet.getContent());
+	} else if (packet.isFileRequestPacket()) {
+		emit incomingFileRequestPacketContent(packet.getContent());
+	} else if (packet.isSetAliasPacket()) {
+		emit incomingSetAliasPacketContent(packet.getContent());
 	}
 }
 

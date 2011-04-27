@@ -8,7 +8,7 @@
 #include "shadowcopy.h"
 #include "workingcopy.h"
 
-#define WRITETHREAD_INTERVAL 2000
+#define WRITETHREAD_INTERVAL 500
 
 class SyncThread : public QObject
 {
@@ -20,7 +20,7 @@ public:
 signals:
 
 public slots:
-	void processChanges(TextShredderPacket&);
+	void processChanges(QByteArray &content);
 	void stop();
 	void pushChanges();
 

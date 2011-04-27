@@ -94,12 +94,12 @@ bool SyncableFile::removeClientWithName(QString &name)
 
 bool SyncableFile::changeClientName(QString &name, QString &toName)
 {
-	if(QString::compare(name,toName,Qt::CaseInsensitive) == 0) {
+	if(name == toName) {
 		return false;
 	}
-
 	if(clients.indexOf(name) != -1 ) {
 		clients.replace(clients.indexOf(name), toName);
+		notifyAvailableClientsChanged();
 	}
 	return true;
 }
