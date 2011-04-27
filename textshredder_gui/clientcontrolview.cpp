@@ -99,5 +99,7 @@ void ClientControlView::closeCurrentConnection()
 
 void ClientControlView::on_setAliasButton_clicked()
 {
-	//TODO -> implement send alias packet.
+	QByteArray newAlias("MyName");
+	TextShredderPacket packet(this, kPacketTypeSetAlias, newAlias);
+	connection->write(packet);
 }

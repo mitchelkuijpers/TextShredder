@@ -23,7 +23,8 @@ public:
 	void closeConnection();
 
 private slots:
-	void on_connectButton_clicked();
+	void on_setAliasButton_clicked();
+ void on_connectButton_clicked();
 
 	/**
 	  * Function that will be fired when the TextShredderConnection received
