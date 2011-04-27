@@ -22,9 +22,9 @@ signals:
 public slots:
 	void processChanges(QByteArray &content);
 	void stop();
+	void pushChanges();
 
 private:
-	void pushChanges();
 	void applyReceivedEditList(EditList &incomingEditList);
 
 	TextShredderConnection * connection;

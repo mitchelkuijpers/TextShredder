@@ -6,7 +6,7 @@ WorkingCopy::WorkingCopy(QObject *parent) :
 	lastEditDate = QDateTime::currentDateTime();
 }
 
-void WorkingCopy::applyPatches(QList<Patch> patches)
+void WorkingCopy::applyPatches(QList<Patch> &patches)
 {
 	Patchable::applyPatches(patches);
 

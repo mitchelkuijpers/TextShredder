@@ -83,9 +83,9 @@ void ClientControlView::askForDownload()
 
 void ClientControlView::startSyncThread()
 {
+	disconnect(connection, SIGNAL(newIncomingPacket(TextShredderPacket&)),
+			   this, SLOT(receivedDownload(TextShredderPacket&)));
 	syncThread = new SyncThread(this, *connection, *(syncFile->getWorkingCopy()));
-	disconnect(connection, SIGNAL(incomingFileDataPacketContent(QByteArray&)),
-			   this, SLOT(receivedDownload(QByteArray&)));
 }
 
 void ClientControlView::closeCurrentConnection()
