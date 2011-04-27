@@ -12,13 +12,9 @@ Patchable::Patchable(QObject *parent, QString content):
 
 void Patchable::applyPatches(QList<Patch> &patches)
 {
-	QPair<QString, QVector<bool> > results;
-	qDebug() << patches.first().toString();
+	QPair<QString, QVector<bool> > results;	
 	results = dmpAlgorithm.patch_apply(patches, content);
-	qDebug() << QString("Old Content = ") << content;
-	qDebug() << results;
 	content = results.first;
-	qDebug() << QString("New Content = ") << content;
 }
 
 QList<Patch> Patchable::getPatchesToConvertString(QString &otherString)

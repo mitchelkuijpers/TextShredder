@@ -30,15 +30,13 @@ void SyncThread::pushChanges()
 	int shadowLocalVersion = shadowCopy.getLocalVersion();
 
 	workingCopy->lock();
-	qDebug() << *workingCopy->getContent();
-	qDebug() << *shadowCopyContent;
 	QList<Patch> newPatches = shadowCopy.getPatchesToConvertString (*shadowCopyContent);
 	if(newPatches.length() > 0) {
+		qDebug("We have new local edits");
 		editList.addEdit (Edit(this, shadowLocalVersion, newPatches));
 		shadowCopy.processPatches(newPatches);
 	}
 	editList.lock();
-	qDebug() << QString("edits: ") << editList.getEdits().length();
 	TextShredderPacket *newPacket = editList.getAllocatedPacket();
 	editList.unlock();
 	connection->write(*newPacket);

@@ -16,19 +16,15 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 
 void ClientRepresentation::processSetAliasPacketContent(QByteArray &bytes)
 {
-	qDebug("Change alias");
 	QString oldAlias(alias);
 	alias = QString(bytes);
 	for (int i = 0; i < syncableFiles.count(); i++ ) {
-		qDebug("For every file ->");
 		syncableFiles.at(i)->changeClientName (oldAlias, alias);
 	}
 }
 
 void ClientRepresentation::addClientNameToClientsList()
 {
-	qDebug("ClientRepresentation::addClientNameToClientsList()");
-
 	//TODO: Currently add name to first file, should be file which the client is connected to
 	syncableFiles.append(FileManager::Instance()->getFirstSyncableFileFromFileList());
 	alias.append(connection->getPeerAdress());
@@ -37,14 +33,13 @@ void ClientRepresentation::addClientNameToClientsList()
 
 void ClientRepresentation::fileSyncReady()
 {
-	qDebug("TODO: Start the SyncThread -> FOR THE SERVER, YEAH MITCHEL, IT HAS TO BE DONE TWICE! ARGGH");
+	//TODO: Start the SyncThread -> FOR THE SERVER, YEAH MITCHEL, IT HAS TO BE DONE TWICE! ARGGH");
 
 	syncThread = new SyncThread(this, *connection, *(syncFile->getWorkingCopy()));
 }
 
 void ClientRepresentation::getDisconnected()
 {
-	qDebug("ClientRepresentation::getDisconnected()");
 	int i;
 	for(i=0; i < syncableFiles.size(); i++ ){
 		syncableFiles.at(i)->removeClientWithName(alias);

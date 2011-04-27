@@ -28,27 +28,22 @@ void ClientEditingWindow::textChanged(int position, int charsRemoved, int charsA
 	workingCopyContent->replace(position, charsRemoved, insertString);
 	syncFile->getWorkingCopy()->unlock();
 
-	qDebug("\n");
 	qDebug() << *(syncFile->getWorkingCopy()->getContent());
 }
 
 void ClientEditingWindow::on_disconnectButton_clicked()
 {
 	emit clientDisconnected();
-	qDebug("Stopped");
 }
 
 void ClientEditingWindow::enableEditing()
 {
-	qDebug("ClientEditingWindow::enableEditing()");
-	qDebug() << syncFile->getWorkingCopy()->getContent();
 	this->updateTextFieldToWorkingCopyContent();
 }
 
 
 void ClientEditingWindow::updateWorkingCopy()
 {
-	qDebug("ClientEditingWindow::updateWorkingCopy()");
 	this->updateTextFieldToWorkingCopyContent();
 }
 

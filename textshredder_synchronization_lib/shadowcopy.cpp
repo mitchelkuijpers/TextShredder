@@ -35,7 +35,6 @@ void ShadowCopy::applyEdits( QList<Edit> & edits )
 		Edit e = edits.at(count);
 		if(e.getLocalVersion() < remoteVersion){
 			edits.removeAt(count);
-			//qDebug("already patched");
 		}
 		else{
 			this->applyPatches(e.getPatches());

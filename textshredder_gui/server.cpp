@@ -15,7 +15,6 @@ void Server::incomingConnection(int socketDescriptor)
 
 bool Server::listenWithFile(const QHostAddress &address, quint16 port, QByteArray * fileContent)
 {
-	qDebug("start server");
 	copy = new WorkingCopy(this);
 
 	QString tempString;

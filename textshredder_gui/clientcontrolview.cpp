@@ -69,7 +69,6 @@ void ClientControlView::receivedDownload(QByteArray &content)
 
 void ClientControlView::connectionStateChanged(TextShredderConnectionStatus status) {
 	if (status == Neutral) {
-		qDebug("succesfully connected");
 		this->askForDownload();
 	}
 }
