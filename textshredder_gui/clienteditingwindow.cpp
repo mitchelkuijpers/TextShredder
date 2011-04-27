@@ -39,15 +39,6 @@ void ClientEditingWindow::on_disconnectButton_clicked()
 	qDebug("Stopped");
 }
 
-void ClientEditingWindow::startWithSocketDescriptor(int socketDescriptor)
-{
-	qDebug("ClientEditingWindow::startWithSocketDescriptor()");
-	SyncThread * thread = new SyncThread(this, socketDescriptor, *(new WorkingCopy(this)),
-										 false);
-	connect(thread, SIGNAL(downloadFinished()), this, SLOT(enableEditing()));
-	thread->start();
-}
-
 void ClientEditingWindow::enableEditing()
 {
 	qDebug("ClientEditingWindow::enableEditing()");
@@ -55,22 +46,6 @@ void ClientEditingWindow::enableEditing()
 	this->updateTextFieldToWorkingCopyContent();
 }
 
-void ClientEditingWindow::on_testButton_clicked()
-{
-	socket = new QTcpSocket(this);
-	socket->connectToHost("127.0.0.1", 1027);
-	int socketDescriptor = socket->socketDescriptor();
-
-	SyncThread * thread = new SyncThread(this, socketDescriptor, *(new WorkingCopy(this)),
-										 false);
-	connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-	connect(thread, SIGNAL(downloadFinished()), this, SLOT(updateWorkingCopy()));
-
-	//addItemToClientListView();
-
-	thread->start();
-
-}
 
 void ClientEditingWindow::updateWorkingCopy()
 {
@@ -90,7 +65,6 @@ void ClientEditingWindow::updateTextFieldToWorkingCopyContent()
 
 	qDebug("C");
 }
-
 
 void ClientEditingWindow::startEditingWithFile(SyncableFile * file)
 {
