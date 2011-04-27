@@ -19,6 +19,7 @@ public:
 	explicit ClientControlView(QWidget *parent = 0);
 	~ClientControlView();
 	QTcpSocket *socket;
+	void closeConnection();
 
 private slots:
 	void on_connectButton_clicked();

@@ -52,6 +52,11 @@ void ClientControlView::makeNewConnection(QString &hostname, int port)
 			 this, SLOT(connectionStateChanged(TextShredderConnectionStatus)));
 }
 
+void ClientControlView::closeConnection()
+{
+	delete connection;
+}
+
 void ClientControlView::receivedDownload(TextShredderPacket &packet)
 {
 	if(packet.getHeader().getPacketType() == kPacketTypeFileData) {

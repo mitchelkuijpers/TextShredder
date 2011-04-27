@@ -34,7 +34,9 @@ void ClientEditingWindow::textChanged(int position, int charsRemoved, int charsA
 
 void ClientEditingWindow::on_disconnectButton_clicked()
 {
-	clientDisconnected();
+	emit clientDisconnected();
+
+	qDebug("Stopped");
 }
 
 void ClientEditingWindow::startWithSocketDescriptor(int socketDescriptor)
