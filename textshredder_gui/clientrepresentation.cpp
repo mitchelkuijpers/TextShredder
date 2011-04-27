@@ -5,8 +5,13 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 {
 	this->connection = new TextShredderConnection(this, socketDescriptor);
 	this->sync = new FileSync(this, this->connection);
+
 	connect(connection, SIGNAL(newIncomingPacket(TextShredderPacket &)),
 			sync, SLOT(processNewPacket(TextShredderPacket &)));
+
+	connect(sync, SIGNAL(sendDownload(TextShredderPacket &)),
+			connection, SLOT(write(TextShredderPacket &)));
+
 	connect(sync, SIGNAL(sendDownload(TextShredderPacket &)),
 			connection, SLOT(write(TextShredderPacket &)));
 
@@ -14,5 +19,3 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 	QString ipAdress = connection->getPeerAdress();
 	syncfile->addClientWithName(ipAdress);
 }
-
-
