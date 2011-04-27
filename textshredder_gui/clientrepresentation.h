@@ -5,7 +5,7 @@
 #include <QString>
 #include "../textshredder_synchronization_lib/textshredderconnection.h"
 #include "filesync.h"
-
+#include "../textshredder_synchronization_lib/syncthread.h"
 class ClientRepresentation : public QObject
 {
     Q_OBJECT
@@ -19,6 +19,8 @@ private:
 	QList<SyncableFile *> syncableFiles;
 
 	void addClientNameToClientsList();
+	SyncThread *syncThread;
+	SyncableFile *syncFile;
 
 public slots:
 	void getDisconnected();

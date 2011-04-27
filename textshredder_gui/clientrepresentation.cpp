@@ -5,7 +5,7 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 {
 	this->connection = new TextShredderConnection(this, socketDescriptor);
 	connect(connection, SIGNAL(clientDisconnected()), this, SLOT(getDisconnected()));
-
+	syncFile = FileManager::Instance()->getFirstSyncableFileFromFileList();
 	this->sync = new FileSync(this, this->connection);
 	connect(sync, SIGNAL(fileSyncFinished()), this, SLOT(fileSyncReady()));
 	addClientNameToClientsList();
@@ -24,6 +24,8 @@ void ClientRepresentation::addClientNameToClientsList()
 void ClientRepresentation::fileSyncReady()
 {
 	qDebug("TODO: Start the SyncThread -> FOR THE SERVER, YEAH MITCHEL, IT HAS TO BE DONE TWICE! ARGGH");
+
+	syncThread = new SyncThread(this, *connection, *(syncFile->getWorkingCopy()));
 }
 
 void ClientRepresentation::getDisconnected()
