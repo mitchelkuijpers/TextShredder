@@ -85,5 +85,4 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 void SyncThread::stop()
 {
 	timer.stop();
-	emit this->deleteLater();
 }

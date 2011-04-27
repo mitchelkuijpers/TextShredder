@@ -41,6 +41,8 @@ private slots:
 	  */
 	void connectionStateChanged(TextShredderConnectionStatus status);
 
+	void closeCurrentConnection();
+
 private:
 	/**
 	  * Will send a File Download request on the TextShredderConnection

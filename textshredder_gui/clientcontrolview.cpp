@@ -5,7 +5,8 @@
 
 ClientControlView::ClientControlView(QWidget *parent) :
 	QWidget(parent),
-	ui(new Ui::ClientControlView),  connection(NULL), syncFile(NULL)
+	ui(new Ui::ClientControlView),  connection(NULL), syncFile(NULL),
+	syncThread(NULL)
 {
     ui->setupUi(this);
 }
@@ -83,11 +84,13 @@ void ClientControlView::askForDownload()
 
 void ClientControlView::startSyncThread()
 {
-	if (syncThread != NULL) {
-		syncThread->stop();
-		delete syncThread;
-	}
 	syncThread = new SyncThread(this, *connection, *(syncFile->getWorkingCopy()));
 	disconnect(connection, SIGNAL(newIncomingPacket(TextShredderPacket&)),
 			   this, SLOT(receivedDownload(TextShredderPacket&)));
+}
+
+void ClientControlView::closeCurrentConnection()
+{
+	syncThread->stop();
+	syncThread->deleteLater();
 }
