@@ -49,6 +49,7 @@ void TextShredderConnection::read()
 	while(!inputStream.atEnd()) {
 		 buffer.append(inputStream.readAll());
 	}
+	qDebug() << buffer;
 
 	QByteArray packetData;
 	packetData.append(buffer);
@@ -64,7 +65,7 @@ void TextShredderConnection::read()
 
 void TextShredderConnection::write(TextShredderPacket &packet)
 {
-	qDebug("Before write");
+	qDebug("before write");
 	QTextStream outputStream(&socket);
 	QByteArray raw;
 	packet.getHeader().appendToQByteArray(raw);

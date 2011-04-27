@@ -22,6 +22,7 @@ void FileSync::processNewPacket(TextShredderPacket &packet)
 }
 
 void FileSync::createDownload() {
+	qDebug("FileSync::createDownload()");
 	FileManager * manager = FileManager::Instance();
 	SyncableFile * file = manager->getFirstSyncableFileFromFileList();
 	WorkingCopy * workingCopy = file->getWorkingCopy();
