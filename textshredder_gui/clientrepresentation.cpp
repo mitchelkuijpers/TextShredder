@@ -1,8 +1,9 @@
 #include "clientrepresentation.h"
 
 ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor) :
-    QObject(parent)
+	QObject(parent)
 {
+	alias = new QString();
 	this->connection = new TextShredderConnection(this, socketDescriptor);
 	this->sync = new FileSync(this, this->connection);
 
@@ -15,9 +16,6 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 	SyncableFile * syncfile = FileManager::Instance()->getFirstSyncableFileFromFileList();
 	QString ipAdress = connection->getPeerAdress();
 	syncfile->addClientWithName(ipAdress);
-
-	connect(sync, SIGNAL(sendDownload(TextShredderPacket &)),
-			connection, SLOT(write(TextShredderPacket &)));
 
 	setClientName();
 }
@@ -37,6 +35,7 @@ void ClientRepresentation::setClientName()
 
 void ClientRepresentation::getDisconnected()
 {
+	qDebug("getDisconnected");
 	int i;
 	for(i=0; i < syncableFiles.size(); i++ ){
 		if(this->alias == syncableFiles.at(i)->getFileAlias()){
@@ -50,7 +49,6 @@ void ClientRepresentation::getDisconnected()
 
 void ClientRepresentation::getNameChanged(QString & changedName)
 {
-
 	int i;
 	for(i=0; i< syncableFiles.size(); i++){
 		if(this->alias == syncableFiles.at(i)->getFileAlias()){
