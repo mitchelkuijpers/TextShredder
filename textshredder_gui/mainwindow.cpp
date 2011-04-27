@@ -32,8 +32,9 @@ void MainWindow::editingDisconnected()
 	int tabIndex = ui->main_tab_widget->indexOf (editingWindow);
 	ui->main_tab_widget->removeTab (tabIndex);
 	delete editingWindow;
-
 	ui->main_tab_widget->setCurrentWidget(ui->serverTab);
+	ui->clientTab->closeConnection();
+
 }
 
 void MainWindow::fileStarted(SyncableFile * file)

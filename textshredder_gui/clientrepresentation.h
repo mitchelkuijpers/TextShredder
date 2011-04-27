@@ -2,6 +2,7 @@
 #define CLIENTREPRESENTATION_H
 
 #include <QObject>
+#include <QString>
 #include "../textshredder_synchronization_lib/textshredderconnection.h"
 #include "filesync.h"
 
@@ -15,10 +16,18 @@ private:
 	TextShredderConnection * connection;
 	FileSync * sync;
 	QString * alias;
+	QList<SyncableFile *> syncableFiles;
+
+	void setClientName();
+
+
+
 
 signals:
 
 public slots:
+	void getDisconnected();
+	void getNameChanged(QString & changedName);
 
 };
 
