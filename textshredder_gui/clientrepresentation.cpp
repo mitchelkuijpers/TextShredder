@@ -10,9 +10,31 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 	connect(sync, SIGNAL(sendDownload(TextShredderPacket &)),
 			connection, SLOT(write(TextShredderPacket &)));
 
-	SyncableFile * syncfile = FileManager::Instance()->getFirstSyncableFileFromFileList();
-	QString ipAdress = connection->getPeerAdress();
-	syncfile->addClientWithName(ipAdress);
+	setClientName();
+}
+
+void ClientRepresentation::setClientName()
+{
+	syncableFiles.append( FileManager::Instance()->getFirstSyncableFileFromFileList());
+	alias = connection->getPeerAdress();
+	if(!syncableFiles.last()->addClientWithName(alias)){
+		//FileManager::Instance()->
+	}
+
+
+
+}
+
+
+void ClientRepresentation::getDisconnected(QString alias)
+{
+	int x;
+	for(x=0; x < syncableFiles.size(); x++ ){
+		if(QString::compare(syncableFiles.at(x)->getFileAlias(), alias)){
+			//syncableFiles.at(x)->removeClientName();
+			break;
+		}
+	}
 }
 
 

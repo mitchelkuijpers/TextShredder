@@ -14,11 +14,15 @@ public:
 private:
 	TextShredderConnection * connection;
 	FileSync * sync;
+	QList<SyncableFile *> syncableFiles;
+	QString alias;
 
+	void setClientName();
 
 signals:
 
 public slots:
+	void getDisconnected(QString alias);
 
 };
 
