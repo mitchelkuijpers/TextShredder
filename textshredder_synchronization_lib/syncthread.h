@@ -1,37 +1,37 @@
 #ifndef SYNCTHREAD_H
 #define SYNCTHREAD_H
 
-#include <QThread>
+#include <QObject>
+#include <QTimer>
 #include "syncproperties.h"
-#include "writethread.h"
-#include "readthread.h"
 #include "textshreddersocket.h"
 #include "downloadthread.h"
+#include "textshredderconnection.h"
 
-class SyncThread : public QThread
+#define WRITETHREAD_INTERVAL 2000
+
+class SyncThread : public QObject
 {
 	Q_OBJECT
 
 public:
-	explicit SyncThread(QObject *, int , WorkingCopy &, bool);
+	SyncThread(QObject *, TextShredderConnection &, WorkingCopy &);
 
 signals:
-	void downloadFinished();
 
 public slots:
-	void downloadThreadFinished();
+	void processChanges(TextShredderPacket&);
+	void stop();
 
 private:
-	SyncProperties syncProperties;
-	bool isServer;
-	DownloadThread downloadThread;
-	ReadThread readThread;
-	WriteThread writeThread;
+	void pushChanges();
+	void applyReceivedEditList(EditList &incomingEditList);
 
-	/**
-	  * Start DownloadThread, after finished start Read/WriteThread.
-	  */
-	void run();
+	TextShredderConnection * connection;
+	WorkingCopy * workingCopy;
+	ShadowCopy shadowCopy;
+	EditList editList;
+	QTimer timer;
 };
 
 #endif // SYNCTHREAD_H

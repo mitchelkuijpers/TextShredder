@@ -28,6 +28,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QSpinBox" name="portSpinBox">
+       <property name="toolTip">
+        <string>Select a port number to start the server with</string>
+       </property>
        <property name="minimum">
         <number>1024</number>
        </property>
@@ -43,6 +46,9 @@
          <property name="enabled">
           <bool>false</bool>
          </property>
+         <property name="toolTip">
+          <string>Stop the server</string>
+         </property>
          <property name="text">
           <string>Stop</string>
          </property>
@@ -52,6 +58,9 @@
         <widget class="QPushButton" name="startButton">
          <property name="enabled">
           <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>Start the server with given port</string>
          </property>
          <property name="text">
           <string>Start</string>
@@ -80,6 +89,9 @@
         <layout class="QHBoxLayout" name="fileSelect2">
          <item>
           <widget class="QPushButton" name="fileSelectButton">
+           <property name="toolTip">
+            <string>Select a file to edit</string>
+           </property>
            <property name="text">
             <string>Select File</string>
            </property>

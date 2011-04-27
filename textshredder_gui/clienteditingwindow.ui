@@ -31,6 +31,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="disconnectButton">
+       <property name="toolTip">
+        <string>Disconnect from the server</string>
+       </property>
        <property name="text">
         <string>Disconnect</string>
        </property>
@@ -38,6 +41,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="saveButton">
+       <property name="toolTip">
+        <string>Save the file to local drive</string>
+       </property>
        <property name="text">
         <string>Save</string>
        </property>
