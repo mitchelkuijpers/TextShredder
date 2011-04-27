@@ -29,6 +29,7 @@ private slots:
 	void connectionStateChanged(TextShredderConnectionStatus status);
 
 private:
+	void askForDownload();
 	Ui::ClientControlView *ui;
 	TextShredderConnection *connection;
 	SyncableFile *syncFile;

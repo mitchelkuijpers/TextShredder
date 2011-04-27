@@ -40,15 +40,31 @@ void ClientControlView::on_connectButton_clicked()
 
 void ClientControlView::receivedDownload(TextShredderPacket &packet)
 {
-	QString contentString(packet.getContent());
-	qDebug() << contentString;
-	syncFile->getWorkingCopy ()->setContent(contentString);
+	if(packet.getHeader().getPacketType() == kPacketTypeFileData) {
+		QString contentString(packet.getContent());
+		syncFile->getWorkingCopy ()->setContent(contentString);
+
+	} else {
+		qDebug() << "ClientControlView::receivedDownload got a wrong packet";
+	}
 }
 
 void ClientControlView::connectionStateChanged(TextShredderConnectionStatus status) {
 	if (status == Neutral) {
-		QByteArray emptyContent;
-		TextShredderPacket packet(this, kPacketTypeFileRequest, emptyContent);
-		connection->write(packet);
+		qDebug("succesfully connected");
+		this->askForDownload();
 	}
+}
+
+void ClientControlView::askForDownload()
+{
+	QByteArray emptyContent;
+	TextShredderPacket packet(this, kPacketTypeFileRequest, emptyContent);
+	connection->write(packet);
+}
+
+void ClientControlView::startSyncThread()
+{
+	disconnect(connection, SIGNAL(newIncomingPacket(TextShredderPacket&)),
+			   this, SLOT(receivedDownload(TextShredderPacket&)));
 }
