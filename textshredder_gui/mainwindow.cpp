@@ -10,9 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->setupUi(this);
 	connect(ui->serverTab, SIGNAL(serverStarted()), this, SLOT(serverDidStart()));
 	ui->main_tab_widget->setCurrentWidget(ui->serverTab);
-	connect(ui->clientTab, SIGNAL(connectedToHost(int)), this, SLOT(clientConnected(int)));
 	connect(FileManager::Instance(), SIGNAL(fileStarted(SyncableFile *)), this, SLOT(fileStarted(SyncableFile *)));
-
 }
 
 MainWindow::~MainWindow()
