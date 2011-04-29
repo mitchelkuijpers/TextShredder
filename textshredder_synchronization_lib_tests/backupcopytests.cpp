@@ -18,6 +18,6 @@ void BackupCopyTests::createBackupCopyWithGivenLocalVersionNumber()
 	BackupCopy * newBackupCopy= new BackupCopy(this, localVersion, testContent);
 
     QVERIFY2(newBackupCopy != NULL, "Failed creating BackupCopy object.");
-    QVERIFY2(localVersion == newBackupCopy->getLocalVersion(),
+	QVERIFY2(localVersion == newBackupCopy->getLocalVersion(),
              "Given localVersion is not equal to set localVersion in constructor");
 }

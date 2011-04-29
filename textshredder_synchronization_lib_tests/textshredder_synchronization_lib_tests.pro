@@ -21,10 +21,8 @@ SOURCES += editlisttests.cpp \
     ../textshredder_synchronization_lib/*.cpp \
     edittests.cpp \
     shadowcopytests.cpp \
-    syncpropertiestests.cpp \
     textshredderpackettests.cpp \
     textshredderpacketparsertests.cpp \
-    textshreddersockettests.cpp \
     workingcopytests.cpp \
     patchabletests.cpp \
     main.cpp
@@ -35,11 +33,9 @@ HEADERS += ../textshredder_synchronization_lib/*.h \
     ../textshredder_diff_match_patch/diff_match_patch.h\
     editlisttests.h \
     shadowcopytests.h \
-    syncpropertiestests.h \
     textshredderheadertests.h \
     textshredderpacketparsertests.h \
     textshredderpackettests.h \
-    textshreddersockettests.h \
     workingcopytests.h \
     patchabletests.h \
     edittests.h
