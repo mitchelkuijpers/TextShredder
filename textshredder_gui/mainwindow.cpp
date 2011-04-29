@@ -51,7 +51,7 @@ void MainWindow::fileStarted(SyncableFile * file)
 {
 	ClientEditingWindow *editingWindow = new ClientEditingWindow(this);
 
-	connect(editingWindow, SIGNAL(fileSaved()), this, SLOT(saveFileMe()));
+
 
 	connect(editingWindow, SIGNAL(clientDisconnected()),
 			ui->clientTab, SLOT(closeCurrentConnection()));

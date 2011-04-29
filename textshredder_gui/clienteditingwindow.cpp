@@ -10,6 +10,7 @@ ClientEditingWindow::ClientEditingWindow(QWidget *parent) :
 
 	connect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
+	//connect(ui->saveButton, SIGNAL(fileSaved()), this, SLOT(saveFileMe()));
 }
 
 ClientEditingWindow::~ClientEditingWindow()
@@ -41,7 +42,8 @@ void ClientEditingWindow::on_disconnectButton_clicked()
 
 void ClientEditingWindow::on_saveButton_clicked()
 {
-	emit fileSaved();
+	saveFileMe();
+	//emit fileSaved();
 	qDebug("Saved");
 }
 
@@ -98,7 +100,7 @@ void ClientEditingWindow::workingCopyChanged()
 void ClientEditingWindow::saveFileMe()
 {
 	saveFileAs();
-	/*if(saveFilePath.isEmpty()){
+	/*if(saveFilePath == "untitled.txt"){
 		saveFileAs();
 	}else{
 		saveFile(saveFilePath);
@@ -118,7 +120,7 @@ void ClientEditingWindow::saveFile(const QString &name)
 void ClientEditingWindow::saveFileAs()
 {
 	saveFilePath = QFileDialog::getSaveFileName(this);
-	if(saveFilePath.isEmpty()){
+	if(saveFilePath == "untitled.txt"){
 		return;
 	}
 	saveFile(saveFilePath);
