@@ -12,15 +12,3 @@ void Server::incomingConnection(int socketDescriptor)
 {
 	new ClientRepresentation(this, socketDescriptor);
 }
-
-bool Server::listenWithFile(const QHostAddress &address, quint16 port, QByteArray * fileContent)
-{
-	copy = new WorkingCopy(this);
-
-	QString tempString;
-	tempString.append(fileContent->data());
-	copy->setContent(tempString);
-
-	listen(address, port);
-	return true;
-}

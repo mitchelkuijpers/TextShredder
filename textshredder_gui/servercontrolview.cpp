@@ -21,7 +21,7 @@ void ServerControlView::on_startButton_clicked()
 	connect(server, SIGNAL(newConnection()),
 			this, SLOT(addNewConnectionToLog()));
     int portNumber = ui->portSpinBox->text().toInt();
-	if(!server->listenWithFile(QHostAddress::Any, portNumber, &fileContent)) {
+	if(!server->listen(QHostAddress::Any, portNumber)) {
         qDebug("Could not start the server");
 	}
 
