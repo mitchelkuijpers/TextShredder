@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/ui/main">
+        <file>images/server.svg</file>
+        <file>images/user.svg</file>
+        <file>images/userfolder.svg</file>
+    </qresource>
+    <qresource prefix="/ui/ribbon"/>
+</RCC>
