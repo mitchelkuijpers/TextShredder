@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/ui/core">
+        <file>fonts/Cantarell-Bold.ttf</file>
+        <file>fonts/Cantarell-BoldOblique.ttf</file>
+        <file>fonts/Cantarell-Oblique.ttf</file>
+        <file>fonts/Cantarell-Regular.ttf</file>
+    </qresource>
+</RCC>
