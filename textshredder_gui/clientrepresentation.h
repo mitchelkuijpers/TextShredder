@@ -20,7 +20,7 @@ private:
 
 	void addClientNameToClientsList();
 	SyncThread *syncThread;
-	SyncableFile *syncFile;
+        SyncableFile *syncFile;
 
 public slots:
 	void getDisconnected();

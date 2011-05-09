@@ -3,10 +3,16 @@
 #include "filemanager.h"
 #include "clienteditingwindow.h"
 
+
+
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
-	ui(new Ui::MainWindow)
+        ui(new Ui::MainWindow)
 {
+    log = new TextShredderLogging(this);
+    log->writeLog("testMainWindowCreated");
+    testlog = new TextShredderLogging(this, "testFile");
+    testlog->writeLog("test test");
 	ui->setupUi(this);
 	connect(ui->serverTab, SIGNAL(serverStarted()), this, SLOT(serverDidStart()));
 	ui->main_tab_widget->setCurrentWidget(ui->serverTab);
@@ -49,16 +55,13 @@ void MainWindow::editingDisconnected()
 
 void MainWindow::fileStarted(SyncableFile * file)
 {
-	ClientEditingWindow *editingWindow = new ClientEditingWindow(this);
-
-
-
-	connect(editingWindow, SIGNAL(clientDisconnected()),
+    ClientEditingWindow *editingWindow = new ClientEditingWindow(this);
+    connect(editingWindow, SIGNAL(clientDisconnected()),
 			ui->clientTab, SLOT(closeCurrentConnection()));
 
-	ui->main_tab_widget->addTab (editingWindow, file->getFileAlias());
-	editingWindow->startEditingWithFile (file);
-	ui->main_tab_widget->setCurrentWidget (editingWindow);
+    ui->main_tab_widget->addTab (editingWindow, file->getFileAlias());
+    editingWindow->startEditingWithFile (file);
+    ui->main_tab_widget->setCurrentWidget (editingWindow);
 }
 
 void MainWindow::updateAvailableFiles()

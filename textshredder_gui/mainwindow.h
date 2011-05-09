@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include "syncablefile.h"
+#include "textshredderlogging.h"
+
+
+
 
 namespace Ui {
     class MainWindow;
@@ -30,6 +34,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    TextShredderLogging *log;
+    TextShredderLogging *testlog;
 };
 
 #endif // MAINWINDOW_H

@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     syncablefile.cpp \
     filemanager.cpp \
     filesync.cpp \
-    clientrepresentation.cpp
+    clientrepresentation.cpp \
+    textshredderlogging.cpp
 
 HEADERS  += mainwindow.h \
 	servercontrolview.h \
@@ -37,7 +38,8 @@ HEADERS  += mainwindow.h \
     syncablefile.h \
     filemanager.h \
     filesync.h \
-    clientrepresentation.h
+    clientrepresentation.h \
+    textshredderlogging.h
 
 FORMS    += mainwindow.ui \
 	servercontrolview.ui \
