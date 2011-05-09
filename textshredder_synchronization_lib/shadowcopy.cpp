@@ -21,7 +21,6 @@ ShadowCopy::ShadowCopy(QObject *parent, QString content) :
 void ShadowCopy::revert()
 {
 	content = *(backupCopy->getContent());
-	this->localVersion = backupCopy->getLocalVersion();
 }
 
 void ShadowCopy::backup()
@@ -63,7 +62,6 @@ void ShadowCopy::applyEdits( QList<Edit> & edits )
 void ShadowCopy::processPatches( QList<Patch> &patches)
 {
 	this->applyPatches(patches);
-	localVersion++;
 }
 
 unsigned int ShadowCopy::getRemoteVersion()

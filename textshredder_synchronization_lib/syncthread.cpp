@@ -45,6 +45,7 @@ void SyncThread::pushChanges()
 		outgoingLog->writeLog ("We have new local edits");
 		editList.addEdit (Edit(this, shadowLocalVersion, newPatches));
 		shadowCopy.processPatches(newPatches);
+		shadowCopy.setLocalVersion (shadowCopy.getLocalVersion ()+1);
 	} else {
 		outgoingLog->writeLog ("We DO NOT have new local edits");
 	}
@@ -111,7 +112,6 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 			Edit e = edits.at (i);
 			shadowCopy.processPatches(e.getPatches ());
 			i++;
-			shadowCopy.setLocalVersion(e.getLocalVersion());
 		}
 		editList.unlock();
 	}
