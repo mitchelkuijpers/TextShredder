@@ -76,12 +76,14 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 	curLocalVer.append (QString::number (currentLocalVersion));
 	incommingLog->writeLog (curLocalVer.toStdString ().c_str ());
 
+	bool didRevert = false;
 	if(incomingLocalVersion < currentLocalVersion) {
 		incommingLog->writeLog ("Have to do revert");
 		shadowCopy.revert();
-		editList.lock();
-		editList.empty();
-		editList.unlock();
+		didRevert = true;
+		//editList.lock();
+		//editList.empty();
+		//editList.unlock();
 	}
 
 	QList<Edit> edits = incomingEditList.getEdits();
@@ -100,6 +102,19 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 	}
 
 	shadowCopy.backup();
+
+	if (didRevert) {
+		editList.lock();
+		QList<Edit> edits = editList.getEdits();
+		int i = 0;
+		while (i < edits.size ()) {
+			Edit e = edits.at (i);
+			shadowCopy.processPatches(e.getPatches ());
+			i++;
+			shadowCopy.setLocalVersion(e.getLocalVersion());
+		}
+		editList.unlock();
+	}
 	int currentKnownRemoteVersion = shadowCopy.getRemoteVersion();
 	int currentKnownLocalVersion = shadowCopy.getLocalVersion();
 

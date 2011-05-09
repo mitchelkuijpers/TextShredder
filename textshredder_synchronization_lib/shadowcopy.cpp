@@ -80,3 +80,8 @@ BackupCopy * ShadowCopy::getBackupCopy()
 {
 	return backupCopy;
 }
+
+void ShadowCopy::setLocalVersion(int version)
+{
+	localVersion = version;
+}

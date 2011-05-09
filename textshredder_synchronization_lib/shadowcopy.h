@@ -43,6 +43,7 @@ public:
 	  */
 	void processPatches( QList<Patch> & patches);
 
+	void setLocalVersion(int version);
 signals:
 
 private:
