@@ -7,6 +7,7 @@
 #include "editlist.h"
 #include "shadowcopy.h"
 #include "workingcopy.h"
+#include "../textshredder_gui/textshredderlogging.h"
 
 #define WRITETHREAD_INTERVAL 1000
 
@@ -32,6 +33,11 @@ private:
 	ShadowCopy shadowCopy;
 	EditList editList;
 	QTimer timer;
+	int syncThreadNumber;
+	static int sharedIndex;
+
+	TextShredderLogging *incommingLog;
+	TextShredderLogging *outgoingLog;
 };
 
 #endif // SYNCTHREAD_H
