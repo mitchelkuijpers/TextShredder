@@ -17,11 +17,13 @@ public:
 	void changeWindowStateToServer();
 	void changeWindowStateToClient();
 	void animationMoveTo(QObject * target, QRect startRect, QRect endRect, int animationLength );
+	void performStarupAnimation();
 
 private:
     Ui::MainWindow *ui;
 
 private slots:
+ void on_cancelButton_clicked();
  void on_isServerInput_clicked();
 };
 

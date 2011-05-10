@@ -8,6 +8,7 @@ EditorView::EditorView(QWidget *parent) :
 {
     ui->setupUi(this);
 
+	ui->fileTreeWidget->setFocus();
 	setFileTreeWidgetColumnsInModel();
 }
 

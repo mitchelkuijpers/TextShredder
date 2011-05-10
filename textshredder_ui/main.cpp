@@ -6,14 +6,15 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-	//MainWindow w;
-	//w.show();
-
-	//EditorView e;
-	//e.show();
 
 	DebugView d;
 	d.show();
+
+	MainWindow w;
+	w.show();
+
+	EditorView e;
+	e.show();
 
     return a.exec();
 }
