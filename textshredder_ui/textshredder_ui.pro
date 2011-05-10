@@ -13,15 +13,18 @@ TEMPLATE = app
 SOURCES += main.cpp\
 		mainwindow.cpp \
     editorview.cpp \
-    editorribbon.cpp
+    editorribbon.cpp \
+    debugview.cpp
 
 HEADERS  += mainwindow.h \
     editorview.h \
-    editorribbon.h
+    editorribbon.h \
+    debugview.h
 
 FORMS    += mainwindow.ui \
     editorview.ui \
-    editorribbon.ui
+    editorribbon.ui \
+    debugview.ui
 
 RESOURCES += images.qrc \
     fonts.qrc

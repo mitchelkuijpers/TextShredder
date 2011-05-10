@@ -14,6 +14,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+	void changeWindowStateToServer();
+	void changeWindowStateToClient();
+	void animationMoveTo(QObject * target, QRect startRect, QRect endRect, int animationLength );
 
 private:
     Ui::MainWindow *ui;

@@ -44,14 +44,15 @@ void TextShredderLogging::writeLog(QString &logData, LogType logtype)
     QTextStream out(logFile);
     switch(logtype){
     case INFO:
-        out << "INFO ";
+        logData.prepend("INFO -> ");
         break;
     case DEBUG:
-        out << "DEBUG ";
+        logData.prepend("DEBUG -> ");
         break;
     case ERROR:
-        out << "ERROR ";
+        logData.prepend("ERROR -> ");
         break;
     }
-    out << QTime::currentTime().toString() << " " << logData << "\n";
+    writeLog(logData);
+
 }

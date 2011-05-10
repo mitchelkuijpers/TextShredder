@@ -68,6 +68,7 @@ public:
 	unsigned int numberOfBytesNeeded();
 
 	TextShredderPacket & operator=(TextShredderPacket & otherPacket);
+	bool operator==(TextShredderPacket & otherPacket);
 
 	//Getters
 	QByteArray & getContent();

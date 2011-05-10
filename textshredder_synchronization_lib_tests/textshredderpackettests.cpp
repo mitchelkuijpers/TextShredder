@@ -47,4 +47,57 @@ void TextShredderPacketTests::testCheckingOnEditPacket()
 	delete notEditPacket;
 }
 
+void TextShredderPacketTests::testCheckingOnFileRequestPacket()
+{
+	QByteArray content;
+	TextShredderPacket *fileRequest = new TextShredderPacket(this, kPacketTypeFileRequest, content);
+	TextShredderPacket *notFileRequest = new TextShredderPacket(this, kPacketTypeFileRequest + 1, content);
 
+	QVERIFY2(fileRequest->isFileRequestPacket() == true, "TextShredderPacket should be an filerequest packet");
+	QVERIFY2(notFileRequest->isFileRequestPacket() == false, "TextShredderPacket should not be an filerequest packet");
+
+	delete fileRequest;
+	delete notFileRequest;
+}
+
+void TextShredderPacketTests::testCheckingOnFileDataPacket()
+{
+	QByteArray content;
+	TextShredderPacket *fileData= new TextShredderPacket(this, kPacketTypeFileData, content);
+	TextShredderPacket *notFileData = new TextShredderPacket(this, kPacketTypeFileData + 1, content);
+
+	QVERIFY2(fileData->isFileDataPacket() == true, "TextShredderPacket should be an filedata packet");
+	QVERIFY2(notFileData->isFileDataPacket() == false, "TextShredderPacket should not be an filedata packet");
+
+	delete fileData;
+	delete notFileData;
+}
+
+void TextShredderPacketTests::testCheckingOnSetAliasPacket()
+{
+	QByteArray content;
+	TextShredderPacket *setAlias= new TextShredderPacket(this, kPacketTypeSetAlias, content);
+	TextShredderPacket *notSetAlias = new TextShredderPacket(this, kPacketTypeSetAlias + 1, content);
+
+	QVERIFY2(setAlias->isSetAliasPacket() == true, "TextShredderPacket should be an setAlias packet");
+	QVERIFY2(notSetAlias->isSetAliasPacket() == false, "TextShredderPacket should not be an setAlias packet");
+
+	delete setAlias;
+	delete notSetAlias;
+}
+
+void TextShredderPacketTests::testAppendingData()
+{
+	QByteArray content;
+	TextShredderPacket *dataPacket = new TextShredderPacket(this, kPacketTypeFileData, content);
+	content = "A";
+	dataPacket->appendContentData(content);
+
+	QVERIFY2(dataPacket->getContent() == "A", "Content did not append correct, it contains: "+dataPacket->getContent());
+	delete dataPacket;
+}
+
+void TextShredderPacketTests::testNumberOfBytesNeeded()
+{
+	TextShredderPacket *TSPacket;
+}

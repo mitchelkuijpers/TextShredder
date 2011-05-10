@@ -6,6 +6,9 @@ EditorRibbon::EditorRibbon(QWidget *parent) :
     ui(new Ui::EditorRibbon)
 {
     ui->setupUi(this);
+
+	ui->horizontalLine->setFrameShape(QFrame::HLine);
+	ui->horizontalLine->setFrameShadow(QFrame::Sunken);
 }
 
 EditorRibbon::~EditorRibbon()
