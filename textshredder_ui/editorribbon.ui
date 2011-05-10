@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>726</width>
+    <width>868</width>
     <height>110</height>
    </rect>
   </property>
@@ -31,7 +31,11 @@
       <number>-1</number>
      </property>
      <item row="0" column="0" colspan="6">
-      <widget class="QFontComboBox" name="fontFamilyInput"/>
+      <widget class="QFontComboBox" name="fontFamilyInput">
+       <property name="toolTip">
+        <string>Font family</string>
+       </property>
+      </widget>
      </item>
      <item row="1" column="0">
       <widget class="QPushButton" name="boldButton">
@@ -46,6 +50,9 @@
          <weight>50</weight>
          <bold>false</bold>
         </font>
+       </property>
+       <property name="toolTip">
+        <string>Bold</string>
        </property>
        <property name="text">
         <string/>
@@ -70,6 +77,9 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Underline</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -89,6 +99,9 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Italic</string>
        </property>
        <property name="text">
         <string/>
@@ -110,6 +123,9 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Strike</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -130,6 +146,9 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Subscript</string>
+       </property>
        <property name="text">
         <string>X2</string>
        </property>
@@ -146,6 +165,9 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Superscript</string>
+       </property>
        <property name="text">
         <string>X1</string>
        </property>
@@ -156,6 +178,9 @@
      </item>
      <item row="1" column="6">
       <widget class="QComboBox" name="fontColorInput">
+       <property name="toolTip">
+        <string>Change font color</string>
+       </property>
        <item>
         <property name="text">
          <string>Font Color</string>
@@ -165,6 +190,9 @@
      </item>
      <item row="1" column="7">
       <widget class="QComboBox" name="fontMarkInput">
+       <property name="toolTip">
+        <string>Change text marking</string>
+       </property>
        <item>
         <property name="text">
          <string>Mark</string>
@@ -174,6 +202,9 @@
      </item>
      <item row="0" column="6" colspan="2">
       <widget class="QComboBox" name="fontSizeInput">
+       <property name="toolTip">
+        <string>Font size</string>
+       </property>
        <property name="editable">
         <bool>true</bool>
        </property>
@@ -264,8 +295,11 @@
        </item>
       </widget>
      </item>
-     <item row="0" column="8">
+     <item row="0" column="9">
       <widget class="QPushButton" name="unorderedListButton">
+       <property name="toolTip">
+        <string>Insert unordered list</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -278,8 +312,11 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="9">
+     <item row="0" column="10">
       <widget class="QPushButton" name="orderedListButton">
+       <property name="toolTip">
+        <string>Insert ordered list</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -292,8 +329,11 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="9">
+     <item row="1" column="10">
       <widget class="QPushButton" name="alignCenterButton">
+       <property name="toolTip">
+        <string>Align center</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -306,8 +346,11 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="10">
+     <item row="1" column="11">
       <widget class="QPushButton" name="alignRightButton">
+       <property name="toolTip">
+        <string>Align right</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -320,8 +363,11 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="11">
+     <item row="1" column="12">
       <widget class="QPushButton" name="alignJustifyButton">
+       <property name="toolTip">
+        <string>Justify text</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -334,7 +380,7 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0" colspan="12">
+     <item row="2" column="0" colspan="13">
       <widget class="QFrame" name="horizontalLine">
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
@@ -344,8 +390,11 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="8">
+     <item row="1" column="9">
       <widget class="QPushButton" name="alignLeftButton">
+       <property name="toolTip">
+        <string>Align left</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -355,6 +404,16 @@
        </property>
        <property name="checkable">
         <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="8" rowspan="2">
+      <widget class="QFrame" name="verticalLine">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
       </widget>
      </item>

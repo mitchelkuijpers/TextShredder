@@ -9,6 +9,9 @@ EditorRibbon::EditorRibbon(QWidget *parent) :
 
 	ui->horizontalLine->setFrameShape(QFrame::HLine);
 	ui->horizontalLine->setFrameShadow(QFrame::Sunken);
+
+	ui->verticalLine->setFrameShape(QFrame::VLine);
+	ui->verticalLine->setFrameShadow(QFrame::Sunken);
 }
 
 EditorRibbon::~EditorRibbon()

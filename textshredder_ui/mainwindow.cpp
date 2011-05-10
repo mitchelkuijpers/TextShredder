@@ -13,10 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	this->setFixedSize(this->width(),this->height());
 	ui->serverIpInput->setFocus();
 
-	animationMoveTo(ui->fadeInLabel, QRect(0, 60, 541, 91), QRect(500, 60, 541, 91), 700);
-	animationMoveTo(ui->titleLabel1, QRect(350, 69, 211, 31), QRect(100, 69, 211, 31), 600);
-	animationMoveTo(ui->titleLabel2, QRect(300, 109, 241, 41), QRect(100, 109, 241, 41), 610);
-	animationMoveTo(ui->titleLabel3, QRect(540, 110, 141, 40), QRect(340, 110, 141, 40), 610);
+	performStarupAnimation();
 }
 
 MainWindow::~MainWindow()
@@ -53,6 +50,14 @@ void MainWindow::changeWindowStateToClient()
 	ui->serverIpInput->setFocus();
 }
 
+void MainWindow::performStarupAnimation()
+{
+	animationMoveTo(ui->fadeInLabel, QRect(0, 60, 541, 91), QRect(500, 60, 541, 91), 800);
+	animationMoveTo(ui->titleLabel1, QRect(300, 69, 211, 31), QRect(100, 69, 211, 31), 600);
+	animationMoveTo(ui->titleLabel2, QRect(370, 109, 241, 41), QRect(100, 109, 241, 41), 600);
+	animationMoveTo(ui->titleLabel3, QRect(610, 110, 141, 40), QRect(340, 110, 141, 40), 600);
+}
+
 void MainWindow::animationMoveTo(QObject * target, QRect startRect, QRect endRect, int animationLength )
 {
 	QPropertyAnimation *animation = new QPropertyAnimation(target, "geometry");
@@ -61,4 +66,9 @@ void MainWindow::animationMoveTo(QObject * target, QRect startRect, QRect endRec
 	animation->setEndValue(endRect);
 
 	animation->start();
+}
+
+void MainWindow::on_cancelButton_clicked()
+{
+	performStarupAnimation();
 }
