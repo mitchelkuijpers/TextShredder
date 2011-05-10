@@ -25,7 +25,8 @@ SOURCES += editlisttests.cpp \
     textshredderpacketparsertests.cpp \
     workingcopytests.cpp \
     patchabletests.cpp \
-    main.cpp
+    main.cpp \
+    syncthreadsub.cpp
 
 HEADERS += ../textshredder_synchronization_lib/*.h \
     autotest.h \
@@ -38,5 +39,6 @@ HEADERS += ../textshredder_synchronization_lib/*.h \
     textshredderpackettests.h \
     workingcopytests.h \
     patchabletests.h \
-    edittests.h
+    edittests.h \
+    syncthreadsub.h
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
