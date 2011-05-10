@@ -56,7 +56,7 @@ public:
 	unsigned int getLocalVersion();
 	QList<Patch> & getPatches();
 
-
+	QString toString();
 signals:
 
 public slots:

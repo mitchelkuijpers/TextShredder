@@ -105,3 +105,19 @@ void Edit::setPatches(QList<Patch> &newPatches)
 {
     this->patches = newPatches;
 }
+
+QString Edit::toString()
+{
+	QString returnValue("Edit (based on local version: ");
+	returnValue.append (QString::number (localVersion));
+	returnValue.append (")\n");
+	int count = 0;
+	while( count < patches.count ()) {
+		Patch p = patches.at (count);
+		returnValue.append ("Next Patch: \n");
+		returnValue.append (p.toString ());
+		returnValue.append ("\n");
+		count++;
+	}
+	return returnValue;
+}
