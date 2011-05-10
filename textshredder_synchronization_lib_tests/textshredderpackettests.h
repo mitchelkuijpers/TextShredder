@@ -13,6 +13,11 @@ private Q_SLOTS:
 	void testCreatingPacketWithHeaderAndContent();
 	void testCreatingPacketWithTypeAndContent();
 	void testCheckingOnEditPacket();
+	void testCheckingOnFileRequestPacket();
+	void testCheckingOnFileDataPacket();
+	void testCheckingOnSetAliasPacket();
+	void testAppendingData();
+	void testNumberOfBytesNeeded();
 };
 
 DECLARE_TEST(TextShredderPacketTests);

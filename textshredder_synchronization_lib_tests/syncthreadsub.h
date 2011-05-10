@@ -9,10 +9,12 @@ class SyncThreadSub : public QObject
     Q_OBJECT
 public:
 
+
 //    SyncThreadSub(QObject *parent, TextShredderConnection&, WorkingCopy&);
 
 //    using SyncThread::applyReceivedEditList;
 //    void applyReceivedEditList(EditList &incomingEditList);
+
 
 signals:
 

@@ -23,7 +23,7 @@ public:
 	bool hasMorePackets();
 	TextShredderPacket * nextPacket();
 private:
-	void queueIncompletPacket();
+	void queueIncompletePacket();
 	QList<TextShredderPacket *> queuedPackets;
 	TextShredderPacket * incompletePacket;
 	QByteArray incompleteData;
