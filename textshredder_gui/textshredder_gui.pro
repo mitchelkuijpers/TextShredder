@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     filemanager.cpp \
     filesync.cpp \
     clientrepresentation.cpp \
-    textshredderlogging.cpp
+    textshredderlogging.cpp \
+    textshredderlogdir.cpp
 
 HEADERS  += mainwindow.h \
 	servercontrolview.h \
@@ -39,7 +40,8 @@ HEADERS  += mainwindow.h \
     filemanager.h \
     filesync.h \
     clientrepresentation.h \
-    textshredderlogging.h
+    textshredderlogging.h \
+    textshredderlogdir.h
 
 FORMS    += mainwindow.ui \
 	servercontrolview.ui \

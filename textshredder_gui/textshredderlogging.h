@@ -3,8 +3,15 @@
 
 #include <QObject>
 #include <QFile>
+#include <QStringList>
 
 #define defaultLogFile "TextShredderLog"
+
+typedef enum{
+    INFO,
+    DEBUG,
+    ERROR
+} LogType;
 
 class TextShredderLogging : public QObject
 {
@@ -23,7 +30,10 @@ public:
     /**
       * Write data to the log, with current time
       */
-    void writeLog(const char * logData);
+    void writeLog(QString &logData);
+    void writeLog(QString &logData, LogType logtype);
+
+
 
 signals:
 
@@ -32,6 +42,7 @@ public slots:
 private:
     void setLogFile(const char * filePath);
     QFile * logFile;
+
 };
 
 #endif // TEXTSHREDDERLOGGING_H

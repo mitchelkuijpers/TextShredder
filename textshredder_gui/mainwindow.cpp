@@ -10,9 +10,11 @@ MainWindow::MainWindow(QWidget *parent) :
         ui(new Ui::MainWindow)
 {
     log = new TextShredderLogging(this);
-    log->writeLog("testMainWindowCreated");
+    QString message("testMainWindowCreated");
+    log->writeLog(message, INFO);
     testlog = new TextShredderLogging(this, "testFile");
-    testlog->writeLog("test test");
+    QString message2("test test");
+    testlog->writeLog(message2, ERROR);
 	ui->setupUi(this);
 	connect(ui->serverTab, SIGNAL(serverStarted()), this, SLOT(serverDidStart()));
 	ui->main_tab_widget->setCurrentWidget(ui->serverTab);
