@@ -153,3 +153,13 @@ void EditList::empty() {
 	edits.empty();
 }
 
+QList<Edit> EditList::getEditsUpToLocalVersion(unsigned int version) {
+	QList<Edit> returnEdits;
+	for (int i = 0; i < edits.length(); i++) {
+		Edit e = edits.at(i);
+		if (e.getLocalVersion() <= version) {
+			returnEdits.append(e);
+		}
+	}
+	return returnEdits;
+}

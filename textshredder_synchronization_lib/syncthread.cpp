@@ -84,6 +84,16 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 
 	bool didRevert = false;
 	if(basedVersionOfIncommingEditList < currentLocalVersion) {
+		if (basedVersionOfIncommingEditList > (int) shadowCopy.getBackupCopy()->getLocalVersion()) {
+			QList<Edit> applyBackupEdits = editList.getEditsUpToLocalVersion(basedVersionOfIncommingEditList);
+
+			for(int i = 0; i < applyBackupEdits.count(); i++) {
+				Edit e = applyBackupEdits.at(i);
+				shadowCopy.getBackupCopy()->applyPatches(e.getPatches ());
+			}
+			shadowCopy.getBackupCopy ()->setLocalVersion(basedVersionOfIncommingEditList);
+		}
+
 		QString revertMessage("+ Will revert");
 		logging.writeLog(revertMessage, DEBUG);
 		shadowCopy.revert();

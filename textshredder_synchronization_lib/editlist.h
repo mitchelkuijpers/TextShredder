@@ -69,7 +69,7 @@ public:
 	//Getters
 	unsigned int getRemoteVersion();
 	QList<Edit> & getEdits();
-
+	QList<Edit> getEditsUpToLocalVersion(unsigned int version);
 private:
 	QList<Edit> edits;
     int remoteVersion;
