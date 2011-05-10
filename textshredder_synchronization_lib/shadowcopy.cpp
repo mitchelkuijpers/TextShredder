@@ -6,7 +6,6 @@ ShadowCopy::ShadowCopy(QObject *parent) :
 		Patchable(parent), localVersion(0), remoteVersion(0)
 {
 	this->backupCopy = new BackupCopy(this, 0, "");
-	incommingLog = new TextShredderLogging(this, "incommingShadowCopyLog.txt");
 }
 
 ShadowCopy::ShadowCopy(QObject *parent, QString content) :
@@ -14,7 +13,6 @@ ShadowCopy::ShadowCopy(QObject *parent, QString content) :
 {
 	this->content = content;
 	this->backupCopy = new BackupCopy(this, 0, content);
-	incommingLog = new TextShredderLogging(this, "incommingShadowCopyLog.txt");
 }
 
 
@@ -31,25 +29,13 @@ void ShadowCopy::backup()
 
 void ShadowCopy::applyEdits( QList<Edit> & edits )
 {
-	incommingLog->writeLog ("Apply edits");
 	int count = 0;
-	while(count < edits.size()){
-		incommingLog->writeLog ("-- Apply Edit ");
+	while(count < edits.size()) {
 		Edit e = edits.at(count);
-		QString log("-- Edit localVersion =  ");
-		log.append (QString::number (e.getLocalVersion ()));
-		log.append (" remoteVersion = ");
-		log.append (QString::number(remoteVersion));
-		incommingLog->writeLog(log.toStdString ().c_str ());
 
-		if(e.getLocalVersion() < remoteVersion){
-			incommingLog->writeLog ("Should not apply edit");
-			incommingLog->writeLog (((Patch)e.getPatches().at (0)).toString().toStdString ().c_str ());
+		if(e.getLocalVersion() < remoteVersion) {
 			edits.removeAt(count);
-		}
-		else{
-			incommingLog->writeLog ("Apply edit");
-			incommingLog->writeLog (((Patch)e.getPatches().at (0)).toString().toStdString ().c_str ());
+		} else {
 			this->applyPatches(e.getPatches());
 			remoteVersion++;
 			count++;
