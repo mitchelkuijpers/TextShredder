@@ -10,8 +10,6 @@ void TextShredderPacketParserTests::testWrongPacket()
 
 void TextShredderPacketParserTests::testPacket()
 {
-	//Create QBytearray to send to the function
-
 	QByteArray tempContent = "This is testcontent";
 	QByteArray tempContent2 = "This is awesome content";
 	unsigned char type = (unsigned char)kPacketTypeEdits;
@@ -27,12 +25,11 @@ void TextShredderPacketParserTests::testPacket()
 
 	TextShredderPacketParser parser;
 
-	int i = 0;
-
-	for(i = 0; raw.size(); i++) {
+	for(int i = 0; i < raw.size(); i++) {
 		QByteArray temp = raw.mid(i, 1);
 		parser.handleData(temp);
 	}
+
 	QVERIFY2(parser.hasMorePackets() == true, "The packet has more packets after handling it.");
 
 	QVERIFY2((*parser.nextPacket()) == packet, "The first packet is NOT packet");
