@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>TextShredder</string>
+   <string>TextShredder - Britt</string>
   </property>
   <property name="windowOpacity">
    <double>100000.000000000000000</double>
@@ -209,6 +209,25 @@
     </property>
     <property name="pixmap">
      <pixmap resource="images.qrc">:/ui/main/images/userfolder.svg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="fadeInLabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>60</y>
+      <width>541</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="images.qrc">:/ui/main/images/fadeInImage.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>

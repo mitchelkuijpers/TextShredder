@@ -3,6 +3,18 @@
         <file>images/server.svg</file>
         <file>images/user.svg</file>
         <file>images/userfolder.svg</file>
+        <file>images/fadeInImage.png</file>
     </qresource>
-    <qresource prefix="/ui/ribbon"/>
+    <qresource prefix="/ui/ribbon">
+        <file>images/ribbon/format-justify-center.png</file>
+        <file>images/ribbon/format-justify-fill.png</file>
+        <file>images/ribbon/format-justify-left.png</file>
+        <file>images/ribbon/format-justify-right.png</file>
+        <file>images/ribbon/format-list-ordered.png</file>
+        <file>images/ribbon/format-list-unordered.png</file>
+        <file>images/ribbon/format-text-bold.png</file>
+        <file>images/ribbon/format-text-italic.png</file>
+        <file>images/ribbon/format-text-strikethrough.png</file>
+        <file>images/ribbon/format-text-underline.png</file>
+    </qresource>
 </RCC>
