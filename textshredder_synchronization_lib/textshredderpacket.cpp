@@ -31,6 +31,10 @@ TextShredderPacket & TextShredderPacket::operator=(TextShredderPacket & otherPac
 	return *this;
 }
 
+bool TextShredderPacket::operator==(TextShredderPacket & otherPacket) {
+	return (this->header == otherPacket.header && this->content == otherPacket.content);
+}
+
 bool TextShredderPacket::isEditPacket()
 {
 	return header.getPacketType() == kPacketTypeEdits;

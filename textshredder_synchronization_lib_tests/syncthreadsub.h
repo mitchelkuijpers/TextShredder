@@ -8,8 +8,6 @@ class SyncThreadSub : public QObject
 {
     Q_OBJECT
 public:
-    SyncThreadSub(QObject *parent = 0);
-
 
 signals:
 
