@@ -8,6 +8,8 @@
 #include "shadowcopy.h"
 #include "workingcopy.h"
 
+#include "../textshredder_gui/textshredderlogging.h"
+
 #define WRITETHREAD_INTERVAL 1000
 
 class SyncThread : public QObject
@@ -45,6 +47,8 @@ protected://Must be protected for test purposes
 	QTimer timer;
 	int syncThreadNumber;
 	static int sharedIndex;
+
+	TextShredderLogging logging;
 };
 
 #endif // SYNCTHREAD_H

@@ -5,10 +5,11 @@ int SyncThread::sharedIndex = 1;
 SyncThread::SyncThread(QObject * parent, TextShredderConnection & newConnection,
 					   WorkingCopy & newWorkingCopy) :
 	QObject(parent), connection(&newConnection), workingCopy(&newWorkingCopy),
-	shadowCopy(this), editList(this), timer(this)
+	shadowCopy(this), editList(this), timer(this),
+	logging(this, QString("SyncThread ").append (QString::number (sharedIndex)))
 {
 	*(shadowCopy.getContent ()) = *workingCopy->getContent(); // set shadow copy
-
+	shadowCopy.setLogging(&logging);
 	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
 
 	connect(connection, SIGNAL(incomingEditPacketContent(QByteArray&)),
@@ -22,10 +23,11 @@ SyncThread::SyncThread(QObject * parent, TextShredderConnection & newConnection,
 
 void SyncThread::processChanges(QByteArray & content)
 {
+	QString procesChangesMessage("SyncThread::processChanges");
+	logging.writeLog (procesChangesMessage, DEBUG);
 	EditList incomingEditList(this, content);
 	this->applyReceivedEditList(incomingEditList);
 }
-
 
 void SyncThread::pushChanges()
 {
@@ -64,17 +66,44 @@ void SyncThread::writePacketOnConnection(TextShredderPacket &packet)
 
 void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 {
+	QString editListMessage("+ Received EditList, based on version: ");
+	editListMessage += QString::number(incomingEditList.getRemoteVersion());
+	logging.writeLog (editListMessage, DEBUG);
+	editListMessage = "+ Received EditList contains ";
+	editListMessage += QString::number(incomingEditList.getEdits().size());
+	editListMessage += " edit(s)";
+	logging.writeLog(editListMessage, DEBUG);
+
 	shadowCopy.lock();
 	int currentLocalVersion = shadowCopy.getLocalVersion ();
-	int incomingLocalVersion = incomingEditList.getRemoteVersion();
+	int basedVersionOfIncommingEditList = incomingEditList.getRemoteVersion();
+
+	QString currentLocalVersionOfShadow("+ Current local shadow version: ");
+	currentLocalVersionOfShadow += QString::number(currentLocalVersion);
+	logging.writeLog(currentLocalVersionOfShadow, DEBUG);
 
 	bool didRevert = false;
-	if(incomingLocalVersion < currentLocalVersion) {
+	if(basedVersionOfIncommingEditList < currentLocalVersion) {
+		QString revertMessage("+ Will revert");
+		logging.writeLog(revertMessage, DEBUG);
 		shadowCopy.revert();
 		didRevert = true;
 	}
 
 	QList<Edit> edits = incomingEditList.getEdits();
+	int count = 0;
+	while(count < edits.size()) {
+		Edit e = edits[count];
+		QString editString = e.toString();
+		logging.writeLog(editString, DEBUG);
+		count++;
+	}
+	if (count == 0) {
+		QString noEditsMessage("No edits in this editlist");
+		logging.writeLog(noEditsMessage, DEBUG);
+	}
+	QString gotHere("Here");
+	logging.writeLog (gotHere);
 	shadowCopy.applyEdits(edits);
 
 	workingCopy->lock();
