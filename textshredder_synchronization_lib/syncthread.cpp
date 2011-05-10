@@ -43,13 +43,23 @@ void SyncThread::pushChanges()
 		shadowCopy.setLocalVersion (shadowCopy.getLocalVersion ()+1);
 	}
 
+	writePacketOfEditList();
+	workingCopy->unlock();
+	shadowCopy.unlock();
+}
+
+void SyncThread::writePacketOfEditList()
+{
 	editList.lock();
 	TextShredderPacket *newPacket = editList.getAllocatedPacket();
 	editList.unlock();
-	connection->write(*newPacket);
+	writePacketOnConnection(*newPacket);
 	delete newPacket;
-	workingCopy->unlock();
-	shadowCopy.unlock();
+}
+
+void SyncThread::writePacketOnConnection(TextShredderPacket &packet)
+{
+	connection->write(packet);
 }
 
 void SyncThread::applyReceivedEditList(EditList &incomingEditList)

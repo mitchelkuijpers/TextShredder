@@ -24,8 +24,19 @@ public slots:
 	void stop();
 	void pushChanges();
 
-private:
+protected://Must be protected for test purposes
 	void applyReceivedEditList(EditList &incomingEditList);
+
+	/**
+	  * Will change the current editlist into a packet
+	  * and call the writePacketOnConnection with that packet
+	  */
+	void writePacketOfEditList();
+
+	/**
+	  * Will write a packet on the connction
+	  */
+	void writePacketOnConnection(TextShredderPacket &packet);
 
 	TextShredderConnection * connection;
 	WorkingCopy * workingCopy;
