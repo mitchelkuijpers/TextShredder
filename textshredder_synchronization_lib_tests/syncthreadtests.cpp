@@ -34,6 +34,7 @@ void SyncThreadTests::simpleSyncTest()
 	//validate leftBackup //localVersion = 1 / text is leftSH.con;
 	//validate leftEditList //Based version = 0, contains 0 edits.  count = 0
 
+	breakDownVariables();
 }
 
 
@@ -46,7 +47,8 @@ void SyncThreadTests::writePacketOfEditListTest()
 	//Should stay empty!!!! At least never call super
 }
 
-void SyncThreadTests::setupVariables() {
+void SyncThreadTests::setupVariables()
+{
 	QString startText("abc");
 
 	leftWorkingCopy = new WorkingCopy(this);
@@ -63,4 +65,22 @@ void SyncThreadTests::setupVariables() {
 
 	leftEditList = leftSync->getEditList ();
 	rightEditList = rightSync->getEditList ();
+}
+
+void SyncThreadTests::breakDownVariables()
+{
+	//delete leftSync;
+	//delete rightSync;
+
+	delete leftWorkingCopy;
+	delete rightWorkingCopy;
+
+	leftWorkingCopy = NULL;
+	rightWorkingCopy = NULL;
+	leftSync = NULL;
+	rightSync = NULL;
+	leftShadowCopy = NULL;
+	rightShadowCopy = NULL;
+	leftEditList = NULL;
+	rightEditList = NULL;
 }
