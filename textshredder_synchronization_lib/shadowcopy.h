@@ -36,7 +36,7 @@ public:
 	  * @param List of edits that need to be commited
 	  */
 	void applyEdits( QList<Edit> & edits);
-
+	void applyLocalEdits( QList<Edit> & edits);
 	/**
 	  * Function to apply the changes you have made in your workingcopy
 	  * @param List of patches from changes you made

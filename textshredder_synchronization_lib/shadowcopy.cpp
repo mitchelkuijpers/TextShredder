@@ -18,7 +18,14 @@ ShadowCopy::ShadowCopy(QObject *parent, QString content) :
 
 void ShadowCopy::revert()
 {
+	QString revertMessage("Will revert Shadow Copy: ");
+	revertMessage.append(QString::number(localVersion));
+	revertMessage.append(" to ");
 	content = *(backupCopy->getContent());
+	localVersion = backupCopy->getLocalVersion();
+	revertMessage.append(QString::number(localVersion));
+	log(revertMessage);
+	log(*getContent());
 }
 
 void ShadowCopy::backup()
@@ -29,37 +36,45 @@ void ShadowCopy::backup()
 
 void ShadowCopy::applyEdits( QList<Edit> & edits )
 {
-	QString logString("Shadow Copy::applyEdits");
-	log(logString);
 	int count = 0;
 	while(count < edits.size()) {
 		Edit e = edits.at(count);
-		QString localVersionString("+ editBasedVersion: ");
-		localVersionString.append(QString::number(e.getLocalVersion()));
-		localVersionString.append (" - current known remote version: ");
-		localVersionString.append (QString::number(remoteVersion));
-		log(localVersionString);
 
 		if(e.getLocalVersion() < remoteVersion) {
-			QString removeEditMessage("Edit should not be processed");
-			log(removeEditMessage);
 			edits.removeAt(count);
-		} else {
-			QString applyEditMessage("Edit should be applied");
-			log(applyEditMessage);
+		} else if (e.getLocalVersion() ==  remoteVersion){
 			this->applyPatches(e.getPatches());
 			remoteVersion++;
-
-			QString newRemoteVersionMessage("Shadow copy new remote version is: ");
-			newRemoteVersionMessage.append (QString::number (remoteVersion));
-			log(newRemoteVersionMessage);
-
+			count++;
+		} else {
+			QString logMessage("++++++++++++++++++++++ Houston we have a problem -> ShadowCopy::applyEdits");
+			log(logMessage);
 			count++;
 		}
 	}
 }
 
+void ShadowCopy::applyLocalEdits( QList<Edit> & edits )
+{
+	QString logm("Current local version is -> ");
+	logm.append(QString::number(this->localVersion));
+	log(logm);
+	int count = 0;
+	while(count < edits.size()) {
+		Edit e = edits.at(count);
 
+		if(e.getLocalVersion() == remoteVersion) {
+			this->applyPatches(e.getPatches());
+			QString logMessage("Increase Local Version");
+			log(logMessage);
+			localVersion++;
+		} else {
+			QString logMessage("++++++++++++++++++++++ Houston we have a another problem -> ShadowCopy::applyAckedEdits");
+			log(logMessage);
+		}
+		count++;
+	}
+}
 
 void ShadowCopy::processPatches( QList<Patch> &patches)
 {

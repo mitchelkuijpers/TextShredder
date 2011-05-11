@@ -17,6 +17,7 @@ private Q_SLOTS:
 	void simpleSyncTest();
 	void doubleSyncEditList();
 	void multipleEditsOnBothSidesTest();
+	void mergedEditsOnBothSidesTest();
 
 private:
 	SyncThreadSub *leftSync;

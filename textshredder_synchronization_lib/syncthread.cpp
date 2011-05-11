@@ -38,14 +38,16 @@ void SyncThread::pushChanges()
 	shadowCopy.lock();
 	workingCopy->lock();
 
-	QString *shadowCopyContent = workingCopy->getContent();
+	QString *workingCopyContent = workingCopy->getContent();
 	int shadowLocalVersion = shadowCopy.getLocalVersion();
 
-	QList<Patch> newPatches = shadowCopy.getPatchesToConvertString (*shadowCopyContent);
+	QList<Patch> newPatches = shadowCopy.getPatchesToConvertString (*workingCopyContent);
 	if(newPatches.length() > 0) {
-		editList.addEdit (Edit(this, shadowLocalVersion, newPatches));
-		shadowCopy.processPatches(newPatches);
-		shadowCopy.setLocalVersion (shadowCopy.getLocalVersion ()+1);
+		Edit e(this, shadowLocalVersion, newPatches);
+		editList.addEdit(e);
+		QList<Edit> applyList;
+		applyList.append(e);
+		shadowCopy.applyLocalEdits(applyList);
 	}
 
 	writePacketOfEditList();
@@ -78,76 +80,38 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 	logging.writeLog(editListMessage, DEBUG);
 
 	shadowCopy.lock();
+	workingCopy->lock();
+	editList.lock ();
 	int currentLocalVersion = shadowCopy.getLocalVersion ();
 	int basedVersionOfIncommingEditList = incomingEditList.getRemoteVersion();
 
-	QString currentLocalVersionOfShadow("+ Current local shadow version: ");
-	currentLocalVersionOfShadow += QString::number(currentLocalVersion);
-	logging.writeLog(currentLocalVersionOfShadow, DEBUG);
-
-	bool didRevert = false;
-	if(basedVersionOfIncommingEditList < currentLocalVersion) {
-		if (basedVersionOfIncommingEditList > (int) shadowCopy.getBackupCopy()->getLocalVersion()) {
-			QList<Edit> applyBackupEdits = editList.getEditsUpToLocalVersion(basedVersionOfIncommingEditList);
-
-			for(int i = 0; i < applyBackupEdits.count(); i++) {
-				Edit e = applyBackupEdits.at(i);
-				shadowCopy.getBackupCopy()->applyPatches(e.getPatches ());
-			}
-			shadowCopy.getBackupCopy ()->setLocalVersion(basedVersionOfIncommingEditList);
-		}
-
-		QString revertMessage("+ Will revert");
-		logging.writeLog(revertMessage, DEBUG);
+	if (basedVersionOfIncommingEditList < currentLocalVersion) {
 		shadowCopy.revert();
-		didRevert = true;
 	}
 
-	QList<Edit> edits = incomingEditList.getEdits();
+	QList<Edit> ackedEdits = editList.popEditsUpToLocalVersion(basedVersionOfIncommingEditList);
+	if ((int)shadowCopy.getLocalVersion() < basedVersionOfIncommingEditList) {
+		QString message("SyncT: sh.localversion < incomming based version");
+		logging.writeLog(message);
+		shadowCopy.applyLocalEdits(ackedEdits);
+	}
+
+	QList<Edit> receivedEdits = incomingEditList.getEdits();
+	shadowCopy.applyEdits(receivedEdits);
+
 	int count = 0;
-	while(count < edits.size()) {
-		Edit e = edits[count];
-		QString editString = e.toString();
-		logging.writeLog(editString, DEBUG);
+	while (count < receivedEdits.count()) {
+		Edit e = receivedEdits.at(count);
+		workingCopy->applyPatches(e.getPatches());
 		count++;
-	}
-	if (count == 0) {
-		QString noEditsMessage("No edits in this editlist");
-		logging.writeLog(noEditsMessage, DEBUG);
-	}
-	QString gotHere("Here");
-	logging.writeLog (gotHere);
-	shadowCopy.applyEdits(edits);
-
-	workingCopy->lock();
-
-	for (int i = 0; i < edits.size(); i++) {
-		Edit e = edits.at(i);
-		QList<Patch> patches = e.getPatches();
-		workingCopy->applyPatches (patches);
 	}
 
 	shadowCopy.backup();
 
-	if (didRevert) {
-		editList.lock();
-		QList<Edit> edits = editList.getEdits();
-		int i = 0;
-		while ( i < edits.size() ) {
-			Edit e = edits.at (i);
-			shadowCopy.processPatches(e.getPatches ());
-			i++;
-		}
-		editList.unlock();
-	}
-	int currentKnownRemoteVersion = shadowCopy.getRemoteVersion();
-	int currentKnownLocalVersion = shadowCopy.getLocalVersion();
+	shadowCopy.applyLocalEdits(editList.getEdits());
 
-	editList.lock ();
-	editList.updateToRemoteAndLocalVersion(currentKnownRemoteVersion,
-											currentKnownLocalVersion);
+	editList.updateToRemote(shadowCopy.getRemoteVersion());
 	editList.unlock ();
-
 	workingCopy->unlock();
 	shadowCopy.unlock ();
 }

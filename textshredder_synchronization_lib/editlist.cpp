@@ -94,16 +94,9 @@ unsigned int EditList::getRemoteVersion()
 	return remoteVersion;
 }
 
-void EditList::updateToRemoteAndLocalVersion(	unsigned int newRemoteVersion,
-												unsigned int newLocalVersion)
+void EditList::updateToRemote(	unsigned int newRemoteVersion)
 {
 	this->remoteVersion = newRemoteVersion;
-	for(int i = edits.count()-1; i >= 0; i--) {
-		Edit e = this->edits.at(i);
-		if ( e.getLocalVersion() < newLocalVersion) {
-			edits.removeAt(i);
-		}
-	}
 }
 
 EditList & EditList::operator=(EditList & otherEditList) {
@@ -166,12 +159,16 @@ void EditList::empty() {
 	edits.empty();
 }
 
-QList<Edit> EditList::getEditsUpToLocalVersion(unsigned int version) {
+QList<Edit> EditList::popEditsUpToLocalVersion(unsigned int version) {
 	QList<Edit> returnEdits;
-	for (int i = 0; i < edits.length(); i++) {
-		Edit e = edits.at(i);
-		if (e.getLocalVersion() <= version) {
+	int count = 0;
+	while(count < edits.count()) {
+		Edit e = edits.at(count);
+		if (e.getLocalVersion() < version) {
 			returnEdits.append(e);
+			edits.removeAt(count);
+		} else {
+			count++;
 		}
 	}
 	return returnEdits;
