@@ -31,7 +31,8 @@ public:
 	  */
 	EditList(QObject *parent, TextShredderPacket &);
 
-
+	EditList(const EditList &);
+	EditList & operator=(EditList &);
 	bool operator==(EditList &);
 
 	/**

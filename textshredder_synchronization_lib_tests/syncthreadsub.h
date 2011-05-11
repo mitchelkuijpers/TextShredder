@@ -5,6 +5,8 @@
 #include "../textshredder_synchronization_lib/syncthread.h"
 #include "../textshredder_gui/textshredderlogging.h"
 
+#include "../textshredder_synchronization_lib/editlist.h"
+
 class SyncThreadSub : public SyncThread
 {
     Q_OBJECT
@@ -22,7 +24,12 @@ public:
     using SyncThread::writePacketOfEditList;
     void writePacketOfEditList();
 
+	using SyncThread::startSync;
+	void startSync();
 
+	EditList * getEditList();
+	WorkingCopy * getWorkingCopy();
+	ShadowCopy * getShadowCopy();
 signals:
 
 public slots:

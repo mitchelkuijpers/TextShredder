@@ -26,14 +26,16 @@ public slots:
 	void stop();
 	void pushChanges();
 
-protected://Must be protected for test purposes
 	void applyReceivedEditList(EditList &incomingEditList);
 
+	virtual void startSync();
+
+protected://Must be protected for test purposes
 	/**
 	  * Will change the current editlist into a packet
 	  * and call the writePacketOnConnection with that packet
 	  */
-	void writePacketOfEditList();
+	virtual void writePacketOfEditList();
 
 	/**
 	  * Will write a packet on the connction
@@ -48,7 +50,7 @@ protected://Must be protected for test purposes
 	int syncThreadNumber;
 	static int sharedIndex;
 
-        TextShredderLogging logging;
+	TextShredderLogging logging;
 };
 
 #endif // SYNCTHREAD_H

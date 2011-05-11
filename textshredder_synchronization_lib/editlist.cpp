@@ -5,6 +5,13 @@ EditList::EditList(QObject *parent, int remoteVersion) :
 {
 }
 
+EditList::EditList(const EditList &otherEditList)
+	: QObject(NULL), QMutex()
+{
+	this->remoteVersion = otherEditList.remoteVersion;
+	this->edits = otherEditList.edits;
+}
+
 EditList::EditList(QObject *parent, QByteArray &content)
 	: QObject(parent)
 {
@@ -97,6 +104,12 @@ void EditList::updateToRemoteAndLocalVersion(	unsigned int newRemoteVersion,
 			edits.removeAt(i);
 		}
 	}
+}
+
+EditList & EditList::operator=(EditList & otherEditList) {
+	this->remoteVersion = otherEditList.remoteVersion;
+	this->edits = otherEditList.edits;
+	return *this;
 }
 
 bool EditList::operator==(EditList & otherList)

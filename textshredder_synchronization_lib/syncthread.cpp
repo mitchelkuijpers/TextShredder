@@ -16,9 +16,13 @@ SyncThread::SyncThread(QObject * parent, TextShredderConnection & newConnection,
 			this, SLOT(processChanges(QByteArray&)));
 	connect(connection, SIGNAL(clientDisconnected()),
 			this, SLOT(stop()));
-	timer.start(WRITETHREAD_INTERVAL);
 
 	syncThreadNumber = sharedIndex++;
+}
+
+void SyncThread::startSync()
+{
+	timer.start(WRITETHREAD_INTERVAL);
 }
 
 void SyncThread::processChanges(QByteArray & content)
@@ -36,7 +40,6 @@ void SyncThread::pushChanges()
 
 	QString *shadowCopyContent = workingCopy->getContent();
 	int shadowLocalVersion = shadowCopy.getLocalVersion();
-
 
 	QList<Patch> newPatches = shadowCopy.getPatchesToConvertString (*shadowCopyContent);
 	if(newPatches.length() > 0) {

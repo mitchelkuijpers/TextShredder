@@ -36,6 +36,7 @@ void ClientRepresentation::fileSyncReady()
 	//TODO: Start the SyncThread -> FOR THE SERVER, YEAH MITCHEL, IT HAS TO BE DONE TWICE! ARGGH");
 
 	syncThread = new SyncThread(this, *connection, *(syncFile->getWorkingCopy()));
+	syncThread->startSync();
 }
 
 void ClientRepresentation::getDisconnected()

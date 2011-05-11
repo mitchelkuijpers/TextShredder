@@ -85,6 +85,7 @@ void ClientControlView::startSyncThread()
 	disconnect(connection, SIGNAL(newIncomingPacket(TextShredderPacket&)),
 			   this, SLOT(receivedDownload(TextShredderPacket&)));
 	syncThread = new SyncThread(this, *connection, *(syncFile->getWorkingCopy()));
+	syncThread->startSync();
 }
 
 void ClientControlView::closeCurrentConnection()
