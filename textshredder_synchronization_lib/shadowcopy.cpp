@@ -25,7 +25,6 @@ void ShadowCopy::revert()
 	localVersion = backupCopy->getLocalVersion();
 	revertMessage.append(QString::number(localVersion));
 	log(revertMessage);
-	log(*getContent());
 }
 
 void ShadowCopy::backup()
@@ -63,7 +62,7 @@ void ShadowCopy::applyLocalEdits( QList<Edit> & edits )
 	while(count < edits.size()) {
 		Edit e = edits.at(count);
 
-		if(e.getLocalVersion() == remoteVersion) {
+		if(e.getLocalVersion() == localVersion) {
 			this->applyPatches(e.getPatches());
 			QString logMessage("Increase Local Version");
 			log(logMessage);

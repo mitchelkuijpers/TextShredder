@@ -130,9 +130,16 @@ void SyncThreadTests::doubleSyncEditList()
 	//validate leftEditList //Based version = 0, contains 1 edit. First edit local version = 0
 	QVERIFY2(leftEditList->getRemoteVersion() == 0,
 			 "leftEditList remoeversion != 0");
-
-	//optional test patch in edit.
-
+	QVERIFY2(leftEditList->getEdits().count() == 1,
+			 "leftEditList should contain 1 edit");
+	//validate leftBackup //localVersion =0 / text is same as shadow;
+	QVERIFY2(leftShadowCopy->getBackupCopy()->getLocalVersion() == 0,
+			 "leftbackupcopy != 0");
+	QVERIFY2(*leftShadowCopy->getBackupCopy()->getContent() == beforeText,
+			 "leftbackupcopy content != leftshadowcontent");
+	//validate leftEditList //Based version = 0, contains 0 edit.
+	QVERIFY2(leftEditList->getRemoteVersion() == 0,
+			 "leftEditList based on version != 0");
 
 	rightSync->pushChanges();
 	EditList rightToLeftFirstEditList(*rightEditList);
@@ -144,25 +151,13 @@ void SyncThreadTests::doubleSyncEditList()
 	QVERIFY2(*rightShadowCopy->getContent() == *rightWorkingCopy->getContent(),
 			 "rightShadowCopy content != right workingcopy content");
 
-	//validate leftBackup //localVersion =0 / text is same as shadow;
-	QVERIFY2(leftShadowCopy->getBackupCopy()->getLocalVersion() == 0,
-			 "leftbackupcopy != 0");
-	qDebug() << *leftShadowCopy->getBackupCopy()->getContent();
-	qDebug() << *leftShadowCopy->getContent();
-	QVERIFY2(*leftShadowCopy->getBackupCopy()->getContent() == *leftShadowCopy->getContent(),
-			 "leftbackupcopy content != leftshadowcontent");
-
-	//validate leftEditList //Based version = 0, contains 0 edit.
-	QVERIFY2(leftEditList->getRemoteVersion() == 0,
-			 "leftEditList based on version != 0");
-	QVERIFY2(leftEditList->isEmpty(),"Edit list not empty");
-
 	/**
 	  * Received First Ack packet on left side
 	  */
 	leftSync->applyReceivedEditList (rightToLeftFirstEditList);
+
 	//validate leftShadow.con = leftWC.con / leftSh.localVer = 1
-	QVERIFY2(*leftShadowCopy->getContent() == *leftWorkingCopy->getContent(),
+	QVERIFY2(*leftShadowCopy->getContent() == beforeText+"d",
 			 "shadowcopycontent != workingcopycontent");
 	QVERIFY2(leftShadowCopy->getLocalVersion() == 1,
 			 "shadowcopy localversion != 1");
@@ -182,7 +177,7 @@ void SyncThreadTests::doubleSyncEditList()
 			 "leftWorkingCopy content != (beforeText + de)");
 
 	/**
-	  * Received First Ack packet on left side
+	  * Received First Ack packet on right side
 	  */
 	rightSync->applyReceivedEditList (leftToRightFirstEditList);
 	//validate rightShadow.con = beforeText.append("d")
@@ -215,14 +210,18 @@ void SyncThreadTests::doubleSyncEditList()
 	/**
 	  * Make second edit list for left side
 	  */
-	leftSync->pushChanges ();
+	qDebug() << *leftShadowCopy->getContent();
+	qDebug() << *leftWorkingCopy->getContent();
+	leftSync->pushChanges();
 	EditList leftToRightSecondEditList(*leftEditList);
 	//validate leftWC.con == beforeText.append("d").append("e")
 	QVERIFY2(*leftWorkingCopy->getContent() == (beforeText + "de"),
 			 "leftworkingcopy content != (beforeText + de)");
 
 	//validate leftShadow.con = leftWC.con / leftSh.localVer = 2
-	QVERIFY2(*leftShadowCopy->getContent() == *leftWorkingCopy->getContent(),
+	qDebug() << *leftShadowCopy->getContent();
+	qDebug() << *leftWorkingCopy->getContent();
+	QVERIFY2(*(leftShadowCopy->getContent()) == *(leftWorkingCopy->getContent()),
 			 "leftshadowcopy content != leftWorkingCopy content");
 
 	//validate leftBU.local = 0 / leftBu.con = beforeText
@@ -236,18 +235,13 @@ void SyncThreadTests::doubleSyncEditList()
 			 "leftEditList remoteversion != 0");
 	QVERIFY2(leftEditList->getEdits().count() == 2,
 			 "leftEditList != contains 2 edits");
-	QVERIFY2(leftEditList->getEdits().first().getPatches().first().diffs.first().toString() == "+d",
-			 "firstEdit != +d");
-	QVERIFY2(leftEditList->getEdits().first().getLocalVersion() == 1,
-			 "first edit != localversion 1");
+	QVERIFY2(leftEditList->getEdits().first() == leftToRightFirstEditList.getEdits().first(),
+			 "unacked edit changed");
 
-	/* at(.) doenst work???
-	QVERIFY2(leftEditList->getEdits().at(1).getPatches().first().diffs.first().toString() == "+e",
-			 "secondEdit != +e");
-	QVERIFY2(leftEditList->getEdits().at(1).getLocalVersion() == 1,
-			 "first edit != localversion 1");
-	*/
-
+	QVERIFY2(((Edit) leftEditList->getEdits().at(0)).getLocalVersion() == 0,
+			 "first edit != localversion 0");
+	QVERIFY2(((Edit) leftEditList->getEdits().at(1)).getLocalVersion() == 1,
+			 "second edit != localversion 1");
 
 
 	/**
@@ -256,7 +250,6 @@ void SyncThreadTests::doubleSyncEditList()
 	rightSync->pushChanges();
 	EditList rightToLeftSecondEditList(*rightEditList);
 	//validate state not changed right side. Do checks on right side as they were before.
-
 
 	/**
 	  * Apply received edit list from left to right.
@@ -330,10 +323,9 @@ void SyncThreadTests::doubleSyncEditList()
 			 "leftEditList totaledits != 1");
 
 	//validate leftEL.firstEdit == '+e'; //loc = 2
-	/*QVERIFY2(leftEditList->getEdits().first().getPatches() = "+e",
-			 "first edit != +e");*/
-	QVERIFY2(leftEditList->getEdits().first().getLocalVersion() == 2,
-			 "localversion of edit != 2");
+	QVERIFY2(leftEditList->getEdits().first() == leftToRightSecondEditList.getEdits().at(1),
+			 "unacked edit changed");
+
 
 	leftSync->pushChanges();
 	EditList leftToRightThirdEditList(*leftEditList);
@@ -370,11 +362,8 @@ void SyncThreadTests::doubleSyncEditList()
 			 "leftEditList size != 1");
 
 	//validate leftEL.firstEdit == '+e';//loc = 2
-	QVERIFY2(leftEditList->getEdits().first().getPatches().first().diffs.first().toString() == "+e",
+	QVERIFY2(leftEditList->getEdits().first() == leftToRightSecondEditList.getEdits().at(1),
 			 "leftEditList first edit != +e");
-	QVERIFY2(leftEditList->getEdits().first().getLocalVersion() == 2,
-			 "localversion of edit != 2");
-
 
 	/**
 	  * Apply third and final ack packet on left side.
@@ -396,6 +385,7 @@ void SyncThreadTests::doubleSyncEditList()
 	QVERIFY2(leftShadowCopy->getBackupCopy()->getLocalVersion() == 2,
 			 "leftBackupCopy localversion != 2");
 
+
 	//validate leftSh.loc == 2
 	QVERIFY2(leftShadowCopy->getLocalVersion() == 2,
 			 "leftShadowCopy != 2");
@@ -412,15 +402,11 @@ void SyncThreadTests::doubleSyncEditList()
 	QVERIFY2(leftEditList->isEmpty(),
 			 "leftEditList != empty");
 
-	//validate leftEL.firstEdit == '+e'; //loc = 2
-	QVERIFY2(leftEditList->getEdits().first().getPatches().first().diffs.first().toString() == "+e",
-			 "leftEditList firstedit != +e");
-	QVERIFY2(leftEditList->getEdits().first().getLocalVersion() == 2,
-			 "leftEditList firstEdit localversion != 2");
 
 	/**
 	  * Apply third and final packet on right side
 	  */
+
 	rightSync->applyReceivedEditList (leftToRightSecondEditList);
 	//validate rightSh.con == beforeText.append("d").append("e")
 	QVERIFY2(*rightShadowCopy->getContent() == (beforeText + "de"),
@@ -462,7 +448,7 @@ void SyncThreadTests::multipleEditsOnBothSidesTest()
 	QString beforeText(*leftWorkingCopy->getContent ());
 
 	//left is 'abcd'
-	leftWorkingCopy->getContent ()->append ("def");
+	leftWorkingCopy->getContent ()->append ("d");
 	leftSync->pushChanges();
 	EditList leftToRightFirstEditList(*leftEditList);
 
@@ -476,21 +462,28 @@ void SyncThreadTests::multipleEditsOnBothSidesTest()
 	(*rightWorkingCopy->getContent ()) = "";
 	rightSync->pushChanges ();
 	EditList rightToLeftFirstEditList(*rightEditList);
-
+	qDebug() << rightToLeftFirstEditList.getEdits().first().toString();
 	QVERIFY(rightShadowCopy->getLocalVersion() == 1);
 	QVERIFY(rightShadowCopy->getRemoteVersion() == 0);
 	QVERIFY(rightShadowCopy->getBackupCopy()->getLocalVersion() == 0);
 	QVERIFY(*rightShadowCopy->getContent() == *rightWorkingCopy->getContent());
 	QVERIFY(*rightShadowCopy->getBackupCopy ()->getContent () == beforeText);
 
+	qDebug()<< *leftWorkingCopy->getContent();
 	leftSync->applyReceivedEditList (rightToLeftFirstEditList);
+	qDebug()<< *leftWorkingCopy->getContent();
+
 	rightSync->applyReceivedEditList (leftToRightFirstEditList);
+
 	QVERIFY(leftShadowCopy->getRemoteVersion() == 1);
 	QVERIFY(leftShadowCopy->getLocalVersion() == 1);
-
 	QVERIFY(leftShadowCopy->getBackupCopy()->getLocalVersion() == 0);
 	QVERIFY(*leftShadowCopy->getBackupCopy()->getContent() == "");
 	QVERIFY(*leftShadowCopy->getContent () == "d");
+
+	qDebug() << *leftShadowCopy->getContent();
+	qDebug() << *leftWorkingCopy->getContent();
+
 	QVERIFY(*leftShadowCopy->getContent () == *leftWorkingCopy->getContent());
 
 	QVERIFY(rightShadowCopy->getRemoteVersion () == 1);

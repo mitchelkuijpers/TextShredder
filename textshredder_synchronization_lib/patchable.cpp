@@ -12,8 +12,9 @@ Patchable::Patchable(QObject *parent, QString content):
 
 void Patchable::applyPatches(QList<Patch> &patches)
 {
-	QPair<QString, QVector<bool> > results;	
+	QPair<QString, QVector<bool> > results;
 	results = dmpAlgorithm.patch_apply(patches, content);
+
 	content = results.first;
 }
 

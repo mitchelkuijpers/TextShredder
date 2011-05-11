@@ -102,7 +102,11 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 	int count = 0;
 	while (count < receivedEdits.count()) {
 		Edit e = receivedEdits.at(count);
+		qDebug("Before apply patches");
+		qDebug() << *workingCopy->getContent();
 		workingCopy->applyPatches(e.getPatches());
+		qDebug() << *workingCopy->getContent();
+		qDebug("After apply patches");
 		count++;
 	}
 
