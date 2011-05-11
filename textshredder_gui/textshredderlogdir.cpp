@@ -12,8 +12,8 @@ TextShredderLogDir::TextShredderLogDir(QObject *parent) :
     QDir dir;
 
     qDebug("Make dir");
-    DirPath = "log ";
-    DirPath.append(QDateTime::currentDateTime().toString("yyyymmddhhmmss"));
+    DirPath = "log_";
+    DirPath.append(QDateTime::currentDateTime().toString("yyyyMMddhhmmss"));
     dir.mkdir(DirPath);
     qDebug() << DirPath;
     qDebug() << dir.absolutePath ();
