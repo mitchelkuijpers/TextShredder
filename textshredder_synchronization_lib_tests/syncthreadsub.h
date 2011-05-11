@@ -3,23 +3,34 @@
 
 #include <QObject>
 #include "../textshredder_synchronization_lib/syncthread.h"
+#include "../textshredder_gui/textshredderlogging.h"
 
-class SyncThreadSub : public QObject
+class SyncThreadSub : public SyncThread
 {
     Q_OBJECT
 public:
 
+    SyncThreadSub(QObject *parent, TextShredderConnection & newConnection, WorkingCopy & newWorkingCopy);
 
-//    SyncThreadSub(QObject *parent, TextShredderConnection&, WorkingCopy&);
 
-//    using SyncThread::applyReceivedEditList;
-//    void applyReceivedEditList(EditList &incomingEditList);
+    using SyncThread::processChanges;
+    void processChanges(QByteArray &content);
+
+    using SyncThread::pushChanges;
+    void pushChanges();
+
+    using SyncThread::writePacketOfEditList;
+    void writePacketOfEditList();
 
 
 signals:
 
 public slots:
 
+private:
+    TextShredderLogging *logfile;
+
 };
+
 
 #endif // SYNCTHREADSUB_H
