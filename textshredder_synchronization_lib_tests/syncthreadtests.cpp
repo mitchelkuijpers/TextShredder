@@ -178,12 +178,47 @@ void SyncThreadTests::doubleSyncEditList()
 	//validate leftSh.loc == 2
 	//validate leftSh.rem == 0
 	//validate leftWC.con == leftSH.con
+	//validate leftEL.rem == 0
 	//validate leftEL.edits.count == 1
-	//validate leftEL.firstEdit == '+e';
+	//validate leftEL.firstEdit == '+e'; //loc = 2
 
 	leftSync->pushChanges();
 	EditList leftToRightThirdEditList(*leftEditList);
+	//validate leftBU.con == beforeText.append("d")
+	//validate leftBU.loc == 1
+	//validate leftSh.con == beforeText.append("d").append("e");
+	//validate leftSh.loc == 2
+	//validate leftSh.rem == 0
+	//validate leftWC.con == leftSH.con
+	//validate leftEL.rem == 0
+	//validate leftEL.edits.count == 1
+	//validate leftEL.firstEdit == '+e';//loc = 2
 
+	/**
+	  * Apply third and final ack packet on left side.
+	  */
+	leftSync->applyReceivedEditList (rightToLeftThirdEditList);
+	//validate leftBU.con == beforeText.append("d").append("e");
+	//validate leftSh.con == beforeText.append("d").append("e");
+	//validate leftWC.con == beforeText.append("d").append("e");
+	//validate leftBU.loc == 2
+	//validate leftSh.loc == 2
+	//validate leftSh.rem == 0
+	//validate leftEL.rem == 0
+	//validate leftEL.edits.count == 0
+	//validate leftEL.firstEdit == '+e'; //loc = 2
+
+	/**
+	  * Apply third and final packet on right side
+	  */
+	rightSync->applyReceivedEditList (leftToRightSecondEditList);
+	//validate rightSh.con == beforeText.append("d").append("e")
+	//validate rightBU.con == rightSh.con
+	//validate rightWC.con == rightSh.con
+	//validate rightSh.rem == 2 / rithSh.loc == 0
+	//validate rightBU.loc = 0
+	//validate.rightEL.rem == 2
+	//validate.rightEl.edits.count == 0
 
 	breakDownVariables();
 }

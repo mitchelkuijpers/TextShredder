@@ -1,7 +1,0 @@
-11:35:16 DEBUG -> + Received EditList, based on version: 0
-11:35:16 DEBUG -> + Received EditList contains 0 edit(s)
-11:35:16 DEBUG -> + Current local shadow version: 1
-11:35:16 DEBUG -> + Will revert
-11:35:16 DEBUG -> No edits in this editlist
-11:35:16 Here
-11:35:16 DEBUG -> Shadow Copy::applyEdits
