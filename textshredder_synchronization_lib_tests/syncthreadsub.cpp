@@ -1,5 +1,29 @@
 #include "syncthreadsub.h"
-<<<<<<< HEAD
 
-=======
->>>>>>> ca8fde805a5c35e13cf9f057f8f59edca3c1ed37
+SyncThreadSub::SyncThreadSub(QObject *parent, TextShredderConnection & newConnection,
+                             WorkingCopy & newWorkingCopy) :
+        SyncThread(parent, newConnection, newWorkingCopy)
+{
+
+
+}
+
+void SyncThreadSub::processChanges(QByteArray &content)
+{
+
+    SyncThread::processChanges(content);
+}
+
+void SyncThreadSub::pushChanges()
+{
+    SyncThread::pushChanges();
+
+
+}
+
+void SyncThreadSub::writePacketOfEditList()
+{
+    SyncThread::writePacketOfEditList();
+}
+
+
