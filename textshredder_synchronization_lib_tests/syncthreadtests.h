@@ -16,7 +16,7 @@ public:
 private Q_SLOTS:
 	void simpleSyncTest();
 	void doubleSyncEditList();
-    void writePacketOfEditListTest();
+	void multipleEditsOnBothSidesTest();
 
 private:
 	SyncThreadSub *leftSync;

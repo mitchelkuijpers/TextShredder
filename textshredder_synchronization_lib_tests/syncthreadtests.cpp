@@ -223,10 +223,11 @@ void SyncThreadTests::doubleSyncEditList()
 	breakDownVariables();
 }
 
-void SyncThreadTests::writePacketOfEditListTest()
+void SyncThreadTests::multipleEditsOnBothSidesTest()
 {
-	//Should stay empty!!!! At least never call super
+
 }
+
 
 void SyncThreadTests::setupVariables()
 {
