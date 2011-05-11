@@ -18,59 +18,36 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="titleLabel1">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>59</y>
-      <width>211</width>
-      <height>41</height>
+      <x>50</x>
+      <y>20</y>
+      <width>451</width>
+      <height>141</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <pointsize>36</pointsize>
+      <kerning>true</kerning>
      </font>
     </property>
     <property name="text">
-     <string>Connect to a</string>
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:42px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;Connect to a &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TextShredder&lt;/span&gt; &lt;span&gt;server&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
-   </widget>
-   <widget class="QLabel" name="titleLabel2">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>99</y>
-      <width>241</width>
-      <height>51</height>
-     </rect>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>36</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>TextShredder</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="titleLabel3">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>99</y>
-      <width>141</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>36</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>server</string>
+    <property name="scaledContents">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QSpinBox" name="serverPortInput">
@@ -184,7 +161,7 @@
      <rect>
       <x>120</x>
       <y>280</y>
-      <width>61</width>
+      <width>81</width>
       <height>20</height>
      </rect>
     </property>
@@ -215,9 +192,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>60</y>
+      <y>30</y>
       <width>541</width>
-      <height>91</height>
+      <height>121</height>
      </rect>
     </property>
     <property name="text">

@@ -72,10 +72,8 @@ void MainWindow::fadeInWindow()
 
 void MainWindow::performStarupAnimation()
 {
-	animationMoveTo(ui->fadeInLabel, QRect(0, 60, 541, 91), QRect(500, 60, 541, 91), 800);
-	animationMoveTo(ui->titleLabel1, QRect(300, 69, 211, 31), QRect(100, 69, 211, 31), 600);
-	animationMoveTo(ui->titleLabel2, QRect(370, 109, 241, 41), QRect(100, 109, 241, 41), 600);
-	animationMoveTo(ui->titleLabel3, QRect(610, 110, 141, 40), QRect(340, 110, 141, 40), 600);
+	animationMoveTo(ui->fadeInLabel, QRect(0, 20, 541, 121), QRect(500, 20, 541, 121), 800);
+	animationMoveTo(ui->titleLabel1, QRect(300, 20, 541, 121), QRect(50, 20, 541, 121), 600);
 }
 
 void MainWindow::animationMoveTo(QObject * target, QRect startRect, QRect endRect, int animationLength )
