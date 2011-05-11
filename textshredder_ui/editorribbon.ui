@@ -150,7 +150,11 @@
         <string>Subscript</string>
        </property>
        <property name="text">
-        <string>X2</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/ui/ribbon/images/ribbon/format-text-superscript.png</normaloff>:/ui/ribbon/images/ribbon/format-text-superscript.png</iconset>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -169,7 +173,11 @@
         <string>Superscript</string>
        </property>
        <property name="text">
-        <string>X1</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/ui/ribbon/images/ribbon/format-text-subscript.png</normaloff>:/ui/ribbon/images/ribbon/format-text-subscript.png</iconset>
        </property>
        <property name="checkable">
         <bool>true</bool>
