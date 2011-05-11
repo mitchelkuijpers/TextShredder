@@ -16,5 +16,7 @@
         <file>images/ribbon/format-text-italic.png</file>
         <file>images/ribbon/format-text-strikethrough.png</file>
         <file>images/ribbon/format-text-underline.png</file>
+        <file>images/ribbon/format-text-subscript.png</file>
+        <file>images/ribbon/format-text-superscript.png</file>
     </qresource>
 </RCC>
