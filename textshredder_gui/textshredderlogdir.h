@@ -16,7 +16,7 @@ signals:
 public slots:
 
 private:
-    TextShredderLogDir(QObject *parent = 0);
+    TextShredderLogDir(QObject *parent);
     static TextShredderLogDir * dirInstance;
     QString DirPath;
 };

@@ -26,7 +26,10 @@ SOURCES += editlisttests.cpp \
     workingcopytests.cpp \
     patchabletests.cpp \
     main.cpp \
-    syncthreadsub.cpp
+    syncthreadsub.cpp \
+    ../textshredder_gui/textshredderlogging.cpp \
+    ../textshredder_gui/textshredderlogdir.cpp \
+    syncthreadtests.cpp
 
 HEADERS += ../textshredder_synchronization_lib/*.h \
     autotest.h \
@@ -40,5 +43,9 @@ HEADERS += ../textshredder_synchronization_lib/*.h \
     workingcopytests.h \
     patchabletests.h \
     edittests.h \
-    syncthreadsub.h
+    syncthreadsub.h \
+    ../textshredder_gui/textshredderlogging.h \
+    ../textshredder_gui/textshredderlogdir.h \
+    syncthreadtests.h
+
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

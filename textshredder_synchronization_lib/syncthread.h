@@ -48,7 +48,7 @@ protected://Must be protected for test purposes
 	int syncThreadNumber;
 	static int sharedIndex;
 
-	TextShredderLogging logging;
+        TextShredderLogging logging;
 };
 
 #endif // SYNCTHREAD_H

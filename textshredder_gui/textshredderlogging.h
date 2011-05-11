@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QStringList>
 
+
 #define defaultLogFile "TextShredderLog"
 
 typedef enum{
