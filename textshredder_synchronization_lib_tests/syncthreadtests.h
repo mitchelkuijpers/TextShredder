@@ -11,6 +11,7 @@ class SyncThreadTests : public QObject
 
 public:
 	void setupVariables();
+	void breakDownVariables();
 
 private Q_SLOTS:
 	void simpleSyncTest();

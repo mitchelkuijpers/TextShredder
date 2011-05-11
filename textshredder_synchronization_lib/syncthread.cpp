@@ -5,7 +5,7 @@ int SyncThread::sharedIndex = 1;
 SyncThread::SyncThread(QObject * parent, TextShredderConnection & newConnection,
 					   WorkingCopy & newWorkingCopy) :
 	QObject(parent), connection(&newConnection), workingCopy(&newWorkingCopy),
-	shadowCopy(this), editList(this), timer(this),
+	shadowCopy(this), editList(NULL), timer(this),
         logging(this, QString("SyncThread ").append (QString::number (sharedIndex)))
 {
 	*(shadowCopy.getContent ()) = *workingCopy->getContent(); // set shadow copy
