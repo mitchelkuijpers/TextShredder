@@ -15,7 +15,7 @@ public:
 
 private Q_SLOTS:
 	void simpleSyncTest();
-    void pushChangesTest();
+	void doubleSyncEditList();
     void writePacketOfEditListTest();
 
 private:
