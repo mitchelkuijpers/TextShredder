@@ -18,6 +18,7 @@ public:
 	void changeWindowStateToClient();
 	void animationMoveTo(QObject * target, QRect startRect, QRect endRect, int animationLength );
 	void performStarupAnimation();
+	void fadeInWindow();
 
 private:
     Ui::MainWindow *ui;

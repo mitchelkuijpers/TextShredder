@@ -14,21 +14,20 @@
    <string>TextShredder - Britt</string>
   </property>
   <property name="windowOpacity">
-   <double>100000.000000000000000</double>
+   <double>0.100000000000000</double>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="titleLabel1">
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>69</y>
+      <y>59</y>
       <width>211</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Arial</family>
       <pointsize>36</pointsize>
      </font>
     </property>
@@ -40,14 +39,13 @@
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>109</y>
+      <y>99</y>
       <width>241</width>
-      <height>41</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Arial</family>
       <pointsize>36</pointsize>
       <weight>75</weight>
       <bold>true</bold>
@@ -61,14 +59,13 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>110</y>
+      <y>99</y>
       <width>141</width>
-      <height>40</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Arial</family>
       <pointsize>36</pointsize>
      </font>
     </property>
