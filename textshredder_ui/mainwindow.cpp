@@ -13,6 +13,11 @@ MainWindow::MainWindow(QWidget *parent) :
 	this->setFixedSize(this->width(),this->height());
 	ui->serverIpInput->setFocus();
 
+	fadeInWindow();
+	QFont defaultFont("Cantarell");
+
+	this->setFont(defaultFont);
+
 	performStarupAnimation();
 }
 
@@ -50,6 +55,21 @@ void MainWindow::changeWindowStateToClient()
 	ui->serverIpInput->setFocus();
 }
 
+void MainWindow::on_cancelButton_clicked()
+{
+	performStarupAnimation();
+}
+
+void MainWindow::fadeInWindow()
+{
+	QPropertyAnimation *animation = new QPropertyAnimation(this, "windowOpacity");
+	animation->setDuration(500);
+	animation->setStartValue(0);
+	animation->setEndValue(1);
+
+	animation->start();
+}
+
 void MainWindow::performStarupAnimation()
 {
 	animationMoveTo(ui->fadeInLabel, QRect(0, 60, 541, 91), QRect(500, 60, 541, 91), 800);
@@ -66,9 +86,4 @@ void MainWindow::animationMoveTo(QObject * target, QRect startRect, QRect endRec
 	animation->setEndValue(endRect);
 
 	animation->start();
-}
-
-void MainWindow::on_cancelButton_clicked()
-{
-	performStarupAnimation();
 }
