@@ -13,10 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	this->setFixedSize(this->width(),this->height());
 	ui->serverIpInput->setFocus();
 
-	fadeInWindow();
-	QFont defaultFont("Cantarell");
+	setDefaultFont();
 
-	this->setFont(defaultFont);
+	ui->titleLabelServer->hide();
 
 	performStarupAnimation();
 }
@@ -24,6 +23,12 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setDefaultFont()
+{
+	QFont defaultFont("Cantarell");
+	this->setFont(defaultFont);
 }
 
 void MainWindow::on_isServerInput_clicked()
@@ -37,7 +42,9 @@ void MainWindow::on_isServerInput_clicked()
 
 void MainWindow::changeWindowStateToServer()
 {
-	ui->titleLabel1->setText("Start a");
+	ui->titleLabelServer->show();
+	ui->titleLabelClient->hide();
+
 	ui->serverIpInput->setEnabled(false);
 
 	ui->serverIpInput->setText("");
@@ -47,7 +54,8 @@ void MainWindow::changeWindowStateToServer()
 
 void MainWindow::changeWindowStateToClient()
 {
-	ui->titleLabel1->setText("Connect to a");
+	ui->titleLabelServer->hide();
+	ui->titleLabelClient->show();
 	ui->serverIpInput->setEnabled(true);
 	ui->serverIpInput->setText("");
 	ui->serverIpInput->setPlaceholderText("Example: 133.214.233.143");
@@ -60,22 +68,14 @@ void MainWindow::on_cancelButton_clicked()
 	performStarupAnimation();
 }
 
-void MainWindow::fadeInWindow()
-{
-	QPropertyAnimation *animation = new QPropertyAnimation(this, "windowOpacity");
-	animation->setDuration(500);
-	animation->setStartValue(0);
-	animation->setEndValue(1);
-
-	animation->start();
-}
-
 void MainWindow::performStarupAnimation()
 {
-	animationMoveTo(ui->fadeInLabel, QRect(0, 60, 541, 91), QRect(500, 60, 541, 91), 800);
-	animationMoveTo(ui->titleLabel1, QRect(300, 69, 211, 31), QRect(100, 69, 211, 31), 600);
-	animationMoveTo(ui->titleLabel2, QRect(370, 109, 241, 41), QRect(100, 109, 241, 41), 600);
-	animationMoveTo(ui->titleLabel3, QRect(610, 110, 141, 40), QRect(340, 110, 141, 40), 600);
+	animationMoveTo(ui->fadeInLabel, QRect(0, 47, 550, 121),
+					QRect(500, 47, 550, 121), 800);
+
+	animationMoveTo(ui->titleLabelClient, QRect(300, 20, 451, 141), QRect(110, 20, 451, 141), 500);
+	animationMoveTo(ui->titleLabelServer, QRect(300, 15, 451, 141), QRect(110, 15, 451, 141), 500);
+	animationMoveTo(ui->titleLabelHead, QRect(350, 67, 451, 141), QRect(112, 67, 451, 141), 500);
 }
 
 void MainWindow::animationMoveTo(QObject * target, QRect startRect, QRect endRect, int animationLength )
