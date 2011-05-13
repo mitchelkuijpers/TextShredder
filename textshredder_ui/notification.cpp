@@ -1,7 +1,7 @@
 #include "notification.h"
 
-Notification::Notification( QString message, int notificationType, QList<NotificationOption*> options, QObject *parent = 0 ) :
-		message(message), notificationType(notificationType), options(options), QObject(parent)
+Notification::Notification( QObject *parent, QString message, int notificationType, QList<NotificationOption*> options ) :
+		QObject(parent), message(message), notificationType(notificationType), options(options)
 {
 }
 

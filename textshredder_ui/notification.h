@@ -8,7 +8,7 @@ class Notification : public QObject
 {
     Q_OBJECT
 public:
-	explicit Notification( QString message, int notificationType, QList<NotificationOption*> options, QObject *parent = 0);
+	Notification( QObject *parent, QString message, int notificationType, QList<NotificationOption*> options);
 	QString getMessage();
 	int getNotificationType();
 	QList<NotificationOption*> getNotificationOptions();
