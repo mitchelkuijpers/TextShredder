@@ -6,7 +6,7 @@
 #include "backupcopy.h"
 #include "edit.h"
 #include "patchable.h"
-
+#include "../textshredder_gui/textshredderlogging.h"
 
 class ShadowCopy : public Patchable, public QMutex
 {
@@ -36,20 +36,25 @@ public:
 	  * @param List of edits that need to be commited
 	  */
 	void applyEdits( QList<Edit> & edits);
-
+	void applyLocalEdits( QList<Edit> & edits);
 	/**
 	  * Function to apply the changes you have made in your workingcopy
 	  * @param List of patches from changes you made
 	  */
 	void processPatches( QList<Patch> & patches);
 
+	void setLocalVersion(int version);
+	void setLogging(TextShredderLogging *log);
 signals:
 
 private:
+	void log(QString &logString);
+
 	unsigned int localVersion;
 	unsigned int remoteVersion;
 
 	BackupCopy * backupCopy;
+	TextShredderLogging *logging;
 };
 
 #endif // SHADOWCOPY_H
