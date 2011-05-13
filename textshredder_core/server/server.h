@@ -4,7 +4,7 @@
 #include <QTcpServer>
 #include <QString>
 #include "../libraries/synchronization/models/syncablefile.h"
-#include "./libraries/synchronization/filemanager.h"
+#include "../libraries/synchronization/filemanager.h"
 
 class Server : public QTcpServer
 {
