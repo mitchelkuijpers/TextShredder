@@ -44,12 +44,11 @@ void MainWindow::changeWindowStateToServer()
 {
 	ui->titleLabelServer->show();
 	ui->titleLabelClient->hide();
-
 	ui->serverIpInput->setEnabled(false);
-
 	ui->serverIpInput->setText("");
 	ui->serverIpInput->setPlaceholderText("Not needed, you are the server.");
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/server.svg"));
+	performStarupAnimation();
 }
 
 void MainWindow::changeWindowStateToClient()
@@ -61,6 +60,7 @@ void MainWindow::changeWindowStateToClient()
 	ui->serverIpInput->setPlaceholderText("Example: 133.214.233.143");
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/userfolder.svg"));
 	ui->serverIpInput->setFocus();
+	performStarupAnimation();
 }
 
 void MainWindow::on_cancelButton_clicked()
@@ -70,12 +70,12 @@ void MainWindow::on_cancelButton_clicked()
 
 void MainWindow::performStarupAnimation()
 {
-	animationMoveTo(ui->fadeInLabel, QRect(0, 47, 550, 121),
-					QRect(500, 47, 550, 121), 800);
-
 	animationMoveTo(ui->titleLabelClient, QRect(300, 20, 451, 141), QRect(110, 20, 451, 141), 500);
 	animationMoveTo(ui->titleLabelServer, QRect(300, 15, 451, 141), QRect(110, 15, 451, 141), 500);
 	animationMoveTo(ui->titleLabelHead, QRect(350, 67, 451, 141), QRect(112, 67, 451, 141), 500);
+
+	animationMoveTo(ui->fadeInLabel, QRect(0, 47, 550, 121),
+					QRect(500, 47, 550, 121), 800);
 }
 
 void MainWindow::animationMoveTo(QObject * target, QRect startRect, QRect endRect, int animationLength )

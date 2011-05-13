@@ -2,16 +2,41 @@
 #include "mainwindow.h"
 #include "editorview.h"
 #include "debugview.h"
+#include "notification.h"
 #include <QFontDatabase>
 #include <QMessageBox>
+
+void setDefaultFont();
+void openEditorView();
+void openDebugView();
+QList<QPushButton*> buttons;
 
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 
-	MainWindow w;
-	w.show();
+	setDefaultFont();
 
+	//MainWindow w;
+	//w.show();
+
+	return a.exec();
+}
+
+void openEditorView()
+{
+	EditorView e;
+	e.show();
+}
+
+void openDebugView()
+{
+	DebugView d;
+	d.show();
+}
+
+void setDefaultFont()
+{
 	QStringList list;
 	list << "Cantarell-Bold.ttf" << "Cantarell-BoldOblique.ttf" << "Cantarell-Oblique.ttf" << "Cantarell-Regular.ttf";
 	int fontID(-1);
@@ -31,18 +56,4 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-
-	return a.exec();
-}
-
-void openEditorView()
-{
-	EditorView e;
-	e.show();
-}
-
-void openDebugView()
-{
-	DebugView d;
-	d.show();
 }

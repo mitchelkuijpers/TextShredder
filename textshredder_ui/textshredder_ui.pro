@@ -14,12 +14,18 @@ SOURCES += main.cpp\
 		mainwindow.cpp \
     editorview.cpp \
     editorribbon.cpp \
-    debugview.cpp
+    debugview.cpp \
+	notificationmanager.cpp \
+    notificationoption.cpp \
+    notification.cpp
 
 HEADERS  += mainwindow.h \
     editorview.h \
     editorribbon.h \
-    debugview.h
+    debugview.h \
+	notificationmanager.h \
+    notificationoption.h \
+    notification.h
 
 FORMS    += mainwindow.ui \
     editorview.ui \

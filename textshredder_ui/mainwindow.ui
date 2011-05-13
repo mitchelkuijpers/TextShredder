@@ -74,12 +74,6 @@ p, li { white-space: pre-wrap; }
       <height>22</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>14</pointsize>
-     </font>
-    </property>
     <property name="text">
      <string/>
     </property>
@@ -193,7 +187,7 @@ p, li { white-space: pre-wrap; }
       <x>0</x>
       <y>50</y>
       <width>541</width>
-      <height>121</height>
+      <height>111</height>
      </rect>
     </property>
     <property name="text">
@@ -270,6 +264,7 @@ p, li { white-space: pre-wrap; }
      <bool>false</bool>
     </property>
    </widget>
+   <zorder>titleLabelServer</zorder>
    <zorder>titleLabelHead</zorder>
    <zorder>titleLabelClient</zorder>
    <zorder>serverPortInput</zorder>
@@ -281,7 +276,6 @@ p, li { white-space: pre-wrap; }
    <zorder>rememberSettingsInput</zorder>
    <zorder>isServerInput</zorder>
    <zorder>avatarLabel</zorder>
-   <zorder>titleLabelServer</zorder>
    <zorder>fadeInLabel</zorder>
   </widget>
   <action name="actionDsfdsfsdf">
