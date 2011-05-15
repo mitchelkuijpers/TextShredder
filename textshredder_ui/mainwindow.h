@@ -18,6 +18,12 @@ public:
 	void changeWindowStateToClient();
 	void animationMoveTo(QObject * target, QRect startRect, QRect endRect, int animationLength );
 	void performStarupAnimation();
+
+	/**
+	  * The function builds up a QStringList and fills it with some fonts.
+	  * A for loop looks in the :ui/core/fonts folder
+	  * and shows an error if the font cannot be opened.
+	  */
 	void setDefaultFont();
 
 private:

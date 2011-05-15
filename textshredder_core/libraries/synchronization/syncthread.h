@@ -39,6 +39,7 @@ protected://Must be protected for test purposes
 
 	/**
 	  * Will write a packet on the connction
+	  * @param packet the TextShredderPacket
 	  */
 	void writePacketOnConnection(TextShredderPacket &packet);
 
