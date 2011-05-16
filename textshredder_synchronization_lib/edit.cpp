@@ -30,7 +30,6 @@ Edit::Edit(QObject *parent, QByteArray &byteArray)
 	diff_match_patch dmp;
 	int tempPatchLength;
 	while(1) {
-
 		if (byteArray[offSet++] == '{') {
 			//Will start next edit
 			tempPatchLength = atoi(&(byteArray.data()[offSet]));
