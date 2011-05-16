@@ -1,5 +1,6 @@
 #include "syncthread.h"
 
+
 int SyncThread::sharedIndex = 1;
 
 SyncThread::SyncThread(QObject * parent, int port, QString &address,
@@ -44,10 +45,12 @@ void SyncThread::startSync()
 
 void SyncThread::processChanges(QByteArray & content)
 {
+
 	QString procesChangesMessage("SyncThread::processChanges");
 	logging.writeLog (procesChangesMessage, DEBUG);
 	EditList incomingEditList(this, content);
 	this->applyReceivedEditList(incomingEditList);
+
 }
 
 void SyncThread::pushChanges()
