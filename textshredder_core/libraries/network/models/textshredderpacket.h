@@ -9,6 +9,7 @@
 #define kPacketTypeFileRequest 2
 #define kPacketTypeFileData 3
 #define kPacketTypeSetAlias 4
+#define kPacketTypeAvailableFiles 5
 
 
 class TextShredderPacket : public QObject
@@ -19,6 +20,8 @@ public:
 	  * Default constructor.
 	  */
 	TextShredderPacket( QObject * );
+
+	TextShredderPacket(QObject *parent, unsigned char packetType);
 
 	/**
 	  * Constructor that will initialize a TextShredderPacket with a given
@@ -68,6 +71,9 @@ public:
 	unsigned int numberOfBytesNeeded();
 
 	TextShredderPacket & operator=(TextShredderPacket & otherPacket);
+
+	//Setters
+	void setContent(QByteArray &bytes);
 
 	//Getters
 	QByteArray & getContent();

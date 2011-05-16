@@ -23,12 +23,7 @@ public:
 
 private:
 	TextShredderConnection * connection;
-	FileSync * sync;
 	QString alias;
-	QList<SyncableFile *> syncableFiles;
-	SyncThread *syncThread;
-	SyncableFile *syncFile;
-	void addClientNameToClientsList();
 
 public slots:
 	/**
@@ -41,11 +36,6 @@ public slots:
 	 * @param QString changedName
 	 */
 	void getNameChanged(QString & changedName);
-
-	/**
-	 * Initiates a new syncthread and gets the working copy
-	 */
-	void fileSyncReady();
 
 	/**
 	 * ?? NOT CLEAR

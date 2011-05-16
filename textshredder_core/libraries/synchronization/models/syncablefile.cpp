@@ -2,18 +2,8 @@
 
 #define kDefaultFileAlias QString("untitled.txt")
 
-SyncableFile::SyncableFile(QObject *parent) : QObject(parent)
-{
-	fileAlias = kDefaultFileAlias;
-	filePath = "";
-	fileType = FileTypeTXT;
-	workingCopy = new WorkingCopy(this);
-	QString workingCopyContent;
-	workingCopy->setContent(workingCopyContent);
-}
-
 SyncableFile::SyncableFile(QObject *parent, QString &path) :
-	QObject(parent), filePath(path)
+		QObject(parent), fileIdentifier(QUuid::createUuid().toString()), filePath(path)
 {
 	QFileInfo fileInfo(path);
 	fileAlias = fileInfo.fileName();
@@ -31,12 +21,42 @@ SyncableFile::SyncableFile(QObject *parent, QString &path) :
 	workingCopy->setContent(contentString);
 }
 
-SyncableFile::SyncableFile(QObject *parent, QString &path, QString &alias) :
-	QObject(parent), filePath(path), fileAlias(alias)
+SyncableFile::SyncableFile(QObject *parent, QString &identifier, QString &alias) :
+	QObject(parent), fileIdentifier(identifier), fileAlias(alias)
 {
-	QFileInfo fileInfo(path);
-	QString suffix(fileInfo.suffix ());
-	fileType = typeForSuffix(suffix);
+	fileType = FileTypeTXT;
+}
+
+SyncableFile::SyncableFile(QObject *parent, QString &alias, FileType type) :
+	QObject(parent), fileAlias(alias), fileType(type)
+{
+
+}
+
+SyncableFile::SyncableFile(const SyncableFile &other) : QObject(this)
+{
+	this->fileIdentifier = other.fileIdentifier;
+	this->fileAlias = other.fileAlias;
+	this->filePath = other.filePath;
+	this->shared = other.shared;
+	this->fileType = other.fileType;
+	this->workingCopy = other.workingCopy;
+}
+
+bool SyncableFile::operator == (const SyncableFile & other)
+{
+	return (this->fileIdentifier == other.fileIdentifier);
+}
+
+SyncableFile & SyncableFile::operator=(const SyncableFile & other)
+{
+	this->fileIdentifier = other.fileIdentifier;
+	this->fileAlias = other.fileAlias;
+	this->filePath = other.filePath;
+	this->shared = other.shared;
+	this->fileType = other.fileType;
+	this->workingCopy = other.workingCopy;
+	return *this;
 }
 
 void SyncableFile::changeFileType(FileType type)
@@ -59,57 +79,48 @@ FileType SyncableFile::typeForSuffix(QString &suffix)
 
 bool SyncableFile::hasClientWithName(QString &name)
 {
-	for (int i = 0; i < clients.size(); ++i) {
-		if (clients.at(i) == name) {
-			return true;
-		}
-	}
+//	for (int i = 0; i < clients.size(); ++i) {
+//		if (clients.at(i) == name) {
+//			return true;
+//		}
+//	}
 	return false;
 }
 
 bool SyncableFile::addClientWithName(QString &name)
 {	
-	if(hasClientWithName(name)) {
-		return false;
-	}
+//	if(hasClientWithName(name)) {
+//		return false;
+//	}
 
-	clients.append(name);
-	notifyAvailableClientsChanged();
-
+//	clients.append(name);
+//	notifyAvailableClientsChanged();
 	return true;
 }
 
 bool SyncableFile::removeClientWithName(QString &name)
 {
-	if(hasClientWithName(name)) {
-		clients.removeOne(name);
-		notifyAvailableClientsChanged();
-		return true;
-	}
+//	if(hasClientWithName(name)) {
+//		clients.removeOne(name);
+//		notifyAvailableClientsChanged();
+//		return true;
+//	}
 	return false;
 }
 
 bool SyncableFile::changeClientName(QString &name, QString &toName)
 {
-	if(name == toName) {
-		return false;
-	}
-	if(clients.indexOf(name) != -1 ) {
-		clients.replace(clients.indexOf(name), toName);
-		notifyAvailableClientsChanged();
-	}
+//	if(name == toName) {
+//		return false;
+//	}
+//	if(clients.indexOf(name) != -1 ) {
+//		clients.replace(clients.indexOf(name), toName);
+//		notifyAvailableClientsChanged();
+//	}
 	return true;
 }
 
-void SyncableFile::notifyAvailableClientsChanged()
-{
-	emit availableClientsChanged();
-}
 
-QList<QString> & SyncableFile::getAvailableClients()
-{
-	return clients;
-}
 
 WorkingCopy * SyncableFile::getWorkingCopy()
 {
@@ -119,4 +130,50 @@ WorkingCopy * SyncableFile::getWorkingCopy()
 QString & SyncableFile::getFileAlias()
 {
 	return fileAlias;
+}
+
+QString & SyncableFile::getFileIdentifier()
+{
+	return fileIdentifier;
+}
+
+bool SyncableFile::isShared()
+{
+	return shared;
+}
+
+void SyncableFile::setShared(bool share)
+{
+	shared = share;
+	if (shared) {
+		emit fileStartedSharing();
+	} else {
+		emit fileStoppedSharing();
+	}
+}
+
+void SyncableFile::availableFilesChanged(QList<SyncableFile> &fileList)
+{
+
+}
+
+void SyncableFile::stopSync()
+{
+
+}
+
+void SyncableFile::requestSync()
+{
+	SyncThread *newThread = new SyncThread(this, *this->workingCopy);
+	syncThreads.append(newThread);
+	FileRequestPacket packet(this, newThread->getLocalPort(), fileAlias);
+	emit fileRequestsForSync(packet);
+	qDebug("Create socket SyncableFile::requestSync");
+}
+
+void SyncableFile::createSynchronizationWithPortAndAddress(quint16 port, QString &hostName)
+{
+	qDebug("Should do some sync creation");
+	SyncThread *newThread = new SyncThread(this, port, hostName, *workingCopy);
+	syncThreads.append(newThread);
 }

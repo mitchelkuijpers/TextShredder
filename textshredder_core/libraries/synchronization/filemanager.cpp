@@ -1,4 +1,5 @@
 #include "filemanager.h"
+#include "../network/models/syncablefilespacket.h"
 
 FileManager* FileManager::sharedInstance = NULL;
 
@@ -17,55 +18,79 @@ FileManager * FileManager::Instance()
 
 void FileManager::addFileWithPath(QString &path)
 {
-	SyncableFile * file = new SyncableFile(this, path);
+	SyncableFile file(this, path);
+	connect(&file, SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
+	connect(&file, SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
+	connect(&file, SIGNAL(fileRequestsForSync(TextShredderPacket&)),
+			this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
 	fileList.append(file);
+
 	emit fileStarted(file);
-	emit availableFilesChanged();
 }
 
-SyncableFile * FileManager::getFirstSyncableFileFromFileList()
-{
-	return fileList.at(0);
-}
-
-void FileManager::removeFile (SyncableFile *file)
+void FileManager::removeFile (SyncableFile &file)
 {
 	for (int i = 0; i < fileList.count(); i++ ) {
-		SyncableFile *fileFromList = fileList.at(i);
+		SyncableFile fileFromList = fileList.at(i);
 		if (fileFromList == file) {
+			disconnect(&fileFromList, SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
+			disconnect(&fileFromList, SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
+			disconnect(&file, SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
+			fileFromList.stopSync();
 			fileList.removeAt(i);
-			delete file;
 
-			emit availableFilesChanged();
 			return;
 		}
 	}
 }
 
-void FileManager::addSyncFile(SyncableFile *file)
+void FileManager::fillListWithSharedFiles(QList <SyncableFile> &list)
 {
-	fileList.append(file);
-	emit fileStarted(file);
-	emit availableFilesChanged();
-}
-
-void FileManager::fillListWithAllFileNames(QList<QString> &fileNames)
-{
-	SyncableFile *fileFromList;
-	for(int i = 0; i < fileList.count(); i++ ) {
-		fileFromList = fileList.at(i);
-		fileNames.append(fileFromList->getFileAlias());
-	}
-}
-
-SyncableFile * FileManager::getSyncableFileWithName(QString &name)
-{
-	SyncableFile *fileFromList;
-	for(int i = 0; i < fileList.count(); i++ ) {
-		fileFromList = fileList.at(i);
-		if (fileFromList->getFileAlias() == name) {
-			return fileFromList;
+	for ( int i = 0; i < fileList.count(); i++ ) {
+		SyncableFile file = fileList.at(i);
+		if (file.isShared()) {
+			list.append(file);
 		}
 	}
-	return NULL;
+}
+
+void FileManager::syncableFileStartedSharing()
+{
+	QList<SyncableFile> sharedFiles;
+	fillListWithSharedFiles(sharedFiles);
+	SyncableFilesPacket packet(this, sharedFiles);
+	emit updateClientFiles(packet);
+}
+
+void FileManager::syncableFileStoppedSharing()
+{
+	SyncableFilesPacket packet(this, fileList);
+	emit updateClientFiles(packet);
+}
+
+void FileManager::shouldMakeRequestForSync(TextShredderPacket &packet)
+{
+	emit sendFileRequest(packet);
+}
+
+void FileManager::addSyncFile(SyncableFile &file)
+{
+	fileList.append(file);
+	connect(&file, SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
+	connect(&file, SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
+	connect(&file, SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
+	emit fileStarted(file);
+}
+
+SyncableFile & FileManager::getSyncableFileWithName(QString &name)
+{
+	SyncableFile *fileFromList;
+	for(int i = 0; i < fileList.count(); i++ ) {
+		fileFromList = (SyncableFile *) & fileList.at(i);
+		if (fileFromList->getFileAlias() == name) {
+			return *fileFromList;
+		}
+	}
+	throw QString("No Such file shared");
+	return *fileFromList;
 }
