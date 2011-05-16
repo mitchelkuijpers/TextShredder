@@ -57,8 +57,6 @@ private:
 
 	QList<SyncThread *> syncThreads;
 
-public slots:
-	void availableFilesChanged(QList<SyncableFile> &);
 signals:
 	void fileStoppedSharing();
 	void fileStartedSharing();

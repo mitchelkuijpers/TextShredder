@@ -77,51 +77,6 @@ FileType SyncableFile::typeForSuffix(QString &suffix)
 	return FileTypeUNKNOWN;
 }
 
-bool SyncableFile::hasClientWithName(QString &name)
-{
-//	for (int i = 0; i < clients.size(); ++i) {
-//		if (clients.at(i) == name) {
-//			return true;
-//		}
-//	}
-	return false;
-}
-
-bool SyncableFile::addClientWithName(QString &name)
-{	
-//	if(hasClientWithName(name)) {
-//		return false;
-//	}
-
-//	clients.append(name);
-//	notifyAvailableClientsChanged();
-	return true;
-}
-
-bool SyncableFile::removeClientWithName(QString &name)
-{
-//	if(hasClientWithName(name)) {
-//		clients.removeOne(name);
-//		notifyAvailableClientsChanged();
-//		return true;
-//	}
-	return false;
-}
-
-bool SyncableFile::changeClientName(QString &name, QString &toName)
-{
-//	if(name == toName) {
-//		return false;
-//	}
-//	if(clients.indexOf(name) != -1 ) {
-//		clients.replace(clients.indexOf(name), toName);
-//		notifyAvailableClientsChanged();
-//	}
-	return true;
-}
-
-
-
 WorkingCopy * SyncableFile::getWorkingCopy()
 {
 	return workingCopy;
@@ -150,11 +105,6 @@ void SyncableFile::setShared(bool share)
 	} else {
 		emit fileStoppedSharing();
 	}
-}
-
-void SyncableFile::availableFilesChanged(QList<SyncableFile> &fileList)
-{
-
 }
 
 void SyncableFile::stopSync()
