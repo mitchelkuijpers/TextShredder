@@ -3,6 +3,8 @@
 #include "editorview.h"
 #include "debugview.h"
 #include "notification.h"
+#include "notificationoption.h"
+#include "notificationmanager.h"
 #include <QFontDatabase>
 #include <QMessageBox>
 
@@ -17,8 +19,16 @@ int main(int argc, char *argv[])
 
 	setDefaultFont();
 
-	//MainWindow w;
-	//w.show();
+//	QString message("Messageeee");
+//	QList<NotificationOption>& options;
+//	NotificationOption option("Continue");
+//	options.append(option);
+
+//	Notification notification(NULL, message, 0, options);
+//	NotificationManager::Instance()->createNotificationDialog(notification);
+
+	MainWindow w;
+	w.show();
 
 	return a.exec();
 }

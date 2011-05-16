@@ -2,39 +2,44 @@
 
 NotificationManager* NotificationManager::sharedInstance = NULL;
 
-NotificationManager::NotificationManager(QObject *parent) :
+NotificationManager::NotificationManager( QObject *parent ) :
 		QObject(parent)
 {
 }
 
-NotificationManager * NotificationManager::Instance( Notification notification ) :
-	notification(notification)
+NotificationManager * NotificationManager::Instance( )
 {
+	if ( !sharedInstance ) {
+		sharedInstance = new NotificationManager(NULL);
+	}
+	return sharedInstance;
+}
 
-	this->setFixedSize(350, 100);
-	setWindowTitleBasedOnNotificationType();
 
-	gridLayout = new QGridLayout(this);
+void NotificationManager::createNotificationDialog( Notification & notification )
+{
+	QDialog notificationDialog(NULL);
+	notificationDialog.setFixedSize(350, 100);
+	setWindowTitleBasedOnNotificationType( notification );
 
+	gridLayout = new QGridLayout();
 	messageLabel = new QLabel(notification.getMessage());
 	gridLayout->addWidget(messageLabel, 0, 0);
 
-
 	addButtonsToNotificationDialog(notification.getNotificationOptions());
-
-	setLayout(gridLayout);
+	notificationDialog.setLayout(gridLayout);
 }
 
-void NotificationManager::addButtonsToNotificationDialog( QList<NotificationOption*> notificationOptions )
+void NotificationManager::addButtonsToNotificationDialog( QList<NotificationOption>& notificationOptions )
 {
 	int i;
 	for(i = 0; i < notificationOptions.length(); i++ ) {
-		QPushButton * button = new QPushButton(notificationOptions.at(i)->getLabel(), this);
-		gridLayout->addWidget(button, 1, i);
+		//QPushButton * button = new QPushButton(notificationOptions.at(i).getLabel());
+		//gridLayout->addWidget(button, 1, i);
 	}
 }
 
-void NotificationManager::setWindowTitleBasedOnNotificationType()
+void NotificationManager::setWindowTitleBasedOnNotificationType( Notification & notification )
 {
 	QString windowTitle;
 
@@ -64,5 +69,5 @@ void NotificationManager::setWindowTitleBasedOnNotificationType()
 			break;
 	}
 
-	this->setWindowTitle(windowTitle);
+	notificationDialog.setWindowTitle(windowTitle);
 }

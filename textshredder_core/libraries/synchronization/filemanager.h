@@ -52,7 +52,7 @@ public:
 	void fillListWithAllFileNames(QList<QString> &fileNames);
 
 	/**
-	  * Returns a SyncabelFile with a given name from the SyncableFile
+	  * Returns a SyncableFile with a given name from the SyncableFile
 	  * list.
 	  *
 	  * @param the name of the SyncableFile needed.

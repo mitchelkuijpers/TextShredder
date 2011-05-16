@@ -4,9 +4,11 @@
 #include <QObject>
 #include <QTimer>
 #include "../network/textshredderconnection.h"
-#include "editlist.h"
+#include "models/editlist.h"
 #include "models/shadowcopy.h"
 #include "models/workingcopy.h"
+
+#include "../logging/textshredderlogging.h"
 
 #define WRITETHREAD_INTERVAL 1000
 
@@ -24,14 +26,32 @@ public slots:
 	void stop();
 	void pushChanges();
 
-private:
 	void applyReceivedEditList(EditList &incomingEditList);
+
+	virtual void startSync();
+
+protected://Must be protected for test purposes
+	/**
+	  * Will change the current editlist into a packet
+	  * and call the writePacketOnConnection with that packet
+	  */
+	virtual void writePacketOfEditList();
+
+	/**
+	  * Will write a packet on the connction
+	  * @param packet the TextShredderPacket
+	  */
+	void writePacketOnConnection(TextShredderPacket &packet);
 
 	TextShredderConnection * connection;
 	WorkingCopy * workingCopy;
 	ShadowCopy shadowCopy;
 	EditList editList;
 	QTimer timer;
+	int syncThreadNumber;
+	static int sharedIndex;
+
+	TextShredderLogging logging;
 };
 
 #endif // SYNCTHREAD_H

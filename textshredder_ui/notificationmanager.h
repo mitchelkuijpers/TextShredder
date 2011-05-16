@@ -2,24 +2,27 @@
 #define NOTIFICATIONMANAGER_H
 
 #include <QWidget>
-#include<QString>
-#include<QPushButton>
-#include<QGridLayout>
-#include<QLabel>
+#include <QString>
+#include <QPushButton>
+#include <QGridLayout>
+#include <QLabel>
+#include <QDialog>
 
 #include "notificationoption.h"
 #include "notification.h"
 
-class NotificationManager : public QWidget
+class NotificationManager : public QObject
 {
     Q_OBJECT
 public:
-	static NotificationManager * Instance( QObject *parent, Notification notification );
-	void addButtonsToNotificationDialog( QList<NotificationOption*> notificationOption );
-	void setWindowTitleBasedOnNotificationType();
+	static NotificationManager * Instance();
+	void addButtonsToNotificationDialog( QList<NotificationOption>& notificationOptions );
+	void createNotificationDialog( Notification & notification);
+	void setWindowTitleBasedOnNotificationType( Notification & notification );
 
 private:
-	Notification notification;
+	NotificationManager(QObject *parent = 0);
+	QDialog notificationDialog;
 	QGridLayout *gridLayout;
 	QLabel * messageLabel;
 	enum NotificationType { SUCCESS, WARNING, ERROR, FATAL, INFO };

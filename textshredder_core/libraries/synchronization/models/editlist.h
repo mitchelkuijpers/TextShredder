@@ -4,8 +4,8 @@
 #include <QObject>
 #include <QList>
 #include <QMutex>
-#include "models/edit.h"
-#include "../network/models/textshredderpacket.h"
+#include "edit.h"
+#include "../../network/models/textshredderpacket.h"
 
 class EditList : public QObject, public QMutex
 {
@@ -31,7 +31,8 @@ public:
 	  */
 	EditList(QObject *parent, TextShredderPacket &);
 
-
+	EditList(const EditList &);
+	EditList & operator=(EditList &);
 	bool operator==(EditList &);
 
 	/**
@@ -50,13 +51,11 @@ public:
 	void addEdit( const Edit & );
 
 	/**
-	  * Function will update EditList to a given remote version. It will
-	  * change the remote version and drops the unused edits.
+	  * Function will update EditList to a given remote version.
 	  *
 	  * @param the remote version to update to.
-	  * @param the local version to update to. Is used to drop the edits.
 	  */
-	void updateToRemoteAndLocalVersion( unsigned int, unsigned int );
+	void updateToRemote(	unsigned int newRemoteVersion);
 
 	/**
 	  * Function will return a packet with the EditList as content.
@@ -69,7 +68,7 @@ public:
 	//Getters
 	unsigned int getRemoteVersion();
 	QList<Edit> & getEdits();
-
+	QList<Edit> popEditsUpToLocalVersion(unsigned int version);
 private:
 	QList<Edit> edits;
     int remoteVersion;

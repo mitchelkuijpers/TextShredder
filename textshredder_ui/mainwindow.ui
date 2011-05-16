@@ -181,25 +181,6 @@ p, li { white-space: pre-wrap; }
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="fadeInLabel">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>50</y>
-      <width>541</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="images.qrc">:/ui/main/images/fadeInImage.png</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QLabel" name="titleLabelServer">
     <property name="enabled">
      <bool>true</bool>
@@ -276,7 +257,6 @@ p, li { white-space: pre-wrap; }
    <zorder>rememberSettingsInput</zorder>
    <zorder>isServerInput</zorder>
    <zorder>avatarLabel</zorder>
-   <zorder>fadeInLabel</zorder>
   </widget>
   <action name="actionDsfdsfsdf">
    <property name="text">
