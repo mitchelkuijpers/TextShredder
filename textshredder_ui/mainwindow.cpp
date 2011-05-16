@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "notification.h"
+#include "notificationoption.h"
+#include "notificationmanager.h"
 #include <QTcpSocket>
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
@@ -66,6 +69,17 @@ void MainWindow::changeWindowStateToClient()
 
 void MainWindow::on_cancelButton_clicked()
 {
+	//Create options
+	QList<NotificationOption> options;
+	NotificationOption option3(NULL ,"Cancel");
+	NotificationOption option4(NULL ,"Continue");
+	options.append(option3);
+	options.append(option4);
+
+	//Create notification
+	Notification notification(NULL, "This is a succes message.", 0, options);
+	NotificationManager::Instance()->createNotificationDialog(notification);
+
 	performStarupAnimation();
 }
 
