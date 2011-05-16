@@ -55,6 +55,7 @@ void EditorView::addFileToFileTreeWidget( QString fileName )
 	QStandardItem *item = new QStandardItem( QString(fileName) );
 	model.setItem(rowCount, 0, item);
 
+	item->setCheckable( true );
 	QStandardItem *status = new QStandardItem( QString("Not Syncing") );
 	model.setItem(rowCount, 1, status);
 
@@ -79,6 +80,7 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 	for(i = 0; i < list.count(); i++ ) {
 		QStandardItem *child = new QStandardItem( QString(list.at(i)) );
 		child->setEditable( false );
+		child->setCheckable( true );
 		item->appendRow( child );
 	}
 

@@ -27,8 +27,10 @@ int main(int argc, char *argv[])
 //	Notification notification(NULL, message, 0, options);
 //	NotificationManager::Instance()->createNotificationDialog(notification);
 
-	MainWindow w;
-	w.show();
+	EditorView e;
+	e.show();
+	//MainWindow w;
+	//w.show();
 
 	return a.exec();
 }

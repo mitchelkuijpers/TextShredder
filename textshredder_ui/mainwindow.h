@@ -16,7 +16,7 @@ public:
     ~MainWindow();
 	void changeWindowStateToServer();
 	void changeWindowStateToClient();
-	void animationMoveTo(QObject * target, QRect startRect, QRect endRect, int animationLength );
+	void animationMoveTo(QWidget * target, QRect startRect, QRect endRect, int animationLength );
 	void performStarupAnimation();
 
 	/**
