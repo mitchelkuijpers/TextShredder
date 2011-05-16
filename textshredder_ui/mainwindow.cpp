@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QTcpSocket>
 #include <QPropertyAnimation>
+#include <QGraphicsOpacityEffect>
 #include <QFileDialog>
 #include <QFile>
 
@@ -73,17 +74,14 @@ void MainWindow::performStarupAnimation()
 	animationMoveTo(ui->titleLabelClient, QRect(300, 20, 451, 141), QRect(110, 20, 451, 141), 500);
 	animationMoveTo(ui->titleLabelServer, QRect(300, 15, 451, 141), QRect(110, 15, 451, 141), 500);
 	animationMoveTo(ui->titleLabelHead, QRect(350, 67, 451, 141), QRect(112, 67, 451, 141), 500);
-
-	animationMoveTo(ui->fadeInLabel, QRect(0, 47, 550, 121),
-					QRect(500, 47, 550, 121), 800);
 }
 
-void MainWindow::animationMoveTo(QObject * target, QRect startRect, QRect endRect, int animationLength )
+void MainWindow::animationMoveTo(QWidget * target, QRect startRect, QRect endRect, int animationLength )
 {
 	QPropertyAnimation *animation = new QPropertyAnimation(target, "geometry");
 	animation->setDuration(animationLength);
 	animation->setStartValue(startRect);
 	animation->setEndValue(endRect);
-
-	animation->start();
+	animation->setEasingCurve(QEasingCurve::OutBack);
+	animation->start(QAbstractAnimation::DeleteWhenStopped);
 }

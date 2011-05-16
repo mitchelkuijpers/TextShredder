@@ -1,6 +1,6 @@
 #include "notification.h"
 
-Notification::Notification( QObject *parent, QString message, int notificationType, QList<NotificationOption*> options ) :
+Notification::Notification( QObject *parent, QString message, int notificationType, QList<NotificationOption>& options ) :
 		QObject(parent), message(message), notificationType(notificationType), options(options)
 {
 }
@@ -15,7 +15,7 @@ int Notification::getNotificationType()
 	return notificationType;
 }
 
-QList<NotificationOption*> Notification::getNotificationOptions()
+QList<NotificationOption>& Notification::getNotificationOptions()
 {
 	return options;
 }

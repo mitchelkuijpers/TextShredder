@@ -15,39 +15,35 @@ NotificationManager * NotificationManager::Instance( )
 	return sharedInstance;
 }
 
-void NotificationManager::newNotificationDialog( Notification * notification )
-{
-	createNotificationDialog(notification);
-}
 
-void NotificationManager::createNotificationDialog( Notification * notification )
+void NotificationManager::createNotificationDialog( Notification & notification )
 {
 	QDialog notificationDialog(NULL);
 	notificationDialog.setFixedSize(350, 100);
 	setWindowTitleBasedOnNotificationType( notification );
 
 	gridLayout = new QGridLayout();
-	messageLabel = new QLabel(notification->getMessage());
+	messageLabel = new QLabel(notification.getMessage());
 	gridLayout->addWidget(messageLabel, 0, 0);
 
-	addButtonsToNotificationDialog(notification->getNotificationOptions());
+	addButtonsToNotificationDialog(notification.getNotificationOptions());
 	notificationDialog.setLayout(gridLayout);
 }
 
-void NotificationManager::addButtonsToNotificationDialog( QList<NotificationOption*> notificationOptions )
+void NotificationManager::addButtonsToNotificationDialog( QList<NotificationOption>& notificationOptions )
 {
 	int i;
 	for(i = 0; i < notificationOptions.length(); i++ ) {
-		QPushButton * button = new QPushButton(notificationOptions.at(i)->getLabel());
-		gridLayout->addWidget(button, 1, i);
+		//QPushButton * button = new QPushButton(notificationOptions.at(i).getLabel());
+		//gridLayout->addWidget(button, 1, i);
 	}
 }
 
-void NotificationManager::setWindowTitleBasedOnNotificationType( Notification * notification )
+void NotificationManager::setWindowTitleBasedOnNotificationType( Notification & notification )
 {
 	QString windowTitle;
 
-	switch( notification->getNotificationType() ) {
+	switch( notification.getNotificationType() ) {
 		case SUCCESS:
 			windowTitle = "Succes";
 			break;
