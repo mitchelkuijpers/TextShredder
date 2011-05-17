@@ -28,13 +28,14 @@ public:
 	TextShredderConnection(QObject *parent, int socketDescriptor);
 	TextShredderConnection(QObject *parent, QString &hostName, int port);
 	QString getPeerAdress();
+	unsigned int getPort();
 
 private:
 	QTcpSocket socket;
 	QList<TextShredderPacket> queue;
 	TextShredderConnectionStatus status;
 	TextShredderPacketParser parser;
-
+	unsigned int port;
 	void setupSignalsForSocket();
 	void emitNewIncomingPacket(TextShredderPacket &packet);
 

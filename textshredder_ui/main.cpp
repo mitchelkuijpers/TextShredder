@@ -7,6 +7,7 @@
 #include "notificationmanager.h"
 #include <QFontDatabase>
 #include <QMessageBox>
+#include "../textshredder_core/libraries/configuration/configurationmanager.h"
 
 void setDefaultFont();
 void openEditorView();
@@ -29,8 +30,8 @@ int main(int argc, char *argv[])
 
 	EditorView e;
 	e.show();
-	//MainWindow w;
-	//w.show();
+//	MainWindow w;
+//	w.show();
 
 	return a.exec();
 }

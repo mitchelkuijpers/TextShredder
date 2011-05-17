@@ -34,7 +34,9 @@ SOURCES		+= \
     libraries/synchronization/clientrepresentation.cpp \
     libraries/synchronization/models/editlist.cpp \
     libraries/logging/textshredderlogdir.cpp \
-    libraries/logging/textshredderlogging.cpp
+	libraries/logging/textshredderlogging.cpp \
+	libraries/configuration/configurationmanager.cpp \
+    libraries/configuration/models/configurationoptions.cpp
 
 
 HEADERS		+= \
@@ -56,4 +58,6 @@ HEADERS		+= \
     libraries/synchronization/clientrepresentation.h \
     libraries/synchronization/models/editlist.h \
     libraries/logging/textshredderlogdir.h \
-    libraries/logging/textshredderlogging.h
+	libraries/logging/textshredderlogging.h \
+	libraries/configuration/configurationmanager.h \
+    libraries/configuration/models/configurationoptions.h

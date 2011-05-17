@@ -7,7 +7,7 @@ TextShredderConnection::TextShredderConnection(QObject *parent,
 {
 	socket.connectToHost (hostName, port);
 	setupSignalsForSocket();
-
+	this->port = port;
 	this->status = Disconnected;
 }
 
@@ -105,3 +105,10 @@ QString TextShredderConnection::getPeerAdress() {
 	QHostAddress peerAdress = socket.peerAddress();
 	return peerAdress.toString();
 }
+
+unsigned int TextShredderConnection::getPort()
+{
+	return port;
+}
+
+
