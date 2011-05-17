@@ -22,7 +22,7 @@ QByteArray SyncableFilesPacket::contentForFiles(QList<SyncableFile *> &files) {
 	return array;
 }
 
-void SyncableFilesPacket::fillListWithContentsOfPacket(QList <SyncableFile> &list, QByteArray &content) {
+void SyncableFilesPacket::fillListWithContentsOfPacket(QList <SyncableFile *> &list, QByteArray &content) {
 	int count = 0;
 	bool startedFileParsing = false;
 	QString uniqueIdentifier;
@@ -58,7 +58,7 @@ void SyncableFilesPacket::fillListWithContentsOfPacket(QList <SyncableFile> &lis
 					count++;
 				}
 				startedFileParsing = false;
-				SyncableFile newSyncFile(NULL, uniqueIdentifier, fileAlias);
+				SyncableFile *newSyncFile = new SyncableFile(NULL, uniqueIdentifier, fileAlias);
 				list.append(newSyncFile);
 			}
 		}

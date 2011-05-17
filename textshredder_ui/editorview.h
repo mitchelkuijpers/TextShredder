@@ -8,6 +8,7 @@
 #include <QStandardItemModel>
 #include <QtCore/QDebug>
 #include <QTreeWidgetItem>
+#include <QResource>
 
 namespace Ui {
     class EditorView;

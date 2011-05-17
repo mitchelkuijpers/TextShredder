@@ -10,7 +10,7 @@ SyncableFile::SyncableFile(QObject *parent, QString &path) :
 	QString suffix(fileInfo.suffix ());
 	fileType = typeForSuffix(suffix);
 
-	workingCopy = new WorkingCopy(this);
+	workingCopy = new WorkingCopy(NULL);
 
 	QFile file(path);
 	if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -35,19 +35,12 @@ SyncableFile::SyncableFile(QObject *parent, QString &alias, FileType type) :
 
 SyncableFile::SyncableFile(const SyncableFile &other) : QObject(this)
 {
-	qDebug("1");
 	this->fileIdentifier = other.fileIdentifier;
-	qDebug("1");
 	this->fileAlias = other.fileAlias;
-	qDebug("2");
 	this->filePath = other.filePath;
-	qDebug("4");
 	this->shared = other.shared;
-	qDebug("6");
 	this->fileType = other.fileType;
-	qDebug("3");
 	this->workingCopy = other.workingCopy;
-	qDebug("5");
 }
 
 bool SyncableFile::operator == (const SyncableFile & other)
@@ -57,17 +50,11 @@ bool SyncableFile::operator == (const SyncableFile & other)
 
 SyncableFile & SyncableFile::operator=(const SyncableFile & other)
 {
-	qDebug("1");
 	this->fileIdentifier = other.fileIdentifier;
-	qDebug("2");
 	this->fileAlias = other.fileAlias;
-	qDebug("3");
 	this->filePath = other.filePath;
-	qDebug("4");
 	this->shared = other.shared;
-	qDebug("5");
 	this->fileType = other.fileType;
-	qDebug("6");
 	this->workingCopy = other.workingCopy;
 	return *this;
 }

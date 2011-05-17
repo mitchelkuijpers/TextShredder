@@ -108,7 +108,7 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 	} else if (packet.isSetAliasPacket()) {
 		emit incomingSetAliasPacketContent(packet.getContent());
 	} else if (packet.isSyncableFilesPacket()) {
-		qDebug("Got here");
+		qDebug("TextShredderConnection::emitNewIncomingPacket syncablefilespacket");
 		emit incomingSyncableFilesPacket(packet.getContent());
 	}
 }

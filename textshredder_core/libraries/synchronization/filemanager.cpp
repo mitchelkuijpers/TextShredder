@@ -101,42 +101,41 @@ SyncableFile * FileManager::getSyncableFileWithName(QString &name)
 
 void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 {
-	qDebug("Corne sucks dick");
-	QList<SyncableFile> list;
+	QList<SyncableFile *> list;
 	SyncableFilesPacket::fillListWithContentsOfPacket(list, content);
 
-//	for (int i = 0; i < list.count(); i ++ ) {
-//		SyncableFile file = list.at(i);
+	for (int i = 0; i < list.count(); i ++ ) {
+		SyncableFile *file = list.at(i);
 
-//		bool found = false;
-//		for (int j = 0; j < fileList.count(); j++) {
-//			if (file.getFileIdentifier() == fileList.at(j)->getFileIdentifier()) {
-//				found = true;
-//			}
-//		}
-//		if (found == false) {
-//			SyncableFile *newFile = new SyncableFile(file);
-//			fileList.append(newFile);
-//		}
-//	}
+		bool found = false;
+		for (int j = 0; j < fileList.count(); j++) {
+			if (file->getFileIdentifier() == fileList.at(j)->getFileIdentifier()) {
+				found = true;
+			}
+		}
+		if (found == false) {
+			SyncableFile *newFile = new SyncableFile(*file);
+			fileList.append(newFile);
+		}
+	}
 
-//	int i = 0;
-//	while( i < fileList.count()) {
-//		SyncableFile *existingFile = fileList.at(i);
+	int i = 0;
+	while( i < fileList.count()) {
+		SyncableFile *existingFile = fileList.at(i);
 
-//		bool found = false;
-//		for (int j = 0; j < list.count(); j++) {
-//			SyncableFile file = list.at(j);
-//			if (existingFile->getFileIdentifier() == file.getFileIdentifier()) {
-//				found = true;
-//			}
-//		}
-//		if (found == false) {
-//			fileList.removeAt(i);
-//		} else {
-//			i++;
-//		}
-//	}
+		bool found = false;
+		for (int j = 0; j < list.count(); j++) {
+			SyncableFile *file = list.at(j);
+			if (existingFile->getFileIdentifier() == file->getFileIdentifier()) {
+				found = true;
+			}
+		}
+		if (found == false) {
+			fileList.removeAt(i);
+		} else {
+			i++;
+		}
+	}
 
 	qDebug("Your momma. Trekt zich af op de meisjes wc");
 	emit availableFilesChanged();
