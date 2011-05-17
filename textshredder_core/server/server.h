@@ -9,16 +9,18 @@ class Server : public QTcpServer
 {
     Q_OBJECT
 public:
+	static Server * Instance();
+
+protected:
+	void incomingConnection(int socketDescriptor);
+private:
 	Server(QObject *parent);
 
 	bool listenWithFile(const QHostAddress &address, quint16 port);
 	int numberOfClients();
 
-protected:
-	void incomingConnection(int socketDescriptor);
-
-private:
 	QList <ClientRepresentation *> clients;
+	static Server * sharedInstance;
 };
 
 #endif // SERVER_H
