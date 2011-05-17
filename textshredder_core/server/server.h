@@ -3,25 +3,22 @@
 
 #include <QTcpServer>
 #include <QString>
-#include "../libraries/synchronization/models/syncablefile.h"
-#include "../libraries/synchronization/filemanager.h"
+#include "../libraries/synchronization/clientrepresentation.h"
 
 class Server : public QTcpServer
 {
     Q_OBJECT
 public:
-	Server(QObject *parent = 0);
-	bool listenWithFile(const QHostAddress &address, quint16 port, QByteArray * fileContent);
+	Server(QObject *parent);
+
+	bool listenWithFile(const QHostAddress &address, quint16 port);
+	int numberOfClients();
 
 protected:
-    void incomingConnection(int socketDescriptor);
+	void incomingConnection(int socketDescriptor);
 
 private:
-	WorkingCopy * copy;
-
-signals:
-	void newIncomingConnection(QString);
-
+	QList <ClientRepresentation *> clients;
 };
 
 #endif // SERVER_H
