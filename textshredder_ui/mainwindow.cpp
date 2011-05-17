@@ -113,12 +113,14 @@ void MainWindow::on_connectButton_clicked()
 		editorView.show();
 		editorView.setToServerMode();
 	} else {
-		if (client != NULL) {
+		if (client == NULL) {
 			client = new Client(this);
 			connect(client, SIGNAL(clientConnected()), this, SLOT(clientDidConnect()));
 		}
 		QHostAddress address(ui->serverIpInput->text());
+
 		quint16 port = ui->serverPortInput->value();
+
 		client->connectToServer(address, port);
 		editorView.setToClientMode();
 		qDebug("TODO: start cool-animation, en aftrekken op de meisjes wc wouter");

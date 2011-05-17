@@ -7,19 +7,18 @@ Client::Client(QObject *parent) : QObject(parent)
 
 bool Client::connectToServer(QHostAddress &addr, quint16 port)
 {
-	qDebug("A");
-	connection = new TextShredderConnection(this, addr, port);
-	qDebug("B");
-	connect(connection, SIGNAL(clientDisconnected()), this, SLOT(connectionDidEncounterEnd()));
+	QString addrString = addr.toString();
 
-	qDebug("C");
+	connection = new TextShredderConnection(this, addrString, port, false);
+	connect(connection, SIGNAL(clientDisconnected()), this, SLOT(connectionDidEncounterEnd()));
 	connect(connection, SIGNAL(statusChanged(TextShredderConnectionStatus)), this, SLOT(connectionStatusChanged(TextShredderConnectionStatus)));
-	qDebug("D");
+	connection->startConnection();
 	return true;
 }
 
 void Client::connectionStatusChanged(TextShredderConnectionStatus status)
 {
+	qDebug() << QString::number(status);
 	if (status == Connected) {
 		emit clientConnected();
 	}

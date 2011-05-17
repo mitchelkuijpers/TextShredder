@@ -9,29 +9,24 @@ TextShredderConnection::TextShredderConnection(QObject *parent) :
 }
 TextShredderConnection::TextShredderConnection(QObject *parent,
 											   QString &hostName,
-											   int port) :
-	QObject(parent), socket(this)
+											   int port ,
+											   bool startImmediately) :
+	QObject(parent)
 {
-	socket.connectToHost (hostName, port);
 	setupSignalsForSocket();
 	this->port = port;
+	hostAddressString = hostName;
+
 	this->status = Disconnected;
+
+	if (startImmediately) {
+		socket.connectToHost (hostName, port);
+	}
 }
 
-TextShredderConnection::TextShredderConnection(QObject *parent,
-											   QHostAddress &address,
-											   int port) :
-	QObject(parent), socket(this)
+void TextShredderConnection::startConnection()
 {
-	qDebug("e");
-	socket.connectToHost(address, port);
-	qDebug("f");
-	setupSignalsForSocket();
-	qDebug("g");
-	this->port = port;
-	qDebug("h");
-	this->status = Neutral;
-	qDebug("i");
+	socket.connectToHost(hostAddressString, port);
 }
 
 TextShredderConnection::TextShredderConnection(QObject *parent, int socketDescriptor) :
@@ -138,7 +133,7 @@ void TextShredderConnection::write(TextShredderPacket &packet)
 void TextShredderConnection::socketStateChanged(QAbstractSocket::SocketState state)
 {
 	if (state == QAbstractSocket::ConnectedState) {
-		this->status = Neutral;
+		this->status = Connected;
 		emit statusChanged(this->status);
 	}
 }
