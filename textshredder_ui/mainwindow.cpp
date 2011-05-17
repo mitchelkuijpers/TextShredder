@@ -102,3 +102,8 @@ void MainWindow::animationMoveTo(QWidget * target, QRect startRect, QRect endRec
 	animation->setEasingCurve(QEasingCurve::OutBack);
 	animation->start(QAbstractAnimation::DeleteWhenStopped);
 }
+
+void MainWindow::on_connectButton_clicked()
+{
+
+}

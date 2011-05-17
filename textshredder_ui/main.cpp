@@ -16,10 +16,10 @@ int main(int argc, char *argv[])
 
 	setDefaultFont();
 
-	EditorView e;
-	e.show();
-	//MainWindow w;
-	//w.show();
+	//EditorView e;
+	//e.show();
+	MainWindow w;
+	w.show();
 
 	return a.exec();
 }

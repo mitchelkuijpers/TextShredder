@@ -18,8 +18,12 @@ void ClientRepresentation::processSetAliasPacketContent(QByteArray &bytes)
 
 void ClientRepresentation::getDisconnected()
 {
+	disconnect(connection, SIGNAL(clientDisconnected()), this, SLOT(getDisconnected()));
+
+
+	disconnect(connection, SIGNAL(incomingSetAliasPacketContent(QByteArray&)),
+			   this, SLOT(processSetAliasPacketContent(QByteArray &)));
+	delete connection;
+	emit clientRepresentationEncounteredEnd();
 }
 
-void ClientRepresentation::getNameChanged(QString & changedName)
-{
-}
