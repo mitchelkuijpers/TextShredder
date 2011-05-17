@@ -7,7 +7,7 @@
 #include "../network/textshredderconnection.h"
 #include <QDataStream>
 
-#define kDefaultConfigFile "default_config.txt"
+#define kDefaultConfigFile "/Users/maikdiepenbroek/MPNA/TextShredder/default_config.txt"
 
 class ConfigurationManager
 {

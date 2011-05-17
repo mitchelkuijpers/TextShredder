@@ -4,7 +4,9 @@
 #include <QMainWindow>
 #include "editorview.h"
 #include "../textshredder_core/client/client.h"
-
+#include "../textshredder_core/libraries/configuration/configurationmanager.h"
+#include <qfile.h>
+#include <qtextstream.h>
 namespace Ui {
     class MainWindow;
 }
@@ -20,7 +22,7 @@ public:
 	void changeWindowStateToClient();
 	void animationMoveTo(QWidget * target, QRect startRect, QRect endRect, int animationLength );
 	void performTextSlideInAnimation();
-
+	void saveSettings();
 	/**
 	  * The function builds up a QStringList and fills it with some fonts.
 	  * A for loop looks in the :ui/core/fonts folder

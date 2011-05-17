@@ -23,12 +23,12 @@ ConfigurationOptions& ConfigurationOptions::operator =(const ConfigurationOption
 
 void ConfigurationOptions::setServerPort(quint16 serverPortToSet)
 {
-	this->serverPort = serverPortToSet;
+	serverPort = serverPortToSet;
 }
 
 void ConfigurationOptions::setIp(QString ipToSet)
 {
-	this->ip = ipToSet;
+	ip = ipToSet;
 }
 
 quint16 ConfigurationOptions::getServerPort()
@@ -56,7 +56,8 @@ QDataStream &operator>>(QDataStream &in, ConfigurationOptions &options)
 
 	in >> serverPort >> ip;
 
-	options.setIp(ip);
 	options.setServerPort(serverPort);
+	options.setIp(ip);
+
 	return in;
 }
