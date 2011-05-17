@@ -17,13 +17,8 @@ int main(int argc, char *argv[])
 
 	setDefaultFont();
 
-	EditorView e;
-	e.show();
-
-//	MainWindow w;
-//	w.show();
-
->>>>>>> bdd0e234797e1ee97a4ad0fe610e2d8015e29fcc
+	MainWindow w;
+	w.show();
 
 	return a.exec();
 }
