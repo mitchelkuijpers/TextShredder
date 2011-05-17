@@ -14,7 +14,7 @@ TextShredderConnection::TextShredderConnection(QObject *parent,
 {
 	socket.connectToHost (hostName, port);
 	setupSignalsForSocket();
-
+	this->port = port;
 	this->status = Disconnected;
 
 	connect(FileManager::Instance(), SIGNAL(sendFileRequest(TextShredderPacket&)),
@@ -132,6 +132,11 @@ QString TextShredderConnection::getPeerAdress() {
 	return peerAdress.toString();
 }
 
+unsigned int TextShredderConnection::getPort()
+{
+	return port;
+}
+
 quint16 TextShredderConnection::getLocalPort()
 {
 	return socket.localPort();
@@ -141,3 +146,4 @@ void TextShredderConnection::sendPacket(TextShredderPacket & packet)
 {
 	write(packet);
 }
+

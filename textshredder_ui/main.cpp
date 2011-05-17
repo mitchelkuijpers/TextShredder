@@ -4,6 +4,7 @@
 #include "debugview.h"
 #include <QFontDatabase>
 #include <QMessageBox>
+#include "../textshredder_core/libraries/configuration/configurationmanager.h"
 
 void setDefaultFont();
 void openEditorView();
@@ -16,8 +17,13 @@ int main(int argc, char *argv[])
 
 	setDefaultFont();
 
-	MainWindow w;
-	w.show();
+	EditorView e;
+	e.show();
+
+//	MainWindow w;
+//	w.show();
+
+>>>>>>> bdd0e234797e1ee97a4ad0fe610e2d8015e29fcc
 
 	return a.exec();
 }

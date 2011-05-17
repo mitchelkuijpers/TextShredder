@@ -37,6 +37,8 @@ SOURCES += main.cpp\
     ../textshredder_core/libraries/logging/textshredderlogdir.cpp \
     ../textshredder_core/libraries/logging/textshredderlogging.cpp \
     ../textshredder_core/libraries/diff_match_patch/diff_match_patch.cpp \
+    ../textshredder_core/libraries/configuration/configurationmanager.cpp \
+    ../textshredder_core/libraries/configuration/models/configurationoptions.cpp
     ../textshredder_core/libraries/network/models/syncablefilespacket.cpp \
 	../textshredder_core/libraries/network/models/filerequestpacket.cpp \
 	../textshredder_ui/textfield.cpp
@@ -67,6 +69,8 @@ HEADERS  += mainwindow.h \
     ../textshredder_core/libraries/logging/textshredderlogdir.h \
     ../textshredder_core/libraries/logging/textshredderlogging.h \
     ../textshredder_core/libraries/diff_match_patch/diff_match_patch.h \
+    ../textshredder_core/libraries/configuration/configurationmanager.h \
+    ../textshredder_core/libraries/configuration/models/configurationoptions.h
     ../textshredder_core/libraries/network/models/syncablefilespacket.h \
 	../textshredder_core/libraries/network/models/filerequestpacket.h \
 	../textshredder_ui/textfield.h
