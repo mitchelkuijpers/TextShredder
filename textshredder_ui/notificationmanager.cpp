@@ -25,13 +25,14 @@ void NotificationManager::createNotificationDialog( Notification & notification 
 	gridLayout = new QGridLayout();
 	notificationDialog.setLayout(gridLayout);
 
+	totalAmountOfButtons = notification.getNotificationOptions().length();
 	messageLabel = new QLabel(notification.getMessage());
-	gridLayout->addWidget(messageLabel, 0, 0);
+	gridLayout->addWidget(messageLabel, 0, 0, 2, totalAmountOfButtons);
 
-	addButtonsToNotificationDialog(notification.getNotificationOptions());
+	addButtonsToNotificationDialog( &notificationDialog, notification.getNotificationOptions());
 
-	notificationDialog.show();
 	notificationDialog.exec();
+	notificationDialog.show();
 }
 
 void NotificationManager::setWindowTitleBasedOnNotificationType( QDialog * notificationDialog, Notification & notification )
@@ -67,15 +68,18 @@ void NotificationManager::setWindowTitleBasedOnNotificationType( QDialog * notif
 	notificationDialog->setWindowTitle(windowTitle);
 }
 
-void NotificationManager::addButtonsToNotificationDialog( QList<NotificationOption>& notificationOptions )
+void NotificationManager::addButtonsToNotificationDialog( QDialog * notificationDialog, QList<NotificationOption>& notificationOptions )
 {
 	int i;
 	for(i = 0; i < notificationOptions.length(); i++ ) {
 		NotificationOption option = notificationOptions.at(i);
 		QPushButton * button = new QPushButton(option.getLabel());
-		gridLayout->addWidget(button, 1, i);
-		if ( notificationOptions.length() == i ){
-			button->setFocus();
-		}
+		gridLayout->addWidget(button, 3, i);
+		connect(button, SIGNAL(clicked()), this, SLOT(closeDialog()));
 	}
+}
+
+void NotificationManager::closeDialog()
+{
+	qDebug("Close Dialog");
 }

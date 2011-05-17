@@ -6,6 +6,8 @@
 #include <QFile>
 #include <QTreeView>
 #include <QStandardItemModel>
+#include <QtCore/QDebug>
+#include <QTreeWidgetItem>
 
 namespace Ui {
     class EditorView;
@@ -22,6 +24,7 @@ public:
 	void setFileTreeWidgetColumnsInModel();
 	void addFileToFileTreeWidget( QString fileName );
 	void addFolderToFileTreeWidget( QString folderName );
+	void openFileInEditor( QString fileName );
 
 private:
     Ui::EditorView *ui;
@@ -29,9 +32,12 @@ private:
 	QStandardItemModel model;
 
 private slots:
+ void on_fileTreeWidget_doubleClicked(QModelIndex index);
+ void on_openedFileTabs_tabCloseRequested(int index);
  void on_fileTreeWidget_clicked(QModelIndex index);
  void on_addFolderButton_clicked();
  void on_addFileButton_clicked();
+
 };
 
 #endif // EDITORVIEW_H
