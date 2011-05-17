@@ -122,6 +122,8 @@ void TextShredderConnection::handleFileRequestPacket(TextShredderPacket &packet)
 
 void TextShredderConnection::write(TextShredderPacket &packet)
 {
+	qDebug("Will write");
+	qDebug() << QString::number(packet.getHeader().getPacketType());
 	QTextStream outputStream(&socket);
 	QByteArray raw;
 	packet.getHeader().appendToQByteArray(raw);

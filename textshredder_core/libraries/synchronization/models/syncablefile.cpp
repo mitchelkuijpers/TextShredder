@@ -3,7 +3,7 @@
 #define kDefaultFileAlias QString("untitled.txt")
 
 SyncableFile::SyncableFile(QObject *parent, QString &path) :
-		QObject(parent), fileIdentifier(QUuid::createUuid().toString()), filePath(path)
+		QObject(parent), fileIdentifier(QUuid::createUuid().toString()), filePath(path), shared(false)
 {
 	QFileInfo fileInfo(path);
 	fileAlias = fileInfo.fileName();
@@ -105,6 +105,7 @@ bool SyncableFile::isShared()
 
 void SyncableFile::setShared(bool share)
 {
+	qDebug("Set syncable file shared");
 	if (share != shared) {
 		shared = share;
 		if (shared) {

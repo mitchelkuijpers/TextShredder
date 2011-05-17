@@ -28,10 +28,13 @@ void SyncableFilesPacket::fillListWithContentsOfPacket(QList <SyncableFile> &lis
 	QString fileAlias;
 
 	QByteArray con = packet.getContent();
+	QString string(con);
+	qDebug() << string;
 	while (count < con.length()) {
 		if (!startedFileParsing) {
 			if(con.at(count) != '{') {
-				throw QString("Part should start with acculader");
+				qDebug("Port should start with acculader");
+				//throw QString("Part should start with acculader");
 			} else {
 				startedFileParsing = true;
 			}
