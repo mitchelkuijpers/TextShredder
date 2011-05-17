@@ -44,19 +44,18 @@ QString ConfigurationOptions::getIp()
 
 QDataStream &operator<<(QDataStream &out, ConfigurationOptions &options)
 {
-	out << options.getServerPort();
+	out << QString::number(options.getServerPort());
 	out << options.getIp();
 	return out;
 }
 
 QDataStream &operator>>(QDataStream &in, ConfigurationOptions &options)
 {
-	quint16 serverPort;
 	QString ip;
+	QString portString;
+	in >> portString >> ip;
 
-	in >> serverPort >> ip;
-
-	options.setServerPort(serverPort);
+	options.setServerPort(portString.toInt());
 	options.setIp(ip);
 
 	return in;

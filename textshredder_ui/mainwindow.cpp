@@ -135,16 +135,16 @@ void MainWindow::saveSettings()
 		ConfigurationManager * config = ConfigurationManager::Instance();
 		ConfigurationOptions configOptions(this);
 		TextShredderConnection connectionInfo(this);
-		configOptions.setIp(ui->serverIpInput->text());
+		//configOptions.setIp(ui->serverIpInput->text());
 
 		if(ui->isServerInput->isChecked()) {
 			configOptions.setIp(connectionInfo.getPeerAdress());
 		}
-		configOptions.setServerPort((quint16) ui->serverPortInput->value());
+		//configOptions.setServerPort((quint16) ui->serverPortInput->value());
 
-		config->setConfigurationOptions(configOptions);
+		//config->setConfigurationOptions(configOptions);
 
-		config->save();
+		config->load();
 }
 
 void MainWindow::clientDidConnect() {
