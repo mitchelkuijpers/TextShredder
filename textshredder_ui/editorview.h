@@ -26,6 +26,9 @@ public:
 	void addFolderToFileTreeWidget( QString folderName );
 	void openFileInEditor( QString fileName );
 
+	void setToServerMode();
+	void setToClientMode();
+
 private:
     Ui::EditorView *ui;
 	QString openedFilePath;

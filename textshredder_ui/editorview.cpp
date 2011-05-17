@@ -114,3 +114,13 @@ void EditorView::openFileInEditor( QString fileName )
 	TextField *textfield = new TextField(this);
 	ui->openedFileTabs->addTab(textfield, fileName);
 }
+
+void EditorView::setToServerMode()
+{
+	qDebug("TODO: EditorView::setToServerMode");
+}
+
+void EditorView::setToClientMode()
+{
+	qDebug("TODO: EditorView::setToClientMode");
+}
