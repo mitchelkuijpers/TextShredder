@@ -8,16 +8,18 @@ class Notification : public QObject
 {
     Q_OBJECT
 public:
-	Notification( QObject *parent, QString message, int notificationType, QList<NotificationOption>& options);
+	Notification( QObject *parent, QString message, int notificationType, QList<NotificationOption>& options, bool hasCancelButton = true);
 	QString getMessage();
 	int getNotificationType();
 	QList<NotificationOption>& getNotificationOptions();
+	bool getHasCancelButton();
 
 private:
 	QString message;
 	int notificationType;
 	enum NotificationType { SUCCESS, WARNING, ERROR, FATAL, INFO };
 	QList<NotificationOption>& options;
+	bool hasCancelButton;
 
 signals:
 
