@@ -2,6 +2,15 @@
 #include "../textshredder_synchronization_lib/syncthread.h"
 #include "../libraries/synchronization/clientrepresentation.h"
 
+Server * Server::sharedInstance = NULL;
+
+Server * Server::Instance() {
+	if (sharedInstance == NULL) {
+		sharedInstance = new Server(NULL);
+	}
+	return sharedInstance;
+}
+
 Server::Server(QObject *parent):
     QTcpServer(parent)
 {
@@ -17,3 +26,4 @@ int Server::numberOfClients()
 {
 	return clients.count();
 }
+
