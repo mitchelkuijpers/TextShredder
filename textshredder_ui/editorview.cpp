@@ -1,6 +1,7 @@
 #include "editorview.h"
 #include "ui_editorview.h"
 #include "textfield.h"
+#include "../textshredder_core/libraries/synchronization/filemanager.h"
 
 EditorView::EditorView(QWidget *parent) :
     QMainWindow(parent),
@@ -51,12 +52,13 @@ void EditorView::addFileToFileTreeWidget( QString fileName )
 {
 	int rowCount = model.rowCount();
 
+	FileManager::Instance()->addFileWithPath(fileName);
 	QStandardItem *item = new QStandardItem( QString(fileName) );
 	model.setItem(rowCount, 0, item);
 
 	item->setCheckable( true );
 	QStandardItem *status = new QStandardItem();
-	status->setIcon(QIcon(":/ui/status/user-offline.svg"));
+
 	model.setItem(rowCount, 1, status);
 
 	ui->fileTreeWidget->setModel(&model);
@@ -79,7 +81,10 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 
 	int i = 0;
 	for(i = 0; i < list.count(); i++ ) {
-		QStandardItem *child = new QStandardItem( QString( list.at(i) ) );
+		QString filePath = list.at(i);
+		FileManager::Instance()->addFileWithPath(filePath);
+
+		QStandardItem *child = new QStandardItem( filePath );
 		child->setEditable( false );
 		child->setCheckable( true );
 		item->appendRow( child );

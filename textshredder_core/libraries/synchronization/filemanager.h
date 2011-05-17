@@ -29,7 +29,7 @@ public:
 	  *
 	  * @param the file to be removed.
 	  */
-	void removeFile(SyncableFile &file);
+	void removeFile(SyncableFile *file);
 
 //	/**
 //	  * Returns the first Syncable File from the SyncableFile list.
@@ -43,7 +43,7 @@ public:
 	  *
 	  * @return the syncable file.
 	  */
-	void addSyncFile(SyncableFile &file);
+	void addSyncFile(SyncableFile *file);
 
 //	/**
 //	  * Fills a List object with all alias names of the
@@ -61,14 +61,14 @@ public:
 	  *
 	  * @return the syncable file.
 	  */
-	SyncableFile & getSyncableFileWithName(QString &name);
+	SyncableFile * getSyncableFileWithName(QString &name);
 
 
 private:
 
-	void fillListWithSharedFiles(QList <SyncableFile> &list);
+	void fillListWithSharedFiles(QList <SyncableFile *> &list);
 	FileManager(QObject *parent = 0);
-	QList<SyncableFile> fileList;
+	QList<SyncableFile *> fileList;
 	static FileManager* sharedInstance;
 
 
@@ -78,7 +78,7 @@ private slots:
 	void shouldMakeRequestForSync(TextShredderPacket &packet);
 
 signals:
-	void fileStarted(SyncableFile &);
+	void fileStarted(SyncableFile *);
 	void updateClientFiles(TextShredderPacket &);
 	void sendFileRequest(TextShredderPacket &);
 };

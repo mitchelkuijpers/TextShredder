@@ -12,14 +12,14 @@
 #include "textshredderpacketparser.h"
 
 typedef enum {
-	Disconnected,
-	HostLookup,
-	Establishing,
-	Connected,
-	Bound,
-	Closing,
-	Error,
-	Neutral
+	Disconnected = 0,
+	HostLookup = 1,
+	Establishing = 2,
+	Connected = 3,
+	Bound = 4,
+	Closing = 5,
+	Error = 6,
+	Neutral =7
 } TextShredderConnectionStatus;
 
 class TextShredderConnection : public QObject
@@ -28,19 +28,23 @@ class TextShredderConnection : public QObject
 public:
 	TextShredderConnection(QObject *parent);
 	TextShredderConnection(QObject *parent, int socketDescriptor);
-	TextShredderConnection(QObject *parent, QString &hostName, int port);
+	TextShredderConnection(QObject *parent, QString &hostName, int port, bool startImmediately = true);
 	QString getPeerAdress();
 	unsigned int getPort();
 
 	quint16 getLocalPort();
-
+	void startConnection();
 private:
 	QTcpSocket socket;
 	QList<TextShredderPacket> queue;
 	TextShredderConnectionStatus status;
 	TextShredderPacketParser parser;
 	unsigned int port;
+	QString hostAddressString;
+
 	void setupSignalsForSocket();
+	void breakDownSignalsForSocket();
+
 	void emitNewIncomingPacket(TextShredderPacket &packet);
 	void handleFileRequestPacket(TextShredderPacket &packet);
 

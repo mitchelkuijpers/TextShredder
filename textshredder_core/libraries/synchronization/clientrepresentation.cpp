@@ -9,6 +9,9 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 
 	connect(connection, SIGNAL(incomingSetAliasPacketContent(QByteArray&)),
 			this, SLOT(processSetAliasPacketContent(QByteArray &)));
+
+	connect(FileManager::Instance(), SIGNAL(updateClientFiles(TextShredderPacket&)),
+			connection, SLOT(write(TextShredderPacket&)));
 }
 
 void ClientRepresentation::processSetAliasPacketContent(QByteArray &bytes)
@@ -19,11 +22,9 @@ void ClientRepresentation::processSetAliasPacketContent(QByteArray &bytes)
 void ClientRepresentation::getDisconnected()
 {
 	disconnect(connection, SIGNAL(clientDisconnected()), this, SLOT(getDisconnected()));
-
-
 	disconnect(connection, SIGNAL(incomingSetAliasPacketContent(QByteArray&)),
 			   this, SLOT(processSetAliasPacketContent(QByteArray &)));
-	delete connection;
+	connection->deleteLater();
 	emit clientRepresentationEncounteredEnd();
 }
 

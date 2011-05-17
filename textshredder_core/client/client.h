@@ -14,6 +14,12 @@ public:
 
 private:
 	TextShredderConnection *connection;
+
+signals:
+	void clientConnected();
+private slots:
+	void connectionDidEncounterEnd();
+	void connectionStatusChanged(TextShredderConnectionStatus status);
 };
 
 #endif // CLIENT_H
