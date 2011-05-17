@@ -18,4 +18,9 @@
         <file>images/ribbon/format-text-subscript.png</file>
         <file>images/ribbon/format-text-superscript.png</file>
     </qresource>
+    <qresource prefix="/ui/status">
+        <file>images/status/user-typing.svg</file>
+        <file>images/status/user-offline.svg</file>
+        <file>images/status/user-available.svg</file>
+    </qresource>
 </RCC>
