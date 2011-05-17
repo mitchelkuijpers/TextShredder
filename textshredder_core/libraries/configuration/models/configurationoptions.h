@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QDataStream>
+#include "../../network/textshredderconnection.h"
 
 class ConfigurationOptions : public QObject
 {

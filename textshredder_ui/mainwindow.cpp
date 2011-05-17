@@ -126,6 +126,26 @@ void MainWindow::on_connectButton_clicked()
 		editorView.setToClientMode();
 		qDebug("TODO: start cool-animation, en aftrekken op de meisjes wc wouter");
 	}
+	if(ui->rememberSettingsInput->isChecked()) {
+		saveSettings();
+	}
+}
+
+void MainWindow::saveSettings()
+{
+		ConfigurationManager * config = ConfigurationManager::Instance();
+		ConfigurationOptions configOptions(this);
+		TextShredderConnection connectionInfo(this);
+		//configOptions.setIp(ui->serverIpInput->text());
+
+		if(ui->isServerInput->isChecked()) {
+			configOptions.setIp(connectionInfo.getPeerAdress());
+		}
+		//configOptions.setServerPort((quint16) ui->serverPortInput->value());
+
+		//config->setConfigurationOptions(configOptions);
+
+		config->load();
 }
 
 void MainWindow::clientDidConnect() {

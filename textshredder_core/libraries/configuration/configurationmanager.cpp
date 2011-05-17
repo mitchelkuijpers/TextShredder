@@ -21,10 +21,13 @@ void ConfigurationManager::load()
 void ConfigurationManager::save()
 {
 	QFile file(fileName);
-	if(file.exists(fileName)) {
-		file.open(QIODevice::WriteOnly);
+	if ( file.open( QIODevice::WriteOnly) )
+	{
 		QDataStream out(&file);
 		out << options;
+	}
+	else {
+		qDebug("Couldn't open file");
 	}
 }
 
