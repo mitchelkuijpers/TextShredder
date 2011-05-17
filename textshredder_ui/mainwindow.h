@@ -31,6 +31,7 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
+ void on_connectButton_clicked();
  void on_cancelButton_clicked();
  void on_isServerInput_clicked();
 };
