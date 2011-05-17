@@ -29,6 +29,7 @@ public:
 	TextShredderConnection(QObject *parent);
 	TextShredderConnection(QObject *parent, int socketDescriptor);
 	TextShredderConnection(QObject *parent, QString &hostName, int port);
+	TextShredderConnection(QObject *parent, QHostAddress &address, int port);
 	QString getPeerAdress();
 	unsigned int getPort();
 
@@ -40,7 +41,10 @@ private:
 	TextShredderConnectionStatus status;
 	TextShredderPacketParser parser;
 	unsigned int port;
+
 	void setupSignalsForSocket();
+	void breakDownSignalsForSocket();
+
 	void emitNewIncomingPacket(TextShredderPacket &packet);
 	void handleFileRequestPacket(TextShredderPacket &packet);
 

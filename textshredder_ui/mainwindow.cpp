@@ -115,12 +115,18 @@ void MainWindow::on_connectButton_clicked()
 	} else {
 		if (client != NULL) {
 			client = new Client(this);
+			connect(client, SIGNAL(clientConnected()), this, SLOT(clientDidConnect()));
 		}
 		QHostAddress address(ui->serverIpInput->text());
 		quint16 port = ui->serverPortInput->value();
 		client->connectToServer(address, port);
 		editorView.setToClientMode();
-		this->hide();
-		editorView.show();
+		qDebug("TODO: start cool-animation, en aftrekken op de meisjes wc wouter");
 	}
+}
+
+void MainWindow::clientDidConnect() {
+	qDebug("TODO: end started-cool-animation, en aftrekken op de meisjes wc wouter");
+	this->hide();
+	editorView.show();
 }

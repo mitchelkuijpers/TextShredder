@@ -34,9 +34,10 @@ private:
 	EditorView editorView;
 	Client *client;
 private slots:
- void on_connectButton_clicked();
- void on_cancelButton_clicked();
- void on_isServerInput_clicked();
+	void on_connectButton_clicked();
+	void on_cancelButton_clicked();
+	void on_isServerInput_clicked();
+	void clientDidConnect();
 };
 
 #endif // MAINWINDOW_H
