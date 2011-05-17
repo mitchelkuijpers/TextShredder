@@ -1,6 +1,6 @@
 #include "editorview.h"
 #include "ui_editorview.h"
-#include <QtCore/QDebug>
+#include "textfield.h"
 
 EditorView::EditorView(QWidget *parent) :
     QMainWindow(parent),
@@ -23,7 +23,6 @@ void EditorView::on_addFileButton_clicked()
 	openedFilePath = Qfd.getOpenFileName(this, tr("TextShredder File Selector"), QDir::currentPath(), QString("*.txt"));
 
 	QString fileName = openedFilePath.mid(openedFilePath.lastIndexOf("/")+1, openedFilePath.length());
-	ui->fileNameLabel->setText(fileName);
 
 	if ( !openedFilePath.isEmpty() ) {
 		addFileToFileTreeWidget( fileName );
@@ -75,10 +74,11 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 
 	QStandardItem *item = new QStandardItem( QString(directoryName) );
 	model.setItem(rowCount, 0, item);
+	item->setCheckable( false );
 
 	int i = 0;
 	for(i = 0; i < list.count(); i++ ) {
-		QStandardItem *child = new QStandardItem( QString(list.at(i)) );
+		QStandardItem *child = new QStandardItem( QString( list.at(i) ) );
 		child->setEditable( false );
 		child->setCheckable( true );
 		item->appendRow( child );
@@ -92,9 +92,25 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 
 void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 {
+	//Check if row is checked. If so, add it to the FileManager
+	//If row is unchecked, remove it from the FileManager
+}
 
+void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
+{
+	//You can't open a file twice! -> Not implemented yet
 	const QAbstractItemModel * mod = index.model();
-	QString fName = mod->data(mod->index(index.row(), index.column()), Qt::DisplayRole).toString();
+	QString fileName = mod->data(mod->index(index.row(), 0), Qt::DisplayRole).toString();
+	openFileInEditor( fileName );
+}
 
-	ui->fileNameLabel->setText( fName );
+void EditorView::on_openedFileTabs_tabCloseRequested(int index)
+{
+	ui->openedFileTabs->removeTab(index);
+}
+
+void EditorView::openFileInEditor( QString fileName )
+{
+	TextField *textfield = new TextField(this);
+	ui->openedFileTabs->addTab(textfield, fileName);
 }

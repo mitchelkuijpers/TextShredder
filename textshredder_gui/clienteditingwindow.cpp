@@ -2,6 +2,8 @@
 #include "ui_clienteditingwindow.h"
 #include <QHostAddress>
 
+#define CURSORUPDATESIZE 3
+
 ClientEditingWindow::ClientEditingWindow(QWidget *parent) :
 	QWidget(parent),
 	ui(new Ui::ClientEditingWindow)
@@ -30,7 +32,10 @@ void ClientEditingWindow::textChanged(int position, int charsRemoved, int charsA
 	syncFile->getWorkingCopy()->unlock();
 
 	qDebug() << *(syncFile->getWorkingCopy()->getContent());
+
 }
+
+
 
 void ClientEditingWindow::on_disconnectButton_clicked()
 {
@@ -60,15 +65,59 @@ void ClientEditingWindow::updateWorkingCopy()
 
 void ClientEditingWindow::updateTextFieldToWorkingCopyContent()
 {
+	updateCursorPosition();
 	qDebug("ClientEditingWindow::updateTextFieldToWorkingCopyContent()");
+
 	disconnect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
 	ui->textEdit->setPlainText(*(syncFile->getWorkingCopy()->getContent()));
-
 	connect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
 
-	qDebug("C");
+	getContentDiffSize();
+	updateTextCursor();
+	ui->textEdit->setTextCursor(cursor);
+	qDebug() << "cursor pos after update: " << cursor.position();
+}
+
+
+void ClientEditingWindow::updateTextCursor()
+{
+	for( int i=0; i <= diffSize; i++){
+		if(beforeCursorText == ui->textEdit->toPlainText().mid(cursorPosition -CURSORUPDATESIZE -i, CURSORUPDATESIZE) ||
+		   afterCursorText == ui->textEdit->toPlainText().mid(cursorPosition -i ,CURSORUPDATESIZE)){
+			cursor.setPosition(cursorPosition -i, QTextCursor::MoveAnchor);
+			break;
+		}else if(afterCursorText == ui->textEdit->toPlainText().mid(cursorPosition + i ,CURSORUPDATESIZE) ||
+				 beforeCursorText == ui->textEdit->toPlainText().mid(cursorPosition -CURSORUPDATESIZE + i ,CURSORUPDATESIZE)){
+			cursor.setPosition(cursorPosition +i, QTextCursor::MoveAnchor);
+			break;
+		}else{
+			cursor.setPosition(cursorPosition, QTextCursor::MoveAnchor);
+		}
+	}
+}
+
+void ClientEditingWindow::getContentDiffSize()
+{
+	if(ui->textEdit->toPlainText().size() > oldEditWindowSize){
+		diffSize = ui->textEdit->toPlainText().size() - oldEditWindowSize;
+	}else{
+		diffSize = oldEditWindowSize - ui->textEdit->toPlainText().size();
+	}
+
+}
+
+void ClientEditingWindow::updateCursorPosition()
+{
+	cursor = ui->textEdit->textCursor();
+	oldEditWindowSize = ui->textEdit->toPlainText().size();
+
+	cursorPosition = cursor.position();
+	qDebug() << "cursor pos before update: " << cursorPosition;
+
+	beforeCursorText = ui->textEdit->toPlainText().mid(cursorPosition -CURSORUPDATESIZE, CURSORUPDATESIZE);
+	afterCursorText = ui->textEdit->toPlainText().mid(cursorPosition, CURSORUPDATESIZE);
 }
 
 void ClientEditingWindow::startEditingWithFile(SyncableFile * file)

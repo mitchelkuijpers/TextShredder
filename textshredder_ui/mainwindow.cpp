@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "notificationmanager.h"
 #include <QTcpSocket>
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
@@ -14,11 +15,11 @@ MainWindow::MainWindow(QWidget *parent) :
 	this->setFixedSize(this->width(),this->height());
 	ui->serverIpInput->setFocus();
 
-	setDefaultFont();
+	//setDefaultFont();
 
 	ui->titleLabelServer->hide();
 
-	performStarupAnimation();
+	performTextSlideInAnimation();
 }
 
 MainWindow::~MainWindow()
@@ -39,21 +40,24 @@ void MainWindow::on_isServerInput_clicked()
 	} else {
 		changeWindowStateToClient();
 	}
+
+	performTextSlideInAnimation();
 }
 
 void MainWindow::changeWindowStateToServer()
 {
+	ui->connectButton->setText("Start");
 	ui->titleLabelServer->show();
 	ui->titleLabelClient->hide();
 	ui->serverIpInput->setEnabled(false);
 	ui->serverIpInput->setText("");
 	ui->serverIpInput->setPlaceholderText("Not needed, you are the server.");
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/server.svg"));
-	performStarupAnimation();
 }
 
 void MainWindow::changeWindowStateToClient()
 {
+	ui->connectButton->setText("Connect");
 	ui->titleLabelServer->hide();
 	ui->titleLabelClient->show();
 	ui->serverIpInput->setEnabled(true);
@@ -61,15 +65,28 @@ void MainWindow::changeWindowStateToClient()
 	ui->serverIpInput->setPlaceholderText("Example: 133.214.233.143");
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/userfolder.svg"));
 	ui->serverIpInput->setFocus();
-	performStarupAnimation();
 }
 
 void MainWindow::on_cancelButton_clicked()
 {
-	performStarupAnimation();
+	//Create options
+	QList<NotificationOption> options;
+	NotificationOption option3(this ,"No");
+	NotificationOption option4(this ,"Yes");
+	options.append(option3);
+	options.append(option4);
+
+	//Create notification
+	Notification notification(this, "Are you sure you want to quit TextShredder?", 2, options);
+	NotificationManager::Instance()->createNotificationDialog(notification);
 }
 
-void MainWindow::performStarupAnimation()
+void MainWindow::functionToExecute()
+{
+	qDebug("You clicked on a dialog button!");
+}
+
+void MainWindow::performTextSlideInAnimation()
 {
 	animationMoveTo(ui->titleLabelClient, QRect(300, 20, 451, 141), QRect(110, 20, 451, 141), 500);
 	animationMoveTo(ui->titleLabelServer, QRect(300, 15, 451, 141), QRect(110, 15, 451, 141), 500);
@@ -84,4 +101,13 @@ void MainWindow::animationMoveTo(QWidget * target, QRect startRect, QRect endRec
 	animation->setEndValue(endRect);
 	animation->setEasingCurve(QEasingCurve::OutBack);
 	animation->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
+void MainWindow::on_connectButton_clicked()
+{
+	if (ui->isServerInput->isChecked()) {
+		//Mats code
+	} else {
+		//Wouter code
+	}
 }

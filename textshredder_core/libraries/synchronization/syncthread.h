@@ -17,7 +17,10 @@ class SyncThread : public QObject
 	Q_OBJECT
 
 public:
-	SyncThread(QObject *, TextShredderConnection &, WorkingCopy &);
+	SyncThread(QObject *, int port, QString &address, WorkingCopy &);
+	SyncThread(QObject *, WorkingCopy &);
+
+	qint16 getLocalPort();
 
 signals:
 
@@ -43,7 +46,7 @@ protected://Must be protected for test purposes
 	  */
 	void writePacketOnConnection(TextShredderPacket &packet);
 
-	TextShredderConnection * connection;
+	TextShredderConnection connection;
 	WorkingCopy * workingCopy;
 	ShadowCopy shadowCopy;
 	EditList editList;

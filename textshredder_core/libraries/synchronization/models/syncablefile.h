@@ -3,6 +3,9 @@
 
 #include <QObject>
 #include "../textshredder_synchronization_lib/workingcopy.h"
+#include "../syncthread.h"
+#include "../../network/models/filerequestpacket.h"
+
 
 typedef enum {
 	FileTypeUNKNOWN = 1,
@@ -15,10 +18,13 @@ class SyncableFile : public QObject
 {
     Q_OBJECT
 public:
-	explicit SyncableFile(QObject *parent, QString &path);
-	explicit SyncableFile(QObject *parent, QString &path, QString &alias);
-	SyncableFile(QObject *parent);
+	SyncableFile(QObject *parent, QString &path);
+	SyncableFile(QObject *parent, QString &alias, FileType type);
+	SyncableFile(const SyncableFile &other);
+	SyncableFile(QObject *parent, QString &identifier, QString &alias);
 
+	SyncableFile & operator=(const SyncableFile & other);
+	bool operator == (const SyncableFile & other);
 	/**
 	  * Will change the file type for the SyncableFile
 	  */
@@ -29,23 +35,32 @@ public:
 	bool removeClientWithName(QString &name);
 	bool changeClientName(QString &name, QString &toName);
 
+	void stopSync();
 	WorkingCopy * getWorkingCopy();
-	QList<QString> & getAvailableClients();
 	QString & getFileAlias();
+	QString & getFileIdentifier();
 
+	bool isShared();
+	void setShared(bool share);
+
+	void requestSync();
+	void createSynchronizationWithPortAndAddress(quint16 port, QString &hostName);
 
 private:
+	QString fileIdentifier;
 	FileType typeForSuffix(QString &suffix);
 	QString filePath;
 	QString fileAlias;
 	WorkingCopy *workingCopy;
 	FileType fileType;
-	QList<QString> clients;
+	bool shared;
 
-	void notifyAvailableClientsChanged();
+	QList<SyncThread *> syncThreads;
 
 signals:
-	void availableClientsChanged();
+	void fileStoppedSharing();
+	void fileStartedSharing();
+	void fileRequestsForSync(TextShredderPacket &);
 };
 
 #endif // SYNCABLEFILE_H

@@ -23,29 +23,13 @@ public:
 
 private:
 	TextShredderConnection * connection;
-	FileSync * sync;
 	QString alias;
-	QList<SyncableFile *> syncableFiles;
-	SyncThread *syncThread;
-	SyncableFile *syncFile;
-	void addClientNameToClientsList();
 
-public slots:
+private slots:
 	/**
 	 * Removes the disconnected clients from the list
 	 */
 	void getDisconnected();
-
-	/**
-	 * Changes the name to changedName param
-	 * @param QString changedName
-	 */
-	void getNameChanged(QString & changedName);
-
-	/**
-	 * Initiates a new syncthread and gets the working copy
-	 */
-	void fileSyncReady();
 
 	/**
 	 * ?? NOT CLEAR
@@ -53,6 +37,8 @@ public slots:
 	 */
 	void processSetAliasPacketContent(QByteArray &bytes);
 
+signals:
+	void clientRepresentationEncounteredEnd();
 };
 
 #endif // CLIENTREPRESENTATION_H

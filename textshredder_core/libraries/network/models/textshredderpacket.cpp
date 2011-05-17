@@ -6,6 +6,11 @@ TextShredderPacket::TextShredderPacket( QObject *parent ) :
 }
 
 TextShredderPacket::TextShredderPacket(QObject *parent,
+									   unsigned char packetType) :
+	QObject(parent), header(this, packetType, 0, packetType)
+{
+}
+TextShredderPacket::TextShredderPacket(QObject *parent,
 									   TextShredderHeader & header, QByteArray & content) :
     QObject(parent), header(header), content(content)
 {
@@ -49,6 +54,12 @@ bool TextShredderPacket::isFileRequestPacket()
 bool TextShredderPacket::isSetAliasPacket()
 {
 	return (header.getPacketType() == kPacketTypeSetAlias);
+}
+
+void TextShredderPacket::setContent(QByteArray &bytes)
+{
+	content = bytes;
+	header.setContentLength((unsigned int)bytes.length());
 }
 
 QByteArray & TextShredderPacket::getContent()

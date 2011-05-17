@@ -16,15 +16,16 @@ void FileSync::processFileRequest(QByteArray &)
 }
 
 void FileSync::createDownload() {
-	FileManager * manager = FileManager::Instance();
-	SyncableFile * file = manager->getFirstSyncableFileFromFileList();
-	WorkingCopy * workingCopy = file->getWorkingCopy();
-	QString * content = workingCopy->getContent();
-	QByteArray packetContent;
-	packetContent.append(*content);
-	TextShredderPacket packet (this, kPacketTypeFileData, packetContent);
-	emit sendDownload(packet);
-	emit fileSyncFinished();
+	qDebug("Fuck you Corne! Oh yeah, a TODO: FileSync::createDownload()");
+	//FileManager * manager = FileManager::Instance();
+	//SyncableFile file = manager->getFirstSyncableFileFromFileList();
+//	WorkingCopy * workingCopy = file.getWorkingCopy();
+//	QString * content = workingCopy->getContent();
+//	QByteArray packetContent;
+//	packetContent.append(*content);
+//	TextShredderPacket packet (this, kPacketTypeFileData, packetContent);
+//	emit sendDownload(packet);
+//	emit fileSyncFinished();
 }
 
 

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QFileDialog>
+#include <QTextCursor>
 #include "../textshredder_synchronization_lib/workingcopy.h"
 #include "../textshredder_synchronization_lib/syncthread.h"
 #include "syncablefile.h"
@@ -46,6 +47,17 @@ private:
 	QString saveFilePath;
 	SyncableFile *syncFile;
 	void updateTextFieldToWorkingCopyContent();
+
+	QTextCursor cursor;
+	void updateTextCursor();
+	void getContentDiffSize();
+	void updateCursorPosition();
+
+	int oldEditWindowSize;
+	int diffSize;
+	int cursorPosition;
+	QString beforeCursorText;
+	QString afterCursorText;
 };
 
 #endif // CLIENTEDITINGWINDOW_H

@@ -1,10 +1,11 @@
 #include "syncthread.h"
 
+
 int SyncThread::sharedIndex = 1;
 
-SyncThread::SyncThread(QObject * parent, TextShredderConnection & newConnection,
+SyncThread::SyncThread(QObject * parent, int port, QString &address,
 					   WorkingCopy & newWorkingCopy) :
-	QObject(parent), connection(&newConnection), workingCopy(&newWorkingCopy),
+	QObject(parent), connection(this, address, port), workingCopy(&newWorkingCopy),
 	shadowCopy(this, *newWorkingCopy.getContent()), editList(NULL), timer(this),
         logging(this, QString("SyncThread ").append (QString::number (sharedIndex)))
 {
@@ -12,11 +13,28 @@ SyncThread::SyncThread(QObject * parent, TextShredderConnection & newConnection,
 	shadowCopy.setLogging(&logging);
 	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
 
-	connect(connection, SIGNAL(incomingEditPacketContent(QByteArray&)),
+	qDebug("TODO >> Link connects from socket");
+
+	connect(&connection, SIGNAL(incomingEditPacketContent(QByteArray&)),
 			this, SLOT(processChanges(QByteArray&)));
-	connect(connection, SIGNAL(clientDisconnected()),
+	connect(&connection, SIGNAL(clientDisconnected()),
 			this, SLOT(stop()));
 
+	QByteArray packetContent;
+	packetContent.append(*newWorkingCopy.getContent());
+	TextShredderPacket packet(this, kPacketTypeFileData, packetContent);
+	connection.write(packet);
+
+	syncThreadNumber = sharedIndex++;
+
+	startSync();
+}
+
+SyncThread::SyncThread(QObject *parent, WorkingCopy &newWorkingCopy) :
+		QObject(parent), connection(this), workingCopy(&newWorkingCopy),
+		shadowCopy(this, *newWorkingCopy.getContent()), editList(NULL), timer(this),
+		logging(this, QString("SyncThread ").append(QString::number(sharedIndex)))
+{
 	syncThreadNumber = sharedIndex++;
 }
 
@@ -27,10 +45,12 @@ void SyncThread::startSync()
 
 void SyncThread::processChanges(QByteArray & content)
 {
+
 	QString procesChangesMessage("SyncThread::processChanges");
 	logging.writeLog (procesChangesMessage, DEBUG);
 	EditList incomingEditList(this, content);
 	this->applyReceivedEditList(incomingEditList);
+
 }
 
 void SyncThread::pushChanges()
@@ -66,7 +86,7 @@ void SyncThread::writePacketOfEditList()
 
 void SyncThread::writePacketOnConnection(TextShredderPacket &packet)
 {
-	connection->write(packet);
+	connection.write(packet);
 }
 
 void SyncThread::applyReceivedEditList(EditList &incomingEditList)
@@ -123,4 +143,9 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 void SyncThread::stop()
 {
 	timer.stop();
+}
+
+qint16 SyncThread::getLocalPort()
+{
+	return connection.getLocalPort();
 }

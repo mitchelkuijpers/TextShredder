@@ -1,7 +1,8 @@
 #ifndef TEXTSHREDDERCONNECTION_H
 #define TEXTSHREDDERCONNECTION_H
 
-#include <QObject>
+#include <QtCore>
+#include <QtGlobal>
 #include <QTcpSocket>
 #include <QList>
 #include <QTextStream>
@@ -25,10 +26,13 @@ class TextShredderConnection : public QObject
 {
     Q_OBJECT
 public:
+	TextShredderConnection(QObject *parent);
 	TextShredderConnection(QObject *parent, int socketDescriptor);
 	TextShredderConnection(QObject *parent, QString &hostName, int port);
 	QString getPeerAdress();
 	unsigned int getPort();
+
+	quint16 getLocalPort();
 
 private:
 	QTcpSocket socket;
@@ -38,6 +42,7 @@ private:
 	unsigned int port;
 	void setupSignalsForSocket();
 	void emitNewIncomingPacket(TextShredderPacket &packet);
+	void handleFileRequestPacket(TextShredderPacket &packet);
 
 signals:
 	void statusChanged(TextShredderConnectionStatus);
@@ -46,7 +51,6 @@ signals:
 
 	//Incoming packet signals
 	void incomingSetAliasPacketContent(QByteArray &content);
-	void incomingFileRequestPacketContent(QByteArray &content);
 	void incomingFileDataPacketContent(QByteArray &content);
 	void incomingEditPacketContent(QByteArray &content);
 
@@ -56,6 +60,7 @@ public slots:
 	void socketStateChanged(QAbstractSocket::SocketState);
 	void socketError(QAbstractSocket::SocketError);
 	void clientHasDisconnected();
+	void sendPacket(TextShredderPacket &);
 
 };
 #endif // TEXTSHREDDERCONNECTION_H
