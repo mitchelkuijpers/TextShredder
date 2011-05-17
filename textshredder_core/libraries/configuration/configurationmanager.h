@@ -17,14 +17,13 @@ public:
 	void load();
 	void save();
 	ConfigurationOptions getConfigurationOptions();
-	void setConfigurationOptions();
+	void setConfigurationOptions(ConfigurationOptions newOptions);
 
 private:
 	ConfigurationManager();
-	ConfigurationOptions options;
 	static ConfigurationManager* sharedInstance;
 	QString fileName;
-
+	ConfigurationOptions options;
 signals:
 
 public slots:

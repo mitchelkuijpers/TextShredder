@@ -3,7 +3,7 @@
 ConfigurationManager * ConfigurationManager::sharedInstance = NULL;
 
 ConfigurationManager::ConfigurationManager() :
-		options(NULL), fileName(kDefaultConfigFile)
+		fileName(kDefaultConfigFile), options(NULL)
 {
 }
 

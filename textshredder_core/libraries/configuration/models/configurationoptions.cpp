@@ -6,6 +6,21 @@ ConfigurationOptions::ConfigurationOptions(QObject * parent):
 {
 }
 
+ConfigurationOptions::ConfigurationOptions(const ConfigurationOptions &copy):
+		QObject(copy.parent())
+{
+	serverPort = copy.serverPort;
+	ip = copy.ip;
+}
+
+ConfigurationOptions& ConfigurationOptions::operator =(const ConfigurationOptions& options)
+{
+	serverPort = options.serverPort;
+	ip = options.ip;
+
+	return *this;
+}
+
 void ConfigurationOptions::setServerPort(quint16 serverPortToSet)
 {
 	this->serverPort = serverPortToSet;

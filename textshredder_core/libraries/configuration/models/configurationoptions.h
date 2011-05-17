@@ -5,18 +5,19 @@
 #include <QString>
 #include <QDataStream>
 
-class ConfigurationOptions : QObject
+class ConfigurationOptions : public QObject
 {
 	Q_OBJECT
 
 public:
 	ConfigurationOptions(QObject *);
-
+	ConfigurationOptions(const ConfigurationOptions &);
 	QString getIp();
 	quint16 getServerPort();
 	void setIp(QString ipToSet);
 	void setServerPort(quint16 serverPortToSet);
 
+	ConfigurationOptions& operator =(const ConfigurationOptions&);
 
 private:
 	quint16 serverPort;
