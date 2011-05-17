@@ -23,6 +23,8 @@ NotificationOption & NotificationOption::operator =(const NotificationOption & o
 {
 	this->label = other.label;
 	this->function = other.function;
+
+	return *this;
 }
 
 QString NotificationOption::getLabel()
