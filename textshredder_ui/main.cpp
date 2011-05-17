@@ -16,8 +16,6 @@ int main(int argc, char *argv[])
 
 	setDefaultFont();
 
-	EditorView e;
-	e.show();
 	MainWindow w;
 	w.show();
 

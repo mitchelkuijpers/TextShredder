@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "editorview.h"
 
 namespace Ui {
     class MainWindow;
@@ -29,7 +30,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-
+	EditorView editorView;
 private slots:
  void on_connectButton_clicked();
  void on_cancelButton_clicked();

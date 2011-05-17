@@ -1,11 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "notificationmanager.h"
-#include <QTcpSocket>
+
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
-#include <QFileDialog>
-#include <QFile>
+
+#include "../textshredder_core/server/server.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -106,7 +106,12 @@ void MainWindow::animationMoveTo(QWidget * target, QRect startRect, QRect endRec
 void MainWindow::on_connectButton_clicked()
 {
 	if (ui->isServerInput->isChecked()) {
-		//Mats code
+		Server *serv = Server::Instance();
+		quint16 port = ui->serverPortInput->value();
+		serv->listen(QHostAddress::Any, port);
+		this->hide();
+		editorView.show();
+
 	} else {
 		//Wouter code
 	}
