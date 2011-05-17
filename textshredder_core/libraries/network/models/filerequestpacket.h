@@ -2,6 +2,7 @@
 #define FILEREQUESTPACKET_H
 
 #include "textshredderpacket.h"
+#include <stdlib.h>
 
 class FileRequestPacket : public TextShredderPacket
 {
