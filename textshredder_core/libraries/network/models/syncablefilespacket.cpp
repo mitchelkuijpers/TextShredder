@@ -1,21 +1,21 @@
 #include "syncablefilespacket.h"
 
-SyncableFilesPacket::SyncableFilesPacket(QObject *parent, QList<SyncableFile> &files) :
+SyncableFilesPacket::SyncableFilesPacket(QObject *parent, QList<SyncableFile *> &files) :
 	TextShredderPacket(parent, kPacketTypeAvailableFiles)
 {
 	QByteArray newContent = contentForFiles(files);
 	this->setContent(newContent);
 }
 
-QByteArray SyncableFilesPacket::contentForFiles(QList<SyncableFile> &files) {
+QByteArray SyncableFilesPacket::contentForFiles(QList<SyncableFile *> &files) {
 	QByteArray array;
 
 	for (int i = 0; i < files.count(); i++) {
-		SyncableFile file = files.at(i);
+		SyncableFile *file = files.at(i);
 		array.append("{");
-		array.append(file.getFileIdentifier());
+		array.append(file->getFileIdentifier());
 		array.append(",");
-		array.append(file.getFileAlias());
+		array.append(file->getFileAlias());
 		array.append("}");
 	}
 	return array;

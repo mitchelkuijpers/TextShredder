@@ -113,7 +113,7 @@ void TextShredderConnection::handleFileRequestPacket(TextShredderPacket &packet)
 
 	try {
 		QString name("name");
-		SyncableFile *file = &FileManager::Instance()->getSyncableFileWithName(requestedFileName);
+		SyncableFile *file = FileManager::Instance()->getSyncableFileWithName(requestedFileName);
 		file->createSynchronizationWithPortAndAddress(port, name);
 	} catch (QString exception) {
 		//Some error occured. Problably no such file.

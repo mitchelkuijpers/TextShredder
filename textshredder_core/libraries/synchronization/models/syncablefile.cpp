@@ -50,11 +50,17 @@ bool SyncableFile::operator == (const SyncableFile & other)
 
 SyncableFile & SyncableFile::operator=(const SyncableFile & other)
 {
+	qDebug("1");
 	this->fileIdentifier = other.fileIdentifier;
+	qDebug("2");
 	this->fileAlias = other.fileAlias;
+	qDebug("3");
 	this->filePath = other.filePath;
+	qDebug("4");
 	this->shared = other.shared;
+	qDebug("5");
 	this->fileType = other.fileType;
+	qDebug("6");
 	this->workingCopy = other.workingCopy;
 	return *this;
 }
@@ -99,11 +105,13 @@ bool SyncableFile::isShared()
 
 void SyncableFile::setShared(bool share)
 {
-	shared = share;
-	if (shared) {
-		emit fileStartedSharing();
-	} else {
-		emit fileStoppedSharing();
+	if (share != shared) {
+		shared = share;
+		if (shared) {
+			emit fileStartedSharing();
+		} else {
+			emit fileStoppedSharing();
+		}
 	}
 }
 
