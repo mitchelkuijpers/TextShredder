@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "editorview.h"
+#include "../textshredder_core/client/client.h"
 
 namespace Ui {
     class MainWindow;
@@ -31,6 +32,7 @@ public:
 private:
     Ui::MainWindow *ui;
 	EditorView editorView;
+	Client *client;
 private slots:
  void on_connectButton_clicked();
  void on_cancelButton_clicked();

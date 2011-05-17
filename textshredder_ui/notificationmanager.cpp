@@ -20,7 +20,7 @@ void NotificationManager::createNotificationDialog( Notification & notification 
 {
 	QDialog notificationDialog(NULL);
 	notificationDialog.setFixedSize(400, 100);
-	setWindowTitleBasedOnNotificationType( &notificationDialog, notification );
+	setWindowTitleBasedOnNotificationType( notification );
 
 	gridLayout = new QGridLayout();
 	notificationDialog.setLayout(gridLayout);
@@ -29,13 +29,13 @@ void NotificationManager::createNotificationDialog( Notification & notification 
 	messageLabel = new QLabel(notification.getMessage());
 	gridLayout->addWidget(messageLabel, 0, 0, 2, totalAmountOfButtons);
 
-	addButtonsToNotificationDialog( &notificationDialog, notification.getNotificationOptions());
+	addButtonsToNotificationDialog( notification, notification.getNotificationOptions());
 
 	notificationDialog.exec();
 	notificationDialog.show();
 }
 
-void NotificationManager::setWindowTitleBasedOnNotificationType( QDialog * notificationDialog, Notification & notification )
+void NotificationManager::setWindowTitleBasedOnNotificationType( Notification & notification )
 {
 	QString windowTitle;
 
@@ -65,10 +65,11 @@ void NotificationManager::setWindowTitleBasedOnNotificationType( QDialog * notif
 			break;
 	}
 
-	notificationDialog->setWindowTitle(windowTitle);
+	notificationDialog.setWindowTitle(windowTitle);
 }
 
-void NotificationManager::addButtonsToNotificationDialog( QDialog * notificationDialog, QList<NotificationOption>& notificationOptions )
+void NotificationManager::addButtonsToNotificationDialog(Notification & notification,
+														  QList<NotificationOption>& notificationOptions )
 {
 	int i;
 	for(i = 0; i < notificationOptions.length(); i++ ) {
@@ -77,9 +78,15 @@ void NotificationManager::addButtonsToNotificationDialog( QDialog * notification
 		gridLayout->addWidget(button, 3, i);
 		connect(button, SIGNAL(clicked()), this, SLOT(closeDialog()));
 	}
+
+	if ( notification.getHasCancelButton() ) {
+		QPushButton * cancelButton = new QPushButton("Cancel");
+		gridLayout->addWidget(cancelButton, 3, i+1);
+		connect(cancelButton, SIGNAL(clicked()), this, SLOT(closeDialog()));
+	}
 }
 
 void NotificationManager::closeDialog()
 {
-	qDebug("Close Dialog");
+	notificationDialog.hide();
 }

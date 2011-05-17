@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     ../textshredder_core/libraries/configuration/configurationmanager.cpp \
 	../textshredder_core/libraries/configuration/models/configurationoptions.cpp \
     ../textshredder_core/libraries/network/models/syncablefilespacket.cpp \
-	../textshredder_core/libraries/network/models/filerequestpacket.cpp
+	../textshredder_core/libraries/network/models/filerequestpacket.cpp \
+    ../textshredder_core/client/client.cpp
 
 HEADERS  += mainwindow.h \
     editorview.h \
@@ -71,7 +72,8 @@ HEADERS  += mainwindow.h \
     ../textshredder_core/libraries/configuration/configurationmanager.h \
 	../textshredder_core/libraries/configuration/models/configurationoptions.h \
     ../textshredder_core/libraries/network/models/syncablefilespacket.h \
-	../textshredder_core/libraries/network/models/filerequestpacket.h
+	../textshredder_core/libraries/network/models/filerequestpacket.h \
+    ../textshredder_core/client/client.h
 
 FORMS    += mainwindow.ui \
     editorview.ui \

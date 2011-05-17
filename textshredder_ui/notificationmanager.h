@@ -16,9 +16,10 @@ class NotificationManager : public QObject
     Q_OBJECT
 public:
 	static NotificationManager * Instance();
-	void addButtonsToNotificationDialog( QDialog * notificationDialog, QList<NotificationOption>& notificationOptions );
+	void addButtonsToNotificationDialog( Notification &notification, QList<NotificationOption>& notificationOptions );
 	void createNotificationDialog( Notification & notification);
-	void setWindowTitleBasedOnNotificationType( QDialog * notificationDialog, Notification & notification );
+	void setWindowTitleBasedOnNotificationType( Notification & notification );
+	QDialog notificationDialog;
 
 private:
 	NotificationManager(QObject *parent = 0);
