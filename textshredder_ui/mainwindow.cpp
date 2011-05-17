@@ -105,5 +105,9 @@ void MainWindow::animationMoveTo(QWidget * target, QRect startRect, QRect endRec
 
 void MainWindow::on_connectButton_clicked()
 {
-
+	if (ui->isServerInput->isChecked()) {
+		//Mats code
+	} else {
+		//Wouter code
+	}
 }
