@@ -9,7 +9,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+	ui(new Ui::MainWindow), client(NULL)
 {
     ui->setupUi(this);
 	this->setFixedSize(this->width(),this->height());
@@ -111,8 +111,16 @@ void MainWindow::on_connectButton_clicked()
 		serv->listen(QHostAddress::Any, port);
 		this->hide();
 		editorView.show();
-
+		editorView.setToServerMode();
 	} else {
-		//Wouter code
+		if (client != NULL) {
+			client = new Client(this);
+		}
+		QHostAddress address(ui->serverIpInput->text());
+		quint16 port = ui->serverPortInput->value();
+		client->connectToServer(address, port);
+		editorView.setToClientMode();
+		this->hide();
+		editorView.show();
 	}
 }
