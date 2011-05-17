@@ -17,7 +17,7 @@ public:
 	void changeWindowStateToServer();
 	void changeWindowStateToClient();
 	void animationMoveTo(QWidget * target, QRect startRect, QRect endRect, int animationLength );
-	void performStarupAnimation();
+	void performTextSlideInAnimation();
 
 	/**
 	  * The function builds up a QStringList and fills it with some fonts.
@@ -25,6 +25,7 @@ public:
 	  * and shows an error if the font cannot be opened.
 	  */
 	void setDefaultFont();
+	void functionToExecute();
 
 private:
     Ui::MainWindow *ui;

@@ -16,7 +16,7 @@ class NotificationManager : public QObject
     Q_OBJECT
 public:
 	static NotificationManager * Instance();
-	void addButtonsToNotificationDialog( QList<NotificationOption>& notificationOptions );
+	void addButtonsToNotificationDialog( QDialog * notificationDialog, QList<NotificationOption>& notificationOptions );
 	void createNotificationDialog( Notification & notification);
 	void setWindowTitleBasedOnNotificationType( QDialog * notificationDialog, Notification & notification );
 
@@ -26,12 +26,15 @@ private:
 	QLabel * messageLabel;
 	enum NotificationType { SUCCESS, WARNING, ERROR, FATAL, INFO };
 	static NotificationManager* sharedInstance;
+	int totalAmountOfButtons;
 
 signals:
 
 
 public slots:
 
+private slots:
+	void closeDialog();
 };
 
 #endif // NOTIFICATIONMANAGER_H
