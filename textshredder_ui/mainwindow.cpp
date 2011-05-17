@@ -63,6 +63,7 @@ void MainWindow::changeWindowStateToClient()
 	ui->serverIpInput->setEnabled(true);
 	ui->serverIpInput->setText("");
 	ui->serverIpInput->setPlaceholderText("Example: 133.214.233.143");
+	ui->serverIpInput->setText("127.0.0.1");
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/userfolder.svg"));
 	ui->serverIpInput->setFocus();
 }

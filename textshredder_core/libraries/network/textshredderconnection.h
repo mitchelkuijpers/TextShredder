@@ -57,6 +57,7 @@ signals:
 	void incomingSetAliasPacketContent(QByteArray &content);
 	void incomingFileDataPacketContent(QByteArray &content);
 	void incomingEditPacketContent(QByteArray &content);
+	void incomingSyncableFilesPacket(QByteArray &content);
 
 public slots:
 	void read();

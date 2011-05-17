@@ -9,7 +9,7 @@ class SyncableFilesPacket : public TextShredderPacket
 	Q_OBJECT
 
 public:
-	static void fillListWithContentsOfPacket(QList <SyncableFile> &list, TextShredderPacket &packet);
+	static void fillListWithContentsOfPacket(QList <SyncableFile> &list, QByteArray &content);
 	SyncableFilesPacket(QObject *parent, QList<SyncableFile *> &files);
 
 private:

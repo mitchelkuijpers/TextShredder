@@ -62,7 +62,7 @@ public:
 	  */
 	bool isSetAliasPacket();
 
-
+	bool isSyncableFilesPacket();
 	bool isIncomplete();
 
 	void appendContentData(QByteArray & data);

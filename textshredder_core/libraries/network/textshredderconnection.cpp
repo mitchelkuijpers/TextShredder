@@ -73,18 +73,21 @@ void TextShredderConnection::breakDownSignalsForSocket()
 
 void TextShredderConnection::read()
 {
+	qDebug("TextShredderConnection::read()");
 	QTextStream inputStream(&socket);
 	QString buffer;
 
+	qDebug("2");
 	while(!inputStream.atEnd()) {
 		 buffer.append(inputStream.readAll());
 	}
 
-
+	qDebug("3");
 	QByteArray packetData;
 	packetData.append(buffer);
 	parser.handleData(packetData);
 
+	qDebug("4");
 	while(parser.hasMorePackets()) {
 		TextShredderPacket * packet = parser.nextPacket();
 		emitNewIncomingPacket(*packet);
@@ -95,6 +98,7 @@ void TextShredderConnection::read()
 
 void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 {
+	qDebug("TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)");
 	if (packet.isEditPacket ()) {
 		emit incomingEditPacketContent(packet.getContent());
 	} else if (packet.isFileDataPacket ()) {
@@ -103,6 +107,9 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 		handleFileRequestPacket(packet);
 	} else if (packet.isSetAliasPacket()) {
 		emit incomingSetAliasPacketContent(packet.getContent());
+	} else if (packet.isSyncableFilesPacket()) {
+		qDebug("Got here");
+		emit incomingSyncableFilesPacket(packet.getContent());
 	}
 }
 

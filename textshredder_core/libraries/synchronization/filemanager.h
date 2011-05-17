@@ -76,11 +76,12 @@ private slots:
 	void syncableFileStartedSharing();
 	void syncableFileStoppedSharing();
 	void shouldMakeRequestForSync(TextShredderPacket &packet);
-
+	void handleReceivedSyncableFiles(QByteArray &content);
 signals:
 	void fileStarted(SyncableFile *);
 	void updateClientFiles(TextShredderPacket &);
 	void sendFileRequest(TextShredderPacket &);
+	void availableFilesChanged();
 };
 
 #endif // FILEMANAGER_H

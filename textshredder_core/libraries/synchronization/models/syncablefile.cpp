@@ -22,25 +22,32 @@ SyncableFile::SyncableFile(QObject *parent, QString &path) :
 }
 
 SyncableFile::SyncableFile(QObject *parent, QString &identifier, QString &alias) :
-	QObject(parent), fileIdentifier(identifier), fileAlias(alias)
+	QObject(parent), fileIdentifier(identifier), fileAlias(alias), workingCopy(NULL)
 {
 	fileType = FileTypeTXT;
 }
 
 SyncableFile::SyncableFile(QObject *parent, QString &alias, FileType type) :
-	QObject(parent), fileAlias(alias), fileType(type)
+	QObject(parent), fileAlias(alias), fileType(type), workingCopy(NULL)
 {
 
 }
 
 SyncableFile::SyncableFile(const SyncableFile &other) : QObject(this)
 {
+	qDebug("1");
 	this->fileIdentifier = other.fileIdentifier;
+	qDebug("1");
 	this->fileAlias = other.fileAlias;
+	qDebug("2");
 	this->filePath = other.filePath;
+	qDebug("4");
 	this->shared = other.shared;
+	qDebug("6");
 	this->fileType = other.fileType;
+	qDebug("3");
 	this->workingCopy = other.workingCopy;
+	qDebug("5");
 }
 
 bool SyncableFile::operator == (const SyncableFile & other)
