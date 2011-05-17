@@ -25,17 +25,11 @@ private:
 	TextShredderConnection * connection;
 	QString alias;
 
-public slots:
+private slots:
 	/**
 	 * Removes the disconnected clients from the list
 	 */
 	void getDisconnected();
-
-	/**
-	 * Changes the name to changedName param
-	 * @param QString changedName
-	 */
-	void getNameChanged(QString & changedName);
 
 	/**
 	 * ?? NOT CLEAR
@@ -43,6 +37,8 @@ public slots:
 	 */
 	void processSetAliasPacketContent(QByteArray &bytes);
 
+signals:
+	void clientRepresentationEncounteredEnd();
 };
 
 #endif // CLIENTREPRESENTATION_H

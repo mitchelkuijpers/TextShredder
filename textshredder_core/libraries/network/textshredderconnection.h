@@ -42,6 +42,7 @@ private:
 	void setupSignalsForSocket();
 	void emitNewIncomingPacket(TextShredderPacket &packet);
 	void handleFileRequestPacket(TextShredderPacket &packet);
+
 signals:
 	void statusChanged(TextShredderConnectionStatus);
 	void queueChanged();
