@@ -55,7 +55,8 @@ void EditorView::addFileToFileTreeWidget( QString fileName )
 	model.setItem(rowCount, 0, item);
 
 	item->setCheckable( true );
-	QStandardItem *status = new QStandardItem( QString("Not Syncing") );
+	QStandardItem *status = new QStandardItem();
+	status->setIcon(QIcon(":/ui/status/user-offline.svg"));
 	model.setItem(rowCount, 1, status);
 
 	ui->fileTreeWidget->setModel(&model);
