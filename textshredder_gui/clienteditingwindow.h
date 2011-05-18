@@ -4,9 +4,11 @@
 #include <QWidget>
 #include <QFileDialog>
 #include <QTextCursor>
+#include <QTimer>
 #include "../textshredder_synchronization_lib/workingcopy.h"
 #include "../textshredder_synchronization_lib/syncthread.h"
 #include "syncablefile.h"
+#include "clienthighlighting.h"
 
 namespace Ui {
 	class ClientEditingWindow;
@@ -41,6 +43,9 @@ private slots:
 	void saveFile(const QString &name);
 	void saveFileAs();
 
+	void clearHighlights();
+	void deleteEdits();
+
 private:
 	Ui::ClientEditingWindow *ui;
 	QTcpSocket * socket;
@@ -53,11 +58,16 @@ private:
 	void getContentDiffSize();
 	void updateCursorPosition();
 
+	QTimer * timer;
+	QTimer * deleteTimer;
+
 	int oldEditWindowSize;
 	int diffSize;
 	int cursorPosition;
 	QString beforeCursorText;
 	QString afterCursorText;
+
+	ClientHighlighting * highlighter;
 };
 
 #endif // CLIENTEDITINGWINDOW_H

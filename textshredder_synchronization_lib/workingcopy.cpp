@@ -8,6 +8,7 @@ WorkingCopy::WorkingCopy(QObject *parent) :
 
 void WorkingCopy::applyPatches(QList<Patch> &patches)
 {
+
 	Patchable::applyPatches(patches);
 
 	//TODO -> maybe remove last edit date, discuss before 12/07/1999

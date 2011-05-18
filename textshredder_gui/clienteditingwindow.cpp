@@ -1,6 +1,8 @@
 #include "clienteditingwindow.h"
 #include "ui_clienteditingwindow.h"
+#include "../textshredder_synchronization_lib/syncthread.h"
 #include <QHostAddress>
+#include <QSyntaxHighlighter>
 
 #define CURSORUPDATESIZE 3
 
@@ -9,7 +11,9 @@ ClientEditingWindow::ClientEditingWindow(QWidget *parent) :
 	ui(new Ui::ClientEditingWindow)
 {
     ui->setupUi(this);
-
+	timer = new QTimer(this);
+	deleteTimer = new QTimer(this);
+	highlighter = new ClientHighlighting(ui->textEdit->document());
 	connect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
 	//connect(ui->saveButton, SIGNAL(fileSaved()), this, SLOT(saveFileMe()));
@@ -28,10 +32,10 @@ void ClientEditingWindow::textChanged(int position, int charsRemoved, int charsA
 	syncFile->getWorkingCopy()->lock();
 	QString *workingCopyContent = syncFile->getWorkingCopy()->getContent();
 	QString insertString = ui->textEdit->toPlainText().mid(position, charsAdded );
+
+
 	workingCopyContent->replace(position, charsRemoved, insertString);
 	syncFile->getWorkingCopy()->unlock();
-
-	qDebug() << *(syncFile->getWorkingCopy()->getContent());
 
 }
 
@@ -70,19 +74,94 @@ void ClientEditingWindow::updateTextFieldToWorkingCopyContent()
 
 	disconnect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
-	ui->textEdit->setPlainText(*(syncFile->getWorkingCopy()->getContent()));
+
+
+	QList<Patch> testPatches;
+	qDebug() << "doc:" << ui->textEdit->document()->toPlainText();
+	if(!syncFile->getWorkingCopy()->getContent()->isNull()){
+		QString temp = ui->textEdit->document()->toPlainText();
+
+		if(syncFile->getWorkingCopy()->getContent() != temp){
+			testPatches = syncFile->getWorkingCopy()->getPatchesToConvertString(temp);
+
+			ui->textEdit->setPlainText(*(syncFile->getWorkingCopy()->getContent()));
+
+
+			QString deletedEditFirst;
+			QString deletedEditSecond;
+			if(testPatches.first().diffs.count() >= 2){
+				if(testPatches.first().diffs.at(0).operation == 1){
+					deletedEditFirst = testPatches.first().diffs.first().text;
+					deletedEditFirst.append(ui->textEdit->toPlainText());
+
+					ui->textEdit->setPlainText(deletedEditFirst);
+					connect(deleteTimer, SIGNAL(timeout()), this, SLOT(deleteEdits()));
+					deleteTimer->start(1000);
+					deleteTimer->blockSignals(false);
+					qDebug() << "appended: " << testPatches.first().diffs.at(1).text;
+					qDebug() << "delete? " << deletedEditFirst;
+
+				}else if(testPatches.first().diffs.at(1).operation == 1){
+					qDebug() << "operation: " << testPatches.first().diffs.at(1).operation;
+					deletedEditFirst = ui->textEdit->toPlainText().mid(0,testPatches.first().start1 + testPatches.first().diffs.first().text.size());
+					deletedEditSecond = ui->textEdit->toPlainText().mid(testPatches.first().start1+ testPatches.first().diffs.first().text.size(),
+																		ui->textEdit->toPlainText().size());
+					deletedEditFirst.append(testPatches.first().diffs.at(1).text);
+					deletedEditFirst.append(deletedEditSecond);
+
+					ui->textEdit->setPlainText(deletedEditFirst);
+					connect(deleteTimer, SIGNAL(timeout()), this, SLOT(deleteEdits()));
+					deleteTimer->start(1000);
+					deleteTimer->blockSignals(false);
+					qDebug() << "appended: " << testPatches.first().diffs.at(1).text;
+					qDebug() << "delete? " << deletedEditFirst;
+
+				}
+
+			}
+
+			highlighter->setPatches(testPatches);
+			highlighter->rehighlight();
+			highlighter->clearPatches();
+			connect(timer, SIGNAL(timeout()), this, SLOT(clearHighlights()));
+
+			timer->start(2000);
+		}
+
+	}
+
 	connect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
 
-	getContentDiffSize();
+
 	updateTextCursor();
 	ui->textEdit->setTextCursor(cursor);
-	qDebug() << "cursor pos after update: " << cursor.position();
+}
+
+void ClientEditingWindow::clearHighlights()
+{
+	highlighter->rehighlight();
+
+}
+
+void ClientEditingWindow::deleteEdits()
+{
+	disconnect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
+			this, SLOT(textChanged(int, int, int)));
+	qDebug() << "Workingcopy before delete:" << *(syncFile->getWorkingCopy()->getContent());
+
+	if(!(syncFile->getWorkingCopy()->getContent())->isEmpty()){
+		ui->textEdit->setPlainText(*(syncFile->getWorkingCopy()->getContent()));
+	}
+	deleteTimer->blockSignals(true);
+	connect(ui->textEdit->document(), SIGNAL(contentsChange(int,int,int)),
+			this, SLOT(textChanged(int, int, int)));
 }
 
 
 void ClientEditingWindow::updateTextCursor()
 {
+	getContentDiffSize();
 	for( int i=0; i <= diffSize; i++){
 		if(beforeCursorText == ui->textEdit->toPlainText().mid(cursorPosition -CURSORUPDATESIZE -i, CURSORUPDATESIZE) ||
 		   afterCursorText == ui->textEdit->toPlainText().mid(cursorPosition -i ,CURSORUPDATESIZE)){
@@ -114,7 +193,6 @@ void ClientEditingWindow::updateCursorPosition()
 	oldEditWindowSize = ui->textEdit->toPlainText().size();
 
 	cursorPosition = cursor.position();
-	qDebug() << "cursor pos before update: " << cursorPosition;
 
 	beforeCursorText = ui->textEdit->toPlainText().mid(cursorPosition -CURSORUPDATESIZE, CURSORUPDATESIZE);
 	afterCursorText = ui->textEdit->toPlainText().mid(cursorPosition, CURSORUPDATESIZE);
