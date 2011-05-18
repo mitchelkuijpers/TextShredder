@@ -11,7 +11,7 @@ EditorView::EditorView(QWidget *parent) :
 	ui->fileTreeWidget->setFocus();
 	setFileTreeWidgetColumnsInModel();
 
-	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView));
+	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView()));
 }
 
 EditorView::~EditorView()
@@ -71,7 +71,6 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 
 void EditorView::rebuildSharedFilesListTreeView()
 {
-
 
 //	QDir dir;
 //	QStringList filters("*.txt");

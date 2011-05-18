@@ -104,16 +104,11 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 {
 	QList< QSharedPointer<SyncableFile> > list;
 
-	qDebug("Your father. Trekt zich af op de meisjes wc");
 
 	SyncableFilesPacket::fillListWithContentsOfPacket(list, content);
-	qDebug() << list.count();
 
 	for (int i = 0; i < list.count(); i ++ ) {
 		QSharedPointer<SyncableFile> file = list.at(i);
-		qDebug() << i;
-		qDebug() << file.data()->getFileAlias();
-		qDebug() << file.data()->getFileIdentifier();
 
 		bool found = false;
 		for (int j = 0; j < fileList.count(); j++) {
@@ -144,9 +139,7 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 		}
 	}
 
-	qDebug("Your momma. Trekt zich af op de meisjes wc");
-	qDebug() << fileList.count();
-	//emit availableFilesChanged();
+	emit availableFilesChanged();
 }
 
 QList<QSharedPointer<SyncableFile> > FileManager::getAllFiles()
