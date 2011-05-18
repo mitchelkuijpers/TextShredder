@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->serverIpInput->setFocus();
 
 	ui->serverIpInput->addItems(config->getConfigurationOptions().getKnownHostsList());
+
 	ui->serverPortInput->setValue(config->getConfigurationOptions().getServerPort());
 
 	//setDefaultFont();
