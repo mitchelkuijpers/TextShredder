@@ -2,7 +2,7 @@
 #define TEXTSHREDDERPACKETTESTS_H
 
 #include <QtCore/QString>
-#include "../textshredder_synchronization_lib/textshredderpacket.h"
+#include "../textshredder_core/libraries/network/models/textshredderpacket.h"
 #include "autotest.h"
 class TextShredderPacketTests: public QObject
 {

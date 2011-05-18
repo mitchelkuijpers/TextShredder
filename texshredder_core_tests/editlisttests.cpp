@@ -1,7 +1,7 @@
 #include "editlisttests.h"
-#include "../textshredder_synchronization_lib/editlist.h"
-#include "../textshredder_synchronization_lib/textshredderpacket.h"
-#include "../textshredder_diff_match_patch/diff_match_patch.h"
+#include "../textshredder_core/libraries/synchronization/models/editlist.h"
+#include "../textshredder_core/libraries/network/models/textshredderpacket.h"
+#include "../textshredder_core/libraries/diff_match_patch/diff_match_patch.h"
 
 void EditListTests::testEmptyConstructor()
 {

@@ -1,11 +1,8 @@
 #include "syncthreadsub.h"
 
-SyncThreadSub::SyncThreadSub(QObject *parent, TextShredderConnection & newConnection,
-                             WorkingCopy & newWorkingCopy) :
-        SyncThread(parent, newConnection, newWorkingCopy)
+SyncThreadSub::SyncThreadSub(QObject *parent, WorkingCopy & newWorkingCopy) :
+		SyncThread(parent, newWorkingCopy)
 {
-
-
 }
 
 void SyncThreadSub::processChanges(QByteArray &content)

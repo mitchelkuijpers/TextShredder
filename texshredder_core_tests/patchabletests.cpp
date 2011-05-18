@@ -1,5 +1,5 @@
 #include "patchabletests.h"
-#include "../textshredder_diff_match_patch/diff_match_patch.h"
+#include "../textshredder_core/libraries/diff_match_patch/diff_match_patch.h"
 
 void PatchableTests::testGetContent() {
     QString content = "TestStringContent";
