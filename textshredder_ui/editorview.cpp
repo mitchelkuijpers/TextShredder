@@ -74,9 +74,12 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 
 void EditorView::rebuildSharedFilesListTreeView()
 {
+	qDebug("rebuildSharedFilesListTreeView");
 	QList < QSharedPointer<SyncableFile> > sharedFilesList =
 			FileManager::Instance()->getAllFiles();
 
+
+	model.removeRows(0, model.rowCount());
 	int i = 0;
 	for(i = 0; i < sharedFilesList.count(); i++ ) {
 		QString fileName = sharedFilesList.at(i).data()->getFileAlias();
