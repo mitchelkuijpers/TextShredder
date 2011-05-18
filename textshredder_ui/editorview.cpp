@@ -1,6 +1,6 @@
 #include "editorview.h"
 #include "ui_editorview.h"
-#include "textfield.h"
+#include "syncablefiletextfield.h"
 #include "../textshredder_core/libraries/synchronization/filemanager.h"
 
 EditorView::EditorView(QWidget *parent) :
@@ -122,15 +122,20 @@ void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
 	}
 }
 
+void EditorView::openFileInEditor( QString fileName )
+{
+	QList < QSharedPointer<SyncableFile> > sharedFilesList =
+			FileManager::Instance()->getAllFiles();
+
+	SyncableFileTextField *textfield = new SyncableFileTextField(this);
+	ui->openedFileTabs->addTab(textfield, fileName);
+
+
+}
+
 void EditorView::on_openedFileTabs_tabCloseRequested(int index)
 {
 	ui->openedFileTabs->removeTab(index);
-}
-
-void EditorView::openFileInEditor( QString fileName )
-{
-	TextField *textfield = new TextField(this);
-	ui->openedFileTabs->addTab(textfield, fileName);
 }
 
 void EditorView::setToServerMode()
