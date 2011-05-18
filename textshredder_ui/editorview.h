@@ -31,8 +31,7 @@ public:
 	void setToClientMode();
 
 private:
-    Ui::EditorView *ui;
-	QString openedFilePath;
+	Ui::EditorView *ui;
 	QStandardItemModel model;
 	bool isServer;
 
