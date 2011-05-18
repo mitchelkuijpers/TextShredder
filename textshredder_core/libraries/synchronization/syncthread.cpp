@@ -35,6 +35,14 @@ SyncThread::SyncThread(QObject *parent, WorkingCopy &newWorkingCopy) :
 		shadowCopy(this, *newWorkingCopy.getContent()), editList(NULL), timer(this),
 		logging(this, QString("SyncThread ").append(QString::number(sharedIndex)))
 {
+
+	connect(&connection, SIGNAL(incomingEditPacketContent(QByteArray&)),
+			this, SLOT(processChanges(QByteArray&)));
+	connect(&connection, SIGNAL(clientDisconnected()),
+			this, SLOT(stop()));
+	connect(&connection, SIGNAL(incomingFileDataPacketContent(QByteArray&)),
+			this, SLOT(receivedDownloadedContent(QByteArray&)));
+
 	syncThreadNumber = sharedIndex++;
 }
 
@@ -148,4 +156,11 @@ void SyncThread::stop()
 qint16 SyncThread::getLocalPort()
 {
 	return connection.getLocalPort();
+}
+
+void SyncThread::receivedDownloadedContent(QByteArray & content)
+{
+	QString string(content);
+	workingCopy->setContent(string);
+	startSync();
 }
