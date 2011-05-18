@@ -123,20 +123,18 @@ void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
 	if (index.column() > 0) { //Should not be the checkBox column
 		//You can't open a file twice! -> Not implemented yet
 		const QAbstractItemModel * mod = index.model();
-		QString fileName = mod->data(mod->index(index.row(), 0), Qt::DisplayRole).toString();
-		openFileInEditor( fileName );
+		openFileInEditor( index );
 	}
 }
 
-void EditorView::openFileInEditor( QString fileName )
+void EditorView::openFileInEditor( QModelIndex index )
 {
-	QList < QSharedPointer<SyncableFile> > sharedFilesList =
-			FileManager::Instance()->getAllFiles();
+	QSharedPointer<SyncableFile> file =  FileManager::Instance()->getAllFiles().at(index.row());
 
-	SyncableFileTextField *textfield = new SyncableFileTextField(this);
-	ui->openedFileTabs->addTab(textfield, fileName);
+	//SyncableFileTextField *textfield = new SyncableFileTextField(this, file);
+	//ui->openedFileTabs->addTab(textfield, file.data()->getFileAlias());
 
-
+	file.data()->requestSync();
 }
 
 void EditorView::on_openedFileTabs_tabCloseRequested(int index)

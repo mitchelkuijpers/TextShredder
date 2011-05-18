@@ -2,6 +2,7 @@
 #define SYNCABLEFILETEXTFIELD_H
 
 #include <QWidget>
+#include "../textshredder_core/libraries/synchronization/models/syncablefile.h"
 
 namespace Ui {
 	class SyncableFileTextField;
@@ -12,7 +13,7 @@ class SyncableFileTextField : public QWidget
     Q_OBJECT
 
 public:
-	explicit SyncableFileTextField(QWidget *parent = 0);
+	SyncableFileTextField(QWidget *parent, QSharedPointer<SyncableFile> file);
 	~SyncableFileTextField();
 
 private:
