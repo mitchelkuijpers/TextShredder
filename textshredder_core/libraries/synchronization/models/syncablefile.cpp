@@ -10,7 +10,7 @@ SyncableFile::SyncableFile(QObject *parent, QString &path) :
 	QString suffix(fileInfo.suffix ());
 	fileType = typeForSuffix(suffix);
 
-	workingCopy = new WorkingCopy(NULL);
+	workingCopy = new WorkingCopy(this);
 
 	QFile file(path);
 	if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -25,10 +25,11 @@ SyncableFile::SyncableFile(QObject *parent, QString &identifier, QString &alias)
 	QObject(parent), fileIdentifier(identifier), fileAlias(alias), workingCopy(NULL)
 {
 	fileType = FileTypeTXT;
+	workingCopy = new WorkingCopy(this);
 }
 
 SyncableFile::SyncableFile(QObject *parent, QString &alias, FileType type) :
-	QObject(parent), fileAlias(alias), fileType(type), workingCopy(NULL)
+	QObject(parent), fileAlias(alias), workingCopy(NULL), fileType(type)
 {
 
 }
@@ -140,4 +141,13 @@ void SyncableFile::doDeleteLater(SyncableFile *obj)
 void SyncableFile::setFileAlias(QString & newFileAlias)
 {
 	this->fileAlias = newFileAlias;
+}
+
+WorkingCopy * SyncableFile::openWorkingCopyForGUI()
+{
+	return workingCopy;
+}
+
+void SyncableFile::closeWorkingCopyFromGUI()
+{
 }

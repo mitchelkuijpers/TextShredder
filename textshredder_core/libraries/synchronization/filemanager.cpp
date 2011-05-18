@@ -18,7 +18,6 @@ FileManager * FileManager::Instance()
 
 void FileManager::addFileWithPath(QString &path)
 {
-	qDebug("FileManager::addFileWithPath() - We are now sharing a file");
 	QSharedPointer<SyncableFile> obj =
 			QSharedPointer<SyncableFile>(new SyncableFile(this, path), SyncableFile::doDeleteLater);
 
@@ -28,14 +27,14 @@ void FileManager::addFileWithPath(QString &path)
 			this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
 	fileList.append(obj);
 
-	qDebug("TODO: fileManager file.setShared should be removed eventually");
-	obj.data()->setShared(true);
-	qDebug("fileStarted ...");
 	emit fileStarted(obj.data());
 }
 
 void FileManager::removeFile (QSharedPointer<SyncableFile> file)
 {
+	qDebug("Remove File");
+	qDebug() << file.data()->getFileAlias();
+	qDebug() << fileList.count();
 	for (int i = 0; i < fileList.count(); i++ ) {
 		QSharedPointer<SyncableFile> fileFromList = fileList.at(i);
 		if (fileFromList.data() == file.data()) {
@@ -44,9 +43,10 @@ void FileManager::removeFile (QSharedPointer<SyncableFile> file)
 			disconnect(file.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
 			file.data()->stopSync();
 			fileList.removeAt(i);
-			return;
+			break;
 		}
 	}
+	qDebug() << fileList.count();
 }
 
 void FileManager::fillListWithSharedFiles(QList < QSharedPointer<SyncableFile> > &list)
@@ -69,7 +69,9 @@ void FileManager::syncableFileStartedSharing()
 
 void FileManager::syncableFileStoppedSharing()
 {
-	SyncableFilesPacket packet(this, fileList);
+	QList< QSharedPointer<SyncableFile> > sharedFiles;
+	fillListWithSharedFiles(sharedFiles);
+	SyncableFilesPacket packet(this, sharedFiles);
 	emit updateClientFiles(packet);
 }
 
@@ -103,8 +105,6 @@ QSharedPointer<SyncableFile> FileManager::getSyncableFileWithName(QString &name)
 void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 {
 	QList< QSharedPointer<SyncableFile> > list;
-
-
 	SyncableFilesPacket::fillListWithContentsOfPacket(list, content);
 
 	for (int i = 0; i < list.count(); i ++ ) {
@@ -133,6 +133,7 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 			}
 		}
 		if (found == false) {
+
 			this->removeFile(existingFile);
 		} else {
 			i++;

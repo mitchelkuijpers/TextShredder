@@ -26,10 +26,7 @@ void SyncableFilesPacket::appendFileDataToArray(QByteArray &byteArray, SyncableF
 }
 
 void SyncableFilesPacket::fillListWithContentsOfPacket(QList <QSharedPointer<SyncableFile> > &list, QByteArray &content) {
-	//int count = 0;
 	QByteArray contentCopy(content);
-	//bool startedFileParsing = false;
-
 	QByteArray parsedPiece;
 
 	while (contentCopy.length() > 0) {
