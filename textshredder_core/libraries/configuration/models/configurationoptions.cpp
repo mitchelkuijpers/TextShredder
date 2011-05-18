@@ -10,15 +10,17 @@ ConfigurationOptions::ConfigurationOptions(const ConfigurationOptions &copy):
 		QObject(copy.parent())
 {
 	serverPort = copy.serverPort;
-	ip = copy.ip;
+	lastKnownIpIndex = copy.lastKnownIpIndex;
 	knownHostsList= copy.knownHostsList;
+	lastKnownIp = copy.lastKnownIp;
 }
 
 ConfigurationOptions& ConfigurationOptions::operator =(const ConfigurationOptions& options)
 {
 	serverPort = options.serverPort;
-	ip = options.ip;
-
+	lastKnownIpIndex = options.lastKnownIpIndex;
+	knownHostsList = options.knownHostsList;
+	lastKnownIp = options.lastKnownIp;
 	return *this;
 }
 
@@ -27,47 +29,57 @@ void ConfigurationOptions::setServerPort(quint16 serverPortToSet)
 	serverPort = serverPortToSet;
 }
 
-void ConfigurationOptions::setIp(QString ipToSet)
-{
-	ip = ipToSet;
-}
 
 quint16 ConfigurationOptions::getServerPort()
 {
 	return serverPort;
 }
 
-QString ConfigurationOptions::getIp()
-{
-	return ip;
-}
 
 void ConfigurationOptions::addHostToKnownHostsList(QString hostEntry)
 {
-	knownHostsList.append(hostEntry);
+	if(!knownHostsList.contains(hostEntry)) {
+		knownHostsList.append(hostEntry);
+	}
 }
 
-QList<QString> ConfigurationOptions::getKnownHostsList()
+QStringList ConfigurationOptions::getKnownHostsList()
 {
 	return knownHostsList;
 }
 
+void ConfigurationOptions::setKnownHostsList(QStringList knownHosts)
+{
+	this->knownHostsList = knownHosts;
+}
+
+
+QString ConfigurationOptions::getLastKnownIp()
+{
+	return this->lastKnownIp;
+}
+void ConfigurationOptions::setLastKnownIp(QString lastKnownIpToSet)
+{
+	this->lastKnownIp = lastKnownIpToSet;
+}
 
 QDataStream &operator<<(QDataStream &out, ConfigurationOptions &options)
 {
-	out << options.getIp();
-	out << QString::number(options.getServerPort());
+	out << options.getKnownHostsList() << QString::number(options.getServerPort()) << options.getLastKnownIp();
 	return out;
 }
 
 QDataStream &operator>>(QDataStream &in, ConfigurationOptions &options)
 {
-	QString ip;
+	QString lastKnownIp;
+	QStringList knownHosts;
 	QString portString;
-	in >> ip >> portString;
 
-	options.setIp(ip);
+	in >> knownHosts >> portString >> lastKnownIp;
+
+	options.setKnownHostsList(knownHosts);
 	options.setServerPort(portString.toInt());
+	options.setLastKnownIp(lastKnownIp);
 
 	return in;
 }

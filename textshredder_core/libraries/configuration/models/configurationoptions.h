@@ -14,19 +14,25 @@ public:
 	ConfigurationOptions(QObject *);
 	ConfigurationOptions(const ConfigurationOptions &);
 	QString getIp();
-	QList<QString> getKnownHostsList();
+	QStringList getKnownHostsList();
+	quint16 getLastKnownIpIndex();
+	QString getLastKnownIp();
 
 	quint16 getServerPort();
 	void setIp(QString ipToSet);
 	void setServerPort(quint16 serverPortToSet);
 	void addHostToKnownHostsList(QString hostEntry);
-
+	void setKnownHostsList(QStringList knownHosts);
+	void setLastKnownIpIndex(quint16 lastKnownIpIndexToBeInserted);
+	void setLastKnownIp(QString lastKnownIpToSet);
 	ConfigurationOptions& operator =(const ConfigurationOptions&);
 
 private:
 	quint16 serverPort;
-	QString ip;
-	QList<QString> knownHostsList;
+	QString lastKnownIp;
+	QStringList knownHostsList;
+	quint16 lastKnownIpIndex;
+
 };
 
 QDataStream &operator<<(QDataStream &out, ConfigurationOptions & options);

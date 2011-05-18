@@ -69,8 +69,17 @@
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
         <property name="indentation">
-         <number>20</number>
+         <number>0</number>
         </property>
+        <attribute name="headerCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="headerDefaultSectionSize">
+         <number>100</number>
+        </attribute>
+        <attribute name="headerShowSortIndicator" stdset="0">
+         <bool>false</bool>
+        </attribute>
        </widget>
       </item>
      </layout>
