@@ -42,7 +42,6 @@ void FileManager::removeFile (SyncableFile *file)
 			disconnect(fileFromList, SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
 			fileFromList->stopSync();
 			fileList.removeAt(i);
-
 			fileFromList->deleteLater();
 			return;
 		}
@@ -103,6 +102,9 @@ SyncableFile * FileManager::getSyncableFileWithName(QString &name)
 void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 {
 	QList< QSharedPointer<SyncableFile> > list;
+
+	qDebug("Your father. Trekt zich af op de meisjes wc");
+
 	SyncableFilesPacket::fillListWithContentsOfPacket(list, content);
 
 	for (int i = 0; i < list.count(); i ++ ) {
@@ -132,7 +134,7 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 			}
 		}
 		if (found == false) {
-			fileList.removeAt(i);
+			this->removeFile(existingFile);
 		} else {
 			i++;
 		}
