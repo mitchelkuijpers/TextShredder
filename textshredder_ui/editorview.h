@@ -34,6 +34,7 @@ private:
     Ui::EditorView *ui;
 	QString openedFilePath;
 	QStandardItemModel model;
+	bool isServer;
 
 private slots:
  void on_fileTreeWidget_doubleClicked(QModelIndex index);
