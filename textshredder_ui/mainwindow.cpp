@@ -143,8 +143,11 @@ void MainWindow::saveSettings()
 	ConfigurationManager::Instance()->load();
 	ConfigurationOptions configOptions = ConfigurationManager::Instance()->getConfigurationOptions();
 	configOptions.setServerPort((quint16) ui->serverPortInput->value());
-	configOptions.addHostToKnownHostsList(ui->serverIpInput->currentText());
-	configOptions.setLastKnownIp(ui->serverIpInput->currentText());
+	if(ui->serverIpInput->isEnabled()) {
+		configOptions.addHostToKnownHostsList(ui->serverIpInput->currentText());
+		configOptions.setLastKnownIp(ui->serverIpInput->currentText());
+	}
+
 	ConfigurationManager::Instance()->setConfigurationOptions(configOptions);
 	ConfigurationManager::Instance()->save();
 }
