@@ -1,7 +1,7 @@
 #include "edittests.h"
 
 #include <QtCore>
-#include "../textshredder_diff_match_patch/diff_match_patch.h"
+#include "../textshredder_core/libraries/diff_match_patch/diff_match_patch.h"
 
 
 void EditTests::testCreateEmptyConstructor()

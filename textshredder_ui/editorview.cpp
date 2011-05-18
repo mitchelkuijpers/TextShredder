@@ -10,6 +10,8 @@ EditorView::EditorView(QWidget *parent) :
 	ui->setupUi(this);
 	ui->fileTreeWidget->setFocus();
 	setFileTreeWidgetColumnsInModel();
+
+	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView));
 }
 
 EditorView::~EditorView()
@@ -61,7 +63,8 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 	int i = 0;
 	for(i = 0; i < list.count(); i++ ) {
 		QString fileName = list.at(i);
-		FileManager::Instance()->addFileWithPath(directoryPath + "/" + fileName);
+		QString absolutePath(directoryPath + "/" + fileName);
+		FileManager::Instance()->addFileWithPath(absolutePath);
 	}
 }
 
@@ -69,29 +72,30 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 void EditorView::rebuildSharedFilesListTreeView()
 {
 
-	QDir dir;
-	QStringList filters("*.txt");
-	QStringList list = dir.entryList(filters);
 
-	int rowCount = model.rowCount();
+//	QDir dir;
+//	QStringList filters("*.txt");
+//	QStringList list = dir.entryList(filters);
 
-	int i = 0;
-	for(i = 0; i < list.count(); i++ ) {
-		QString filePath = list.at(i);
-		FileManager::Instance()->addFileWithPath(filePath);
+//	int rowCount = model.rowCount();
 
-		QStandardItem *item = new QStandardItem( filePath );
-		item->setEditable( false );
-		item->setCheckable( true );
-		model.setItem(rowCount, 0, item);
+//	int i = 0;
+//	for(i = 0; i < list.count(); i++ ) {
+//		QString filePath = list.at(i);
+//		FileManager::Instance()->addFileWithPath(filePath);
 
-		QStandardItem *status = new QStandardItem( QString("NS") );
-		model.setItem(rowCount, 1, status);
+//		QStandardItem *item = new QStandardItem( filePath );
+//		item->setEditable( false );
+//		item->setCheckable( true );
+//		model.setItem(rowCount, 0, item);
 
-		rowCount++;
-	}
+//		QStandardItem *status = new QStandardItem( QString("NS") );
+//		model.setItem(rowCount, 1, status);
 
-	ui->fileTreeWidget->setModel(&model);
+//		rowCount++;
+//	}
+
+//	ui->fileTreeWidget->setModel(&model);
 }
 
 

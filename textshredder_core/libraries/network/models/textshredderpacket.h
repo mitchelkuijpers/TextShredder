@@ -72,6 +72,8 @@ public:
 
 	TextShredderPacket & operator=(TextShredderPacket & otherPacket);
 
+	bool operator==(TextShredderPacket & otherPacket);
+
 	//Setters
 	void setContent(QByteArray &bytes);
 

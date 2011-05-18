@@ -73,21 +73,18 @@ void TextShredderConnection::breakDownSignalsForSocket()
 
 void TextShredderConnection::read()
 {
-	qDebug("TextShredderConnection::read()");
 	QTextStream inputStream(&socket);
 	QString buffer;
 
-	qDebug("2");
 	while(!inputStream.atEnd()) {
 		 buffer.append(inputStream.readAll());
 	}
 
-	qDebug("3");
+
 	QByteArray packetData;
 	packetData.append(buffer);
 	parser.handleData(packetData);
 
-	qDebug("4");
 	while(parser.hasMorePackets()) {
 		TextShredderPacket * packet = parser.nextPacket();
 		emitNewIncomingPacket(*packet);
@@ -120,8 +117,8 @@ void TextShredderConnection::handleFileRequestPacket(TextShredderPacket &packet)
 
 	try {
 		QString name("name");
-		SyncableFile *file = FileManager::Instance()->getSyncableFileWithName(requestedFileName);
-		file->createSynchronizationWithPortAndAddress(port, name);
+		QSharedPointer<SyncableFile> file = FileManager::Instance()->getSyncableFileWithName(requestedFileName);
+		file.data()->createSynchronizationWithPortAndAddress(port, name);
 	} catch (QString exception) {
 		//Some error occured. Problably no such file.
 	}
@@ -150,6 +147,7 @@ void TextShredderConnection::socketStateChanged(QAbstractSocket::SocketState sta
 void TextShredderConnection::socketError(QAbstractSocket::SocketError error)
 {
 	// @TODO make good error messages
+	qDebug("We have an error...");
 	qDebug() << error;
 	this->status = Error;
 	emit statusChanged(this->status);

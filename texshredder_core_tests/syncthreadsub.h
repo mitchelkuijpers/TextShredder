@@ -2,17 +2,17 @@
 #define SYNCTHREADSUB_H
 
 #include <QObject>
-#include "../textshredder_synchronization_lib/syncthread.h"
-#include "../textshredder_gui/textshredderlogging.h"
+#include "../textshredder_core/libraries/synchronization/syncthread.h"
+#include "../textshredder_core/libraries/logging/textshredderlogging.h"
 
-#include "../textshredder_synchronization_lib/editlist.h"
+#include "../textshredder_core/libraries/synchronization/models/editlist.h"
 
 class SyncThreadSub : public SyncThread
 {
     Q_OBJECT
 public:
 
-    SyncThreadSub(QObject *parent, TextShredderConnection & newConnection, WorkingCopy & newWorkingCopy);
+	SyncThreadSub(QObject *parent, WorkingCopy & newWorkingCopy);
 
 
     using SyncThread::processChanges;

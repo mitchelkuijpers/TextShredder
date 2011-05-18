@@ -462,7 +462,6 @@ void SyncThreadTests::multipleEditsOnBothSidesTest()
 	(*rightWorkingCopy->getContent ()) = "";
 	rightSync->pushChanges ();
 	EditList rightToLeftFirstEditList(*rightEditList);
-	qDebug() << rightToLeftFirstEditList.getEdits().first().toString();
 	QVERIFY(rightShadowCopy->getLocalVersion() == 1);
 	QVERIFY(rightShadowCopy->getRemoteVersion() == 0);
 	QVERIFY(rightShadowCopy->getBackupCopy()->getLocalVersion() == 0);
@@ -607,9 +606,8 @@ void SyncThreadTests::setupVariables()
 	rightWorkingCopy = new WorkingCopy(this);
 	rightWorkingCopy->getContent()->append (startText);
 
-	TextShredderConnection conn(this, -1);
-	leftSync = new SyncThreadSub(this, conn, *leftWorkingCopy);
-	rightSync = new SyncThreadSub(this, conn, *rightWorkingCopy);
+	leftSync = new SyncThreadSub(this, *leftWorkingCopy);
+	rightSync = new SyncThreadSub(this, *rightWorkingCopy);
 
 	leftShadowCopy = leftSync->getShadowCopy ();
 	rightShadowCopy = rightSync->getShadowCopy ();

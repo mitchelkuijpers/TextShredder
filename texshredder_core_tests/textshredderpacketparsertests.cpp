@@ -1,7 +1,4 @@
 #include "textshredderpacketparsertests.h"
-#include "../textshredder_synchronization_lib/textshredderpacket.h"
-#include <QString>
-#include <QDebug>
 
 void TextShredderPacketParserTests::testWrongPacket()
 {
@@ -31,8 +28,7 @@ void TextShredderPacketParserTests::testPacket()
 	}
 
 	QVERIFY2(parser.hasMorePackets() == true, "The packet has more packets after handling it.");
-
-	QVERIFY2((*parser.nextPacket()) == packet, "The first packet is NOT packet");
+	QVERIFY2( (*parser.nextPacket()) == packet, "The first packet is NOT packet");
 
 	QVERIFY2((*parser.nextPacket()) == packet2, "The next packet to get handled is NOT packet2");
 }

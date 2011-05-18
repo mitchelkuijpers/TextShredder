@@ -101,3 +101,8 @@ unsigned int TextShredderPacket::length()
 {
 	return kHeaderLength + this->content.length();
 }
+
+bool TextShredderPacket::operator ==(TextShredderPacket &otherPacket)
+{
+	return (this->getContent() == otherPacket.getContent() && this->getHeader() == otherPacket.getHeader());
+}
