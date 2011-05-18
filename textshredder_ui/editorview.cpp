@@ -1,6 +1,6 @@
 #include "editorview.h"
 #include "ui_editorview.h"
-#include "textfield.h"
+#include "syncablefiletextfield.h"
 #include "../textshredder_core/libraries/synchronization/filemanager.h"
 
 EditorView::EditorView(QWidget *parent) :
@@ -11,7 +11,7 @@ EditorView::EditorView(QWidget *parent) :
 	ui->fileTreeWidget->setFocus();
 	setFileTreeWidgetColumnsInModel();
 
-	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView));
+	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView()));
 }
 
 EditorView::~EditorView()
@@ -50,7 +50,7 @@ void EditorView::setFileTreeWidgetColumnsInModel()
 void EditorView::addFileToFileTreeWidget( QString filePath )
 {
 	FileManager::Instance()->addFileWithPath(filePath);
-	qDebug() << filePath;
+	rebuildSharedFilesListTreeView();
 }
 
 void EditorView::addFolderToFileTreeWidget( QString directoryPath )
@@ -66,48 +66,42 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 		QString absolutePath(directoryPath + "/" + fileName);
 		FileManager::Instance()->addFileWithPath(absolutePath);
 	}
+
+	rebuildSharedFilesListTreeView();
 }
 
 
 void EditorView::rebuildSharedFilesListTreeView()
 {
+	QList < QSharedPointer<SyncableFile> > sharedFilesList =
+			FileManager::Instance()->getAllFiles();
 
+	int i = 0;
+	for(i = 0; i < sharedFilesList.count(); i++ ) {
+		QString fileName = sharedFilesList.at(i).data()->getFileAlias();
 
-//	QDir dir;
-//	QStringList filters("*.txt");
-//	QStringList list = dir.entryList(filters);
+		QStandardItem *item = new QStandardItem( fileName );
+		if ( isServer ) {
+			item->setCheckable( true );
+		}
+		item->setEditable( false );
+		model.setItem(i, 0, item);
 
-//	int rowCount = model.rowCount();
+		QStandardItem *status = new QStandardItem( QString("Not Syncing") );
+		model.setItem(i, 1, status);
+	}
 
-//	int i = 0;
-//	for(i = 0; i < list.count(); i++ ) {
-//		QString filePath = list.at(i);
-//		FileManager::Instance()->addFileWithPath(filePath);
-
-//		QStandardItem *item = new QStandardItem( filePath );
-//		item->setEditable( false );
-//		item->setCheckable( true );
-//		model.setItem(rowCount, 0, item);
-
-//		QStandardItem *status = new QStandardItem( QString("NS") );
-//		model.setItem(rowCount, 1, status);
-
-//		rowCount++;
-//	}
-
-//	ui->fileTreeWidget->setModel(&model);
+	ui->fileTreeWidget->setModel(&model);
 }
 
 
 void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 {
-	//Check if row is checked. If so, add it to the FileManager
-	//If row is unchecked, remove it from the FileManager
+	//Check if row is checked. Set "isShared" = false
 }
 
 void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
 {
-	//You can't open a file twice! -> Not implemented yet
 	const QAbstractItemModel * mod = index.model();
 	QString fileName = mod->data(mod->index(index.row(), 0), Qt::DisplayRole).toString();
 	openFileInEditor( fileName );
@@ -120,16 +114,20 @@ void EditorView::on_openedFileTabs_tabCloseRequested(int index)
 
 void EditorView::openFileInEditor( QString fileName )
 {
-	TextField *textfield = new TextField(this);
+	SyncableFileTextField *textfield = new SyncableFileTextField(this);
 	ui->openedFileTabs->addTab(textfield, fileName);
 }
 
 void EditorView::setToServerMode()
 {
-	qDebug("TODO: EditorView::setToServerMode");
+	isServer = true;
+	ui->addFileButton->setHidden(false);
+	ui->addFolderButton->setHidden(false);
 }
 
 void EditorView::setToClientMode()
 {
-	qDebug("TODO: EditorView::setToClientMode");
+	isServer = false;
+	ui->addFileButton->setHidden(true);
+	ui->addFolderButton->setHidden(true);
 }

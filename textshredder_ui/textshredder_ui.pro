@@ -42,7 +42,7 @@ SOURCES += main.cpp\
     ../textshredder_core/libraries/network/models/syncablefilespacket.cpp \
 	../textshredder_core/libraries/network/models/filerequestpacket.cpp \
     ../textshredder_core/client/client.cpp \
-    textfield.cpp
+	syncablefiletextfield.cpp
 
 HEADERS  += mainwindow.h \
     editorview.h \
@@ -75,13 +75,13 @@ HEADERS  += mainwindow.h \
     ../textshredder_core/libraries/network/models/syncablefilespacket.h \
 	../textshredder_core/libraries/network/models/filerequestpacket.h \
     ../textshredder_core/client/client.h \
-    textfield.h
+	syncablefiletextfield.h
 
 FORMS    += mainwindow.ui \
     editorview.ui \
     editorribbon.ui \
 	debugview.ui \
-	textfield.ui
+	syncablefiletextfield.ui
 
 RESOURCES += images.qrc \
     fonts.qrc
