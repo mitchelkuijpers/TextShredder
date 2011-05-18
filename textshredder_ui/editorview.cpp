@@ -45,11 +45,14 @@ void EditorView::on_addFolderButton_clicked()
 
 void EditorView::setFileTreeWidgetColumnsInModel()
 {
-	if ( !isServer ) {
-		model.setHorizontalHeaderItem(0, new QStandardItem(""));
-	}
+	model.setHorizontalHeaderItem(0, new QStandardItem(""));
+
+
 	model.setHorizontalHeaderItem(1, new QStandardItem( "Files" ));
+
+
 	model.setHorizontalHeaderItem(2, new QStandardItem( "Status" ));
+
 }
 
 void EditorView::addFileToFileTreeWidget( QString filePath )
@@ -103,8 +106,16 @@ void EditorView::rebuildSharedFilesListTreeView()
 	}
 
 	ui->fileTreeWidget->setModel(&model);
+
+	setColumnWidths();
 }
 
+void EditorView::setColumnWidths()
+{
+	ui->fileTreeWidget->setColumnWidth(0, 30);
+	ui->fileTreeWidget->setColumnWidth(1, 175);
+	ui->fileTreeWidget->setColumnWidth(2, 30);
+}
 
 void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 {

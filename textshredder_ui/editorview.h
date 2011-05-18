@@ -29,6 +29,7 @@ public:
 
 	void setToServerMode();
 	void setToClientMode();
+	void setColumnWidths();
 
 private:
 	Ui::EditorView *ui;
