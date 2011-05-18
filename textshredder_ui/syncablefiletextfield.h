@@ -1,5 +1,5 @@
-#ifndef TEXTFIELD_H
-#define TEXTFIELD_H
+#ifndef SYNCABLEFILETEXTFIELD_H
+#define SYNCABLEFILETEXTFIELD_H
 
 #include <QWidget>
 
