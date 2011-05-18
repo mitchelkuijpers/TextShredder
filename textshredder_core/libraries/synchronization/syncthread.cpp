@@ -170,7 +170,9 @@ qint16 SyncThread::getLocalPort()
 
 void SyncThread::receivedDownloadedContent(QByteArray & content)
 {
+	qDebug("Received download content");
 	QString string(content);
+	qDebug() << string;
 	workingCopy->setContent(string);
 	shadowCopy.setContent(string);
 	shadowCopy.getBackupCopy()->setContent(string);
