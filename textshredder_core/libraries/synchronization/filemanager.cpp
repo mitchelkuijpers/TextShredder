@@ -145,5 +145,11 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 	}
 
 	qDebug("Your momma. Trekt zich af op de meisjes wc");
-	emit availableFilesChanged();
+	qDebug() << fileList.count();
+	//emit availableFilesChanged();
+}
+
+QList<QSharedPointer<SyncableFile> > FileManager::getAllFiles()
+{
+	return fileList;
 }

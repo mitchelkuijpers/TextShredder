@@ -48,6 +48,7 @@ public:
 	  */
 	QSharedPointer<SyncableFile> getSyncableFileWithName(QString &name);
 
+	QList < QSharedPointer<SyncableFile> > getAllFiles();
 
 private:
 
