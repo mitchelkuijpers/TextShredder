@@ -61,10 +61,10 @@ QByteArray SyncableFilesPacket::splitContentTillCharacter(QByteArray &original, 
 	int count = 0;
 	while ( count < original.size()) {
 		if (original.at(count) == c) {
-			if	(count != 0) {
+			//if	(count != 0) {
 				returnValue.append(original.mid(0, count));
 				original.remove(0,count+1);
-			}
+			//}
 			return returnValue;
 		}
 		count++;
