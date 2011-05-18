@@ -1,22 +1,34 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "notificationmanager.h"
-#include <QTcpSocket>
+
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
-#include <QFileDialog>
-#include <QFile>
+
+#include "../textshredder_core/server/server.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+	ui(new Ui::MainWindow), client(NULL)
 {
+	ConfigurationManager::Instance()->load();
+	ConfigurationOptions configOptions = ConfigurationManager::Instance()->getConfigurationOptions();
     ui->setupUi(this);
 	this->setFixedSize(this->width(),this->height());
 	ui->serverIpInput->setFocus();
 
+	ui->serverIpInput->addItem(configOptions.getLastKnownIp());
+	int i;
+	for(i = 0; i < configOptions.getKnownHostsList().count(); i++){
+		if(configOptions.getKnownHostsList().at(i) != configOptions.getLastKnownIp()) {
+			ui->serverIpInput->addItem(configOptions.getKnownHostsList().at(i));
+		}
+	}
 	//setDefaultFont();
-
+	if(configOptions.getServerPort() != 0) {
+		ui->serverPortInput->setValue(configOptions.getServerPort());
+	}
+	ui->connectingLoader->hide();
 	ui->titleLabelServer->hide();
 
 	performTextSlideInAnimation();
@@ -25,12 +37,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::setDefaultFont()
-{
-	QFont defaultFont("Cantarell");
-	this->setFont(defaultFont);
 }
 
 void MainWindow::on_isServerInput_clicked()
@@ -50,8 +56,7 @@ void MainWindow::changeWindowStateToServer()
 	ui->titleLabelServer->show();
 	ui->titleLabelClient->hide();
 	ui->serverIpInput->setEnabled(false);
-	ui->serverIpInput->setText("");
-	ui->serverIpInput->setPlaceholderText("Not needed, you are the server.");
+	ui->serverIpInput->setEditText("Not needed, you are the server.");
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/server.svg"));
 }
 
@@ -61,8 +66,7 @@ void MainWindow::changeWindowStateToClient()
 	ui->titleLabelServer->hide();
 	ui->titleLabelClient->show();
 	ui->serverIpInput->setEnabled(true);
-	ui->serverIpInput->setText("");
-	ui->serverIpInput->setPlaceholderText("Example: 133.214.233.143");
+	ui->serverIpInput->setEditText("127.0.0.1");
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/userfolder.svg"));
 	ui->serverIpInput->setFocus();
 }
@@ -105,9 +109,59 @@ void MainWindow::animationMoveTo(QWidget * target, QRect startRect, QRect endRec
 
 void MainWindow::on_connectButton_clicked()
 {
+	ui->connectButton->setEnabled(false);
+
 	if (ui->isServerInput->isChecked()) {
-		//Mats code
+		Server *serv = Server::Instance();
+		quint16 port = ui->serverPortInput->value();
+		serv->listen(QHostAddress::Any, port);
+		this->hide();
+		editorView.show();
+		editorView.setToServerMode();
 	} else {
-		//Wouter code
+		if (client == NULL) {
+			client = new Client(this);
+			connect(client, SIGNAL(clientConnected()), this, SLOT(clientDidConnect()));
+			connect(client, SIGNAL(clientConnectionError()), this, SLOT(clientHadError()));
+		}
+		QHostAddress address(ui->serverIpInput->currentText());
+
+		quint16 port = ui->serverPortInput->value();
+
+		client->connectToServer(address, port);
+		editorView.setToClientMode();
+
+		ui->connectingLoader->show();
+
 	}
+	if(ui->rememberSettingsInput->isChecked()) {
+		saveSettings();
+	}
+}
+
+void MainWindow::saveSettings()
+{
+	ConfigurationManager::Instance()->load();
+	ConfigurationOptions configOptions = ConfigurationManager::Instance()->getConfigurationOptions();
+	configOptions.setServerPort((quint16) ui->serverPortInput->value());
+	if(ui->serverIpInput->isEnabled()) {
+		configOptions.addHostToKnownHostsList(ui->serverIpInput->currentText());
+		configOptions.setLastKnownIp(ui->serverIpInput->currentText());
+	}
+
+	ConfigurationManager::Instance()->setConfigurationOptions(configOptions);
+	ConfigurationManager::Instance()->save();
+}
+
+void MainWindow::clientDidConnect() {
+	this->hide();
+	editorView.show();
+}
+void MainWindow::clientHadError()
+{
+	QList<NotificationOption> options;
+	NotificationOption firstOption(this, "Some");
+	options.append(firstOption);
+	Notification n(this, "Client could not connect", 0, options, true);
+	NotificationManager::Instance()->createNotificationDialog(n);
 }

@@ -7,7 +7,7 @@ TextShredderPacket::TextShredderPacket( QObject *parent ) :
 
 TextShredderPacket::TextShredderPacket(QObject *parent,
 									   unsigned char packetType) :
-	QObject(parent), header(this, packetType, 0, packetType)
+	QObject(parent), header(this, kProtocolVersion, 0, packetType)
 {
 }
 TextShredderPacket::TextShredderPacket(QObject *parent,
@@ -56,6 +56,11 @@ bool TextShredderPacket::isSetAliasPacket()
 	return (header.getPacketType() == kPacketTypeSetAlias);
 }
 
+bool TextShredderPacket::isSyncableFilesPacket()
+{
+	return (header.getPacketType()) == kPacketTypeAvailableFiles;
+}
+
 void TextShredderPacket::setContent(QByteArray &bytes)
 {
 	content = bytes;
@@ -95,4 +100,9 @@ bool TextShredderPacket::isIncomplete()
 unsigned int TextShredderPacket::length()
 {
 	return kHeaderLength + this->content.length();
+}
+
+bool TextShredderPacket::operator ==(TextShredderPacket &otherPacket)
+{
+	return (this->getContent() == otherPacket.getContent() && this->getHeader() == otherPacket.getHeader());
 }

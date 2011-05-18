@@ -32,6 +32,8 @@ public slots:
 	void applyReceivedEditList(EditList &incomingEditList);
 
 	virtual void startSync();
+	void receivedDownloadedContent(QByteArray & content);
+	void connectionStatusChanged(TextShredderConnectionStatus status);
 
 protected://Must be protected for test purposes
 	/**

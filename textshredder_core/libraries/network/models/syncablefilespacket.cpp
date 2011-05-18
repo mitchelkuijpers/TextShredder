@@ -1,57 +1,71 @@
 #include "syncablefilespacket.h"
 
-SyncableFilesPacket::SyncableFilesPacket(QObject *parent, QList<SyncableFile> &files) :
+SyncableFilesPacket::SyncableFilesPacket(QObject *parent, QList< QSharedPointer<SyncableFile> > &files) :
 	TextShredderPacket(parent, kPacketTypeAvailableFiles)
 {
 	QByteArray newContent = contentForFiles(files);
 	this->setContent(newContent);
 }
 
-QByteArray SyncableFilesPacket::contentForFiles(QList<SyncableFile> &files) {
+QByteArray SyncableFilesPacket::contentForFiles(QList< QSharedPointer<SyncableFile> > &files) {
 	QByteArray array;
 
 	for (int i = 0; i < files.count(); i++) {
-		SyncableFile file = files.at(i);
-		array.append("{");
-		array.append(file.getFileIdentifier());
-		array.append(",");
-		array.append(file.getFileAlias());
-		array.append("}");
+		QSharedPointer<SyncableFile> file  = files.at(i);
+		appendFileDataToArray(array, file.data());
 	}
 	return array;
 }
 
-void SyncableFilesPacket::fillListWithContentsOfPacket(QList <SyncableFile> &list, TextShredderPacket &packet) {
+void SyncableFilesPacket::appendFileDataToArray(QByteArray &byteArray, SyncableFile *file) {
+	byteArray.append("{");
+	byteArray.append(file->getFileIdentifier());
+	byteArray.append(",");
+	byteArray.append(file->getFileAlias());
+	byteArray.append("}");
+}
+
+void SyncableFilesPacket::fillListWithContentsOfPacket(QList <QSharedPointer<SyncableFile> > &list, QByteArray &content) {
+	QByteArray contentCopy(content);
+	QByteArray parsedPiece;
+
+	while (contentCopy.length() > 0) {
+		QString uniqueIdentifier;
+		QString fileAlias;
+		parsedPiece = splitContentTillCharacter(contentCopy, '{');
+		if (parsedPiece.length() > 0 ) {
+			qDebug("SyncableFilesPacket::fillListWithContentsOfPacket Should not happen");
+		}
+		parsedPiece = splitContentTillCharacter(contentCopy, ',');
+		uniqueIdentifier.append(parsedPiece);
+
+		parsedPiece = splitContentTillCharacter(contentCopy, '}');
+		fileAlias.append(parsedPiece);
+
+		qDebug() << fileAlias;
+		qDebug() << uniqueIdentifier;
+
+		QSharedPointer<SyncableFile> obj =
+				QSharedPointer<SyncableFile>(new SyncableFile(NULL, uniqueIdentifier,
+															  fileAlias), SyncableFile::doDeleteLater);
+		list.append(obj);
+		obj.clear();
+	}
+}
+
+QByteArray SyncableFilesPacket::splitContentTillCharacter(QByteArray &original, char c)
+{
+	QByteArray returnValue;
 	int count = 0;
-	bool startedFileParsing = false;
-	QString uniqueIdentifier;
-	QString fileAlias;
-
-	QByteArray con = packet.getContent();
-	while (count < con.length()) {
-		if (!startedFileParsing) {
-			if(con.at(count) != '{') {
-				throw QString("Part should start with acculader");
-			} else {
-				startedFileParsing = true;
-			}
-		} else {
-
-			if (uniqueIdentifier.size() == 0) {
-				while (con.at(count) != ',') {
-					uniqueIdentifier.append(con.at(count));
-					count++;
-				}
-			} else {
-				while (con.at(count) != '}') {
-					uniqueIdentifier.append(con.at(count));
-					count++;
-				}
-				startedFileParsing = false;
-				SyncableFile newSyncFile(NULL, uniqueIdentifier, fileAlias);
-				list.append(newSyncFile);
-			}
+	while ( count < original.size()) {
+		if (original.at(count) == c) {
+			returnValue.append(original.mid(0, count));
+			original.remove(0,count+1);
+			return returnValue;
 		}
 		count++;
 	}
+	returnValue.append(original);
+	original.clear();
+	return returnValue;
 }

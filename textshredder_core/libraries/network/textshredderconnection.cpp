@@ -5,20 +5,49 @@
 TextShredderConnection::TextShredderConnection(QObject *parent) :
 	QObject(parent)
 {
-	socket.open(QIODevice::ReadWrite);
+	setupSignalsForSocket();
+	this->status = Disconnected;
+	connectionListener = QSharedPointer<ConnectionListener> (new ConnectionListener(this));
+	connect(connectionListener.data(), SIGNAL(newConnection(quint16)),
+			this, SLOT(socketDescriptorReady(quint16)));
+	connectionListener.data()->listen();
+	quint16 port = connectionListener.data()->serverPort();
 }
+
+void TextShredderConnection::deleteServer(ConnectionListener *obj)
+{
+	obj->deleteLater();
+}
+void TextShredderConnection::socketDescriptorReady(quint16 socketDescriptor)
+{
+	qDebug() << "Server did connect";
+	socket.setSocketDescriptor(socketDescriptor);
+	disconnect(connectionListener.data(), SIGNAL(newConnection(quint16)),
+			   this, SLOT(socketDescriptorReady(quint16)));
+	//connectionListener.clear();
+	// Solve this somehow but not with clear
+}
+
 TextShredderConnection::TextShredderConnection(QObject *parent,
 											   QString &hostName,
-											   int port) :
+											   int port ,
+											   bool startImmediately) :
 	QObject(parent)
 {
-	socket.connectToHost (hostName, port);
 	setupSignalsForSocket();
+	this->port = port;
+	hostAddressString = hostName;
 
 	this->status = Disconnected;
 
-	connect(FileManager::Instance(), SIGNAL(sendFileRequest(TextShredderPacket&)),
-			this, SLOT(sendPacket(TextShredderPacket &)));
+	if (startImmediately) {
+		socket.connectToHost (hostName, port);
+	}
+}
+
+void TextShredderConnection::startConnection()
+{
+	socket.connectToHost(hostAddressString, port);
 }
 
 TextShredderConnection::TextShredderConnection(QObject *parent, int socketDescriptor) :
@@ -31,6 +60,9 @@ TextShredderConnection::TextShredderConnection(QObject *parent, int socketDescri
 
 void TextShredderConnection::setupSignalsForSocket()
 {
+	connect(FileManager::Instance(), SIGNAL(sendFileRequest(TextShredderPacket&)),
+			this, SLOT(sendPacket(TextShredderPacket &)));
+
 	connect(&socket, SIGNAL(readyRead()), this, SLOT(read()));
 
 	connect(&socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this,
@@ -40,6 +72,23 @@ void TextShredderConnection::setupSignalsForSocket()
 			SLOT(socketError(QAbstractSocket::SocketError)));
 
 	connect(&socket, SIGNAL(disconnected()), this,
+			SLOT(clientHasDisconnected()));
+}
+
+void TextShredderConnection::breakDownSignalsForSocket()
+{
+	disconnect(FileManager::Instance(), SIGNAL(sendFileRequest(TextShredderPacket&)),
+			this, SLOT(sendPacket(TextShredderPacket &)));
+
+	disconnect(&socket, SIGNAL(readyRead()), this, SLOT(read()));
+
+	disconnect(&socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this,
+			SLOT(socketStateChanged(QAbstractSocket::SocketState)));
+
+	disconnect(&socket, SIGNAL(error(QAbstractSocket::SocketError)), this,
+			SLOT(socketError(QAbstractSocket::SocketError)));
+
+	disconnect(&socket, SIGNAL(disconnected()), this,
 			SLOT(clientHasDisconnected()));
 }
 
@@ -60,35 +109,41 @@ void TextShredderConnection::read()
 	while(parser.hasMorePackets()) {
 		TextShredderPacket * packet = parser.nextPacket();
 		emitNewIncomingPacket(*packet);
-		delete packet;
+		packet->deleteLater();
 		inputStream.reset();
 	}
 }
 
 void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 {
+	qDebug("TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)");
 	if (packet.isEditPacket ()) {
+		qDebug("EditPacketContent");
 		emit incomingEditPacketContent(packet.getContent());
 	} else if (packet.isFileDataPacket ()) {
+		qDebug("FileDatapacket");
 		emit incomingFileDataPacketContent(packet.getContent());
 	} else if (packet.isFileRequestPacket()) {
+		qDebug("RequestPacket");
 		handleFileRequestPacket(packet);
 	} else if (packet.isSetAliasPacket()) {
+		qDebug("SetAliasPacket");
 		emit incomingSetAliasPacketContent(packet.getContent());
+	} else if (packet.isSyncableFilesPacket()) {
+		qDebug("SyncableFilesPacket");
+		emit incomingSyncableFilesPacket(packet.getContent());
 	}
 }
 
 void TextShredderConnection::handleFileRequestPacket(TextShredderPacket &packet)
 {
 	quint16 port = FileRequestPacket::getPort(packet);
-	//QString hostName = socket.host
 	QString requestedFileName = FileRequestPacket::getFileAlias(packet);
-	qDebug("Requested file:");
-	qDebug() << requestedFileName;
+
 	try {
-		QString name("name");
-		SyncableFile *file = &FileManager::Instance()->getSyncableFileWithName(requestedFileName);
-		file->createSynchronizationWithPortAndAddress(port, name);
+		QString name(socket.peerAddress().toString());
+		QSharedPointer<SyncableFile> file = FileManager::Instance()->getSyncableFileWithName(requestedFileName);
+		file.data()->createSynchronizationWithPortAndAddress(port, name);
 	} catch (QString exception) {
 		//Some error occured. Problably no such file.
 	}
@@ -96,6 +151,8 @@ void TextShredderConnection::handleFileRequestPacket(TextShredderPacket &packet)
 
 void TextShredderConnection::write(TextShredderPacket &packet)
 {
+	qDebug("Will write");
+	qDebug() << QString::number(packet.getHeader().getPacketType());
 	QTextStream outputStream(&socket);
 	QByteArray raw;
 	packet.getHeader().appendToQByteArray(raw);
@@ -107,7 +164,7 @@ void TextShredderConnection::write(TextShredderPacket &packet)
 void TextShredderConnection::socketStateChanged(QAbstractSocket::SocketState state)
 {
 	if (state == QAbstractSocket::ConnectedState) {
-		this->status = Neutral;
+		this->status = Connected;
 		emit statusChanged(this->status);
 	}
 }
@@ -115,6 +172,7 @@ void TextShredderConnection::socketStateChanged(QAbstractSocket::SocketState sta
 void TextShredderConnection::socketError(QAbstractSocket::SocketError error)
 {
 	// @TODO make good error messages
+	qDebug("We have an error...");
 	qDebug() << error;
 	this->status = Error;
 	emit statusChanged(this->status);
@@ -122,8 +180,8 @@ void TextShredderConnection::socketError(QAbstractSocket::SocketError error)
 
 void TextShredderConnection::clientHasDisconnected()
 {
-	qDebug() << QString("Client disconnected");
 	status = Disconnected;
+	breakDownSignalsForSocket();
 	emit clientDisconnected();
 }
 
@@ -132,12 +190,19 @@ QString TextShredderConnection::getPeerAdress() {
 	return peerAdress.toString();
 }
 
+unsigned int TextShredderConnection::getPort()
+{
+	return port;
+}
+
 quint16 TextShredderConnection::getLocalPort()
 {
-	return socket.localPort();
+
+	return connectionListener.data()->serverPort();
 }
 
 void TextShredderConnection::sendPacket(TextShredderPacket & packet)
 {
 	write(packet);
 }
+

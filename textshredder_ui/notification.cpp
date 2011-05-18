@@ -1,7 +1,7 @@
 #include "notification.h"
 
-Notification::Notification( QObject *parent, QString message, int notificationType, QList<NotificationOption>& options ) :
-		QObject(parent), message(message), notificationType(notificationType), options(options)
+Notification::Notification( QObject *parent, QString message, int notificationType, QList<NotificationOption>& options, bool hasCancelButton ) :
+		QObject(parent), message(message), notificationType(notificationType), options(options), hasCancelButton(hasCancelButton)
 {
 }
 
@@ -18,4 +18,9 @@ int Notification::getNotificationType()
 QList<NotificationOption>& Notification::getNotificationOptions()
 {
 	return options;
+}
+
+bool Notification::getHasCancelButton()
+{
+	return hasCancelButton;
 }

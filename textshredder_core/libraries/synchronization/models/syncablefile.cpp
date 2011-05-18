@@ -1,9 +1,9 @@
-#include "syncablefile.h"
+#include "../textshredder_core/libraries/synchronization/models/syncablefile.h"
 
 #define kDefaultFileAlias QString("untitled.txt")
 
 SyncableFile::SyncableFile(QObject *parent, QString &path) :
-		QObject(parent), fileIdentifier(QUuid::createUuid().toString()), filePath(path)
+		QObject(parent), fileIdentifier(QUuid::createUuid().toString()), filePath(path), shared(false)
 {
 	QFileInfo fileInfo(path);
 	fileAlias = fileInfo.fileName();
@@ -22,13 +22,14 @@ SyncableFile::SyncableFile(QObject *parent, QString &path) :
 }
 
 SyncableFile::SyncableFile(QObject *parent, QString &identifier, QString &alias) :
-	QObject(parent), fileIdentifier(identifier), fileAlias(alias)
+	QObject(parent), fileIdentifier(identifier), fileAlias(alias), workingCopy(NULL)
 {
 	fileType = FileTypeTXT;
+	workingCopy = new WorkingCopy(this);
 }
 
 SyncableFile::SyncableFile(QObject *parent, QString &alias, FileType type) :
-	QObject(parent), fileAlias(alias), fileType(type)
+	QObject(parent), fileAlias(alias), workingCopy(NULL), fileType(type)
 {
 
 }
@@ -99,11 +100,14 @@ bool SyncableFile::isShared()
 
 void SyncableFile::setShared(bool share)
 {
-	shared = share;
-	if (shared) {
-		emit fileStartedSharing();
-	} else {
-		emit fileStoppedSharing();
+	qDebug("Set syncable file shared");
+	if (share != shared) {
+		shared = share;
+		if (shared) {
+			emit fileStartedSharing();
+		} else {
+			emit fileStoppedSharing();
+		}
 	}
 }
 
@@ -114,8 +118,10 @@ void SyncableFile::stopSync()
 
 void SyncableFile::requestSync()
 {
+	qDebug("SyncableFile::requestSync()");
 	SyncThread *newThread = new SyncThread(this, *this->workingCopy);
 	syncThreads.append(newThread);
+	qDebug() << fileAlias << " " << newThread->getLocalPort();
 	FileRequestPacket packet(this, newThread->getLocalPort(), fileAlias);
 	emit fileRequestsForSync(packet);
 	qDebug("Create socket SyncableFile::requestSync");
@@ -126,4 +132,24 @@ void SyncableFile::createSynchronizationWithPortAndAddress(quint16 port, QString
 	qDebug("Should do some sync creation");
 	SyncThread *newThread = new SyncThread(this, port, hostName, *workingCopy);
 	syncThreads.append(newThread);
+}
+
+
+void SyncableFile::doDeleteLater(SyncableFile *obj)
+{
+	obj->deleteLater();
+}
+
+void SyncableFile::setFileAlias(QString & newFileAlias)
+{
+	this->fileAlias = newFileAlias;
+}
+
+WorkingCopy * SyncableFile::openWorkingCopyForGUI()
+{
+	return workingCopy;
+}
+
+void SyncableFile::closeWorkingCopyFromGUI()
+{
 }

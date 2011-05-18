@@ -38,3 +38,6 @@ Thumbs.db
 *.pro.user
 *-build-desktop
 *.DS_Store
+
+# The main config file #
+default_config.txt

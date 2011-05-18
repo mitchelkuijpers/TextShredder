@@ -36,7 +36,6 @@ void ClientEditingWindow::textChanged(int position, int charsRemoved, int charsA
 
 	workingCopyContent->replace(position, charsRemoved, insertString);
 	syncFile->getWorkingCopy()->unlock();
-
 }
 
 

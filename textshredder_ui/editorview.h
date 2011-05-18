@@ -8,6 +8,7 @@
 #include <QStandardItemModel>
 #include <QtCore/QDebug>
 #include <QTreeWidgetItem>
+#include <QResource>
 
 namespace Ui {
     class EditorView;
@@ -24,12 +25,16 @@ public:
 	void setFileTreeWidgetColumnsInModel();
 	void addFileToFileTreeWidget( QString fileName );
 	void addFolderToFileTreeWidget( QString folderName );
-	void openFileInEditor( QString fileName );
+	void openFileInEditor( QModelIndex index );
+
+	void setToServerMode();
+	void setToClientMode();
+	void setColumnWidths();
 
 private:
-    Ui::EditorView *ui;
-	QString openedFilePath;
+	Ui::EditorView *ui;
 	QStandardItemModel model;
+	bool isServer;
 
 private slots:
  void on_fileTreeWidget_doubleClicked(QModelIndex index);
@@ -37,6 +42,7 @@ private slots:
  void on_fileTreeWidget_clicked(QModelIndex index);
  void on_addFolderButton_clicked();
  void on_addFileButton_clicked();
+ void rebuildSharedFilesListTreeView();
 
 };
 

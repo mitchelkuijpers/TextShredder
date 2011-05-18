@@ -2,7 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "editorview.h"
+#include "../textshredder_core/client/client.h"
+#include "../textshredder_core/libraries/configuration/configurationmanager.h"
+#include <qfile.h>
+#include <qtextstream.h>
 namespace Ui {
     class MainWindow;
 }
@@ -18,7 +22,7 @@ public:
 	void changeWindowStateToClient();
 	void animationMoveTo(QWidget * target, QRect startRect, QRect endRect, int animationLength );
 	void performTextSlideInAnimation();
-
+	void saveSettings();
 	/**
 	  * The function builds up a QStringList and fills it with some fonts.
 	  * A for loop looks in the :ui/core/fonts folder
@@ -27,13 +31,17 @@ public:
 	void setDefaultFont();
 	void functionToExecute();
 
+
 private:
     Ui::MainWindow *ui;
-
+	EditorView editorView;
+	Client *client;
 private slots:
- void on_connectButton_clicked();
- void on_cancelButton_clicked();
- void on_isServerInput_clicked();
+	void on_connectButton_clicked();
+	void on_cancelButton_clicked();
+	void on_isServerInput_clicked();
+	void clientDidConnect();
+	void clientHadError();
 };
 
 #endif // MAINWINDOW_H

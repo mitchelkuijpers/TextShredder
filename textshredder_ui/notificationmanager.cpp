@@ -18,24 +18,23 @@ NotificationManager * NotificationManager::Instance( )
 
 void NotificationManager::createNotificationDialog( Notification & notification )
 {
-	QDialog notificationDialog(NULL);
-	notificationDialog.setFixedSize(400, 100);
-	setWindowTitleBasedOnNotificationType( &notificationDialog, notification );
+	notificationDialog = new QDialog(NULL);
+	notificationDialog->setFixedSize(400, 100);
+	setWindowTitleBasedOnNotificationType( notification );
 
 	gridLayout = new QGridLayout();
-	notificationDialog.setLayout(gridLayout);
+	notificationDialog->setLayout(gridLayout);
 
-	totalAmountOfButtons = notification.getNotificationOptions().length();
+	addButtonsToNotificationDialog( notification );
+
 	messageLabel = new QLabel(notification.getMessage());
 	gridLayout->addWidget(messageLabel, 0, 0, 2, totalAmountOfButtons);
 
-	addButtonsToNotificationDialog( &notificationDialog, notification.getNotificationOptions());
-
-	notificationDialog.exec();
-	notificationDialog.show();
+	notificationDialog->exec();
+	notificationDialog->deleteLater();
 }
 
-void NotificationManager::setWindowTitleBasedOnNotificationType( QDialog * notificationDialog, Notification & notification )
+void NotificationManager::setWindowTitleBasedOnNotificationType( Notification & notification )
 {
 	QString windowTitle;
 
@@ -68,18 +67,21 @@ void NotificationManager::setWindowTitleBasedOnNotificationType( QDialog * notif
 	notificationDialog->setWindowTitle(windowTitle);
 }
 
-void NotificationManager::addButtonsToNotificationDialog( QDialog * notificationDialog, QList<NotificationOption>& notificationOptions )
+void NotificationManager::addButtonsToNotificationDialog( Notification & notification  )
 {
 	int i;
-	for(i = 0; i < notificationOptions.length(); i++ ) {
-		NotificationOption option = notificationOptions.at(i);
+	for(i = 0; i < notification.getNotificationOptions().length(); i++ ) {
+		NotificationOption option = notification.getNotificationOptions().at(i);
 		QPushButton * button = new QPushButton(option.getLabel());
 		gridLayout->addWidget(button, 3, i);
-		connect(button, SIGNAL(clicked()), this, SLOT(closeDialog()));
 	}
-}
 
-void NotificationManager::closeDialog()
-{
-	qDebug("Close Dialog");
+	if ( notification.getHasCancelButton() ) {
+		i++;
+		QPushButton * button = new QPushButton("Cancel");
+		gridLayout->addWidget(button, 3, i);
+		connect(button, SIGNAL(clicked()), notificationDialog, SLOT(close()));
+	}
+
+	totalAmountOfButtons = i+1;
 }

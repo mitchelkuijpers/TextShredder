@@ -62,7 +62,7 @@ public:
 	  */
 	bool isSetAliasPacket();
 
-
+	bool isSyncableFilesPacket();
 	bool isIncomplete();
 
 	void appendContentData(QByteArray & data);
@@ -71,6 +71,8 @@ public:
 	unsigned int numberOfBytesNeeded();
 
 	TextShredderPacket & operator=(TextShredderPacket & otherPacket);
+
+	bool operator==(TextShredderPacket & otherPacket);
 
 	//Setters
 	void setContent(QByteArray &bytes);

@@ -5,29 +5,24 @@ int SyncThread::sharedIndex = 1;
 
 SyncThread::SyncThread(QObject * parent, int port, QString &address,
 					   WorkingCopy & newWorkingCopy) :
-	QObject(parent), connection(this, address, port), workingCopy(&newWorkingCopy),
+	QObject(parent), connection(this, address, port, false), workingCopy(&newWorkingCopy),
 	shadowCopy(this, *newWorkingCopy.getContent()), editList(NULL), timer(this),
         logging(this, QString("SyncThread ").append (QString::number (sharedIndex)))
 {
 	*(shadowCopy.getContent ()) = *workingCopy->getContent(); // set shadow copy
 	shadowCopy.setLogging(&logging);
-	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
 
-	qDebug("TODO >> Link connects from socket");
+	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
 
 	connect(&connection, SIGNAL(incomingEditPacketContent(QByteArray&)),
 			this, SLOT(processChanges(QByteArray&)));
 	connect(&connection, SIGNAL(clientDisconnected()),
 			this, SLOT(stop()));
-
-	QByteArray packetContent;
-	packetContent.append(*newWorkingCopy.getContent());
-	TextShredderPacket packet(this, kPacketTypeFileData, packetContent);
-	connection.write(packet);
-
+	connect(&connection, SIGNAL(statusChanged(TextShredderConnectionStatus)),
+			this, SLOT(connectionStatusChanged(TextShredderConnectionStatus)));
+	qDebug() << address << " " << port;
+	connection.startConnection();
 	syncThreadNumber = sharedIndex++;
-
-	startSync();
 }
 
 SyncThread::SyncThread(QObject *parent, WorkingCopy &newWorkingCopy) :
@@ -35,7 +30,30 @@ SyncThread::SyncThread(QObject *parent, WorkingCopy &newWorkingCopy) :
 		shadowCopy(this, *newWorkingCopy.getContent()), editList(NULL), timer(this),
 		logging(this, QString("SyncThread ").append(QString::number(sharedIndex)))
 {
+	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
+	connect(&connection, SIGNAL(incomingEditPacketContent(QByteArray&)),
+			this, SLOT(processChanges(QByteArray&)));
+	connect(&connection, SIGNAL(clientDisconnected()),
+			this, SLOT(stop()));
+	connect(&connection, SIGNAL(incomingFileDataPacketContent(QByteArray&)),
+			this, SLOT(receivedDownloadedContent(QByteArray&)));
+
 	syncThreadNumber = sharedIndex++;
+}
+
+void SyncThread::connectionStatusChanged(TextShredderConnectionStatus status) {
+	qDebug("SyncThread::connectionStatusChanged");
+	qDebug() << status;
+	if (status == Connected) {
+		connect(&connection, SIGNAL(statusChanged(TextShredderConnectionStatus)),
+				this, SLOT(connectionStatusChanged(TextShredderConnectionStatus)));
+		QByteArray packetContent;
+		packetContent.append(*(workingCopy->getContent()));
+		TextShredderPacket packet(this, kPacketTypeFileData, packetContent);
+		connection.write(packet);
+
+		startSync();
+	}
 }
 
 void SyncThread::startSync()
@@ -148,4 +166,15 @@ void SyncThread::stop()
 qint16 SyncThread::getLocalPort()
 {
 	return connection.getLocalPort();
+}
+
+void SyncThread::receivedDownloadedContent(QByteArray & content)
+{
+	qDebug("Received download content");
+	QString string(content);
+	qDebug() << string;
+	workingCopy->setContent(string);
+	shadowCopy.setContent(string);
+	shadowCopy.getBackupCopy()->setContent(string);
+	startSync();
 }

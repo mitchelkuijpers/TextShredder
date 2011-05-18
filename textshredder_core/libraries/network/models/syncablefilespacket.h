@@ -4,16 +4,20 @@
 #include "textshredderpacket.h"
 #include "../../synchronization/models/syncablefile.h"
 
+#include <QSharedPointer>
+
 class SyncableFilesPacket : public TextShredderPacket
 {
 	Q_OBJECT
 
 public:
-	static void fillListWithContentsOfPacket(QList <SyncableFile> &list, TextShredderPacket &packet);
-	SyncableFilesPacket(QObject *parent, QList<SyncableFile> &files);
+	static void fillListWithContentsOfPacket(QList <QSharedPointer<SyncableFile> > &list, QByteArray &content);
+	SyncableFilesPacket(QObject *parent, QList< QSharedPointer<SyncableFile> > &files);
 
+	void appendFileDataToArray(QByteArray &byteArray, SyncableFile *file);
+	static QByteArray splitContentTillCharacter(QByteArray &original, char c);
 private:
-	QByteArray contentForFiles(QList<SyncableFile> &files);
+	QByteArray contentForFiles(QList< QSharedPointer<SyncableFile> > &files);
 };
 
 #endif // SYNCABLEFILESPACKET_H

@@ -3,6 +3,7 @@
         <file>images/server.svg</file>
         <file>images/user.svg</file>
         <file>images/userfolder.svg</file>
+        <file>images/process-working.png</file>
     </qresource>
     <qresource prefix="/ui/ribbon">
         <file>images/ribbon/format-justify-center.png</file>
@@ -17,5 +18,10 @@
         <file>images/ribbon/format-text-underline.png</file>
         <file>images/ribbon/format-text-subscript.png</file>
         <file>images/ribbon/format-text-superscript.png</file>
+    </qresource>
+    <qresource prefix="/ui/status">
+        <file>images/status/user-typing.svg</file>
+        <file>images/status/user-offline.svg</file>
+        <file>images/status/user-available.svg</file>
     </qresource>
 </RCC>

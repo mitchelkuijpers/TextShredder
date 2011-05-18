@@ -16,7 +16,7 @@ TEMPLATE	= app
 
 
 SOURCES		+= \
-	libraries/synchronization/models/edit.cpp \
+		libraries/synchronization/models/edit.cpp \
     libraries/synchronization/syncthread.cpp \
     libraries/synchronization/models/backupcopy.cpp \
     libraries/synchronization/models/patchable.cpp \
@@ -34,11 +34,13 @@ SOURCES		+= \
     libraries/synchronization/clientrepresentation.cpp \
     libraries/synchronization/models/editlist.cpp \
     libraries/logging/textshredderlogdir.cpp \
-    libraries/logging/textshredderlogging.cpp
+		libraries/logging/textshredderlogging.cpp \
+		libraries/configuration/configurationmanager.cpp \
+    libraries/configuration/models/configurationoptions.cpp
 
 
 HEADERS		+= \
-	libraries/synchronization/models/edit.h \
+		libraries/synchronization/models/edit.h \
     libraries/synchronization/syncthread.h \
     libraries/synchronization/models/backupcopy.h \
     libraries/synchronization/models/patchable.h \
@@ -56,4 +58,6 @@ HEADERS		+= \
     libraries/synchronization/clientrepresentation.h \
     libraries/synchronization/models/editlist.h \
     libraries/logging/textshredderlogdir.h \
-    libraries/logging/textshredderlogging.h
+		libraries/logging/textshredderlogging.h \
+		libraries/configuration/configurationmanager.h \
+    libraries/configuration/models/configurationoptions.h

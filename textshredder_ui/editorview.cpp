@@ -1,15 +1,18 @@
 #include "editorview.h"
 #include "ui_editorview.h"
-#include "textfield.h"
+#include "syncablefiletextfield.h"
+#include "../textshredder_core/libraries/synchronization/filemanager.h"
 
 EditorView::EditorView(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::EditorView)
 {
-    ui->setupUi(this);
-
+	ui->setupUi(this);
 	ui->fileTreeWidget->setFocus();
+
 	setFileTreeWidgetColumnsInModel();
+
+	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView()));
 }
 
 EditorView::~EditorView()
@@ -19,13 +22,11 @@ EditorView::~EditorView()
 
 void EditorView::on_addFileButton_clicked()
 {
-	QFileDialog Qfd;
-	openedFilePath = Qfd.getOpenFileName(this, tr("TextShredder File Selector"), QDir::currentPath(), QString("*.txt"));
-
-	QString fileName = openedFilePath.mid(openedFilePath.lastIndexOf("/")+1, openedFilePath.length());
+	QString openedFilePath = QFileDialog::getOpenFileName(this, tr("TextShredder File Selector"),
+												 QDir::currentPath(), QString("*.txt"));
 
 	if ( !openedFilePath.isEmpty() ) {
-		addFileToFileTreeWidget( fileName );
+		addFileToFileTreeWidget( openedFilePath );
 	}
 }
 
@@ -43,65 +44,106 @@ void EditorView::on_addFolderButton_clicked()
 
 void EditorView::setFileTreeWidgetColumnsInModel()
 {
-	model.setHorizontalHeaderItem(0, new QStandardItem( "Files" ));
-	model.setHorizontalHeaderItem(1, new QStandardItem( "Status" ));
+	model.setHorizontalHeaderItem(0, new QStandardItem(""));
+	model.setHorizontalHeaderItem(1, new QStandardItem( "Files" ));
+	model.setHorizontalHeaderItem(2, new QStandardItem( "Status" ));
+
 }
 
-void EditorView::addFileToFileTreeWidget( QString fileName )
+void EditorView::addFileToFileTreeWidget( QString filePath )
 {
-	int rowCount = model.rowCount();
-
-	QStandardItem *item = new QStandardItem( QString(fileName) );
-	model.setItem(rowCount, 0, item);
-
-	item->setCheckable( true );
-	QStandardItem *status = new QStandardItem( QString("Not Syncing") );
-	model.setItem(rowCount, 1, status);
-
-	ui->fileTreeWidget->setModel(&model);
+	FileManager::Instance()->addFileWithPath(filePath);
+	rebuildSharedFilesListTreeView();
 }
 
 void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 {
-	QString directoryName = directoryPath.mid(directoryPath.lastIndexOf("/")+1, directoryPath.length());
-
 	QDir dir;
 	dir.setPath(directoryPath);
 	QStringList filters("*.txt");
 	QStringList list = dir.entryList(filters);
 
-	int rowCount = model.rowCount();
-
-	QStandardItem *item = new QStandardItem( QString(directoryName) );
-	model.setItem(rowCount, 0, item);
-	item->setCheckable( false );
-
 	int i = 0;
 	for(i = 0; i < list.count(); i++ ) {
-		QStandardItem *child = new QStandardItem( QString( list.at(i) ) );
-		child->setEditable( false );
-		child->setCheckable( true );
-		item->appendRow( child );
+		QString fileName = list.at(i);
+		QString absolutePath(directoryPath + "/" + fileName);
+		FileManager::Instance()->addFileWithPath(absolutePath);
 	}
 
-	QStandardItem *status = new QStandardItem( QString("Not Syncing") );
-	model.setItem(rowCount, 1, status);
+	rebuildSharedFilesListTreeView();
+}
+
+
+void EditorView::rebuildSharedFilesListTreeView()
+{
+	qDebug("rebuildSharedFilesListTreeView");
+	QList < QSharedPointer<SyncableFile> > sharedFilesList =
+			FileManager::Instance()->getAllFiles();
+
+
+	model.removeRows(0, model.rowCount());
+	int i = 0;
+	for(i = 0; i < sharedFilesList.count(); i++ ) {
+		QString fileName = sharedFilesList.at(i).data()->getFileAlias();
+
+		QStandardItem *checkBox = new QStandardItem();
+		if ( isServer ) {
+			checkBox->setCheckable( true );
+		}
+		model.setItem(i, 0, checkBox);
+
+		QStandardItem *item = new QStandardItem( fileName );
+		item->setEditable( false );
+		model.setItem(i, 1, item);
+
+		QStandardItem *status = new QStandardItem( QString("Not Syncing") );
+		model.setItem(i, 2, status);
+	}
 
 	ui->fileTreeWidget->setModel(&model);
+
+	setColumnWidths();
+}
+
+void EditorView::setColumnWidths()
+{
+	ui->fileTreeWidget->setColumnWidth(0, 30);
+	ui->fileTreeWidget->setColumnWidth(1, 175);
+	ui->fileTreeWidget->setColumnWidth(2, 30);
 }
 
 void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 {
-	//Check if row is checked. If so, add it to the FileManager
-	//If row is unchecked, remove it from the FileManager
+	qDebug("A");
+	if (index.column() == 0) {
+		qDebug("B");
+		QStandardItem *item = model.itemFromIndex(index);
+		bool sharedState = (item->checkState() == Qt::Checked);
+		QSharedPointer<SyncableFile>file =  FileManager::Instance()->getAllFiles().at(index.column());
+		file.data()->setShared(sharedState);
+	}
+	//Check if row is checked. Set "isShared" = false
 }
 
 void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
 {
-	//You can't open a file twice! -> Not implemented yet
-	const QAbstractItemModel * mod = index.model();
-	QString fileName = mod->data(mod->index(index.row(), 0), Qt::DisplayRole).toString();
-	openFileInEditor( fileName );
+	if (index.column() > 0) { //Should not be the checkBox column
+		//You can't open a file twice! -> Not implemented yet
+		const QAbstractItemModel * mod = index.model();
+		openFileInEditor( index );
+	}
+}
+
+void EditorView::openFileInEditor( QModelIndex index )
+{
+	QSharedPointer<SyncableFile> file =  FileManager::Instance()->getAllFiles().at(index.row());
+
+	SyncableFileTextField *textfield = new SyncableFileTextField(this, file);
+	ui->openedFileTabs->addTab(textfield, file.data()->getFileAlias());
+
+	if( !isServer ) {
+		file.data()->requestSync();
+	}
 }
 
 void EditorView::on_openedFileTabs_tabCloseRequested(int index)
@@ -109,8 +151,20 @@ void EditorView::on_openedFileTabs_tabCloseRequested(int index)
 	ui->openedFileTabs->removeTab(index);
 }
 
-void EditorView::openFileInEditor( QString fileName )
+void EditorView::setToServerMode()
 {
-	TextField *textfield = new TextField(this);
-	ui->openedFileTabs->addTab(textfield, fileName);
+	isServer = true;
+	ui->addFileButton->setHidden(false);
+	ui->addFolderButton->setHidden(false);
+
+	setWindowTitle("TextShredder Editor [SERVER]");
+}
+
+void EditorView::setToClientMode()
+{
+	isServer = false;
+	ui->addFileButton->setHidden(true);
+	ui->addFolderButton->setHidden(true);
+
+	setWindowTitle("TextShredder Editor [CLIENT]");
 }

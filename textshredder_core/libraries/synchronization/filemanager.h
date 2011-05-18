@@ -29,29 +29,14 @@ public:
 	  *
 	  * @param the file to be removed.
 	  */
-	void removeFile(SyncableFile &file);
-
-//	/**
-//	  * Returns the first Syncable File from the SyncableFile list.
-//	  *
-//	  * @return the syncable file.
-//	  */
-//	SyncableFile & getFirstSyncableFileFromFileList();
+	void removeFile(QSharedPointer<SyncableFile> file);
 
 	/**
 	  * Adds a SyncableFile to the SyncableFile list.
 	  *
 	  * @return the syncable file.
 	  */
-	void addSyncFile(SyncableFile &file);
-
-//	/**
-//	  * Fills a List object with all alias names of the
-//	  * SyncableFiles contained in the SyncableFile list.
-//	  *
-//	  * @param the list that should be filled.
-//	  */
-//	void fillListWithAllFileNames(QList<QString> &fileNames);
+	void addSyncFile( QSharedPointer<SyncableFile> );
 
 	/**
 	  * Returns a SyncableFile with a given name from the SyncableFile
@@ -61,14 +46,21 @@ public:
 	  *
 	  * @return the syncable file.
 	  */
-	SyncableFile & getSyncableFileWithName(QString &name);
+	QSharedPointer<SyncableFile> getSyncableFileWithName(QString &name);
 
+	QList < QSharedPointer<SyncableFile> > getAllFiles();
+
+signals:
+	void fileStarted(SyncableFile *);
+	void updateClientFiles(TextShredderPacket &);
+	void sendFileRequest(TextShredderPacket &);
+	void availableFilesChanged();
 
 private:
 
-	void fillListWithSharedFiles(QList <SyncableFile> &list);
+	void fillListWithSharedFiles(QList < QSharedPointer<SyncableFile> > &list);
 	FileManager(QObject *parent = 0);
-	QList<SyncableFile> fileList;
+	QList< QSharedPointer<SyncableFile> > fileList;
 	static FileManager* sharedInstance;
 
 
@@ -76,11 +68,8 @@ private slots:
 	void syncableFileStartedSharing();
 	void syncableFileStoppedSharing();
 	void shouldMakeRequestForSync(TextShredderPacket &packet);
-
-signals:
-	void fileStarted(SyncableFile &);
-	void updateClientFiles(TextShredderPacket &);
-	void sendFileRequest(TextShredderPacket &);
+public slots:
+	void handleReceivedSyncableFiles(QByteArray &content);
 };
 
 #endif // FILEMANAGER_H
