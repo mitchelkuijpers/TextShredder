@@ -118,7 +118,7 @@ void MainWindow::on_connectButton_clicked()
 			client = new Client(this);
 			connect(client, SIGNAL(clientConnected()), this, SLOT(clientDidConnect()));
 		}
-		QHostAddress address(ui->serverIpInput->itemText(1));
+		QHostAddress address(ui->serverIpInput->currentText());
 
 		quint16 port = ui->serverPortInput->value();
 
