@@ -24,6 +24,7 @@ private:
 	static ConfigurationManager* sharedInstance;
 	QString fileName;
 	ConfigurationOptions options;
+
 signals:
 
 public slots:

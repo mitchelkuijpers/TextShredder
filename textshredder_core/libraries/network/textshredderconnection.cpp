@@ -5,10 +5,11 @@
 TextShredderConnection::TextShredderConnection(QObject *parent) :
 	QObject(parent)
 {
+	setupSignalsForSocket();
+	this->status = Disconnected;
 	connectionListener = QSharedPointer<ConnectionListener> (new ConnectionListener(this));
 	connectionListener.data()->listen();
 	quint16 port = connectionListener.data()->serverPort();
-	qDebug() << "port " << port;
 }
 
 void TextShredderConnection::deleteServer(ConnectionListener *obj)

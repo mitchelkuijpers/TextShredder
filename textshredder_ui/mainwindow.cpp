@@ -25,7 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
 		}
 	}
 	//setDefaultFont();
-	ui->serverPortInput->setValue(configOptions.getServerPort());
+	if(configOptions.getServerPort() != 0) {
+		ui->serverPortInput->setValue(configOptions.getServerPort());
+	}
 	ui->connectingLoader->hide();
 	ui->titleLabelServer->hide();
 
