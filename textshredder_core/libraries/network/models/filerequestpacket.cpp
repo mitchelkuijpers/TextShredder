@@ -16,7 +16,7 @@ quint16 FileRequestPacket::getPort(TextShredderPacket & packet)
 {
 	QByteArray bytes = packet.getContent();
 	if	(bytes.at(0) != '{') {
-		throw QString("FileRequestpacket::getPacket()");
+		return 0;
 	}
 
 	char *pointerToBegin = &(bytes.data()[1]);
