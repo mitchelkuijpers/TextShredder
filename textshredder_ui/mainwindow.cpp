@@ -15,8 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	this->setFixedSize(this->width(),this->height());
 	ui->serverIpInput->setFocus();
 
-	//setDefaultFont();
-
+	ui->connectingLoader->hide();
 	ui->titleLabelServer->hide();
 
 	performTextSlideInAnimation();
@@ -25,12 +24,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::setDefaultFont()
-{
-	QFont defaultFont("Cantarell");
-	this->setFont(defaultFont);
 }
 
 void MainWindow::on_isServerInput_clicked()
@@ -124,7 +117,10 @@ void MainWindow::on_connectButton_clicked()
 
 		client->connectToServer(address, port);
 		editorView.setToClientMode();
-		qDebug("TODO: start cool-animation, en aftrekken op de meisjes wc wouter");
+
+		ui->connectingLoader->show();
+		ui->connectButton->setEnabled(false);
+
 	}
 	if(ui->rememberSettingsInput->isChecked()) {
 		saveSettings();
@@ -149,7 +145,6 @@ void MainWindow::saveSettings()
 }
 
 void MainWindow::clientDidConnect() {
-	qDebug("TODO: end started-cool-animation, en aftrekken op de meisjes wc wouter");
 	this->hide();
 	editorView.show();
 }
