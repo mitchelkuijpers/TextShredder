@@ -15,6 +15,9 @@ void ConfigurationManager::load()
 		QDataStream in(&file);
 		in >> options;
 	}
+	else {
+		qDebug("Couldn't load from file");
+	}
 }
 
 
@@ -27,7 +30,7 @@ void ConfigurationManager::save()
 		out << options;
 	}
 	else {
-		qDebug("Couldn't open file");
+		qDebug("Couldn't save to file");
 	}
 }
 
