@@ -81,8 +81,10 @@ void EditorView::rebuildSharedFilesListTreeView()
 		QString fileName = sharedFilesList.at(i).data()->getFileAlias();
 
 		QStandardItem *item = new QStandardItem( fileName );
+		if ( isServer ) {
+			item->setCheckable( true );
+		}
 		item->setEditable( false );
-		item->setCheckable( true );
 		model.setItem(i, 0, item);
 
 		QStandardItem *status = new QStandardItem( QString("Not Syncing") );
@@ -95,8 +97,7 @@ void EditorView::rebuildSharedFilesListTreeView()
 
 void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 {
-	//Check if row is checked. If so, add it to the FileManager
-	//If row is unchecked, remove it from the FileManager
+	//Check if row is checked. Set "isShared" = false
 }
 
 void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
@@ -120,10 +121,14 @@ void EditorView::openFileInEditor( QString fileName )
 
 void EditorView::setToServerMode()
 {
-	qDebug("TODO: EditorView::setToServerMode");
+	isServer = true;
+	ui->addFileButton->setHidden(false);
+	ui->addFolderButton->setHidden(false);
 }
 
 void EditorView::setToClientMode()
 {
-	qDebug("TODO: EditorView::setToClientMode");
+	isServer = false;
+	ui->addFileButton->setHidden(true);
+	ui->addFolderButton->setHidden(true);
 }
