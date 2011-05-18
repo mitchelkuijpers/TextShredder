@@ -9,6 +9,7 @@ EditorView::EditorView(QWidget *parent) :
 {
 	ui->setupUi(this);
 	ui->fileTreeWidget->setFocus();
+
 	setFileTreeWidgetColumnsInModel();
 
 	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView()));
@@ -147,6 +148,8 @@ void EditorView::setToServerMode()
 	isServer = true;
 	ui->addFileButton->setHidden(false);
 	ui->addFolderButton->setHidden(false);
+
+	setWindowTitle("TextShredder Editor [SERVER]");
 }
 
 void EditorView::setToClientMode()
@@ -154,4 +157,6 @@ void EditorView::setToClientMode()
 	isServer = false;
 	ui->addFileButton->setHidden(true);
 	ui->addFolderButton->setHidden(true);
+
+	setWindowTitle("TextShredder Editor [CLIENT]");
 }
