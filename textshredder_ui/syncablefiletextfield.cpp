@@ -10,6 +10,9 @@ SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<Syn
 	WorkingCopy * fileContents = file.data()->getWorkingCopy();
 	connect(file->getWorkingCopy (), SIGNAL(workingCopyChanged()), this, SLOT(workingCopyChanged()));
 	ui->textEditorField->setText(QString(*fileContents->getContent()));
+	timer = new QTimer(this);
+	deleteTimer = new QTimer(this);
+	highlighter = new EditorHighLighting(ui->textEditorField->document());
 
 	syncFile = file.data();
 
@@ -41,7 +44,27 @@ void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 
 	disconnect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
-	ui->textEditorField->setPlainText(*(syncFile->getWorkingCopy()->getContent()));
+
+
+	//still needs some clean up
+	if(*syncFile->getWorkingCopy()->getContent() != ""){
+		QString temp = ui->textEditorField->toPlainText();
+		if(*syncFile->getWorkingCopy()->getContent() != temp){
+			Patches = syncFile->getWorkingCopy()->getPatchesToConvertString(temp);
+			qDebug() << "Patches: " << Patches.first().toString();
+			ui->textEditorField->setPlainText(*(syncFile->getWorkingCopy()->getContent()));
+
+			EditDeleteColor();
+			highlighter->setPatches(Patches);
+			highlighter->rehighlight();
+			highlighter->clearPatches();
+
+			connect(timer, SIGNAL(timeout()), this, SLOT(clearHighlights()));
+			timer->start(2000);
+		}
+	}
+
+
 	connect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
 
@@ -50,6 +73,59 @@ void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 	ui->textEditorField->setTextCursor(cursor);
 	qDebug() << "cursor pos after update: " << cursor.position();
 }
+
+void SyncableFileTextField::EditDeleteColor()
+{
+	//also needs some clean up
+	QString deletedEditSecond;
+	if(Patches.first().diffs.count() >= 2){
+		if(Patches.first().diffs.at(0).operation == 1){
+			deletedEditFirst = Patches.first().diffs.first().text;
+			deletedEditFirst.append(ui->textEditorField->toPlainText());
+
+			startDeleteColorTimer();
+		}else if(Patches.first().diffs.at(1).operation == 1){
+			deletedEditFirst = ui->textEditorField->toPlainText().mid(0,Patches.first().start1 + Patches.first().diffs.first().text.size());
+			deletedEditSecond = ui->textEditorField->toPlainText().mid(Patches.first().start1+ Patches.first().diffs.first().text.size(),
+																ui->textEditorField->toPlainText().size());
+			deletedEditFirst.append(Patches.first().diffs.at(1).text);
+			deletedEditFirst.append(deletedEditSecond);
+
+			startDeleteColorTimer();
+
+		}
+
+	}
+}
+
+void SyncableFileTextField::startDeleteColorTimer()
+{
+	ui->textEditorField->setPlainText(deletedEditFirst);
+	connect(deleteTimer, SIGNAL(timeout()), this, SLOT(deleteEdits()));
+	deleteTimer->start(1000);
+	deleteTimer->blockSignals(false);
+}
+
+void SyncableFileTextField::clearHighlights()
+{
+	highlighter->rehighlight();
+
+}
+
+void SyncableFileTextField::deleteEdits()
+{
+	disconnect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
+			this, SLOT(textChanged(int, int, int)));
+	qDebug() << "Workingcopy before delete:" << *(syncFile->getWorkingCopy()->getContent());
+
+	if(!(syncFile->getWorkingCopy()->getContent())->isEmpty()){
+		ui->textEditorField->setPlainText(*(syncFile->getWorkingCopy()->getContent()));
+	}
+	deleteTimer->blockSignals(true);
+	connect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
+			this, SLOT(textChanged(int, int, int)));
+}
+
 
 void SyncableFileTextField::updateTextCursor()
 {
@@ -84,7 +160,6 @@ void SyncableFileTextField::updateCursorPosition()
 	oldEditWindowSize = ui->textEditorField->toPlainText().size();
 
 	cursorPosition = cursor.position();
-	qDebug() << "cursor pos before update: " << cursorPosition;
 
 	beforeCursorText = ui->textEditorField->toPlainText().mid(cursorPosition -CURSORUPDATESIZE, CURSORUPDATESIZE);
 	afterCursorText = ui->textEditorField->toPlainText().mid(cursorPosition, CURSORUPDATESIZE);

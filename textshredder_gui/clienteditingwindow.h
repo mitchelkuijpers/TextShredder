@@ -67,6 +67,10 @@ private:
 	QString beforeCursorText;
 	QString afterCursorText;
 
+	QString deletedEditFirst;
+	QList<Patch> Patches;
+	void EditDeleteColor();
+	void startDeleteColorTimer();
 	ClientHighlighting * highlighter;
 };
 

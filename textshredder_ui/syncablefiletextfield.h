@@ -5,7 +5,10 @@
 
 #include <QWidget>
 #include <QTextCursor>
+#include <QTimer>
 #include "../textshredder_core/libraries/synchronization/models/syncablefile.h"
+#include "../textshredder_core/libraries/diff_match_patch/diff_match_patch.h"
+#include "editorhighlighting.h"
 
 namespace Ui {
 	class SyncableFileTextField;
@@ -35,9 +38,20 @@ private:
 	QString beforeCursorText;
 	QString afterCursorText;
 
+	QTimer * timer;
+	QTimer * deleteTimer;
+	QString deletedEditFirst;
+	QList<Patch> Patches;
+	void EditDeleteColor();
+	void startDeleteColorTimer();
+	EditorHighLighting * highlighter;
+
 private slots:
 	void textChanged(int position, int charsRemoved, int charsAdded );
 	void workingCopyChanged();
+
+	void clearHighlights();
+	void deleteEdits();
 };
 
 #endif // TEXTFIELD_H

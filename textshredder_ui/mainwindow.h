@@ -7,6 +7,7 @@
 #include "../textshredder_core/libraries/configuration/configurationmanager.h"
 #include <qfile.h>
 #include <qtextstream.h>
+
 namespace Ui {
     class MainWindow;
 }

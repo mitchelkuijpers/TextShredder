@@ -75,51 +75,20 @@ void ClientEditingWindow::updateTextFieldToWorkingCopyContent()
 			this, SLOT(textChanged(int, int, int)));
 
 
-	QList<Patch> testPatches;
+
 	qDebug() << "doc:" << ui->textEdit->document()->toPlainText();
 	if(!syncFile->getWorkingCopy()->getContent()->isNull()){
 		QString temp = ui->textEdit->document()->toPlainText();
 
 		if(syncFile->getWorkingCopy()->getContent() != temp){
-			testPatches = syncFile->getWorkingCopy()->getPatchesToConvertString(temp);
+			Patches = syncFile->getWorkingCopy()->getPatchesToConvertString(temp);
 
 			ui->textEdit->setPlainText(*(syncFile->getWorkingCopy()->getContent()));
 
 
-			QString deletedEditFirst;
-			QString deletedEditSecond;
-			if(testPatches.first().diffs.count() >= 2){
-				if(testPatches.first().diffs.at(0).operation == 1){
-					deletedEditFirst = testPatches.first().diffs.first().text;
-					deletedEditFirst.append(ui->textEdit->toPlainText());
+			EditDeleteColor();
 
-					ui->textEdit->setPlainText(deletedEditFirst);
-					connect(deleteTimer, SIGNAL(timeout()), this, SLOT(deleteEdits()));
-					deleteTimer->start(1000);
-					deleteTimer->blockSignals(false);
-					qDebug() << "appended: " << testPatches.first().diffs.at(1).text;
-					qDebug() << "delete? " << deletedEditFirst;
-
-				}else if(testPatches.first().diffs.at(1).operation == 1){
-					qDebug() << "operation: " << testPatches.first().diffs.at(1).operation;
-					deletedEditFirst = ui->textEdit->toPlainText().mid(0,testPatches.first().start1 + testPatches.first().diffs.first().text.size());
-					deletedEditSecond = ui->textEdit->toPlainText().mid(testPatches.first().start1+ testPatches.first().diffs.first().text.size(),
-																		ui->textEdit->toPlainText().size());
-					deletedEditFirst.append(testPatches.first().diffs.at(1).text);
-					deletedEditFirst.append(deletedEditSecond);
-
-					ui->textEdit->setPlainText(deletedEditFirst);
-					connect(deleteTimer, SIGNAL(timeout()), this, SLOT(deleteEdits()));
-					deleteTimer->start(1000);
-					deleteTimer->blockSignals(false);
-					qDebug() << "appended: " << testPatches.first().diffs.at(1).text;
-					qDebug() << "delete? " << deletedEditFirst;
-
-				}
-
-			}
-
-			highlighter->setPatches(testPatches);
+			highlighter->setPatches(Patches);
 			highlighter->rehighlight();
 			highlighter->clearPatches();
 			connect(timer, SIGNAL(timeout()), this, SLOT(clearHighlights()));
@@ -135,6 +104,39 @@ void ClientEditingWindow::updateTextFieldToWorkingCopyContent()
 
 	updateTextCursor();
 	ui->textEdit->setTextCursor(cursor);
+}
+
+
+void ClientEditingWindow::EditDeleteColor()
+{
+	QString deletedEditSecond;
+	if(Patches.first().diffs.count() >= 2){
+		if(Patches.first().diffs.at(0).operation == 1){
+			deletedEditFirst = Patches.first().diffs.first().text;
+			deletedEditFirst.append(ui->textEdit->toPlainText());
+
+			startDeleteColorTimer();
+
+		}else if(Patches.first().diffs.at(1).operation == 1){
+			deletedEditFirst = ui->textEdit->toPlainText().mid(0,Patches.first().start1 + Patches.first().diffs.first().text.size());
+			deletedEditSecond = ui->textEdit->toPlainText().mid(Patches.first().start1+ Patches.first().diffs.first().text.size(),
+																ui->textEdit->toPlainText().size());
+			deletedEditFirst.append(Patches.first().diffs.at(1).text);
+			deletedEditFirst.append(deletedEditSecond);
+
+			startDeleteColorTimer();
+
+		}
+
+	}
+}
+
+void ClientEditingWindow::startDeleteColorTimer()
+{
+	ui->textEdit->setPlainText(deletedEditFirst);
+	connect(deleteTimer, SIGNAL(timeout()), this, SLOT(deleteEdits()));
+	deleteTimer->start(1000);
+	deleteTimer->blockSignals(false);
 }
 
 void ClientEditingWindow::clearHighlights()
