@@ -22,7 +22,7 @@ EditorView::~EditorView()
 
 void EditorView::on_addFileButton_clicked()
 {
-	QFileDialog Qfd;
+	QFileDialog Qfd(this);
 	QString openedFilePath = Qfd.getOpenFileName(this, tr("TextShredder File Selector"),
 												 QDir::currentPath(), QString("*.txt"));
 
