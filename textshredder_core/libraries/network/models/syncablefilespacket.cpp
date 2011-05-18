@@ -1,22 +1,23 @@
 #include "syncablefilespacket.h"
 
-SyncableFilesPacket::SyncableFilesPacket(QObject *parent, QList<SyncableFile *> &files) :
+SyncableFilesPacket::SyncableFilesPacket(QObject *parent, QList< QSharedPointer<SyncableFile> > &files) :
 	TextShredderPacket(parent, kPacketTypeAvailableFiles)
 {
 	QByteArray newContent = contentForFiles(files);
 	this->setContent(newContent);
 }
 
-QByteArray SyncableFilesPacket::contentForFiles(QList<SyncableFile *> &files) {
+QByteArray SyncableFilesPacket::contentForFiles(QList< QSharedPointer<SyncableFile> > &files) {
 	QByteArray array;
 
 	for (int i = 0; i < files.count(); i++) {
-		SyncableFile *file = files.at(i);
+		QSharedPointer<SyncableFile> file  = files.at(i);
+		//SyncableFile *file = files.at(i);
 		array.append("{");
-		qDebug() << file->getFileIdentifier();
-		array.append(file->getFileIdentifier());
+		qDebug() << file.data()->getFileIdentifier();
+		array.append(file.data()->getFileIdentifier());
 		array.append(",");
-		array.append(file->getFileAlias());
+		array.append(file.data()->getFileAlias());
 		array.append("}");
 	}
 	return array;
@@ -48,26 +49,19 @@ void SyncableFilesPacket::fillListWithContentsOfPacket(QList <QSharedPointer<Syn
 				}
 			} else {
 				while (content.at(count) != '}') {
-					qDebug() << count;
-					uniqueIdentifier.append(content.at(count));
+					fileAlias.append(content.at(count));
 					count++;
 				}
 				startedFileParsing = false;
 
 				QSharedPointer<SyncableFile> obj =
 						QSharedPointer<SyncableFile>(new SyncableFile(NULL, uniqueIdentifier, fileAlias),
-												 doDeleteLater);
-
-				//SyncableFile *newSyncFile = new SyncableFile(NULL, uniqueIdentifier, fileAlias);
+													 SyncableFile::doDeleteLater);
 				list.append(obj);
 				obj.clear();
+				count++;
 			}
 		}
 		count++;
 	}
-}
-
-void SyncableFilesPacket::doDeleteLater(SyncableFile *obj)
-{
-	obj->deleteLater();
 }
