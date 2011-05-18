@@ -162,5 +162,7 @@ void SyncThread::receivedDownloadedContent(QByteArray & content)
 {
 	QString string(content);
 	workingCopy->setContent(string);
+	shadowCopy.setContent(string);
+	shadowCopy.getBackupCopy()->setContent(string);
 	startSync();
 }
