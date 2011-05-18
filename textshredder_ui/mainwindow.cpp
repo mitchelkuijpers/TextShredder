@@ -138,7 +138,7 @@ void MainWindow::saveSettings()
 	ConfigurationManager * config = ConfigurationManager::Instance();
 	ConfigurationOptions configOptions(this);
 	TextShredderConnection connectionInfo(this);
-	configOptions.setIp(ui->serverIpInput->itemText(0));
+	configOptions.setIp(ui->serverIpInput->currentText());
 
 	if(ui->isServerInput->isChecked()) {
 		configOptions.setIp(connectionInfo.getPeerAdress());
@@ -147,7 +147,7 @@ void MainWindow::saveSettings()
 
 	config->setConfigurationOptions(configOptions);
 
-	configOptions.addHostToKnownHostsList(ui->serverIpInput->itemText(1));
+	configOptions.addHostToKnownHostsList(ui->serverIpInput->currentText());
 
 	config->save();
 
