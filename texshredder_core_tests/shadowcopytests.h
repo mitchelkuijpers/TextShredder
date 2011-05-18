@@ -2,7 +2,7 @@
 #define SHADOWCOPYTESTS_H
 
 #include <QtCore/QString>
-#include "../textshredder_synchronization_lib/shadowcopy.h"
+#include "../textshredder_core/libraries/synchronization/models/shadowcopy.h"
 #include "autotest.h"
 
 

@@ -2,7 +2,7 @@
 #define PATCHABLETESTS_H
 
 #include <QtCore/QString>
-#include "../textshredder_synchronization_lib/patchable.h"
+#include "../textshredder_core/libraries/synchronization/models/patchable.h"
 #include "autotest.h"
 
 

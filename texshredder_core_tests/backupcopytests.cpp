@@ -1,5 +1,5 @@
 #include "backupcopytests.h"
-#include "../textshredder_synchronization_lib/backupcopy.h"
+#include "../textshredder_core/libraries/synchronization/models/backupcopy.h"
 
 void BackupCopyTests::createBackupCopyWithDefaultLocalVersionNumber()
 {

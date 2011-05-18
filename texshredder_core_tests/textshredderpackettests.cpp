@@ -1,5 +1,5 @@
 #include "textshredderpackettests.h"
-#include "../textshredder_synchronization_lib/textshredderpacket.h"
+#include "../textshredder_core/libraries/network/models/textshredderpacket.h"
 
 void TextShredderPacketTests::testCreatingBlankPacket()
 {
