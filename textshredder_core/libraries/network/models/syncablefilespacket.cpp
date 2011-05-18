@@ -37,7 +37,7 @@ void SyncableFilesPacket::fillListWithContentsOfPacket(QList <QSharedPointer<Syn
 		QString fileAlias;
 		parsedPiece = splitContentTillCharacter(contentCopy, '{');
 		if (parsedPiece.length() > 0 ) {
-			qDebug("Should not happen");
+			qDebug("SyncableFilesPacket::fillListWithContentsOfPacket Should not happen");
 		}
 		parsedPiece = splitContentTillCharacter(contentCopy, ',');
 		uniqueIdentifier.append(parsedPiece);
@@ -45,8 +45,6 @@ void SyncableFilesPacket::fillListWithContentsOfPacket(QList <QSharedPointer<Syn
 		parsedPiece = splitContentTillCharacter(contentCopy, '}');
 		fileAlias.append(parsedPiece);
 
-		qDebug() << uniqueIdentifier;
-		qDebug() << fileAlias;
 		QSharedPointer<SyncableFile> obj =
 				QSharedPointer<SyncableFile>(new SyncableFile(NULL, uniqueIdentifier,
 															  fileAlias), SyncableFile::doDeleteLater);
@@ -61,10 +59,8 @@ QByteArray SyncableFilesPacket::splitContentTillCharacter(QByteArray &original, 
 	int count = 0;
 	while ( count < original.size()) {
 		if (original.at(count) == c) {
-			//if	(count != 0) {
-				returnValue.append(original.mid(0, count));
-				original.remove(0,count+1);
-			//}
+			returnValue.append(original.mid(0, count));
+			original.remove(0,count+1);
 			return returnValue;
 		}
 		count++;
