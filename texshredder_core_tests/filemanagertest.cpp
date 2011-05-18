@@ -48,5 +48,25 @@ void FileManagerTest::testHandleReceivedSyncableFiles() {
 }
 
 void FileManagerTest::testHandleReceivedSyncableFilesWithChangedAlias() {
-	// todo
+	FileManager *manager = FileManager::Instance();
+	QList<QSharedPointer<SyncableFile> > list;
+
+	QString file1Alias("file1.txt");
+	QString file1UUID(QUuid::createUuid().toString());
+	QSharedPointer<SyncableFile> file1 = QSharedPointer<SyncableFile>(
+				new SyncableFile(NULL, file1UUID, file1Alias ));
+	list.append(file1);
+	SyncableFilesPacket packet(this, list);
+
+	manager->handleReceivedSyncableFiles(packet.getContent());
+
+	QVERIFY2(manager->getAllFiles().at(0).data()->getFileAlias() == QString("file1.txt"),
+			 "first name is already wrong?");
+	QString newFileAlias("changedTheName.txt");
+	list.at(0).data()->setFileAlias(newFileAlias);
+
+	manager->handleReceivedSyncableFiles(packet.getContent());
+
+	QVERIFY2(manager->getAllFiles().at(0).data()->getFileAlias() == QString("changedTheName.txt"),
+			 "Name change does not get synced");
 }
