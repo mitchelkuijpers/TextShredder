@@ -11,10 +11,16 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
 	ui(new Ui::MainWindow), client(NULL)
 {
+	ConfigurationManager * config = ConfigurationManager::Instance();
+	ConfigurationOptions configOptions(this);
+
+	config->load();
+
     ui->setupUi(this);
 	this->setFixedSize(this->width(),this->height());
 	ui->serverIpInput->setFocus();
 
+	ui->serverIpInput->setText();
 	//setDefaultFont();
 
 	ui->titleLabelServer->hide();
@@ -133,19 +139,19 @@ void MainWindow::on_connectButton_clicked()
 
 void MainWindow::saveSettings()
 {
-		ConfigurationManager * config = ConfigurationManager::Instance();
-		ConfigurationOptions configOptions(this);
-		TextShredderConnection connectionInfo(this);
-		//configOptions.setIp(ui->serverIpInput->text());
+	ConfigurationManager * config = ConfigurationManager::Instance();
+	ConfigurationOptions configOptions(this);
+	TextShredderConnection connectionInfo(this);
+	configOptions.setIp(ui->serverIpInput->text());
 
-		if(ui->isServerInput->isChecked()) {
-			configOptions.setIp(connectionInfo.getPeerAdress());
-		}
-		//configOptions.setServerPort((quint16) ui->serverPortInput->value());
+	if(ui->isServerInput->isChecked()) {
+		configOptions.setIp(connectionInfo.getPeerAdress());
+	}
+	configOptions.setServerPort((quint16) ui->serverPortInput->value());
 
-		//config->setConfigurationOptions(configOptions);
+	config->setConfigurationOptions(configOptions);
 
-		config->load();
+	config->save();
 }
 
 void MainWindow::clientDidConnect() {

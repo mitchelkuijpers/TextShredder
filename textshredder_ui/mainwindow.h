@@ -31,6 +31,7 @@ public:
 	void setDefaultFont();
 	void functionToExecute();
 
+
 private:
     Ui::MainWindow *ui;
 	EditorView editorView;
