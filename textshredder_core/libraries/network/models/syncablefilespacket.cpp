@@ -28,32 +28,22 @@ void SyncableFilesPacket::fillListWithContentsOfPacket(QList <SyncableFile *> &l
 	QString uniqueIdentifier;
 	QString fileAlias;
 
-	qDebug(content);
-	qDebug("A");
 	while (count < content.length()) {
-		qDebug("B");
 		if (!startedFileParsing) {
-			qDebug("C");
 			if(content.at(count) != '{') {
 				qDebug("Port should start with acculader");
 				//throw QString("Part should start with acculader");
 			} else {
-				qDebug("D");
 				startedFileParsing = true;
 			}
 		} else {
-			qDebug("F");
-			qDebug() << count;
 			if (uniqueIdentifier.size() == 0) {
 				while (content.at(count) != ',') {
 					uniqueIdentifier.append(content.at(count));
 					count++;
 				}
 			} else {
-				qDebug("E");
 				while (content.at(count) != '}') {
-					qDebug("G");
-					qDebug() << count;
 					uniqueIdentifier.append(content.at(count));
 					count++;
 				}

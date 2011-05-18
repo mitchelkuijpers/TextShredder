@@ -91,7 +91,7 @@ void TextShredderConnection::read()
 	while(parser.hasMorePackets()) {
 		TextShredderPacket * packet = parser.nextPacket();
 		emitNewIncomingPacket(*packet);
-		delete packet;
+		packet->deleteLater();
 		inputStream.reset();
 	}
 }
