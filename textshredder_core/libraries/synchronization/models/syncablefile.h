@@ -32,11 +32,6 @@ public:
 	  */
 	void changeFileType(FileType type);
 
-	bool hasClientWithName(QString &name);
-	bool addClientWithName(QString &name);
-	bool removeClientWithName(QString &name);
-	bool changeClientName(QString &name, QString &toName);
-
 	void stopSync();
 	WorkingCopy * getWorkingCopy();
 	QString & getFileAlias();
@@ -49,6 +44,10 @@ public:
 	void createSynchronizationWithPortAndAddress(quint16 port, QString &hostName);
 
 	static void doDeleteLater(SyncableFile *obj);
+
+	WorkingCopy * openWorkingCopyForGUI();
+	void closeWorkingCopyFromGUI();
+
 private:
 	QString fileIdentifier;
 	FileType typeForSuffix(QString &suffix);
