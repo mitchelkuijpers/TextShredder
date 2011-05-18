@@ -3,6 +3,7 @@
         <file>images/server.svg</file>
         <file>images/user.svg</file>
         <file>images/userfolder.svg</file>
+        <file>images/process-working.png</file>
     </qresource>
     <qresource prefix="/ui/ribbon">
         <file>images/ribbon/format-justify-center.png</file>

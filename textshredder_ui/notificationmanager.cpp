@@ -25,11 +25,10 @@ void NotificationManager::createNotificationDialog( Notification & notification 
 	gridLayout = new QGridLayout();
 	notificationDialog->setLayout(gridLayout);
 
-	totalAmountOfButtons = notification.getNotificationOptions().length();
+	addButtonsToNotificationDialog( notification );
+
 	messageLabel = new QLabel(notification.getMessage());
 	gridLayout->addWidget(messageLabel, 0, 0, 2, totalAmountOfButtons);
-
-	addButtonsToNotificationDialog( notification );
 
 	notificationDialog->exec();
 	notificationDialog->deleteLater();
@@ -83,4 +82,6 @@ void NotificationManager::addButtonsToNotificationDialog( Notification & notific
 		gridLayout->addWidget(button, 3, i);
 		connect(button, SIGNAL(clicked()), notificationDialog, SLOT(close()));
 	}
+
+	totalAmountOfButtons = i+1;
 }
