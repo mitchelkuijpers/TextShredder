@@ -45,11 +45,7 @@ void EditorView::on_addFolderButton_clicked()
 void EditorView::setFileTreeWidgetColumnsInModel()
 {
 	model.setHorizontalHeaderItem(0, new QStandardItem(""));
-
-
 	model.setHorizontalHeaderItem(1, new QStandardItem( "Files" ));
-
-
 	model.setHorizontalHeaderItem(2, new QStandardItem( "Status" ));
 
 }
