@@ -12,15 +12,17 @@ QByteArray SyncableFilesPacket::contentForFiles(QList< QSharedPointer<SyncableFi
 
 	for (int i = 0; i < files.count(); i++) {
 		QSharedPointer<SyncableFile> file  = files.at(i);
-		//SyncableFile *file = files.at(i);
-		array.append("{");
-		qDebug() << file.data()->getFileIdentifier();
-		array.append(file.data()->getFileIdentifier());
-		array.append(",");
-		array.append(file.data()->getFileAlias());
-		array.append("}");
+		appendFileDataToArray(array, file.data());
 	}
 	return array;
+}
+
+void SyncableFilesPacket::appendFileDataToArray(QByteArray &byteArray, SyncableFile *file) {
+	byteArray.append("{");
+	byteArray.append(file->getFileIdentifier());
+	byteArray.append(",");
+	byteArray.append(file->getFileAlias());
+	byteArray.append("}");
 }
 
 void SyncableFilesPacket::fillListWithContentsOfPacket(QList <QSharedPointer<SyncableFile> > &list, QByteArray &content) {
@@ -28,10 +30,6 @@ void SyncableFilesPacket::fillListWithContentsOfPacket(QList <QSharedPointer<Syn
 	bool startedFileParsing = false;
 	QString uniqueIdentifier;
 	QString fileAlias;
-
-	qDebug() << content.length();
-	qDebug(content);
-	qDebug("A");
 
 	while (count < content.length()) {
 		if (!startedFileParsing) {

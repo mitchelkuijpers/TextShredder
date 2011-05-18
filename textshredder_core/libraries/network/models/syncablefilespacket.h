@@ -14,6 +14,7 @@ public:
 	static void fillListWithContentsOfPacket(QList <QSharedPointer<SyncableFile> > &list, QByteArray &content);
 	SyncableFilesPacket(QObject *parent, QList< QSharedPointer<SyncableFile> > &files);
 
+	void appendFileDataToArray(QByteArray &byteArray, SyncableFile *file);
 private:
 	QByteArray contentForFiles(QList< QSharedPointer<SyncableFile> > &files);
 };

@@ -21,7 +21,7 @@ void FileManager::addFileWithPath(QString &path)
 	qDebug("FileManager::addFileWithPath() - We are now sharing a file");
 	QSharedPointer<SyncableFile> obj =
 			QSharedPointer<SyncableFile>(new SyncableFile(this, path), SyncableFile::doDeleteLater);
-	//SyncableFile *newFile = new SyncableFile(this, path);
+
 	connect(obj.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
 	connect(obj.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
 	connect(obj.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)),
