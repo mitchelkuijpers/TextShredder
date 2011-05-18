@@ -41,6 +41,7 @@ private slots:
 	void on_cancelButton_clicked();
 	void on_isServerInput_clicked();
 	void clientDidConnect();
+	void clientHadError();
 };
 
 #endif // MAINWINDOW_H

@@ -23,9 +23,10 @@ bool Client::connectToServer(QHostAddress &addr, quint16 port)
 
 void Client::connectionStatusChanged(TextShredderConnectionStatus status)
 {
-	qDebug() << QString::number(status);
 	if (status == Connected) {
 		emit clientConnected();
+	} else if (status == Error) {
+		emit clientConnectionError();
 	}
 }
 

@@ -122,6 +122,7 @@ void MainWindow::on_connectButton_clicked()
 		if (client == NULL) {
 			client = new Client(this);
 			connect(client, SIGNAL(clientConnected()), this, SLOT(clientDidConnect()));
+			connect(client, SIGNAL(clientConnectionError()), this, SLOT(clientHadError()));
 		}
 		QHostAddress address(ui->serverIpInput->currentText());
 
@@ -155,4 +156,12 @@ void MainWindow::saveSettings()
 void MainWindow::clientDidConnect() {
 	this->hide();
 	editorView.show();
+}
+void MainWindow::clientHadError()
+{
+	QList<NotificationOption> options;
+	NotificationOption firstOption(this, "Some");
+	options.append(firstOption);
+	Notification n(this, "Client could not connect", 0, options, true);
+	NotificationManager::Instance()->createNotificationDialog(n);
 }

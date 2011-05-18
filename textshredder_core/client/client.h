@@ -17,6 +17,8 @@ private:
 
 signals:
 	void clientConnected();
+	void clientConnectionError();
+
 private slots:
 	void connectionDidEncounterEnd();
 	void connectionStatusChanged(TextShredderConnectionStatus status);
