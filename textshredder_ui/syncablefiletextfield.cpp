@@ -5,10 +5,10 @@ SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<Syn
     QWidget(parent),
 	ui(new Ui::SyncableFileTextField)
 {
-	//WorkingCopy * fileContents = file.data()->getWorkingCopy();
-
-	//ui->textEditorField->setText(*fileContents->getContent());
     ui->setupUi(this);
+
+	WorkingCopy * fileContents = file.data()->getWorkingCopy();
+	ui->textEditorField->setText(QString(*fileContents->getContent()));
 }
 
 SyncableFileTextField::~SyncableFileTextField()

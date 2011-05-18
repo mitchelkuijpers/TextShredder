@@ -130,11 +130,11 @@ void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
 void EditorView::openFileInEditor( QModelIndex index )
 {
 	QSharedPointer<SyncableFile> file =  FileManager::Instance()->getAllFiles().at(index.row());
-
-	//SyncableFileTextField *textfield = new SyncableFileTextField(this, file);
-	//ui->openedFileTabs->addTab(textfield, file.data()->getFileAlias());
-
-	file.data()->requestSync();
+	if( isServer ) {
+		file.data()->requestSync();
+	}
+	SyncableFileTextField *textfield = new SyncableFileTextField(this, file);
+	ui->openedFileTabs->addTab(textfield, file.data()->getFileAlias());
 }
 
 void EditorView::on_openedFileTabs_tabCloseRequested(int index)
