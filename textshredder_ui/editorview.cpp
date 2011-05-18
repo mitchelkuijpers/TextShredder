@@ -11,6 +11,8 @@ EditorView::EditorView(QWidget *parent) :
 
 	ui->fileTreeWidget->setFocus();
 	setFileTreeWidgetColumnsInModel();
+
+	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView));
 }
 
 EditorView::~EditorView()
@@ -51,7 +53,6 @@ void EditorView::setFileTreeWidgetColumnsInModel()
 void EditorView::addFileToFileTreeWidget( QString fileName )
 {
 	int rowCount = model.rowCount();
-
 	FileManager::Instance()->addFileWithPath(fileName);
 	QStandardItem *item = new QStandardItem( QString(fileName) );
 	model.setItem(rowCount, 0, item);

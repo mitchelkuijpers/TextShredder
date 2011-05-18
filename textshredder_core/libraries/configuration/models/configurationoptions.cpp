@@ -11,6 +11,7 @@ ConfigurationOptions::ConfigurationOptions(const ConfigurationOptions &copy):
 {
 	serverPort = copy.serverPort;
 	ip = copy.ip;
+	knownHostsList= copy.knownHostsList;
 }
 
 ConfigurationOptions& ConfigurationOptions::operator =(const ConfigurationOptions& options)
@@ -41,11 +42,21 @@ QString ConfigurationOptions::getIp()
 	return ip;
 }
 
+void ConfigurationOptions::addHostToKnownHostsList(QString hostEntry)
+{
+	knownHostsList.append(hostEntry);
+}
+
+QList<QString> ConfigurationOptions::getKnownHostsList()
+{
+	return knownHostsList;
+}
+
 
 QDataStream &operator<<(QDataStream &out, ConfigurationOptions &options)
 {
-	out << QString::number(options.getServerPort());
 	out << options.getIp();
+	out << QString::number(options.getServerPort());
 	return out;
 }
 
@@ -53,10 +64,10 @@ QDataStream &operator>>(QDataStream &in, ConfigurationOptions &options)
 {
 	QString ip;
 	QString portString;
-	in >> portString >> ip;
+	in >> ip >> portString;
 
-	options.setServerPort(portString.toInt());
 	options.setIp(ip);
+	options.setServerPort(portString.toInt());
 
 	return in;
 }

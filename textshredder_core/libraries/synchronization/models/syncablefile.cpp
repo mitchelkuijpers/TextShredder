@@ -130,3 +130,9 @@ void SyncableFile::createSynchronizationWithPortAndAddress(quint16 port, QString
 	SyncThread *newThread = new SyncThread(this, port, hostName, *workingCopy);
 	syncThreads.append(newThread);
 }
+
+
+void SyncableFile::doDeleteLater(SyncableFile *obj)
+{
+	obj->deleteLater();
+}

@@ -65,22 +65,6 @@ p, li { white-space: pre-wrap; }
      <number>9999</number>
     </property>
    </widget>
-   <widget class="QLineEdit" name="serverIpInput">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>190</y>
-      <width>221</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string>Example: 133.214.233.143</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="serverIpLabel">
     <property name="geometry">
      <rect>
@@ -277,6 +261,19 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="scaledContents">
      <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="serverIpInput">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>190</y>
+      <width>221</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="editable">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

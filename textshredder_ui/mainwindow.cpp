@@ -11,9 +11,17 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
 	ui(new Ui::MainWindow), client(NULL)
 {
+	ConfigurationManager * config = ConfigurationManager::Instance();
+	config->load();
+
     ui->setupUi(this);
 	this->setFixedSize(this->width(),this->height());
 	ui->serverIpInput->setFocus();
+
+	ui->serverIpInput->addItems(config->getConfigurationOptions().getKnownHostsList());
+	ui->serverPortInput->setValue(config->getConfigurationOptions().getServerPort());
+
+	//setDefaultFont();
 
 	ui->connectingLoader->hide();
 	ui->titleLabelServer->hide();
@@ -43,8 +51,7 @@ void MainWindow::changeWindowStateToServer()
 	ui->titleLabelServer->show();
 	ui->titleLabelClient->hide();
 	ui->serverIpInput->setEnabled(false);
-	ui->serverIpInput->setText("");
-	ui->serverIpInput->setPlaceholderText("Not needed, you are the server.");
+	ui->serverIpInput->setEditText("Not needed, you are the server.");
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/server.svg"));
 }
 
@@ -54,9 +61,7 @@ void MainWindow::changeWindowStateToClient()
 	ui->titleLabelServer->hide();
 	ui->titleLabelClient->show();
 	ui->serverIpInput->setEnabled(true);
-	ui->serverIpInput->setText("");
-	ui->serverIpInput->setPlaceholderText("Example: 133.214.233.143");
-	ui->serverIpInput->setText("127.0.0.1");
+	ui->serverIpInput->setEditText("Example: 133.214.233.143");
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/userfolder.svg"));
 	ui->serverIpInput->setFocus();
 }
@@ -111,7 +116,7 @@ void MainWindow::on_connectButton_clicked()
 			client = new Client(this);
 			connect(client, SIGNAL(clientConnected()), this, SLOT(clientDidConnect()));
 		}
-		QHostAddress address(ui->serverIpInput->text());
+		QHostAddress address(ui->serverIpInput->itemText(1));
 
 		quint16 port = ui->serverPortInput->value();
 
@@ -129,19 +134,22 @@ void MainWindow::on_connectButton_clicked()
 
 void MainWindow::saveSettings()
 {
-		ConfigurationManager * config = ConfigurationManager::Instance();
-		ConfigurationOptions configOptions(this);
-		TextShredderConnection connectionInfo(this);
-		//configOptions.setIp(ui->serverIpInput->text());
+	ConfigurationManager * config = ConfigurationManager::Instance();
+	ConfigurationOptions configOptions(this);
+	TextShredderConnection connectionInfo(this);
+	configOptions.setIp(ui->serverIpInput->itemText(0));
 
-		if(ui->isServerInput->isChecked()) {
-			configOptions.setIp(connectionInfo.getPeerAdress());
-		}
-		//configOptions.setServerPort((quint16) ui->serverPortInput->value());
+	if(ui->isServerInput->isChecked()) {
+		configOptions.setIp(connectionInfo.getPeerAdress());
+	}
+	configOptions.setServerPort((quint16) ui->serverPortInput->value());
 
-		//config->setConfigurationOptions(configOptions);
+	config->setConfigurationOptions(configOptions);
 
-		config->load();
+	configOptions.addHostToKnownHostsList(ui->serverIpInput->itemText(1));
+
+	config->save();
+
 }
 
 void MainWindow::clientDidConnect() {

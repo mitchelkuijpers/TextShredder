@@ -19,39 +19,41 @@ FileManager * FileManager::Instance()
 void FileManager::addFileWithPath(QString &path)
 {
 	qDebug("FileManager::addFileWithPath() - We are now sharing a file");
-	SyncableFile *newFile = new SyncableFile(this, path);
-	connect(newFile, SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
-	connect(newFile, SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
-	connect(newFile, SIGNAL(fileRequestsForSync(TextShredderPacket&)),
+	QSharedPointer<SyncableFile> obj =
+			QSharedPointer<SyncableFile>(new SyncableFile(this, path), SyncableFile::doDeleteLater);
+	//SyncableFile *newFile = new SyncableFile(this, path);
+	connect(obj.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
+	connect(obj.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
+	connect(obj.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)),
 			this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
-	fileList.append(newFile);
+	fileList.append(obj);
 
 	qDebug("TODO: fileManager file.setShared should be removed eventually");
-	newFile->setShared(true);
-	emit fileStarted(newFile);
+	obj.data()->setShared(true);
+	qDebug("fileStarted ...");
+	emit fileStarted(obj.data());
 }
 
-void FileManager::removeFile (SyncableFile *file)
+void FileManager::removeFile (QSharedPointer<SyncableFile> file)
 {
 	for (int i = 0; i < fileList.count(); i++ ) {
-		SyncableFile *fileFromList = fileList.at(i);
-		if (fileFromList == file) {
-			disconnect(fileFromList, SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
-			disconnect(fileFromList, SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
-			disconnect(fileFromList, SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
-			fileFromList->stopSync();
+		QSharedPointer<SyncableFile> fileFromList = fileList.at(i);
+		if (fileFromList.data() == file.data()) {
+			disconnect(file.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
+			disconnect(file.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
+			disconnect(file.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
+			file.data()->stopSync();
 			fileList.removeAt(i);
-			fileFromList->deleteLater();
 			return;
 		}
 	}
 }
 
-void FileManager::fillListWithSharedFiles(QList <SyncableFile *> &list)
+void FileManager::fillListWithSharedFiles(QList < QSharedPointer<SyncableFile> > &list)
 {
 	for ( int i = 0; i < fileList.count(); i++ ) {
-		SyncableFile *file = fileList.at(i);
-		if (file->isShared()) {
+		QSharedPointer <SyncableFile> file = fileList.at(i);
+		if (file.data()->isShared()) {
 			list.append(file);
 		}
 	}
@@ -59,7 +61,7 @@ void FileManager::fillListWithSharedFiles(QList <SyncableFile *> &list)
 
 void FileManager::syncableFileStartedSharing()
 {
-	QList<SyncableFile *> sharedFiles;
+	QList< QSharedPointer<SyncableFile> > sharedFiles;
 	fillListWithSharedFiles(sharedFiles);
 	SyncableFilesPacket packet(this, sharedFiles);
 	emit updateClientFiles(packet);
@@ -76,21 +78,21 @@ void FileManager::shouldMakeRequestForSync(TextShredderPacket &packet)
 	emit sendFileRequest(packet);
 }
 
-void FileManager::addSyncFile(SyncableFile *file)
+void FileManager::addSyncFile( QSharedPointer<SyncableFile> file)
 {
 	fileList.append(file);
-	connect(file, SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
-	connect(file, SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
-	connect(file, SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
-	emit fileStarted(file);
+	connect(file.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
+	connect(file.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
+	connect(file.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
+	emit fileStarted( file.data() );
 }
 
-SyncableFile * FileManager::getSyncableFileWithName(QString &name)
+QSharedPointer<SyncableFile> FileManager::getSyncableFileWithName(QString &name)
 {
-	SyncableFile *fileFromList;
+	QSharedPointer<SyncableFile> fileFromList;
 	for(int i = 0; i < fileList.count(); i++ ) {
 		fileFromList = fileList.at(i);
-		if (fileFromList->getFileAlias() == name) {
+		if (fileFromList.data()->getFileAlias() == name) {
 			return fileFromList;
 		}
 	}
@@ -100,33 +102,38 @@ SyncableFile * FileManager::getSyncableFileWithName(QString &name)
 
 void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 {
+	QList< QSharedPointer<SyncableFile> > list;
+
 	qDebug("Your father. Trekt zich af op de meisjes wc");
-	QList<SyncableFile *> list;
+
 	SyncableFilesPacket::fillListWithContentsOfPacket(list, content);
+	qDebug() << list.count();
 
 	for (int i = 0; i < list.count(); i ++ ) {
-		SyncableFile *file = list.at(i);
+		QSharedPointer<SyncableFile> file = list.at(i);
+		qDebug() << i;
+		qDebug() << file.data()->getFileAlias();
+		qDebug() << file.data()->getFileIdentifier();
 
 		bool found = false;
 		for (int j = 0; j < fileList.count(); j++) {
-			if (file->getFileIdentifier() == fileList.at(j)->getFileIdentifier()) {
+			if (file.data()->getFileIdentifier() == fileList.at(j).data()->getFileIdentifier()) {
 				found = true;
 			}
 		}
 		if (found == false) {
-			SyncableFile *newFile = new SyncableFile(*file);
-			fileList.append(newFile);
+			fileList.append(file);
 		}
 	}
 
 	int i = 0;
 	while( i < fileList.count()) {
-		SyncableFile *existingFile = fileList.at(i);
+		QSharedPointer<SyncableFile> existingFile = fileList.at(i);
 
 		bool found = false;
 		for (int j = 0; j < list.count(); j++) {
-			SyncableFile *file = list.at(j);
-			if (existingFile->getFileIdentifier() == file->getFileIdentifier()) {
+			QSharedPointer<SyncableFile> file = list.at(j);
+			if (existingFile.data()->getFileIdentifier() == file.data()->getFileIdentifier()) {
 				found = true;
 			}
 		}
