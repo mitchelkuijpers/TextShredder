@@ -51,7 +51,6 @@ void EditorView::setFileTreeWidgetColumnsInModel()
 void EditorView::addFileToFileTreeWidget( QString fileName )
 {
 	int rowCount = model.rowCount();
-
 	FileManager::Instance()->addFileWithPath(fileName);
 	QStandardItem *item = new QStandardItem( QString(fileName) );
 	model.setItem(rowCount, 0, item);
