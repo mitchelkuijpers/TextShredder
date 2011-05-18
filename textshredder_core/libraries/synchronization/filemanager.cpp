@@ -28,17 +28,20 @@ void FileManager::addFileWithPath(QString &path)
 			this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
 	fileList.append(obj);
 
-	qDebug("TODO: fileManager file.setShared should be removed eventually");
-	obj.data()->setShared(true);
+	//qDebug("TODO: fileManager file.setShared should be removed eventually");
+	//obj.data()->setShared(true);
 	qDebug("fileStarted ...");
 	emit fileStarted(obj.data());
 }
 
 void FileManager::removeFile (QSharedPointer<SyncableFile> file)
 {
+	qDebug("Remove File");
 	for (int i = 0; i < fileList.count(); i++ ) {
+		qDebug("Remove File 2");
 		QSharedPointer<SyncableFile> fileFromList = fileList.at(i);
 		if (fileFromList.data() == file.data()) {
+			qDebug("Remove File 3");
 			disconnect(file.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
 			disconnect(file.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
 			disconnect(file.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
@@ -69,7 +72,9 @@ void FileManager::syncableFileStartedSharing()
 
 void FileManager::syncableFileStoppedSharing()
 {
-	SyncableFilesPacket packet(this, fileList);
+	QList< QSharedPointer<SyncableFile> > sharedFiles;
+	fillListWithSharedFiles(sharedFiles);
+	SyncableFilesPacket packet(this, sharedFiles);
 	emit updateClientFiles(packet);
 }
 
@@ -103,36 +108,44 @@ QSharedPointer<SyncableFile> FileManager::getSyncableFileWithName(QString &name)
 void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 {
 	QList< QSharedPointer<SyncableFile> > list;
-
-
 	SyncableFilesPacket::fillListWithContentsOfPacket(list, content);
 
+	qDebug() << list.count();
+	qDebug("1");
 	for (int i = 0; i < list.count(); i ++ ) {
+		qDebug("2");
 		QSharedPointer<SyncableFile> file = list.at(i);
 
 		bool found = false;
 		for (int j = 0; j < fileList.count(); j++) {
 			if (file.data()->getFileIdentifier() == fileList.at(j).data()->getFileIdentifier()) {
+				qDebug("2a");
 				found = true;
 			}
 		}
 		if (found == false) {
+			qDebug("3");
 			fileList.append(file);
 		}
 	}
 
 	int i = 0;
+	qDebug("4");
 	while( i < fileList.count()) {
 		QSharedPointer<SyncableFile> existingFile = fileList.at(i);
 
 		bool found = false;
+		qDebug("5");
 		for (int j = 0; j < list.count(); j++) {
+			qDebug("6");
 			QSharedPointer<SyncableFile> file = list.at(j);
 			if (existingFile.data()->getFileIdentifier() == file.data()->getFileIdentifier()) {
+				qDebug("7");
 				found = true;
 			}
 		}
 		if (found == false) {
+			qDebug("8");
 			this->removeFile(existingFile);
 		} else {
 			i++;
