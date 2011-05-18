@@ -5,8 +5,27 @@
 TextShredderConnection::TextShredderConnection(QObject *parent) :
 	QObject(parent)
 {
-	socket.open(QIODevice::ReadWrite);
+	connectionListener = QSharedPointer<QTcpServer> (new QTcpServer(this), deleteServer);
+
+	serverPointer.data()->listen();
+	quint port = connectionListener.serverPort();
+	qDebug() << "Local port " << socket.localPort();
+	qDebug() << "Local address" << socket.localAddress().toString();
 }
+
+void TextShredderConnection::deleteServer(QTcpServer *obj)
+{
+	obj->deleteLater();
+}
+void TextShredderConnection::socketDescriptorReady(int socketDescriptor)
+{
+	socket.setSocketDescriptor(socketDescriptor);
+	disconnect(connectionListener.data(), SIGNAL(newConnection(int)),
+			   this, SLOT(socketDescriptorReady(int)));
+	connectionListener = 0;
+
+}
+
 TextShredderConnection::TextShredderConnection(QObject *parent,
 											   QString &hostName,
 											   int port ,
@@ -97,15 +116,19 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 {
 	qDebug("TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)");
 	if (packet.isEditPacket ()) {
+		qDebug("EditPacketContent");
 		emit incomingEditPacketContent(packet.getContent());
 	} else if (packet.isFileDataPacket ()) {
+		qDebug("FileDatapacket");
 		emit incomingFileDataPacketContent(packet.getContent());
 	} else if (packet.isFileRequestPacket()) {
+		qDebug("RequestPacket");
 		handleFileRequestPacket(packet);
 	} else if (packet.isSetAliasPacket()) {
+		qDebug("SetAliasPacket");
 		emit incomingSetAliasPacketContent(packet.getContent());
 	} else if (packet.isSyncableFilesPacket()) {
-		qDebug("TextShredderConnection::emitNewIncomingPacket syncablefilespacket");
+		qDebug("SyncableFilesPacket");
 		emit incomingSyncableFilesPacket(packet.getContent());
 	}
 }
@@ -116,7 +139,7 @@ void TextShredderConnection::handleFileRequestPacket(TextShredderPacket &packet)
 	QString requestedFileName = FileRequestPacket::getFileAlias(packet);
 
 	try {
-		QString name("name");
+		QString name(socket.peerAddress().toString());
 		QSharedPointer<SyncableFile> file = FileManager::Instance()->getSyncableFileWithName(requestedFileName);
 		file.data()->createSynchronizationWithPortAndAddress(port, name);
 	} catch (QString exception) {

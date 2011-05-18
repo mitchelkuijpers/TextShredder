@@ -118,6 +118,7 @@ void SyncableFile::stopSync()
 
 void SyncableFile::requestSync()
 {
+	qDebug("SyncableFile::requestSync()");
 	SyncThread *newThread = new SyncThread(this, *this->workingCopy);
 	syncThreads.append(newThread);
 	FileRequestPacket packet(this, newThread->getLocalPort(), fileAlias);

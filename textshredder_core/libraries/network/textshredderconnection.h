@@ -10,6 +10,8 @@
 #include <QHostAddress>
 #include "models/textshredderpacket.h"
 #include "textshredderpacketparser.h"
+#include <QTcpServer>
+#include "connectionlistener.h"
 
 typedef enum {
 	Disconnected = 0,
@@ -35,6 +37,7 @@ public:
 	quint16 getLocalPort();
 	void startConnection();
 private:
+	QSharedPointer<ConnectionListener> connectionListener;
 	QTcpSocket socket;
 	QList<TextShredderPacket> queue;
 	TextShredderConnectionStatus status;
@@ -67,5 +70,7 @@ public slots:
 	void clientHasDisconnected();
 	void sendPacket(TextShredderPacket &);
 
+	void deleteServer(QTcpServer *obj);
+	void connectionReady();
 };
 #endif // TEXTSHREDDERCONNECTION_H

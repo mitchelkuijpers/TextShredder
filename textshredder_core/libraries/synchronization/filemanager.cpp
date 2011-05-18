@@ -117,7 +117,7 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 			}
 		}
 		if (found == false) {
-			fileList.append(file);
+			addSyncFile(file);
 		}
 	}
 
