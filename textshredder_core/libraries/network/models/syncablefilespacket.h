@@ -12,11 +12,10 @@ class SyncableFilesPacket : public TextShredderPacket
 
 public:
 	static void fillListWithContentsOfPacket(QList <QSharedPointer<SyncableFile> > &list, QByteArray &content);
-	SyncableFilesPacket(QObject *parent, QList<SyncableFile *> &files);
+	SyncableFilesPacket(QObject *parent, QList< QSharedPointer<SyncableFile> > &files);
 
 private:
-	static void doDeleteLater(SyncableFile *obj);
-	QByteArray contentForFiles(QList<SyncableFile *> &files);
+	QByteArray contentForFiles(QList< QSharedPointer<SyncableFile> > &files);
 };
 
 #endif // SYNCABLEFILESPACKET_H

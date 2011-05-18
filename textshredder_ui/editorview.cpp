@@ -11,6 +11,8 @@ EditorView::EditorView(QWidget *parent) :
 
 	ui->fileTreeWidget->setFocus();
 	setFileTreeWidgetColumnsInModel();
+
+	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView));
 }
 
 EditorView::~EditorView()

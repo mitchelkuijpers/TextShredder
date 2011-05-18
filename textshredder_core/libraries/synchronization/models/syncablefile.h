@@ -48,6 +48,7 @@ public:
 	void requestSync();
 	void createSynchronizationWithPortAndAddress(quint16 port, QString &hostName);
 
+	static void doDeleteLater(SyncableFile *obj);
 private:
 	QString fileIdentifier;
 	FileType typeForSuffix(QString &suffix);
