@@ -99,6 +99,8 @@ void MainWindow::animationMoveTo(QWidget * target, QRect startRect, QRect endRec
 
 void MainWindow::on_connectButton_clicked()
 {
+	ui->connectButton->setEnabled(false);
+
 	if (ui->isServerInput->isChecked()) {
 		Server *serv = Server::Instance();
 		quint16 port = ui->serverPortInput->value();
@@ -119,7 +121,6 @@ void MainWindow::on_connectButton_clicked()
 		editorView.setToClientMode();
 
 		ui->connectingLoader->show();
-		ui->connectButton->setEnabled(false);
 
 	}
 	if(ui->rememberSettingsInput->isChecked()) {

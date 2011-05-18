@@ -7,8 +7,7 @@ EditorView::EditorView(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::EditorView)
 {
-    ui->setupUi(this);
-
+	ui->setupUi(this);
 	ui->fileTreeWidget->setFocus();
 	setFileTreeWidgetColumnsInModel();
 }
@@ -23,10 +22,8 @@ void EditorView::on_addFileButton_clicked()
 	QFileDialog Qfd;
 	openedFilePath = Qfd.getOpenFileName(this, tr("TextShredder File Selector"), QDir::currentPath(), QString("*.txt"));
 
-	QString fileName = openedFilePath.mid(openedFilePath.lastIndexOf("/")+1, openedFilePath.length());
-
 	if ( !openedFilePath.isEmpty() ) {
-		addFileToFileTreeWidget( fileName );
+		addFileToFileTreeWidget( openedFilePath );
 	}
 }
 
@@ -48,53 +45,55 @@ void EditorView::setFileTreeWidgetColumnsInModel()
 	model.setHorizontalHeaderItem(1, new QStandardItem( "Status" ));
 }
 
-void EditorView::addFileToFileTreeWidget( QString fileName )
+void EditorView::addFileToFileTreeWidget( QString filePath )
 {
-	int rowCount = model.rowCount();
-
-	FileManager::Instance()->addFileWithPath(fileName);
-	QStandardItem *item = new QStandardItem( QString(fileName) );
-	model.setItem(rowCount, 0, item);
-
-	item->setCheckable( true );
-	QStandardItem *status = new QStandardItem();
-
-	model.setItem(rowCount, 1, status);
-
-	ui->fileTreeWidget->setModel(&model);
+	FileManager::Instance()->addFileWithPath(filePath);
+	qDebug() << filePath;
 }
 
 void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 {
-	QString directoryName = directoryPath.mid(directoryPath.lastIndexOf("/")+1, directoryPath.length());
-
 	QDir dir;
 	dir.setPath(directoryPath);
 	QStringList filters("*.txt");
 	QStringList list = dir.entryList(filters);
 
-	int rowCount = model.rowCount();
+	int i = 0;
+	for(i = 0; i < list.count(); i++ ) {
+		QString fileName = list.at(i);
+		FileManager::Instance()->addFileWithPath(directoryPath + "/" + fileName);
+	}
+}
 
-	QStandardItem *item = new QStandardItem( QString(directoryName) );
-	model.setItem(rowCount, 0, item);
-	item->setCheckable( false );
+
+void EditorView::rebuildSharedFilesListTreeView()
+{
+
+	QDir dir;
+	QStringList filters("*.txt");
+	QStringList list = dir.entryList(filters);
+
+	int rowCount = model.rowCount();
 
 	int i = 0;
 	for(i = 0; i < list.count(); i++ ) {
 		QString filePath = list.at(i);
 		FileManager::Instance()->addFileWithPath(filePath);
 
-		QStandardItem *child = new QStandardItem( filePath );
-		child->setEditable( false );
-		child->setCheckable( true );
-		item->appendRow( child );
-	}
+		QStandardItem *item = new QStandardItem( filePath );
+		item->setEditable( false );
+		item->setCheckable( true );
+		model.setItem(rowCount, 0, item);
 
-	QStandardItem *status = new QStandardItem( QString("Not Syncing") );
-	model.setItem(rowCount, 1, status);
+		QStandardItem *status = new QStandardItem( QString("NS") );
+		model.setItem(rowCount, 1, status);
+
+		rowCount++;
+	}
 
 	ui->fileTreeWidget->setModel(&model);
 }
+
 
 void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 {
