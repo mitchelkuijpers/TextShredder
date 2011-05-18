@@ -70,7 +70,7 @@ public slots:
 	void clientHasDisconnected();
 	void sendPacket(TextShredderPacket &);
 
-	void deleteServer(QTcpServer *obj);
-	void connectionReady();
+	void deleteServer(ConnectionListener *obj);
+	void socketDescriptorReady(int socketDescriptor);
 };
 #endif // TEXTSHREDDERCONNECTION_H

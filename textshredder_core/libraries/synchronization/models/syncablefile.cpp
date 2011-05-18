@@ -121,6 +121,7 @@ void SyncableFile::requestSync()
 	qDebug("SyncableFile::requestSync()");
 	SyncThread *newThread = new SyncThread(this, *this->workingCopy);
 	syncThreads.append(newThread);
+	qDebug() << fileAlias << " " << newThread->getLocalPort();
 	FileRequestPacket packet(this, newThread->getLocalPort(), fileAlias);
 	emit fileRequestsForSync(packet);
 	qDebug("Create socket SyncableFile::requestSync");

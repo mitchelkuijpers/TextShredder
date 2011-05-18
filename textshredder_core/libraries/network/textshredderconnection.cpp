@@ -5,15 +5,13 @@
 TextShredderConnection::TextShredderConnection(QObject *parent) :
 	QObject(parent)
 {
-	connectionListener = QSharedPointer<QTcpServer> (new QTcpServer(this), deleteServer);
-
-	serverPointer.data()->listen();
-	quint port = connectionListener.serverPort();
-	qDebug() << "Local port " << socket.localPort();
-	qDebug() << "Local address" << socket.localAddress().toString();
+	connectionListener = QSharedPointer<ConnectionListener> (new ConnectionListener(this));
+	connectionListener.data()->listen();
+	quint16 port = connectionListener.data()->serverPort();
+	qDebug() << "port " << port;
 }
 
-void TextShredderConnection::deleteServer(QTcpServer *obj)
+void TextShredderConnection::deleteServer(ConnectionListener *obj)
 {
 	obj->deleteLater();
 }
@@ -22,7 +20,8 @@ void TextShredderConnection::socketDescriptorReady(int socketDescriptor)
 	socket.setSocketDescriptor(socketDescriptor);
 	disconnect(connectionListener.data(), SIGNAL(newConnection(int)),
 			   this, SLOT(socketDescriptorReady(int)));
-	connectionListener = 0;
+	connectionListener.data()->close();
+	connectionListener.clear();
 
 }
 
@@ -195,7 +194,8 @@ unsigned int TextShredderConnection::getPort()
 
 quint16 TextShredderConnection::getLocalPort()
 {
-	return socket.localPort();
+
+	return connectionListener.data()->serverPort();
 }
 
 void TextShredderConnection::sendPacket(TextShredderPacket & packet)
