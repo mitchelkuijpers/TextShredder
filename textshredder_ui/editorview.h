@@ -25,7 +25,7 @@ public:
 	void setFileTreeWidgetColumnsInModel();
 	void addFileToFileTreeWidget( QString fileName );
 	void addFolderToFileTreeWidget( QString folderName );
-	void openFileInEditor( QString fileName );
+	void openFileInEditor( QModelIndex index );
 
 	void setToServerMode();
 	void setToClientMode();
