@@ -41,6 +41,7 @@ private slots:
  void on_fileTreeWidget_clicked(QModelIndex index);
  void on_addFolderButton_clicked();
  void on_addFileButton_clicked();
+ void rebuildSharedFilesListTreeView();
 
 };
 

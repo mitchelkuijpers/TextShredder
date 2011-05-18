@@ -105,6 +105,8 @@ void MainWindow::animationMoveTo(QWidget * target, QRect startRect, QRect endRec
 
 void MainWindow::on_connectButton_clicked()
 {
+	ui->connectButton->setEnabled(false);
+
 	if (ui->isServerInput->isChecked()) {
 		Server *serv = Server::Instance();
 		quint16 port = ui->serverPortInput->value();
@@ -117,7 +119,7 @@ void MainWindow::on_connectButton_clicked()
 			client = new Client(this);
 			connect(client, SIGNAL(clientConnected()), this, SLOT(clientDidConnect()));
 		}
-		QHostAddress address(ui->serverIpInput->itemText(1));
+		QHostAddress address(ui->serverIpInput->currentText());
 
 		quint16 port = ui->serverPortInput->value();
 
@@ -125,7 +127,6 @@ void MainWindow::on_connectButton_clicked()
 		editorView.setToClientMode();
 
 		ui->connectingLoader->show();
-		ui->connectButton->setEnabled(false);
 
 	}
 	if(ui->rememberSettingsInput->isChecked()) {
