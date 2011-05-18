@@ -1,6 +1,6 @@
 #include "editorview.h"
 #include "ui_editorview.h"
-#include "textfield.h"
+#include "syncablefiletextfield.h"
 #include "../textshredder_core/libraries/synchronization/filemanager.h"
 
 EditorView::EditorView(QWidget *parent) :
@@ -102,7 +102,6 @@ void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 
 void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
 {
-	//You can't open a file twice! -> Not implemented yet
 	const QAbstractItemModel * mod = index.model();
 	QString fileName = mod->data(mod->index(index.row(), 0), Qt::DisplayRole).toString();
 	openFileInEditor( fileName );
@@ -115,7 +114,7 @@ void EditorView::on_openedFileTabs_tabCloseRequested(int index)
 
 void EditorView::openFileInEditor( QString fileName )
 {
-	TextField *textfield = new TextField(this);
+	SyncableFileTextField *textfield = new SyncableFileTextField(this);
 	ui->openedFileTabs->addTab(textfield, fileName);
 }
 
