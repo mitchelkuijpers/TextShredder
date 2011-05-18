@@ -50,7 +50,8 @@ SOURCES += main.cpp \
     ../textshredder_core/libraries/configuration/models/configurationoptions.cpp \
     ../textshredder_core/libraries/diff_match_patch/diff_match_patch.cpp \
     syncablefilespackettests.cpp \
-    filemanagertest.cpp
+    filemanagertest.cpp \
+    filerequestpackettest.cpp
 
 HEADERS += \
     autotest.h \
@@ -88,4 +89,5 @@ HEADERS += \
     ../textshredder_core/libraries/configuration/models/configurationoptions.h \
     ../textshredder_core/libraries/diff_match_patch/diff_match_patch.h \
     syncablefilespackettests.h \
-    filemanagertest.h
+    filemanagertest.h \
+    filerequestpackettest.h

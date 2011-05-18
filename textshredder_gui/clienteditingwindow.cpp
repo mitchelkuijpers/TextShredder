@@ -32,7 +32,6 @@ void ClientEditingWindow::textChanged(int position, int charsRemoved, int charsA
 	syncFile->getWorkingCopy()->unlock();
 
 	qDebug() << *(syncFile->getWorkingCopy()->getContent());
-
 }
 
 
