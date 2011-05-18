@@ -38,6 +38,7 @@ public:
 	void stopSync();
 	WorkingCopy * getWorkingCopy();
 	QString & getFileAlias();
+	void setFileAlias(QString &);
 	QString & getFileIdentifier();
 
 	bool isShared();

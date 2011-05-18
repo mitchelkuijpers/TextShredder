@@ -136,3 +136,8 @@ void SyncableFile::doDeleteLater(SyncableFile *obj)
 {
 	obj->deleteLater();
 }
+
+void SyncableFile::setFileAlias(QString & newFileAlias)
+{
+	this->fileAlias = newFileAlias;
+}

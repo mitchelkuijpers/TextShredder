@@ -13,7 +13,9 @@ private:
 
 private Q_SLOTS:
 	void testHandleReceivedSyncableFiles();
+	void testHandleReceivedSyncableFilesWithChangedAlias();
 };
+
 
 DECLARE_TEST(FileManagerTest);
 #endif // FILEMANAGERTEST_H
