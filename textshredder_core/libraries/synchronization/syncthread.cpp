@@ -30,7 +30,7 @@ SyncThread::SyncThread(QObject *parent, WorkingCopy &newWorkingCopy) :
 		shadowCopy(this, *newWorkingCopy.getContent()), editList(NULL), timer(this),
 		logging(this, QString("SyncThread ").append(QString::number(sharedIndex)))
 {
-
+	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
 	connect(&connection, SIGNAL(incomingEditPacketContent(QByteArray&)),
 			this, SLOT(processChanges(QByteArray&)));
 	connect(&connection, SIGNAL(clientDisconnected()),
