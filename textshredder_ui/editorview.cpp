@@ -11,7 +11,7 @@ EditorView::EditorView(QWidget *parent) :
 	ui->fileTreeWidget->setFocus();
 	setFileTreeWidgetColumnsInModel();
 
-	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView));
+	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView()));
 }
 
 EditorView::~EditorView()
@@ -50,7 +50,7 @@ void EditorView::setFileTreeWidgetColumnsInModel()
 void EditorView::addFileToFileTreeWidget( QString filePath )
 {
 	FileManager::Instance()->addFileWithPath(filePath);
-	qDebug() << filePath;
+	rebuildSharedFilesListTreeView();
 }
 
 void EditorView::addFolderToFileTreeWidget( QString directoryPath )
@@ -66,13 +66,13 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 		QString absolutePath(directoryPath + "/" + fileName);
 		FileManager::Instance()->addFileWithPath(absolutePath);
 	}
+
+	rebuildSharedFilesListTreeView();
 }
 
 
 void EditorView::rebuildSharedFilesListTreeView()
 {
-	qDebug("Rebuilding file list.");
-
 	QList < QSharedPointer<SyncableFile> > sharedFilesList =
 			FileManager::Instance()->getAllFiles();
 
