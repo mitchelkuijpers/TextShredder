@@ -50,7 +50,7 @@ void EditorView::setFileTreeWidgetColumnsInModel()
 void EditorView::addFileToFileTreeWidget( QString filePath )
 {
 	FileManager::Instance()->addFileWithPath(filePath);
-	qDebug() << filePath;
+	rebuildSharedFilesListTreeView();
 }
 
 void EditorView::addFolderToFileTreeWidget( QString directoryPath )
@@ -66,35 +66,30 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 		QString absolutePath(directoryPath + "/" + fileName);
 		FileManager::Instance()->addFileWithPath(absolutePath);
 	}
+
+	rebuildSharedFilesListTreeView();
 }
 
 
 void EditorView::rebuildSharedFilesListTreeView()
 {
+	QList < QSharedPointer<SyncableFile> > sharedFilesList =
+			FileManager::Instance()->getAllFiles();
 
-//	QDir dir;
-//	QStringList filters("*.txt");
-//	QStringList list = dir.entryList(filters);
+	int i = 0;
+	for(i = 0; i < sharedFilesList.count(); i++ ) {
+		QString fileName = sharedFilesList.at(i).data()->getFileAlias();
 
-//	int rowCount = model.rowCount();
+		QStandardItem *item = new QStandardItem( fileName );
+		item->setEditable( false );
+		item->setCheckable( true );
+		model.setItem(i, 0, item);
 
-//	int i = 0;
-//	for(i = 0; i < list.count(); i++ ) {
-//		QString filePath = list.at(i);
-//		FileManager::Instance()->addFileWithPath(filePath);
+		QStandardItem *status = new QStandardItem( QString("Not Syncing") );
+		model.setItem(i, 1, status);
+	}
 
-//		QStandardItem *item = new QStandardItem( filePath );
-//		item->setEditable( false );
-//		item->setCheckable( true );
-//		model.setItem(rowCount, 0, item);
-
-//		QStandardItem *status = new QStandardItem( QString("NS") );
-//		model.setItem(rowCount, 1, status);
-
-//		rowCount++;
-//	}
-
-//	ui->fileTreeWidget->setModel(&model);
+	ui->fileTreeWidget->setModel(&model);
 }
 
 
