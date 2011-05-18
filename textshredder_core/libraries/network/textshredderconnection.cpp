@@ -8,6 +8,8 @@ TextShredderConnection::TextShredderConnection(QObject *parent) :
 	setupSignalsForSocket();
 	this->status = Disconnected;
 	connectionListener = QSharedPointer<ConnectionListener> (new ConnectionListener(this));
+	connect(connectionListener.data(), SIGNAL(newConnection(quint16)),
+			this, SLOT(socketDescriptorReady(quint16)));
 	connectionListener.data()->listen();
 	quint16 port = connectionListener.data()->serverPort();
 }
@@ -16,14 +18,14 @@ void TextShredderConnection::deleteServer(ConnectionListener *obj)
 {
 	obj->deleteLater();
 }
-void TextShredderConnection::socketDescriptorReady(int socketDescriptor)
+void TextShredderConnection::socketDescriptorReady(quint16 socketDescriptor)
 {
+	qDebug() << "Server did connect";
 	socket.setSocketDescriptor(socketDescriptor);
-	disconnect(connectionListener.data(), SIGNAL(newConnection(int)),
-			   this, SLOT(socketDescriptorReady(int)));
-	connectionListener.data()->close();
-	connectionListener.clear();
-
+	disconnect(connectionListener.data(), SIGNAL(newConnection(quint16)),
+			   this, SLOT(socketDescriptorReady(quint16)));
+	//connectionListener.clear();
+	// Solve this somehow but not with clear
 }
 
 TextShredderConnection::TextShredderConnection(QObject *parent,

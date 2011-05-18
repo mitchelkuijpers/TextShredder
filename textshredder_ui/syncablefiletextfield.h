@@ -37,6 +37,7 @@ private:
 
 private slots:
 	void textChanged(int position, int charsRemoved, int charsAdded );
+	void workingCopyChanged();
 };
 
 #endif // TEXTFIELD_H

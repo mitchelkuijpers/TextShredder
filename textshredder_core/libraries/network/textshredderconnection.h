@@ -71,6 +71,6 @@ public slots:
 	void sendPacket(TextShredderPacket &);
 
 	void deleteServer(ConnectionListener *obj);
-	void socketDescriptorReady(int socketDescriptor);
+	void socketDescriptorReady(quint16 socketDescriptor);
 };
 #endif // TEXTSHREDDERCONNECTION_H

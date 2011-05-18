@@ -8,6 +8,7 @@ SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<Syn
     ui->setupUi(this);
 
 	WorkingCopy * fileContents = file.data()->getWorkingCopy();
+	connect(file->getWorkingCopy (), SIGNAL(workingCopyChanged()), this, SLOT(workingCopyChanged()));
 	ui->textEditorField->setText(QString(*fileContents->getContent()));
 
 	syncFile = file.data();
@@ -87,4 +88,9 @@ void SyncableFileTextField::updateCursorPosition()
 
 	beforeCursorText = ui->textEditorField->toPlainText().mid(cursorPosition -CURSORUPDATESIZE, CURSORUPDATESIZE);
 	afterCursorText = ui->textEditorField->toPlainText().mid(cursorPosition, CURSORUPDATESIZE);
+}
+
+void SyncableFileTextField::workingCopyChanged()
+{
+	this->updateTextFieldToWorkingCopyContent();
 }
