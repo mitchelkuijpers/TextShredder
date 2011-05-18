@@ -50,6 +50,12 @@ public:
 
 	QList < QSharedPointer<SyncableFile> > getAllFiles();
 
+signals:
+	void fileStarted(SyncableFile *);
+	void updateClientFiles(TextShredderPacket &);
+	void sendFileRequest(TextShredderPacket &);
+	void availableFilesChanged();
+
 private:
 
 	void fillListWithSharedFiles(QList < QSharedPointer<SyncableFile> > &list);
@@ -62,12 +68,8 @@ private slots:
 	void syncableFileStartedSharing();
 	void syncableFileStoppedSharing();
 	void shouldMakeRequestForSync(TextShredderPacket &packet);
+public slots:
 	void handleReceivedSyncableFiles(QByteArray &content);
-signals:
-	void fileStarted(SyncableFile *);
-	void updateClientFiles(TextShredderPacket &);
-	void sendFileRequest(TextShredderPacket &);
-	void availableFilesChanged();
 };
 
 #endif // FILEMANAGER_H
