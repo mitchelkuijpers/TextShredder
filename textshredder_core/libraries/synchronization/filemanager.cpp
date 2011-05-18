@@ -28,6 +28,7 @@ void FileManager::addFileWithPath(QString &path)
 
 	qDebug("TODO: fileManager file.setShared should be removed eventually");
 	newFile->setShared(true);
+	qDebug("fileStarted ...");
 	emit fileStarted(newFile);
 }
 
@@ -100,12 +101,14 @@ SyncableFile * FileManager::getSyncableFileWithName(QString &name)
 
 void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 {
+	QList< QSharedPointer<SyncableFile> > list;
+
 	qDebug("Your father. Trekt zich af op de meisjes wc");
-	QList<SyncableFile *> list;
+
 	SyncableFilesPacket::fillListWithContentsOfPacket(list, content);
 
 	for (int i = 0; i < list.count(); i ++ ) {
-		SyncableFile *file = list.at(i);
+		QSharedPointer<SyncableFile> file = list.at(i);
 
 		bool found = false;
 		for (int j = 0; j < fileList.count(); j++) {
@@ -125,7 +128,7 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 
 		bool found = false;
 		for (int j = 0; j < list.count(); j++) {
-			SyncableFile *file = list.at(j);
+			QSharedPointer<SyncableFile> file = list.at(j);
 			if (existingFile->getFileIdentifier() == file->getFileIdentifier()) {
 				found = true;
 			}
