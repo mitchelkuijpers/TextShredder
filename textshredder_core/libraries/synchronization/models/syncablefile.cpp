@@ -138,6 +138,11 @@ void SyncableFile::doDeleteLater(SyncableFile *obj)
 	obj->deleteLater();
 }
 
+void SyncableFile::setFileAlias(QString & newFileAlias)
+{
+	this->fileAlias = newFileAlias;
+}
+
 WorkingCopy * SyncableFile::openWorkingCopyForGUI()
 {
 	return workingCopy;
@@ -145,5 +150,4 @@ WorkingCopy * SyncableFile::openWorkingCopyForGUI()
 
 void SyncableFile::closeWorkingCopyFromGUI()
 {
-
 }

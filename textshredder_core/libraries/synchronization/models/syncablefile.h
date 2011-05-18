@@ -4,8 +4,6 @@
 #include <QObject>
 #include "../textshredder_synchronization_lib/workingcopy.h"
 #include "../syncthread.h"
-
-
 #include "../../network/models/filerequestpacket.h"
 
 
@@ -35,6 +33,7 @@ public:
 	void stopSync();
 	WorkingCopy * getWorkingCopy();
 	QString & getFileAlias();
+	void setFileAlias(QString &);
 	QString & getFileIdentifier();
 
 	bool isShared();
