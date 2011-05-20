@@ -17,8 +17,10 @@ class SyncThread : public QObject
 	Q_OBJECT
 
 public:
-	SyncThread(QObject *, int port, QString &address, WorkingCopy &);
-	SyncThread(QObject *, WorkingCopy &);
+	SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>conn,
+						   QSharedPointer< WorkingCopy> workingCopyPointer);
+	//SyncThread(QObject *, int port, QString &address, WorkingCopy &);
+	SyncThread(QObject * parent, QSharedPointer <WorkingCopy> newWorkingCopy);
 
 	qint16 getLocalPort();
 
@@ -48,8 +50,8 @@ protected://Must be protected for test purposes
 	  */
 	void writePacketOnConnection(TextShredderPacket &packet);
 
-	TextShredderConnection connection;
-	WorkingCopy * workingCopy;
+	QSharedPointer<TextShredderConnection> connectionPointer;
+	QSharedPointer <WorkingCopy> workingCopyPointer;
 	ShadowCopy shadowCopy;
 	EditList editList;
 	QTimer timer;
@@ -57,6 +59,9 @@ protected://Must be protected for test purposes
 	static int sharedIndex;
 
 	TextShredderLogging logging;
+
+private:
+	void connectSignalsForConnection();
 };
 
 #endif // SYNCTHREAD_H

@@ -31,7 +31,7 @@ public:
 	void changeFileType(FileType type);
 
 	void stopSync();
-	WorkingCopy * getWorkingCopy();
+	QSharedPointer<WorkingCopy> getWorkingCopy();
 	QString & getFileAlias();
 	void setFileAlias(QString &);
 	QString & getFileIdentifier();
@@ -40,11 +40,11 @@ public:
 	void setShared(bool share);
 
 	void requestSync();
-	void createSynchronizationWithPortAndAddress(quint16 port, QString &hostName);
+	//void createSynchronizationWithPortAndAddress(quint16 port, QString &hostName);
 
 	static void doDeleteLater(SyncableFile *obj);
 
-	WorkingCopy * openWorkingCopyForGUI();
+	QSharedPointer<WorkingCopy> openWorkingCopyForGUI();
 	void closeWorkingCopyFromGUI();
 
 private:
@@ -52,11 +52,11 @@ private:
 	FileType typeForSuffix(QString &suffix);
 	QString filePath;
 	QString fileAlias;
-	WorkingCopy *workingCopy;
+	QSharedPointer<WorkingCopy> workingCopy;
 	FileType fileType;
 	bool shared;
 
-	QList<SyncThread *> syncThreads;
+	QList< QSharedPointer<SyncThread> > syncThreads;
 
 signals:
 	void fileStoppedSharing();

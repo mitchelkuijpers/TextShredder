@@ -32,9 +32,6 @@ void FileManager::addFileWithPath(QString &path)
 
 void FileManager::removeFile (QSharedPointer<SyncableFile> file)
 {
-	qDebug("Remove File");
-	qDebug() << file.data()->getFileAlias();
-	qDebug() << fileList.count();
 	for (int i = 0; i < fileList.count(); i++ ) {
 		QSharedPointer<SyncableFile> fileFromList = fileList.at(i);
 		if (fileFromList.data() == file.data()) {
@@ -46,7 +43,6 @@ void FileManager::removeFile (QSharedPointer<SyncableFile> file)
 			break;
 		}
 	}
-	qDebug() << fileList.count();
 }
 
 void FileManager::fillListWithSharedFiles(QList < QSharedPointer<SyncableFile> > &list)

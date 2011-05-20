@@ -4,19 +4,19 @@ TextShredderHeader::TextShredderHeader( QObject *parent ) :
                                         QObject(parent),
                                         protocolVersion(kProtocolVersion),
                                         contentLength(0),
-                                        packetType(0)
+										packetType(0),
+										connectionHandle(0)
 {
 
 }
 
 TextShredderHeader::TextShredderHeader( QObject *parent,
-                                        unsigned char protocolVersion,
-                                        unsigned int contentLength,
-                                        unsigned char packetType ) :
-QObject(parent),
-
-		protocolVersion(protocolVersion), contentLength(contentLength),
-                packetType(packetType)
+										unsigned char protocolVersion,
+										unsigned int contentLength,
+										unsigned char packetType,
+										unsigned int connectionHandle) :
+		QObject(parent), protocolVersion(protocolVersion), contentLength(contentLength),
+		packetType(packetType), connectionHandle(connectionHandle)
 {
 }
 
@@ -24,14 +24,19 @@ TextShredderHeader::TextShredderHeader( QObject *parent ,
                                         const QByteArray &buffer ) :
 QObject(parent)
 {
-    int offset = 0;
-    protocolVersion = buffer[offset];
+	int offset = 0;
 
-    offset += sizeof(protocolVersion);
-    memcpy(&contentLength, (const void *) &(buffer.data()[1]), sizeof(unsigned int));
+	protocolVersion = buffer[offset];
+	offset += sizeof(protocolVersion);
 
-    offset += sizeof(contentLength);
-    packetType = buffer[offset];
+	memcpy(&contentLength, (const void *) &(buffer.data()[offset]), sizeof(unsigned int));
+	offset += sizeof(contentLength);
+
+	packetType = buffer[offset];
+	offset += sizeof(packetType);
+
+	memcpy(&connectionHandle, (const void *) &(buffer.data()[offset]), sizeof(unsigned int));
+	offset += sizeof(connectionHandle);
 }
 
 TextShredderHeader::TextShredderHeader(const TextShredderHeader & other)
@@ -40,6 +45,7 @@ TextShredderHeader::TextShredderHeader(const TextShredderHeader & other)
 	this->contentLength = other.contentLength;
 	this->packetType = other.packetType;
 	this->protocolVersion = other.protocolVersion;
+	this->connectionHandle = other.connectionHandle;
 }
 
 TextShredderHeader & TextShredderHeader::operator=(const TextShredderHeader & other)
@@ -47,6 +53,7 @@ TextShredderHeader & TextShredderHeader::operator=(const TextShredderHeader & ot
 	this->contentLength = other.contentLength;
 	this->packetType = other.packetType;
 	this->protocolVersion = other.protocolVersion;
+	this->connectionHandle = other.connectionHandle;
 	return *this;
 }
 
@@ -54,7 +61,8 @@ bool TextShredderHeader::operator==(const TextShredderHeader & other)
 {
 	if (this->contentLength == other.contentLength &&
 		this->packetType == other.packetType &&
-		this->protocolVersion == other.protocolVersion) {
+		this->protocolVersion == other.protocolVersion &&
+		this->connectionHandle == other.connectionHandle) {
 		return true;
 	}
 	return false;
@@ -66,6 +74,7 @@ void TextShredderHeader::appendToQByteArray( QByteArray &buffer )
     buffer.append( protocolVersion );
     buffer.append( (const char *)&contentLength, (int) sizeof(unsigned int) );
     buffer.append( packetType );
+	buffer.append( (const char *)&connectionHandle, (int) sizeof(unsigned int) );
 }
 
 unsigned char TextShredderHeader::getProtocolVersion()
@@ -83,6 +92,11 @@ unsigned int TextShredderHeader::getContentLength()
     return contentLength;
 }
 
+unsigned int TextShredderHeader::getConnectionHandle()
+{
+	return connectionHandle;
+}
+
 void TextShredderHeader::setProtocolVersion( unsigned char newValue )
 {
     protocolVersion = newValue;
@@ -97,3 +111,9 @@ void TextShredderHeader::setPacketType( unsigned char newValue )
 {
     packetType = newValue;
 }
+
+void TextShredderHeader::setConnectionHandle( unsigned int newValue )
+{
+	connectionHandle = newValue;
+}
+

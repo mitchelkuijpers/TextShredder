@@ -1,6 +1,6 @@
 #include "syncthreadsub.h"
 
-SyncThreadSub::SyncThreadSub(QObject *parent, WorkingCopy & newWorkingCopy) :
+SyncThreadSub::SyncThreadSub(QObject *parent, QSharedPointer<WorkingCopy> newWorkingCopy) :
 		SyncThread(parent, newWorkingCopy)
 {
 }
@@ -32,7 +32,7 @@ EditList * SyncThreadSub::getEditList()
 
 WorkingCopy * SyncThreadSub::getWorkingCopy()
 {
-	return this->workingCopy;
+	return (this->workingCopyPointer.data());
 }
 
 ShadowCopy * SyncThreadSub::getShadowCopy()

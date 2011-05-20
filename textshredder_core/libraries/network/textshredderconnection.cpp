@@ -143,7 +143,8 @@ void TextShredderConnection::handleFileRequestPacket(TextShredderPacket &packet)
 	try {
 		QString name(socket.peerAddress().toString());
 		QSharedPointer<SyncableFile> file = FileManager::Instance()->getSyncableFileWithName(requestedFileName);
-		file.data()->createSynchronizationWithPortAndAddress(port, name);
+		qDebug() << "TODO: Handle file request MOFO!";
+		//file.data()->createSynchronizationWithPortAndAddress(port, name);
 	} catch (QString exception) {
 		//Some error occured. Problably no such file.
 	}

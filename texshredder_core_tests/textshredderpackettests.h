@@ -17,7 +17,6 @@ private Q_SLOTS:
 	void testCheckingOnFileDataPacket();
 	void testCheckingOnSetAliasPacket();
 	void testAppendingData();
-	void testNumberOfBytesNeeded();
 };
 
 DECLARE_TEST(TextShredderPacketTests);

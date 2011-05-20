@@ -12,7 +12,7 @@ class SyncThreadSub : public SyncThread
     Q_OBJECT
 public:
 
-	SyncThreadSub(QObject *parent, WorkingCopy & newWorkingCopy);
+	SyncThreadSub(QObject *parent, QSharedPointer<WorkingCopy> newWorkingCopy);
 
 
     using SyncThread::processChanges;

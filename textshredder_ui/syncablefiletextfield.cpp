@@ -7,9 +7,9 @@ SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<Syn
 {
     ui->setupUi(this);
 
-	WorkingCopy * fileContents = file.data()->getWorkingCopy();
-	connect(file->getWorkingCopy (), SIGNAL(workingCopyChanged()), this, SLOT(workingCopyChanged()));
-	ui->textEditorField->setText(QString(*fileContents->getContent()));
+	WorkingCopy * workingCopy = file.data()->getWorkingCopy().data();
+	connect(workingCopy, SIGNAL(workingCopyChanged()), this, SLOT(workingCopyChanged()));
+	ui->textEditorField->setText(QString(*(workingCopy->getContent())));
 	timer = new QTimer(this);
 	deleteTimer = new QTimer(this);
 	highlighter = new EditorHighLighting(ui->textEditorField->document());

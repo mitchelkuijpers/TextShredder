@@ -10,7 +10,7 @@ SyncableFile::SyncableFile(QObject *parent, QString &path) :
 	QString suffix(fileInfo.suffix ());
 	fileType = typeForSuffix(suffix);
 
-	workingCopy = new WorkingCopy(this);
+	workingCopy = QSharedPointer<WorkingCopy>(new WorkingCopy(this));
 
 	QFile file(path);
 	if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -25,7 +25,7 @@ SyncableFile::SyncableFile(QObject *parent, QString &identifier, QString &alias)
 	QObject(parent), fileIdentifier(identifier), fileAlias(alias), workingCopy(NULL)
 {
 	fileType = FileTypeTXT;
-	workingCopy = new WorkingCopy(this);
+	workingCopy = QSharedPointer<WorkingCopy>(new WorkingCopy(this));
 }
 
 SyncableFile::SyncableFile(QObject *parent, QString &alias, FileType type) :
@@ -78,7 +78,7 @@ FileType SyncableFile::typeForSuffix(QString &suffix)
 	return FileTypeUNKNOWN;
 }
 
-WorkingCopy * SyncableFile::getWorkingCopy()
+QSharedPointer<WorkingCopy> SyncableFile::getWorkingCopy()
 {
 	return workingCopy;
 }
@@ -118,22 +118,12 @@ void SyncableFile::stopSync()
 
 void SyncableFile::requestSync()
 {
-	qDebug("SyncableFile::requestSync()");
-	SyncThread *newThread = new SyncThread(this, *this->workingCopy);
+	QSharedPointer<SyncThread> newThread = QSharedPointer<SyncThread>(new SyncThread(this, this->workingCopy));
 	syncThreads.append(newThread);
-	qDebug() << fileAlias << " " << newThread->getLocalPort();
-	FileRequestPacket packet(this, newThread->getLocalPort(), fileAlias);
+	FileRequestPacket packet(this, newThread->getLocalPort(), fileIdentifier);
 	emit fileRequestsForSync(packet);
 	qDebug("Create socket SyncableFile::requestSync");
 }
-
-void SyncableFile::createSynchronizationWithPortAndAddress(quint16 port, QString &hostName)
-{
-	qDebug("Should do some sync creation");
-	SyncThread *newThread = new SyncThread(this, port, hostName, *workingCopy);
-	syncThreads.append(newThread);
-}
-
 
 void SyncableFile::doDeleteLater(SyncableFile *obj)
 {
@@ -145,7 +135,7 @@ void SyncableFile::setFileAlias(QString & newFileAlias)
 	this->fileAlias = newFileAlias;
 }
 
-WorkingCopy * SyncableFile::openWorkingCopyForGUI()
+QSharedPointer<WorkingCopy> SyncableFile::openWorkingCopyForGUI()
 {
 	return workingCopy;
 }

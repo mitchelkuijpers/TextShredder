@@ -20,10 +20,14 @@ private Q_SLOTS:
 	void mergedEditsOnBothSidesTest();
 
 private:
+	void doDeleteWorkingCopy(WorkingCopy *obj);
+
 	SyncThreadSub *leftSync;
 	SyncThreadSub *rightSync;
 
+	QSharedPointer<WorkingCopy> leftWorkingCopyPointer;
 	WorkingCopy *leftWorkingCopy;
+	QSharedPointer<WorkingCopy> rightWorkingCopyPointer;
 	WorkingCopy *rightWorkingCopy;
 
 	ShadowCopy *leftShadowCopy;
