@@ -175,7 +175,7 @@ void SyncableFileTextField::on_saveFileButton_clicked()
 {
 	QString filePath = QFileDialog::getSaveFileName(this, tr("Save File"),
 							   QDir::currentPath(),
-							   tr("Text File (*.txt);;TextShredder Document (*.tsd);;HyperText Markup Language (*.html);;"));
+							   tr("Text File (*.txt);;TextShredder Document (*.tsd);;HTML File (*.html)"));
 
 	if ( !filePath.isEmpty() ) {
 		QFile file(filePath);
