@@ -33,10 +33,10 @@ public:
 	void receivedDownloadedContent(QByteArray & content);
 	void sendFileDataAndStart();
 	void stop();
-	void pushChanges();
 	virtual void startSync();
 
 public slots:
+	void pushChanges();
 	void receivedEditPacketContent(QByteArray &content, quint16 destination);
 	void receivedFileDataPacketContent(QByteArray &content, quint16 destination);
 
