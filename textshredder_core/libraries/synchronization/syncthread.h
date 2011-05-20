@@ -24,7 +24,9 @@ public:
 
 	qint16 getLocalPort();
 
-signals:
+	void setDestinationHandle(quint16 destination);
+	quint16 getDestinationHandle();
+	quint16 getSourceHandle();
 
 public slots:
 	void processChanges(QByteArray &content);
@@ -62,6 +64,11 @@ protected://Must be protected for test purposes
 
 private:
 	void connectSignalsForConnection();
+
+	quint16 sourceSyncThreadHandle;
+	quint16 destinationSyncThreadHandle;
+
+	static quint16 nextSyncThreadHandle;
 };
 
 #endif // SYNCTHREAD_H
