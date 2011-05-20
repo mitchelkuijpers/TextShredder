@@ -31,7 +31,7 @@ public:
 	void processChanges(QByteArray &content);
 	void applyReceivedEditList(EditList &incomingEditList);
 	void receivedDownloadedContent(QByteArray & content);
-
+	void sendFileDataAndStart();
 	void stop();
 	void pushChanges();
 	virtual void startSync();
@@ -65,7 +65,6 @@ protected://Must be protected for test purposes
 
 private:
 	void connectSignalsForConnection();
-	void sendFileDataAndStart();
 
 	quint16 sourceSyncThreadHandle;
 	quint16 destinationSyncThreadHandle;

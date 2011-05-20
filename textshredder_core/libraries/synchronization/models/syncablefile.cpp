@@ -145,7 +145,12 @@ void SyncableFile::closeWorkingCopyFromGUI()
 {
 }
 
-void SyncableFile::startSyncOn(quint16)
+void SyncableFile::startSyncOn(quint16 destination,
+							   QSharedPointer<TextShredderConnection> connection)
 {
-
+	QSharedPointer<SyncThread> sync = QSharedPointer<SyncThread>(
+				new SyncThread(this, connection, this->workingCopy));
+	sync.data()->setDestinationHandle(destination);
+	sync.data()->sendFileDataAndStart();
+	syncThreads.append(sync);
 }

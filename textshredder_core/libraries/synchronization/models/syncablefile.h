@@ -28,7 +28,7 @@ public:
 	  * Will change the file type for the SyncableFile
 	  */
 	void changeFileType(FileType type);
-	void startSyncOn(quint16);
+	void startSyncOn(quint16, QSharedPointer<TextShredderConnection> connection);
 	void stopSync();
 	QSharedPointer<WorkingCopy> getWorkingCopy();
 	QString & getFileAlias();

@@ -22,7 +22,7 @@ public:
 	explicit ClientRepresentation(QObject *parent, int socketDescriptor);
 
 private:
-	TextShredderConnection * connection;
+	QSharedPointer<TextShredderConnection> connection;
 	QString alias;
 
 private slots:
