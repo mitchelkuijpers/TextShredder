@@ -100,7 +100,6 @@ void TextShredderConnection::read()
 		 buffer.append(inputStream.readAll());
 	}
 
-
 	QByteArray packetData;
 	packetData.append(buffer);
 	parser.handleData(packetData);
@@ -118,13 +117,13 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 	qDebug("TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)");
 	if (packet.isEditPacket ()) {
 		qDebug("EditPacketContent");
-		emit incomingEditPacketContent(packet.getContent());
+		emit incomingEditPacketContent(packet.getContent(), packet.getHeader().getConnectionHandle());
 	} else if (packet.isFileDataPacket ()) {
 		qDebug("FileDatapacket");
-		emit incomingFileDataPacketContent(packet.getContent());
+		emit incomingFileDataPacketContent(packet.getContent(), packet.getHeader().getConnectionHandle());
 	} else if (packet.isFileRequestPacket()) {
 		qDebug("RequestPacket");
-		handleFileRequestPacket(packet);
+		emit handleFileRequestPacketContent(packet.getContent(), packet.getHeader().getConnectionHandle());
 	} else if (packet.isSetAliasPacket()) {
 		qDebug("SetAliasPacket");
 		emit incomingSetAliasPacketContent(packet.getContent());
@@ -134,20 +133,6 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 	} else if(packet.isAvailableFilesPacketRequest()) {
 		qDebug("AvailableFileRequestPacket");
 		emit incomingAvailableFilesPacketRequest(packet.getContent());
-	}
-}
-
-void TextShredderConnection::handleFileRequestPacket(TextShredderPacket &packet)
-{
-	QString requestedFileName = FileRequestPacket::getFileAlias(packet);
-
-	try {
-		QString name(socket.peerAddress().toString());
-		QSharedPointer<SyncableFile> file = FileManager::Instance()->getSyncableFileWithName(requestedFileName);
-		qDebug() << "TODO: Handle file request MOFO!";
-		//file.data()->createSynchronizationWithPortAndAddress(port, name);
-	} catch (QString exception) {
-		//Some error occured. Problably no such file.
 	}
 }
 

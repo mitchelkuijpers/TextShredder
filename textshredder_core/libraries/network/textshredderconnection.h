@@ -50,7 +50,6 @@ private:
 	void breakDownSignalsForSocket();
 
 	void emitNewIncomingPacket(TextShredderPacket &packet);
-	void handleFileRequestPacket(TextShredderPacket &packet);
 
 signals:
 	void statusChanged(TextShredderConnectionStatus, QAbstractSocket::SocketError);
@@ -59,8 +58,9 @@ signals:
 
 	//Incoming packet signals
 	void incomingSetAliasPacketContent(QByteArray &content);
-	void incomingFileDataPacketContent(QByteArray &content);
-	void incomingEditPacketContent(QByteArray &content);
+	void handleFileRequestPacketContent(QByteArray &content, quint16 filehandle);
+	void incomingFileDataPacketContent(QByteArray &content, quint16 filehandle);
+	void incomingEditPacketContent(QByteArray &content, quint16 filehandle);
 	void incomingSyncableFilesPacket(QByteArray &content);
 	void incomingAvailableFilesPacketRequest(QByteArray &content);
 

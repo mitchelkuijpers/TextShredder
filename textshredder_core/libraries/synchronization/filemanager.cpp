@@ -98,6 +98,19 @@ QSharedPointer<SyncableFile> FileManager::getSyncableFileWithName(QString &name)
 	return fileFromList;
 }
 
+QSharedPointer<SyncableFile> FileManager::getSyncableFileWithIdentifier(QString &identifier)
+{
+	QSharedPointer<SyncableFile> fileFromList;
+	for(int i = 0; i < fileList.count(); i++ ) {
+		fileFromList = fileList.at(i);
+		if (fileFromList.data()->getFileIdentifier() == identifier) {
+			return fileFromList;
+		}
+	}
+	throw QString("No Such file shared");
+	return fileFromList;
+}
+
 void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 {
 	QList< QSharedPointer<SyncableFile> > list;
