@@ -12,7 +12,7 @@ FileRequestPacket::FileRequestPacket(QObject *parent, quint16 port, QString &fil
 	this->setContent(newContent);
 }
 
-quint16 FileRequestPacket::getPort(TextShredderPacket & packet)
+quint16 FileRequestPacket::getSourceHandle(TextShredderPacket & packet)
 {
 	QByteArray bytes = packet.getContent();
 	if	(bytes.at(0) != '{') {
