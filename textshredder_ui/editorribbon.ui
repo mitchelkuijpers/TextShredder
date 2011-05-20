@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>868</width>
-    <height>110</height>
+    <width>986</width>
+    <height>121</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,6 +24,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton { width: 20px; }</string>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
@@ -35,177 +38,6 @@
        <property name="toolTip">
         <string>Font family</string>
        </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="boldButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="font">
-        <font>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>Bold</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/ui/ribbon/images/ribbon/format-text-bold.png</normaloff>:/ui/ribbon/images/ribbon/format-text-bold.png</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="autoExclusive">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="underlineButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>Underline</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/ui/ribbon/images/ribbon/format-text-underline.png</normaloff>:/ui/ribbon/images/ribbon/format-text-underline.png</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QPushButton" name="italicButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>Italic</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/ui/ribbon/images/ribbon/format-text-italic.png</normaloff>:/ui/ribbon/images/ribbon/format-text-italic.png</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="QPushButton" name="strikeButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>Strike</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/ui/ribbon/images/ribbon/format-text-strikethrough.png</normaloff>:/ui/ribbon/images/ribbon/format-text-strikethrough.png</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <widget class="QPushButton" name="superscriptButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>Subscript</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/ui/ribbon/images/ribbon/format-text-superscript.png</normaloff>:/ui/ribbon/images/ribbon/format-text-superscript.png</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="5">
-      <widget class="QPushButton" name="subscriptButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>Superscript</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/ui/ribbon/images/ribbon/format-text-subscript.png</normaloff>:/ui/ribbon/images/ribbon/format-text-subscript.png</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="6">
-      <widget class="QComboBox" name="fontColorInput">
-       <property name="toolTip">
-        <string>Change font color</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Font Color</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="1" column="7">
-      <widget class="QComboBox" name="fontMarkInput">
-       <property name="toolTip">
-        <string>Change text marking</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Mark</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item row="0" column="6" colspan="2">
@@ -303,6 +135,16 @@
        </item>
       </widget>
      </item>
+     <item row="0" column="8" rowspan="2">
+      <widget class="QFrame" name="verticalLine">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="9">
       <widget class="QPushButton" name="unorderedListButton">
        <property name="toolTip">
@@ -316,6 +158,9 @@
          <normaloff>:/ui/ribbon/images/ribbon/format-list-unordered.png</normaloff>:/ui/ribbon/images/ribbon/format-list-unordered.png</iconset>
        </property>
        <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
         <bool>true</bool>
        </property>
       </widget>
@@ -335,6 +180,218 @@
        <property name="checkable">
         <bool>true</bool>
        </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="boldButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="toolTip">
+        <string>Bold</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/ui/ribbon/images/ribbon/format-text-bold.png</normaloff>:/ui/ribbon/images/ribbon/format-text-bold.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="underlineButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Underline</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/ui/ribbon/images/ribbon/format-text-underline.png</normaloff>:/ui/ribbon/images/ribbon/format-text-underline.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="italicButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Italic</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/ui/ribbon/images/ribbon/format-text-italic.png</normaloff>:/ui/ribbon/images/ribbon/format-text-italic.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QPushButton" name="strikeButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Strike</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/ui/ribbon/images/ribbon/format-text-strikethrough.png</normaloff>:/ui/ribbon/images/ribbon/format-text-strikethrough.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QPushButton" name="superscriptButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Subscript</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/ui/ribbon/images/ribbon/format-text-superscript.png</normaloff>:/ui/ribbon/images/ribbon/format-text-superscript.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="5">
+      <widget class="QPushButton" name="subscriptButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Superscript</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/ui/ribbon/images/ribbon/format-text-subscript.png</normaloff>:/ui/ribbon/images/ribbon/format-text-subscript.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="6">
+      <widget class="QComboBox" name="fontColorInput">
+       <property name="toolTip">
+        <string>Change font color</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Font Color</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="1" column="7">
+      <widget class="QComboBox" name="fontMarkInput">
+       <property name="toolTip">
+        <string>Change text marking</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Mark</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="1" column="9">
+      <widget class="QPushButton" name="alignLeftButton">
+       <property name="toolTip">
+        <string>Align left</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/ui/ribbon/images/ribbon/format-justify-left.png</normaloff>:/ui/ribbon/images/ribbon/format-justify-left.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="1" column="10">
@@ -350,6 +407,9 @@
          <normaloff>:/ui/ribbon/images/ribbon/format-justify-center.png</normaloff>:/ui/ribbon/images/ribbon/format-justify-center.png</iconset>
        </property>
        <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
         <bool>true</bool>
        </property>
       </widget>
@@ -369,6 +429,9 @@
        <property name="checkable">
         <bool>true</bool>
        </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="1" column="12">
@@ -386,37 +449,13 @@
        <property name="checkable">
         <bool>true</bool>
        </property>
-      </widget>
-     </item>
-     <item row="2" column="0" colspan="13">
-      <widget class="QFrame" name="horizontalLine">
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="9">
-      <widget class="QPushButton" name="alignLeftButton">
-       <property name="toolTip">
-        <string>Align left</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/ui/ribbon/images/ribbon/format-justify-left.png</normaloff>:/ui/ribbon/images/ribbon/format-justify-left.png</iconset>
-       </property>
-       <property name="checkable">
+       <property name="flat">
         <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="0" column="8" rowspan="2">
-      <widget class="QFrame" name="verticalLine">
+     <item row="2" column="0" colspan="13">
+      <widget class="QFrame" name="horizontalLine">
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>
