@@ -1,6 +1,9 @@
 #include "syncthread.h"
 
 int SyncThread::sharedIndex = 1;
+
+quint16 SyncThread::nextSyncThreadHandle = 1;
+
 SyncThread::SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>conn,
 					   QSharedPointer< WorkingCopy> workingCopyPointer) :
 	QObject(parent), connectionPointer(conn), workingCopyPointer(workingCopyPointer),
@@ -182,4 +185,19 @@ void SyncThread::receivedDownloadedContent(QByteArray & content)
 	shadowCopy.setContent(string);
 	shadowCopy.getBackupCopy()->setContent(string);
 	startSync();
+}
+
+void SyncThread::setDestinationHandle(quint16 destination)
+{
+
+}
+
+quint16 SyncThread::getDestinationHandle()
+{
+
+}
+
+quint16 SyncThread::getSourceHandle()
+{
+
 }
