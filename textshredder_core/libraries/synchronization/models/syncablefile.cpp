@@ -121,7 +121,7 @@ void SyncableFile::requestSync()
 	QSharedPointer<SyncThread> newThread = QSharedPointer<SyncThread>(new SyncThread(this, this->workingCopy));
 	syncThreads.append(newThread);
 
-	FileRequestPacket packet(newThread.data()->getSourceHandle(), fileIdentifier);
+	FileRequestPacket packet(this, newThread.data()->getSourceHandle(), fileIdentifier);
 	emit fileRequestsForSync(packet);
 	qDebug("Create socket SyncableFile::requestSync");
 }

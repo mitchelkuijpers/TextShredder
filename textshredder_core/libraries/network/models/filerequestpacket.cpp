@@ -1,6 +1,6 @@
 #include "filerequestpacket.h"
 
-FileRequestPacket::FileRequestPacket(QObject *parent, qint16 port, QString &fileAlias) :
+FileRequestPacket::FileRequestPacket(QObject *parent, quint16 port, QString &fileAlias) :
 		TextShredderPacket(parent, kPacketTypeFileRequest)
 {
 	QByteArray newContent;
