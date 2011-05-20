@@ -76,7 +76,6 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 
 void EditorView::rebuildSharedFilesListTreeView()
 {
-	qDebug("rebuildSharedFilesListTreeView");
 	QList < QSharedPointer<SyncableFile> > sharedFilesList =
 			FileManager::Instance()->getAllFiles();
 
@@ -84,20 +83,32 @@ void EditorView::rebuildSharedFilesListTreeView()
 	model.removeRows(0, model.rowCount());
 	int i = 0;
 	for(i = 0; i < sharedFilesList.count(); i++ ) {
-		QString fileName = sharedFilesList.at(i).data()->getFileAlias();
 
+		SyncableFile * syncableFile = sharedFilesList.at(i).data();
+		QString fileName = syncableFile->getFileAlias();
+
+		//Checkbox
 		QStandardItem *checkBox = new QStandardItem();
 		if ( isServer ) {
 			checkBox->setCheckable( true );
+			if ( syncableFile->isShared() ) {
+				checkBox->setCheckState(Qt::Checked);
+			}
 		}
 		model.setItem(i, 0, checkBox);
 
-		QStandardItem *item = new QStandardItem( fileName );
-		item->setEditable( false );
-		model.setItem(i, 1, item);
+		//Filename
+		QStandardItem *file = new QStandardItem( fileName );
+		file->setEditable( false );
+		model.setItem(i, 1, file);
 
+		//Status
 		QStandardItem *status = new QStandardItem( QString("") );
-		status->setIcon(QIcon(":/ui/status/images/status/user-available.svg"));
+		if ( syncableFile->isShared() ) {
+			status->setIcon(QIcon(":/ui/status/images/status/user-available.svg"));
+		} else {
+			status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
+		}
 		model.setItem(i, 2, status);
 	}
 
@@ -115,15 +126,14 @@ void EditorView::setColumnWidths()
 
 void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 {
-	qDebug("A");
 	if (index.column() == 0) {
-		qDebug("B");
 		QStandardItem *item = model.itemFromIndex(index);
 		bool sharedState = (item->checkState() == Qt::Checked);
 		QSharedPointer<SyncableFile>file =  FileManager::Instance()->getAllFiles().at(index.column());
 		file.data()->setShared(sharedState);
+
+		rebuildSharedFilesListTreeView();
 	}
-	//Check if row is checked. Set "isShared" = false
 }
 
 void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
