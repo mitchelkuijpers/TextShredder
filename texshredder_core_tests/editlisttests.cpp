@@ -115,3 +115,18 @@ void EditListTests::testAddEdit()
 	e = editList.getEdits().at(1);
 	QVERIFY2( e  == oneEdit, "The EditList secon edits object should be oneEdit");
 }
+
+void EditListTests::testPopEditsUpToLocalVersion()
+{
+	QList<Patch> list;
+	Edit firstEdit(this, 0, list);
+	Edit secondEdit(this, 1, list);
+	Edit thirdEdit(this, 2, list);
+
+	EditList editList(this);
+	editList.addEdit(firstEdit);
+
+	editList.popEditsUpToLocalVersion(5);
+	QVERIFY2(firstEdit.getLocalVersion() == 5, "The firstEdit should return 5");
+
+}

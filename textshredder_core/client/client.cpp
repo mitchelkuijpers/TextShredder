@@ -35,7 +35,9 @@ void Client::connectionStatusChanged(TextShredderConnectionStatus status, QAbstr
 {
 	if (status == Connected) {
 		emit clientConnected();
-
+//		TextShredderPacket packet;
+//		packet = TextShredderPacket(this, kPacketTypeAvailableFilesRequest);
+//		FileManager::Instance()->sendFileRequest(packet);
 	} else if (status == Error) {
 		emit clientConnectionError(error);
 	}

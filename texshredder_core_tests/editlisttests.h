@@ -15,7 +15,7 @@ private Q_SLOTS:
 	void testEmpty();
 	void testUpdateToRemoteVersion();
 	void testAddEdit();
-
+	void testPopEditsUpToLocalVersion();
 };
 
 DECLARE_TEST(EditListTests)
