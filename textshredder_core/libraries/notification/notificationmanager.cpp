@@ -78,7 +78,7 @@ void NotificationManager::addButtonsToNotificationDialog( Notification & notific
 
 	if ( notification.getHasCancelButton() ) {
 		i++;
-		QPushButton * button = new QPushButton("Cancel");
+		QPushButton * button = new QPushButton("Ok");
 		gridLayout->addWidget(button, 3, i);
 		connect(button, SIGNAL(clicked()), notificationDialog, SLOT(close()));
 	}
