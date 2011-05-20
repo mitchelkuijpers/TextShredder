@@ -44,7 +44,7 @@ void EditorView::on_addFolderButton_clicked()
 
 void EditorView::setFileTreeWidgetColumnsInModel()
 {
-	model.setHorizontalHeaderItem(0, new QStandardItem(""));
+	model.setHorizontalHeaderItem(0, new QStandardItem("Shared"));
 	model.setHorizontalHeaderItem(1, new QStandardItem( "Files" ));
 	model.setHorizontalHeaderItem(2, new QStandardItem( "Status" ));
 
@@ -96,7 +96,8 @@ void EditorView::rebuildSharedFilesListTreeView()
 		item->setEditable( false );
 		model.setItem(i, 1, item);
 
-		QStandardItem *status = new QStandardItem( QString("Not Syncing") );
+		QStandardItem *status = new QStandardItem( QString("") );
+		status->setIcon(QIcon(":/ui/status/images/status/user-available.svg"));
 		model.setItem(i, 2, status);
 	}
 
@@ -107,8 +108,8 @@ void EditorView::rebuildSharedFilesListTreeView()
 
 void EditorView::setColumnWidths()
 {
-	ui->fileTreeWidget->setColumnWidth(0, 30);
-	ui->fileTreeWidget->setColumnWidth(1, 175);
+	ui->fileTreeWidget->setColumnWidth(0, 44);
+	ui->fileTreeWidget->setColumnWidth(1, 170);
 	ui->fileTreeWidget->setColumnWidth(2, 30);
 }
 
