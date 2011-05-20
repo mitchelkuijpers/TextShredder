@@ -69,7 +69,7 @@
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
         <property name="indentation">
-         <number>0</number>
+         <number>8</number>
         </property>
         <attribute name="headerCascadingSectionResizes">
          <bool>false</bool>

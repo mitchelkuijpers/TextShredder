@@ -46,7 +46,7 @@ void EditorView::setFileTreeWidgetColumnsInModel()
 {
 	model.setHorizontalHeaderItem(0, new QStandardItem("Shared"));
 	model.setHorizontalHeaderItem(1, new QStandardItem( "Files" ));
-	model.setHorizontalHeaderItem(2, new QStandardItem( "Status" ));
+	model.setHorizontalHeaderItem(2, new QStandardItem( "" ));
 
 }
 
@@ -120,7 +120,7 @@ void EditorView::rebuildSharedFilesListTreeView()
 void EditorView::setColumnWidths()
 {
 	ui->fileTreeWidget->setColumnWidth(0, 44);
-	ui->fileTreeWidget->setColumnWidth(1, 170);
+	ui->fileTreeWidget->setColumnWidth(1, 175);
 	ui->fileTreeWidget->setColumnWidth(2, 30);
 }
 
