@@ -7,6 +7,7 @@
 #include "models/editlist.h"
 #include "models/shadowcopy.h"
 #include "models/workingcopy.h"
+#include "../network/models/filedatapacket.h"
 
 #include "../logging/textshredderlogging.h"
 
@@ -38,7 +39,8 @@ public:
 public slots:
 	void pushChanges();
 	void receivedEditPacketContent(QByteArray &content, quint16 destination);
-	void receivedFileDataPacketContent(QByteArray &content, quint16 destination);
+	void receivedFileDataPacket(TextShredderPacket &packet, quint16 destination);
+
 
 protected://Must be protected for test purposes
 	/**

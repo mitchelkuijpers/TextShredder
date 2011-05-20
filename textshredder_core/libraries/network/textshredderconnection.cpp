@@ -122,7 +122,7 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 		qDebug("FileDatapacket");
 		quint16 destination =  packet.getHeader().getConnectionHandle();
 		qDebug() << "File data packet destination " << destination;
-		emit incomingFileDataPacketContent(packet.getContent(),destination);
+		emit incomingFileDataPacket(packet,destination);
 	} else if (packet.isFileRequestPacket()) {
 		qDebug("RequestPacket");
 		emit incomingFileRequestPacket(packet);

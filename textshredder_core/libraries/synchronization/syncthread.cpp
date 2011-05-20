@@ -26,7 +26,7 @@ void SyncThread::connectSignalsForConnection()
 {
 	qDebug("SyncThread::connectSignalsForConnection");
 	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
-	connect(connectionPointer.data(), SIGNAL(incomingFileDataPacketContent(QByteArray&, quint16)), this, SLOT(receivedFileDataPacketContent(QByteArray&, quint16)));
+	connect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
 }
 
 //For testing only
@@ -52,10 +52,12 @@ void SyncThread::receivedEditPacketContent(QByteArray &content, quint16 destinat
 		this->processChanges(content);
 	}
 }
-void SyncThread::receivedFileDataPacketContent(QByteArray &content, quint16 destination)
+void SyncThread::receivedFileDataPacket(TextShredderPacket &packet, quint16 destination)
 {
 	if (sourceSyncThreadHandle == destination) {
-		this->receivedDownloadedContent(content);
+		this->sourceSyncThreadHandle = FileDataPacket::getConnectionHandle(packet);
+		QByteArray fileData = FileDataPacket::getFileDataContent(packet);
+		this->receivedDownloadedContent(fileData);
 	}
 }
 
@@ -193,7 +195,10 @@ void SyncThread::sendFileDataAndStart()
 	QByteArray bytes;
 	bytes.append(*workingCopyPointer.data()->getContent());
 	qDebug() << "before" << destinationSyncThreadHandle;
-	TextShredderPacket packet(this, kPacketTypeFileData, bytes, destinationSyncThreadHandle);
+	//TextShredderPacket packet(this, kPacketTypeFileData, bytes, destinationSyncThreadHandle);
+	FileDataPacket packet(this, bytes, sourceSyncThreadHandle);
+	packet.getHeader().setConnectionHandle(destinationSyncThreadHandle);
+
 	qDebug("writePacketOnConnection(packet) - start");
 	qDebug() << packet.getHeader().getConnectionHandle();
 	writePacketOnConnection(packet);
