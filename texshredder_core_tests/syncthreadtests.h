@@ -4,7 +4,7 @@
 #include <QtCore/QString>
 #include "autotest.h"
 #include "syncthreadsub.h"
-
+#include <QSharedPointer>
 class SyncThreadTests : public QObject
 {
     Q_OBJECT
