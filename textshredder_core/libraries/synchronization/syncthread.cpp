@@ -35,7 +35,8 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer <WorkingCopy> newWorking
 	shadowCopy(this, *newWorkingCopy.data()->getContent()), editList(NULL), timer(NULL),
 	logging(this)
 {
-	*(shadowCopy.getContent ()) = *workingCopyPointer.data()->getContent(); // set shadow copy
+	shadowCopy.setContent(*workingCopyPointer.data()->getContent());
+	//*(shadowCopy.getContent ()) = *workingCopyPointer.data()->getContent(); // set shadow copy
 	shadowCopy.setLogging(&logging);
 	syncThreadNumber = sharedIndex++;
 }
