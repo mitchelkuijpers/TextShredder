@@ -157,6 +157,8 @@ void MainWindow::clientDidConnect() {
 	this->hide();
 	editorView.show();
 }
+
+
 void MainWindow::clientHadError()
 {
 	QList<NotificationOption> options;

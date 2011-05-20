@@ -17,6 +17,7 @@ private:
 
 signals:
 	void clientConnected();
+	void availableFilesRequest();
 	void clientConnectionError();
 
 private slots:

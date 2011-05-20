@@ -25,6 +25,7 @@ void Client::connectionStatusChanged(TextShredderConnectionStatus status)
 {
 	if (status == Connected) {
 		emit clientConnected();
+
 	} else if (status == Error) {
 		emit clientConnectionError();
 	}
