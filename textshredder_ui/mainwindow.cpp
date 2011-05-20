@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "notificationmanager.h"
+#include "../textshredder_core/libraries/notification/notificationmanager.h"
 
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>

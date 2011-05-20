@@ -15,9 +15,9 @@ SOURCES += main.cpp\
     editorview.cpp \
     editorribbon.cpp \
     debugview.cpp \
-	notificationmanager.cpp \
-    notificationoption.cpp \
-    notification.cpp \
+	../textshredder_core/libraries/notification/notificationmanager.cpp \
+	../textshredder_core/libraries/notification/models/notificationoption.cpp \
+	../textshredder_core/libraries/notification/models/notification.cpp \
     ../textshredder_core/server/server.cpp \
     ../textshredder_core/libraries/synchronization/clientrepresentation.cpp \
     ../textshredder_core/libraries/synchronization/filemanager.cpp \
@@ -50,9 +50,9 @@ HEADERS  += mainwindow.h \
     editorview.h \
     editorribbon.h \
     debugview.h \
-	notificationmanager.h \
-    notificationoption.h \
-    notification.h \
+	../textshredder_core/libraries/notification/notificationmanager.h \
+	../textshredder_core/libraries/notification/models/notificationoption.h \
+	../textshredder_core/libraries/notification/models/notification.h \
     ../textshredder_core/server/server.h \
     ../textshredder_core/libraries/synchronization/clientrepresentation.h \
     ../textshredder_core/libraries/synchronization/filemanager.h \
