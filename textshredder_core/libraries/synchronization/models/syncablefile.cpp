@@ -122,10 +122,13 @@ void SyncableFile::requestSync()
 {
 	QSharedPointer<SyncThread> newThread =
 			QSharedPointer<SyncThread>(new SyncThread(this, Client::Instance().data()->getConnection() , workingCopy));
-	//QSharedPointer<SyncThread> newThread = QSharedPointer<SyncThread>(new SyncThread(this, this->workingCopy));
+
 	syncThreads.append(newThread);
 	qDebug() << "Handle = " <<  newThread.data()->getSourceHandle();
 	FileRequestPacket packet(this, newThread.data()->getSourceHandle(), fileIdentifier);
+	quint16 value = FileRequestPacket::getSourceHandle(packet);
+	qDebug() << "value " << value;
+	qDebug() << "other " << packet.getHeader().getConnectionHandle();
 	emit fileRequestsForSync(packet);
 	qDebug("Create socket SyncableFile::requestSync");
 }

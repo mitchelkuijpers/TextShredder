@@ -58,7 +58,7 @@ signals:
 
 	//Incoming packet signals
 	void incomingSetAliasPacketContent(QByteArray &content);
-	void incomingFileRequestPacket(TextShredderPacket &content, quint16 filehandle);
+	void incomingFileRequestPacket(TextShredderPacket &content);
 	void incomingFileDataPacketContent(QByteArray &content, quint16 filehandle);
 	void incomingEditPacketContent(QByteArray &content, quint16 filehandle);
 	void incomingSyncableFilesPacket(QByteArray &content);

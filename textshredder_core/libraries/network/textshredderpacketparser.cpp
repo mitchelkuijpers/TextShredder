@@ -20,13 +20,18 @@ TextShredderPacket * TextShredderPacketParser::makeAllocatedPacketFromBytes(
 	QByteArray type = bytes->mid(kPacketTypeOffset,
 								(int) sizeof(unsigned char));
 	unsigned int iLength = *((unsigned int *)length.data());
+	QByteArray connectionHandleBytes = bytes->mid(kPacketHandleOffset,
+												  (int) sizeof(unsigned int));
+	unsigned int connectionHandle;
+	memcpy(&connectionHandle, connectionHandleBytes.data(), sizeof(unsigned int));
 
 	QByteArray content(bytes->mid(kHeaderLength, iLength));
 	TextShredderHeader header(
 				NULL,
 				(unsigned char) * protocolVersion.data(),
 				(unsigned int) iLength,
-				(unsigned char) * type.data());
+				(unsigned char) * type.data(),
+				connectionHandle);
 	return new TextShredderPacket(
 				NULL, header, content);
 }
