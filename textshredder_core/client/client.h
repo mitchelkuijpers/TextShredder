@@ -8,12 +8,14 @@ class Client : public QObject
 {
     Q_OBJECT
 public:
-	Client(QObject *parent);
 
+	static QSharedPointer<Client> Instance();
 	bool connectToServer(QHostAddress &addr, quint16 port);
-
+	QSharedPointer<TextShredderConnection> getConnection();
 private:
-	TextShredderConnection *connection;
+	QSharedPointer<TextShredderConnection> connection;
+	Client(QObject *parent);
+	static QSharedPointer<Client> sharedInstance;
 
 signals:
 	void clientConnected();

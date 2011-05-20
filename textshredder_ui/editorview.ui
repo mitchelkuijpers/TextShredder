@@ -24,7 +24,7 @@
        <number>-1</number>
       </property>
       <item row="0" column="0" colspan="2">
-       <widget class="QLabel" name="filesOpenedLabel">
+       <widget class="QLabel" name="sharedFilesLabel">
         <property name="text">
          <string>Shared files:</string>
         </property>
