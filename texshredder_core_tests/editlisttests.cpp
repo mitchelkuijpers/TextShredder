@@ -129,8 +129,9 @@ void EditListTests::testPopEditsUpToLocalVersion()
 	editList.addEdit(thirdEdit);
 
 	editList.popEditsUpToLocalVersion(5);
-	qDebug() << thirdEdit.getLocalVersion();
+
 	QVERIFY2(firstEdit.getLocalVersion() == 0, "The firstEdit should return 5");
 	QVERIFY2(secondEdit.getLocalVersion() == 1, "The secondEdit should return 1");
-	QVERIFY2(thirdEdit.getLocalVersion() == 5, "The thirdEdit should return 2");
+	QVERIFY2(thirdEdit.getLocalVersion() == 2, "The thirdEdit should return 2");
+	QVERIFY2(list.count() == 0, "The list should be empty");
 }
