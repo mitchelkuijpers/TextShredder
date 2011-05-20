@@ -8,7 +8,7 @@ class FileDataPacket : public TextShredderPacket
 	Q_OBJECT
 public:
 	FileDataPacket(QObject *parent, QByteArray &content, quint16 connectionHandle);
-	static QByteArray & getFileDataContent(TextShredderPacket &packet);
+	static QByteArray getFileDataContent(TextShredderPacket &packet);
 	static quint16 getConnectionHandle(TextShredderPacket &packet);
 };
 
