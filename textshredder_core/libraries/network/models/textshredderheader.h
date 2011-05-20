@@ -8,7 +8,7 @@
 #define kProtocolVersionOffset 0
 #define kPacketLengthOffset 1
 #define kPacketTypeOffset 5
-
+#define kPacketHandleOffset 6
 #define kHeaderLength 10
 
 class TextShredderHeader : QObject

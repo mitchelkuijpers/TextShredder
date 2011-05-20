@@ -94,7 +94,7 @@ QSharedPointer<SyncableFile> FileManager::getSyncableFileWithName(QString &name)
 			return fileFromList;
 		}
 	}
-	throw QString("No Such file shared");
+	qDebug() << "FileManager::getSyncableFileWithName " << "No Such file shared";
 	return fileFromList;
 }
 
@@ -107,7 +107,7 @@ QSharedPointer<SyncableFile> FileManager::getSyncableFileWithIdentifier(QString 
 			return fileFromList;
 		}
 	}
-	throw QString("No Such file shared");
+	qDebug() << "FileManager::getSyncableFileWithIdentifier " << "No Such file shared";
 	return fileFromList;
 }
 

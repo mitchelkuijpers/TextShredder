@@ -57,7 +57,9 @@ void SyncThread::receivedEditPacketContent(QByteArray &content, quint16 destinat
 void SyncThread::receivedFileDataPacketContent(QByteArray &content, quint16 destination)
 {
 	qDebug("SyncThread::receivedFileDataPacketContent");
+	qDebug() << "Source : " << sourceSyncThreadHandle << " Destination " << destination;
 	if (sourceSyncThreadHandle == destination) {
+		qDebug() << "Should handle";
 		this->receivedDownloadedContent(content);
 	}
 }
@@ -106,7 +108,6 @@ void SyncThread::writePacketOfEditList()
 {
 	editList.lock();
 	TextShredderPacket *newPacket = editList.getAllocatedPacket();
-	newPacket->getHeader().setConnectionHandle(destinationSyncThreadHandle);
 	editList.unlock();
 	writePacketOnConnection(*newPacket);
 	delete newPacket;
@@ -115,6 +116,7 @@ void SyncThread::writePacketOfEditList()
 void SyncThread::writePacketOnConnection(TextShredderPacket &packet)
 {
 	qDebug() << connectionPointer.isNull();
+	packet.getHeader().setConnectionHandle(destinationSyncThreadHandle);
 	connectionPointer.data()->write(packet);
 }
 
@@ -194,8 +196,10 @@ void SyncThread::sendFileDataAndStart()
 {
 	QByteArray bytes;
 	bytes.append(*workingCopyPointer.data()->getContent());
+	qDebug() << "before" << destinationSyncThreadHandle;
 	TextShredderPacket packet(this, kPacketTypeFileData, bytes, destinationSyncThreadHandle);
 	qDebug("writePacketOnConnection(packet) - start");
+	qDebug() << packet.getHeader().getConnectionHandle();
 	writePacketOnConnection(packet);
 	qDebug("writePacketOnConnection(packet) - done");
 	startSync();
