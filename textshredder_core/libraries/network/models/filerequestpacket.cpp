@@ -24,7 +24,7 @@ quint16 FileRequestPacket::getSourceHandle(TextShredderPacket & packet)
 	return portValue;
 }
 
-QString FileRequestPacket::getFileAlias(TextShredderPacket & packet)
+QString FileRequestPacket::getFileIdentifier(TextShredderPacket & packet)
 {
 	QString contentString(packet.getContent());
 	int commaIndex = contentString.indexOf(',');

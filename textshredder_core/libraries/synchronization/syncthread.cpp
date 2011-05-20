@@ -23,8 +23,10 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>c
 
 void SyncThread::connectSignalsForConnection()
 {
-	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&)),
+	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)),
 			this, SLOT(processChanges(QByteArray&)));
+	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
+	connect(connectionPointer.data(), SIGNAL(incomingFileDataPacketContent(QByteArray&, quint16)), this, SLOT(receivedFileDataPacketContent(QByteArray&, quint16)));
 	connect(connectionPointer.data(), SIGNAL(clientDisconnected()),
 			this, SLOT(stop()));
 	connect(connectionPointer.data(), SIGNAL(statusChanged(TextShredderConnectionStatus)),
@@ -187,4 +189,14 @@ quint16 SyncThread::getDestinationHandle()
 quint16 SyncThread::getSourceHandle()
 {
 	return sourceSyncThreadHandle;
+}
+
+void SyncThread::receivedEditPacketContent(QByteArray &content, quint16 destination)
+{
+
+}
+
+void SyncThread::receivedFileDataPacketContent(QByteArray &content, quint16 destination)
+{
+
 }

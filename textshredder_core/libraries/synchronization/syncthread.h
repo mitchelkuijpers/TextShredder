@@ -28,12 +28,16 @@ public:
 	quint16 getDestinationHandle();
 	quint16 getSourceHandle();
 
-public slots:
 	void processChanges(QByteArray &content);
+	void applyReceivedEditList(EditList &incomingEditList);
+public slots:
+	void receivedEditPacketContent(QByteArray &content, quint16 destination);
+	void receivedFileDataPacketContent(QByteArray &content, quint16 destination);
+
 	void stop();
 	void pushChanges();
 
-	void applyReceivedEditList(EditList &incomingEditList);
+
 
 	virtual void startSync();
 	void receivedDownloadedContent(QByteArray & content);

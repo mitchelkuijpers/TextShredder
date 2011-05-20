@@ -9,7 +9,7 @@ class FileRequestPacket : public TextShredderPacket
 public:
 	FileRequestPacket(QObject *parent, quint16 port, QString &fileAlias);
 	static quint16 getSourceHandle(TextShredderPacket &);
-	static QString getFileAlias(TextShredderPacket &);
+	static QString getFileIdentifier(TextShredderPacket &);
 };
 
 #endif // FILEREQUESTPACKET_H

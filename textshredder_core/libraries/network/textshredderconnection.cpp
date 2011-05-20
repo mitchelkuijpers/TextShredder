@@ -139,11 +139,11 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 
 void TextShredderConnection::handleFileRequestPacket(TextShredderPacket &packet)
 {
-	QString requestedFileName = FileRequestPacket::getFileAlias(packet);
+	QString requestedFileIdentifier = FileRequestPacket::getFileIdentifier(packet);
 
 	try {
 		QString name(socket.peerAddress().toString());
-		QSharedPointer<SyncableFile> file = FileManager::Instance()->getSyncableFileWithName(requestedFileName);
+		//QSharedPointer<SyncableFile> file = FileManager::Instance()->getSyncableFileWithName(requestedFileName);
 		qDebug() << "TODO: Handle file request MOFO!";
 		//file.data()->createSynchronizationWithPortAndAddress(port, name);
 	} catch (QString exception) {
