@@ -47,7 +47,8 @@ private:
 	EditorHighLighting * highlighter;
 
 private slots:
-	void textChanged(int position, int charsRemoved, int charsAdded );
+	void on_saveFileButton_clicked();
+ void textChanged(int position, int charsRemoved, int charsAdded );
 	void workingCopyChanged();
 
 	void clearHighlights();

@@ -1,5 +1,6 @@
 #include "syncablefiletextfield.h"
 #include "ui_syncablefiletextfield.h"
+#include <QFileDialog>
 
 SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<SyncableFile> file) :
     QWidget(parent),
@@ -168,4 +169,16 @@ void SyncableFileTextField::updateCursorPosition()
 void SyncableFileTextField::workingCopyChanged()
 {
 	this->updateTextFieldToWorkingCopyContent();
+}
+
+void SyncableFileTextField::on_saveFileButton_clicked()
+{
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+							   QDir::currentPath(),
+							   tr("Text File (*.txt);;TextShredder Document (*.tsd)"));
+
+	QFile file(fileName);
+	file.open(QIODevice::WriteOnly | QIODevice::Text);
+	QTextStream out(&file);
+	out << ui->textEditorField->toHtml();
 }
