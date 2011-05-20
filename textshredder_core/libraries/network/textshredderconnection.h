@@ -36,6 +36,7 @@ public:
 
 	quint16 getLocalPort();
 	void startConnection();
+
 private:
 	QSharedPointer<ConnectionListener> connectionListener;
 	QTcpSocket socket;
@@ -52,7 +53,7 @@ private:
 	void handleFileRequestPacket(TextShredderPacket &packet);
 
 signals:
-	void statusChanged(TextShredderConnectionStatus);
+	void statusChanged(TextShredderConnectionStatus, QAbstractSocket::SocketError);
 	void queueChanged();
 	void clientDisconnected();
 

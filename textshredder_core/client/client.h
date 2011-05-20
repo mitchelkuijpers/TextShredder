@@ -17,11 +17,11 @@ private:
 
 signals:
 	void clientConnected();
-	void clientConnectionError();
+	void clientConnectionError(QAbstractSocket::SocketError);
 
 private slots:
 	void connectionDidEncounterEnd();
-	void connectionStatusChanged(TextShredderConnectionStatus status);
+	void connectionStatusChanged(TextShredderConnectionStatus status, QAbstractSocket::SocketError error );
 };
 
 #endif // CLIENT_H

@@ -165,17 +165,14 @@ void TextShredderConnection::socketStateChanged(QAbstractSocket::SocketState sta
 {
 	if (state == QAbstractSocket::ConnectedState) {
 		this->status = Connected;
-		emit statusChanged(this->status);
+		emit statusChanged(this->status, QAbstractSocket::UnknownSocketError);
 	}
 }
 
 void TextShredderConnection::socketError(QAbstractSocket::SocketError error)
 {
-	// @TODO make good error messages
-	qDebug("We have an error...");
-	qDebug() << error;
 	this->status = Error;
-	emit statusChanged(this->status);
+	emit statusChanged(this->status, error);
 }
 
 void TextShredderConnection::clientHasDisconnected()

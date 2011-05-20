@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "../textshredder_core/libraries/notification/notificationmanager.h"
-
+#include "../textshredder_core/libraries/configuration/configurationmanager.h"
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
 
@@ -73,20 +73,14 @@ void MainWindow::changeWindowStateToClient()
 
 void MainWindow::on_cancelButton_clicked()
 {
-	//Create options
-	QList<NotificationOption> options;
-	NotificationOption option3(this ,"No");
-	NotificationOption option4(this ,"Yes");
-	options.append(option3);
-	options.append(option4);
-
-	//Create notification
-	Notification notification(this, "Are you sure you want to quit TextShredder?", 2, options);
+	Notification notification(this, "You have clicked the cancel button!\nNothing happens.", 4);
 	NotificationManager::Instance()->createNotificationDialog(notification);
 }
 
 void MainWindow::functionToExecute()
 {
+	//Test function for notificationmanager
+	//Has to be executed when this function is assigned to a button (onclick)
 	qDebug("You clicked on a dialog button!");
 }
 
@@ -122,7 +116,8 @@ void MainWindow::on_connectButton_clicked()
 		if (client == NULL) {
 			client = new Client(this);
 			connect(client, SIGNAL(clientConnected()), this, SLOT(clientDidConnect()));
-			connect(client, SIGNAL(clientConnectionError()), this, SLOT(clientHadError()));
+			connect(client, SIGNAL(clientConnectionError(QAbstractSocket::SocketError)),
+					this, SLOT(clientHadError(QAbstractSocket::SocketError)));
 		}
 		QHostAddress address(ui->serverIpInput->currentText());
 
@@ -157,11 +152,79 @@ void MainWindow::clientDidConnect() {
 	this->hide();
 	editorView.show();
 }
-void MainWindow::clientHadError()
+
+void MainWindow::clientHadError(QAbstractSocket::SocketError error)
 {
-	QList<NotificationOption> options;
-	NotificationOption firstOption(this, "Some");
-	options.append(firstOption);
-	Notification n(this, "Client could not connect", 0, options, true);
-	NotificationManager::Instance()->createNotificationDialog(n);
+	displayErrorNotification(error);
+}
+
+void MainWindow::displayErrorNotification(QAbstractSocket::SocketError error)
+{
+	Notification notification(this, "", 0, true);
+
+	switch( error ) {
+		case 0:
+				notification.setMessage("The connection was refused by the peer (or timed out).");
+				break;
+		case 1:
+				notification.setMessage("The remote host closed the connection.\nNote that the client socket (i.e., this socket) will be closed after the remote close notification has been sent.");
+				break;
+		case 2:
+				notification.setMessage("The host address was not found.");
+				break;
+		case 3:
+				notification.setMessage("The socket operation failed because the application lacked the required privileges.");
+				break;
+		case 4:
+				notification.setMessage("The local system ran out of resources (e.g., too many sockets).");
+				break;
+		case 5:
+				notification.setMessage("The socket operation timed out.");
+				break;
+		case 6:
+				notification.setMessage("The datagram was larger than the operating system's limit (which can be as low as 8192 bytes).");
+				break;
+		case 7:
+				notification.setMessage("An error occurred with the network (e.g., the network cable was accidentally plugged out).");
+				break;
+		case 8:
+				notification.setMessage("The address specified to QUdpSocket::bind() is already in use and was set to be exclusive.");
+				break;
+		case 9:
+				notification.setMessage("The address specified to QUdpSocket::bind() does not belong to the host.");
+				break;
+		case 10:
+				notification.setMessage("The requested socket operation is not supported by the local operating system (e.g., lack of IPv6 support).");
+				break;
+		case 11:
+				notification.setMessage("Used by QAbstractSocketEngine only, The last operation attempted has not finished yet (still in progress in the background).");
+				break;
+		case 12:
+				notification.setMessage("The socket is using a proxy, and the proxy requires authentication.");
+				break;
+		case 13:
+				notification.setMessage("The SSL/TLS handshake failed, so the connection was closed (only used in QSslSocket)");
+				break;
+		case 14:
+				notification.setMessage("Could not contact the proxy server because the connection to that server was denied");
+				break;
+		case 15:
+				notification.setMessage("The connection to the proxy server was closed unexpectedly (before the connection to the final peer was established)");
+				break;
+		case 16:
+				notification.setMessage("The connection to the proxy server timed out or the proxy server stopped responding in the authentication phase.");
+				break;
+		case 17:
+				notification.setMessage("The proxy address set with setProxy() (or the application proxy) was not found.");
+				break;
+		case 18:
+				notification.setMessage("The connection negotiation with the proxy server because the response from the proxy server could not be understood.");
+				break;
+		case -1:
+				notification.setMessage("An unidentified error occurred.");
+				break;
+	}
+
+	notification.setNotificationType(2);
+	NotificationManager::Instance()->createNotificationDialog(notification);
 }

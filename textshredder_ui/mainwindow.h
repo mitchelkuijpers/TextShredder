@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include "editorview.h"
 #include "../textshredder_core/client/client.h"
-#include "../textshredder_core/libraries/configuration/configurationmanager.h"
 #include <qfile.h>
 #include <qtextstream.h>
 
@@ -31,7 +30,7 @@ public:
 	  */
 	void setDefaultFont();
 	void functionToExecute();
-
+	void displayErrorNotification(QAbstractSocket::SocketError error);
 
 private:
     Ui::MainWindow *ui;
@@ -42,7 +41,7 @@ private slots:
 	void on_cancelButton_clicked();
 	void on_isServerInput_clicked();
 	void clientDidConnect();
-	void clientHadError();
+	void clientHadError(QAbstractSocket::SocketError error);
 };
 
 #endif // MAINWINDOW_H

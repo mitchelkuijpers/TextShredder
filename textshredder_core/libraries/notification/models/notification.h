@@ -8,11 +8,18 @@ class Notification : public QObject
 {
     Q_OBJECT
 public:
+	Notification( QObject *parent, QString message, int notificationType, bool hasCancelButton = true);
 	Notification( QObject *parent, QString message, int notificationType, QList<NotificationOption>& options, bool hasCancelButton = true);
+
 	QString getMessage();
 	int getNotificationType();
 	QList<NotificationOption>& getNotificationOptions();
 	bool getHasCancelButton();
+
+	void setMessage(QString message);
+	void setNotificationType(int notificationType);
+	void setNotificationOptions(QList<NotificationOption>& options);
+	void setHasCancelButton(bool hasCancelButton);
 
 private:
 	QString message;
