@@ -30,18 +30,15 @@ public:
 
 	void processChanges(QByteArray &content);
 	void applyReceivedEditList(EditList &incomingEditList);
-public slots:
-	void receivedEditPacketContent(QByteArray &content, quint16 destination);
-	void receivedFileDataPacketContent(QByteArray &content, quint16 destination);
+	void receivedDownloadedContent(QByteArray & content);
 
 	void stop();
 	void pushChanges();
-
-
-
 	virtual void startSync();
-	void receivedDownloadedContent(QByteArray & content);
-	void connectionStatusChanged(TextShredderConnectionStatus status);
+
+public slots:
+	void receivedEditPacketContent(QByteArray &content, quint16 destination);
+	void receivedFileDataPacketContent(QByteArray &content, quint16 destination);
 
 protected://Must be protected for test purposes
 	/**
@@ -68,6 +65,7 @@ protected://Must be protected for test purposes
 
 private:
 	void connectSignalsForConnection();
+	void sendFileDataAndStart();
 
 	quint16 sourceSyncThreadHandle;
 	quint16 destinationSyncThreadHandle;

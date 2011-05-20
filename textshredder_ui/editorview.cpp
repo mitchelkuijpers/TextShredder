@@ -128,8 +128,8 @@ void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
 {
 	if (index.column() > 0) { //Should not be the checkBox column
+		qDebug() << "You can't open a file twice! -> Not implemented yet";
 		//You can't open a file twice! -> Not implemented yet
-		const QAbstractItemModel * mod = index.model();
 		openFileInEditor( index );
 	}
 }

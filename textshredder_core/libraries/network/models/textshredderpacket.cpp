@@ -6,8 +6,8 @@ TextShredderPacket::TextShredderPacket( QObject *parent ) :
 }
 
 TextShredderPacket::TextShredderPacket(QObject *parent,
-									   unsigned char packetType) :
-	QObject(parent), header(this, kProtocolVersion, 0, packetType)
+									   unsigned char packetType, unsigned int destination ) :
+	QObject(parent), header(this, kProtocolVersion, 0, packetType, destination)
 {
 }
 TextShredderPacket::TextShredderPacket(QObject *parent,
@@ -18,8 +18,8 @@ TextShredderPacket::TextShredderPacket(QObject *parent,
 
 TextShredderPacket::TextShredderPacket( QObject *parent,
 										unsigned char packetType,
-										QByteArray & content) :
-	QObject(parent), header(NULL, kProtocolVersion, content.size (), packetType), content(content)
+										QByteArray & content, unsigned int destination ) :
+	QObject(parent), header(NULL, kProtocolVersion, content.size (), packetType, destination), content(content)
 {
 }
 

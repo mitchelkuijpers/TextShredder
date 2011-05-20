@@ -23,16 +23,11 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>c
 
 void SyncThread::connectSignalsForConnection()
 {
-	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)),
-			this, SLOT(processChanges(QByteArray&)));
 	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
 	connect(connectionPointer.data(), SIGNAL(incomingFileDataPacketContent(QByteArray&, quint16)), this, SLOT(receivedFileDataPacketContent(QByteArray&, quint16)));
-	connect(connectionPointer.data(), SIGNAL(clientDisconnected()),
-			this, SLOT(stop()));
-	connect(connectionPointer.data(), SIGNAL(statusChanged(TextShredderConnectionStatus)),
-			this, SLOT(connectionStatusChanged(TextShredderConnectionStatus)));
 }
 
+//For testing only
 SyncThread::SyncThread(QObject * parent, QSharedPointer <WorkingCopy> newWorkingCopy) :
 	QObject(parent), workingCopyPointer(newWorkingCopy),
 	shadowCopy(this, *newWorkingCopy.data()->getContent()), editList(NULL), timer(NULL),
@@ -43,35 +38,41 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer <WorkingCopy> newWorking
 	syncThreadNumber = sharedIndex++;
 }
 
-void SyncThread::connectionStatusChanged(TextShredderConnectionStatus status) {
-	qDebug("SyncThread::connectionStatusChanged");
-	qDebug() << status;
-	if (status == Connected) {
-		connect(connectionPointer.data(), SIGNAL(statusChanged(TextShredderConnectionStatus)),
-				this, SLOT(connectionStatusChanged(TextShredderConnectionStatus)));
-		QByteArray packetContent;
-		packetContent.append(*(workingCopyPointer.data()->getContent()));
-		TextShredderPacket packet(this, kPacketTypeFileData, packetContent);
-		connectionPointer.data()->write(packet);
-
-		startSync();
-	}
-}
-
 void SyncThread::startSync()
 {
 	timer.start(WRITETHREAD_INTERVAL);
 }
 
+void SyncThread::receivedEditPacketContent(QByteArray &content, quint16 destination)
+{
+	if (sourceSyncThreadHandle == destination) {
+		this->processChanges(content);
+	}
+}
+void SyncThread::receivedFileDataPacketContent(QByteArray &content, quint16 destination)
+{
+	if (sourceSyncThreadHandle == destination) {
+		this->receivedDownloadedContent(content);
+	}
+}
+
 void SyncThread::processChanges(QByteArray & content)
 {
-
 	QString procesChangesMessage("SyncThread::processChanges");
 	logging.writeLog (procesChangesMessage, DEBUG);
 	EditList incomingEditList(this, content);
 	this->applyReceivedEditList(incomingEditList);
-
 }
+void SyncThread::receivedDownloadedContent(QByteArray & content)
+{
+	qDebug("Received download content");
+	QString string(content);
+	workingCopyPointer.data()->setContent(string);
+	shadowCopy.setContent(string);
+	shadowCopy.getBackupCopy()->setContent(string);
+	startSync();
+}
+
 
 void SyncThread::pushChanges()
 {
@@ -99,6 +100,7 @@ void SyncThread::writePacketOfEditList()
 {
 	editList.lock();
 	TextShredderPacket *newPacket = editList.getAllocatedPacket();
+	newPacket->getHeader().setConnectionHandle(destinationSyncThreadHandle);
 	editList.unlock();
 	writePacketOnConnection(*newPacket);
 	delete newPacket;
@@ -166,16 +168,6 @@ qint16 SyncThread::getLocalPort()
 	return connectionPointer.data()->getLocalPort();
 }
 
-void SyncThread::receivedDownloadedContent(QByteArray & content)
-{
-	qDebug("Received download content");
-	QString string(content);
-	workingCopyPointer.data()->setContent(string);
-	shadowCopy.setContent(string);
-	shadowCopy.getBackupCopy()->setContent(string);
-	startSync();
-}
-
 void SyncThread::setDestinationHandle(quint16 destination)
 {
 	destinationSyncThreadHandle = destination;
@@ -191,12 +183,10 @@ quint16 SyncThread::getSourceHandle()
 	return sourceSyncThreadHandle;
 }
 
-void SyncThread::receivedEditPacketContent(QByteArray &content, quint16 destination)
+void SyncThread::sendFileDataAndStart()
 {
-
-}
-
-void SyncThread::receivedFileDataPacketContent(QByteArray &content, quint16 destination)
-{
-
+	QByteArray bytes;
+	bytes.append(*workingCopyPointer.data()->getContent());
+	TextShredderPacket packet(this, kPacketTypeFileData, bytes, destinationSyncThreadHandle);
+	startSync();
 }
