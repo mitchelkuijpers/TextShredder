@@ -11,17 +11,14 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>c
 	logging(this, QString("SyncThread").append(QString::number(sharedIndex)))
 {
 	WorkingCopy *wc = workingCopyPointer.data();
-	wc->getContent();
+	shadowCopy.setContent(* wc->getContent());
+
 	shadowCopy.setLogging(&logging);
 
 	connectSignalsForConnection();
 	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
 
-	qDebug("A");
 	sourceSyncThreadHandle = nextSyncThreadHandle;
-	qDebug() << nextSyncThreadHandle;
-	qDebug() << sourceSyncThreadHandle;
-	qDebug("B");
 	nextSyncThreadHandle++;
 }
 
@@ -56,10 +53,7 @@ void SyncThread::receivedEditPacketContent(QByteArray &content, quint16 destinat
 }
 void SyncThread::receivedFileDataPacketContent(QByteArray &content, quint16 destination)
 {
-	qDebug("SyncThread::receivedFileDataPacketContent");
-	qDebug() << "Source : " << sourceSyncThreadHandle << " Destination " << destination;
 	if (sourceSyncThreadHandle == destination) {
-		qDebug() << "Should handle";
 		this->receivedDownloadedContent(content);
 	}
 }
@@ -91,6 +85,7 @@ void SyncThread::pushChanges()
 	int shadowLocalVersion = shadowCopy.getLocalVersion();
 
 	QList<Patch> newPatches = shadowCopy.getPatchesToConvertString (*workingCopyContent);
+
 	if(newPatches.length() > 0) {
 		Edit e(this, shadowLocalVersion, newPatches);
 		editList.addEdit(e);

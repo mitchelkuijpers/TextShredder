@@ -19,7 +19,12 @@ void Patchable::applyPatches(QList<Patch> &patches)
 
 QList<Patch> Patchable::getPatchesToConvertString(QString &otherString)
 {
-	return dmpAlgorithm.patch_make((QString) content, otherString);
+	try {
+		QList<Patch> patches = dmpAlgorithm.patch_make((QString) content, otherString);
+		return patches;
+	} catch (QString exception) {
+		qDebug() << exception;
+	}
 }
 
 QString * Patchable::getContent()
