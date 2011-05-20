@@ -6,6 +6,7 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 	this->connection = new TextShredderConnection(this, socketDescriptor);
 	connect(connection, SIGNAL(clientDisconnected()), this, SLOT(getDisconnected()));
 
+//	connect(connection, SIGNAL(incomingFileRequestPacketContent(QByteArray&)));
 
 	connect(connection, SIGNAL(incomingSetAliasPacketContent(QByteArray&)),
 			this, SLOT(processSetAliasPacketContent(QByteArray &)));

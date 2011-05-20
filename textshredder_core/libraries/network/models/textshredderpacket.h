@@ -10,7 +10,7 @@
 #define kPacketTypeFileData 3
 #define kPacketTypeSetAlias 4
 #define kPacketTypeAvailableFiles 5
-
+#define kPacketTypeAvailableFilesRequest 6
 
 class TextShredderPacket : public QObject
 {
@@ -63,6 +63,7 @@ public:
 	bool isSetAliasPacket();
 
 	bool isSyncableFilesPacket();
+	bool isAvailableFilesPacketRequest();
 	bool isIncomplete();
 
 	void appendContentData(QByteArray & data);

@@ -156,6 +156,8 @@ void MainWindow::clientDidConnect() {
 void MainWindow::clientHadError(QAbstractSocket::SocketError error)
 {
 	displayErrorNotification(error);
+	ui->connectButton->setEnabled(true);
+	ui->connectingLoader->hide();
 }
 
 void MainWindow::displayErrorNotification(QAbstractSocket::SocketError error)

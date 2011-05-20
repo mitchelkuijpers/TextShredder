@@ -3,9 +3,9 @@
 
 #include <QObject>
 #include <QString>
-#include "../textshredder_synchronization_lib/textshredderconnection.h"
-#include "../textshredder_synchronization_lib/syncthread.h"
-#include "filesync.h"
+#include "../network/textshredderconnection.h"
+#include "./syncthread.h"
+#include "./filesync.h"
 
 class ClientRepresentation : public QObject
 {

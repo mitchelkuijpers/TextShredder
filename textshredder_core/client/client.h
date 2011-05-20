@@ -18,6 +18,7 @@ private:
 signals:
 	void clientConnected();
 	void clientConnectionError(QAbstractSocket::SocketError);
+	void availableFilesRequest();
 
 private slots:
 	void connectionDidEncounterEnd();
