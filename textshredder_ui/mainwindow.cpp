@@ -9,7 +9,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-	ui(new Ui::MainWindow), client(NULL)
+	ui(new Ui::MainWindow)
 {
 	ConfigurationManager::Instance()->load();
 	ConfigurationOptions configOptions = ConfigurationManager::Instance()->getConfigurationOptions();
@@ -113,12 +113,11 @@ void MainWindow::on_connectButton_clicked()
 		editorView.show();
 		editorView.setToServerMode();
 	} else {
-		if (client == NULL) {
-			client = new Client(this);
-			connect(client, SIGNAL(clientConnected()), this, SLOT(clientDidConnect()));
-			connect(client, SIGNAL(clientConnectionError(QAbstractSocket::SocketError)),
-					this, SLOT(clientHadError(QAbstractSocket::SocketError)));
-		}
+
+		QSharedPointer<Client> client = Client::Instance();
+		connect(client.data(), SIGNAL(clientConnected()), this, SLOT(clientDidConnect()));
+		connect(client.data(), SIGNAL(clientConnectionError(QAbstractSocket::SocketError)),
+				this, SLOT(clientHadError(QAbstractSocket::SocketError)));
 		QHostAddress address(ui->serverIpInput->currentText());
 
 		quint16 port = ui->serverPortInput->value();

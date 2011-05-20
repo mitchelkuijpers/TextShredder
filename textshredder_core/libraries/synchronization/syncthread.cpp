@@ -17,7 +17,11 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>c
 	connectSignalsForConnection();
 	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
 
+	qDebug("A");
 	sourceSyncThreadHandle = nextSyncThreadHandle;
+	qDebug() << nextSyncThreadHandle;
+	qDebug() << sourceSyncThreadHandle;
+	qDebug("B");
 	nextSyncThreadHandle++;
 }
 
