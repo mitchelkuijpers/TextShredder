@@ -594,7 +594,7 @@ void SyncThreadTests::setupVariables()
 	leftWorkingCopy = leftWorkingCopyPointer.data();
 	leftWorkingCopy->getContent()->append (startText);
 
-	leftWorkingCopyPointer = QSharedPointer<WorkingCopy> (new WorkingCopy(this));
+	rightWorkingCopyPointer = QSharedPointer<WorkingCopy> (new WorkingCopy(this));
 	rightWorkingCopy = rightWorkingCopyPointer.data();
 	rightWorkingCopy->getContent()->append (startText);
 
