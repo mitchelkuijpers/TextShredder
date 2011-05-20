@@ -3,12 +3,12 @@
 #include <QTest>
 
 void  FileRequestPacketTest::testGetPort() {
-	QString alias("test.txt");
-	FileRequestPacket packet(this, 1337, alias);
+	QString identifier("{1234-5678-9012-3456-7890}");
+	FileRequestPacket packet(this, 1337, identifier);
 
-	quint16 port = FileRequestPacket::getPort(packet);
-	QVERIFY2(port == 1337, "port did not get out right");
+	quint16 sourceHandle = FileRequestPacket::getSourceHandle(packet);
+	QVERIFY2(sourceHandle == 1337, "port did not get out right");
 
-	QString fileAlias = FileRequestPacket::getFileAlias(packet);
-	QVERIFY2(fileAlias == QString("test.txt"), "filealias is not the same");
+	QString fileIdentifier= FileRequestPacket::getFileIdentifier(packet);
+	QVERIFY2(identifier == fileIdentifier, "fileIdentifier is not the same");
 }
