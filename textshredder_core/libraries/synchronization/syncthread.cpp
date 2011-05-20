@@ -16,12 +16,17 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>c
 
 	connectSignalsForConnection();
 	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
+
+	sourceSyncThreadHandle = nextSyncThreadHandle;
+	nextSyncThreadHandle++;
 }
 
 void SyncThread::connectSignalsForConnection()
 {
-	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&)),
+	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)),
 			this, SLOT(processChanges(QByteArray&)));
+	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
+	connect(connectionPointer.data(), SIGNAL(incomingFileDataPacketContent(QByteArray&, quint16)), this, SLOT(receivedFileDataPacketContent(QByteArray&, quint16)));
 	connect(connectionPointer.data(), SIGNAL(clientDisconnected()),
 			this, SLOT(stop()));
 	connect(connectionPointer.data(), SIGNAL(statusChanged(TextShredderConnectionStatus)),
@@ -37,22 +42,6 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer <WorkingCopy> newWorking
 	shadowCopy.setLogging(&logging);
 	syncThreadNumber = sharedIndex++;
 }
-
-//SyncThread::SyncThread(QObject *parent, WorkingCopy &newWorkingCopy) :
-//		QObject(parent), connection(this), workingCopy(&newWorkingCopy),
-//		shadowCopy(this, *newWorkingCopy.getContent()), editList(NULL), timer(this),
-//		logging(this, QString("SyncThread ").append(QString::number(sharedIndex)))
-//{
-//	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
-//	connect(&connection, SIGNAL(incomingEditPacketContent(QByteArray&)),
-//			this, SLOT(processChanges(QByteArray&)));
-//	connect(&connection, SIGNAL(clientDisconnected()),
-//			this, SLOT(stop()));
-//	connect(&connection, SIGNAL(incomingFileDataPacketContent(QByteArray&)),
-//			this, SLOT(receivedDownloadedContent(QByteArray&)));
-
-//	syncThreadNumber = sharedIndex++;
-//}
 
 void SyncThread::connectionStatusChanged(TextShredderConnectionStatus status) {
 	qDebug("SyncThread::connectionStatusChanged");
@@ -189,15 +178,25 @@ void SyncThread::receivedDownloadedContent(QByteArray & content)
 
 void SyncThread::setDestinationHandle(quint16 destination)
 {
-
+	destinationSyncThreadHandle = destination;
 }
 
 quint16 SyncThread::getDestinationHandle()
 {
-
+	return destinationSyncThreadHandle;
 }
 
 quint16 SyncThread::getSourceHandle()
+{
+	return sourceSyncThreadHandle;
+}
+
+void SyncThread::receivedEditPacketContent(QByteArray &content, quint16 destination)
+{
+
+}
+
+void SyncThread::receivedFileDataPacketContent(QByteArray &content, quint16 destination)
 {
 
 }

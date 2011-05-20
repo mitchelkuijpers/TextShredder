@@ -162,7 +162,7 @@ void MainWindow::clientHadError(QAbstractSocket::SocketError error)
 
 void MainWindow::displayErrorNotification(QAbstractSocket::SocketError error)
 {
-	Notification notification(this, "", 0, true);
+	Notification notification(this, "", 2, true);
 
 	switch( error ) {
 		case 0:
@@ -184,22 +184,22 @@ void MainWindow::displayErrorNotification(QAbstractSocket::SocketError error)
 				notification.setMessage("The socket operation timed out.");
 				break;
 		case 6:
-				notification.setMessage("The datagram was larger than the operating system's limit (which can be as low as 8192 bytes).");
+				notification.setMessage("The datagram was larger than the operating system's limit\n(which can be as low as 8192 bytes).");
 				break;
 		case 7:
-				notification.setMessage("An error occurred with the network (e.g., the network cable was accidentally plugged out).");
+				notification.setMessage("An error occurred with the network\n(e.g., the network cable was accidentally plugged out).");
 				break;
 		case 8:
-				notification.setMessage("The address specified to QUdpSocket::bind() is already in use and was set to be exclusive.");
+				notification.setMessage("The address specified to QUdpSocket::bind()\nis already in use and was set to be exclusive.");
 				break;
 		case 9:
-				notification.setMessage("The address specified to QUdpSocket::bind() does not belong to the host.");
+				notification.setMessage("The address specified to QUdpSocket::bind()\ndoes not belong to the host.");
 				break;
 		case 10:
-				notification.setMessage("The requested socket operation is not supported by the local operating system (e.g., lack of IPv6 support).");
+				notification.setMessage("The requested socket operation is not supported\nby the local operating system (e.g., lack of IPv6 support).");
 				break;
 		case 11:
-				notification.setMessage("Used by QAbstractSocketEngine only, The last operation attempted has not finished yet (still in progress in the background).");
+				notification.setMessage("Used by QAbstractSocketEngine only, The last operation\nattempted has not finished yet (still in progress in the background).");
 				break;
 		case 12:
 				notification.setMessage("The socket is using a proxy, and the proxy requires authentication.");
@@ -211,22 +211,21 @@ void MainWindow::displayErrorNotification(QAbstractSocket::SocketError error)
 				notification.setMessage("Could not contact the proxy server because the connection to that server was denied");
 				break;
 		case 15:
-				notification.setMessage("The connection to the proxy server was closed unexpectedly (before the connection to the final peer was established)");
+				notification.setMessage("The connection to the proxy server was closed\nunexpectedly (before the connection to the final peer was established)");
 				break;
 		case 16:
-				notification.setMessage("The connection to the proxy server timed out or the proxy server stopped responding in the authentication phase.");
+				notification.setMessage("The connection to the proxy server timed out\nor the proxy server stopped responding in the authentication phase.");
 				break;
 		case 17:
 				notification.setMessage("The proxy address set with setProxy() (or the application proxy) was not found.");
 				break;
 		case 18:
-				notification.setMessage("The connection negotiation with the proxy server because the response from the proxy server could not be understood.");
+				notification.setMessage("The connection negotiation with the proxy server,\nbecause the response from the proxy server could not be understood.");
 				break;
 		case -1:
 				notification.setMessage("An unidentified error occurred.");
 				break;
 	}
 
-	notification.setNotificationType(2);
 	NotificationManager::Instance()->createNotificationDialog(notification);
 }
