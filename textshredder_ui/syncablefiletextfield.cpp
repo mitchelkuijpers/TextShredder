@@ -173,12 +173,23 @@ void SyncableFileTextField::workingCopyChanged()
 
 void SyncableFileTextField::on_saveFileButton_clicked()
 {
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+	QString filePath = QFileDialog::getSaveFileName(this, tr("Save File"),
 							   QDir::currentPath(),
-							   tr("Text File (*.txt);;TextShredder Document (*.tsd)"));
+							   tr("Text File (*.txt);;TextShredder Document (*.tsd);;HyperText Markup Language (*.html);;"));
 
-	QFile file(fileName);
-	file.open(QIODevice::WriteOnly | QIODevice::Text);
-	QTextStream out(&file);
-	out << ui->textEditorField->toHtml();
+	if ( !filePath.isEmpty() ) {
+		QFile file(filePath);
+
+		QFileInfo info(filePath);
+		QString fileExtension(info.suffix());
+		file.open(QIODevice::WriteOnly | QIODevice::Text);
+		QTextStream out(&file);
+
+		if ( fileExtension.compare("html") == 0 ) {
+			out << ui->textEditorField->toHtml();
+		} else {
+			out << ui->textEditorField->toPlainText();
+		}
+
+	}
 }

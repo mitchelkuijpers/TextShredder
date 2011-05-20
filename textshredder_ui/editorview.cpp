@@ -124,7 +124,6 @@ void EditorView::addCheckBoxToSharedFilesListTreeView( int row, SyncableFile * s
 	model.setItem(row, 0, checkBox);
 }
 
-
 void EditorView::addFileNameToSharedFilesListTreeView( int row, SyncableFile * syncableFile )
 {
 	QString fileName = syncableFile->getFileAlias();
