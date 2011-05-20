@@ -123,7 +123,7 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 		emit incomingFileDataPacketContent(packet.getContent(), packet.getHeader().getConnectionHandle());
 	} else if (packet.isFileRequestPacket()) {
 		qDebug("RequestPacket");
-		emit handleFileRequestPacketContent(packet.getContent(), packet.getHeader().getConnectionHandle());
+		emit incomingFileRequestPacket(packet, packet.getHeader().getConnectionHandle());
 	} else if (packet.isSetAliasPacket()) {
 		qDebug("SetAliasPacket");
 		emit incomingSetAliasPacketContent(packet.getContent());

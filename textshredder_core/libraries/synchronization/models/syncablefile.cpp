@@ -144,3 +144,8 @@ QSharedPointer<WorkingCopy> SyncableFile::openWorkingCopyForGUI()
 void SyncableFile::closeWorkingCopyFromGUI()
 {
 }
+
+void SyncableFile::startSyncOn(quint16)
+{
+
+}

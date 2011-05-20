@@ -6,8 +6,8 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 	this->connection = new TextShredderConnection(this, socketDescriptor);
 	connect(connection, SIGNAL(clientDisconnected()), this, SLOT(getDisconnected()));
 
-	connect(connection, SIGNAL(incomingFileRequestPacketContent(QByteArray&, quint16),
-							   this, SLOT(handleFileRequestPacketContent(QByteArray&,quint16))));
+	connect(connection, SIGNAL(incomingFileRequestPacket(TextShredderPacket&, quint16)),
+							   this, SLOT(handleFileRequest(TextShredderPacket&,quint16)));
 
 	connect(connection, SIGNAL(incomingSetAliasPacketContent(QByteArray&)),
 			this, SLOT(processSetAliasPacketContent(QByteArray &)));
@@ -30,13 +30,12 @@ void ClientRepresentation::getDisconnected()
 	emit clientRepresentationEncounteredEnd();
 }
 
-void TextShredderConnection::handleFileRequestPacketContent(QByteArray &packet,
+void ClientRepresentation::handleFileRequest(TextShredderPacket &packet,
 													 quint16 destination)
 {
-	QString requestedFileName = FileRequestPacket::getFileAlias(packet);
+	QString requestedFileName = FileRequestPacket::getFileIdentifier(packet);
 
 	try {
-		QString name(socket.peerAddress().toString());
 		QSharedPointer<SyncableFile> file = FileManager::Instance()->getSyncableFileWithName(requestedFileName);
 		qDebug() << "TODO: Handle file request MOFO!";
 		//file.data()->createSynchronizationWithPortAndAddress(port, name);
@@ -44,4 +43,6 @@ void TextShredderConnection::handleFileRequestPacketContent(QByteArray &packet,
 		//Some error occured. Problably no such file.
 	}
 }
+
+
 

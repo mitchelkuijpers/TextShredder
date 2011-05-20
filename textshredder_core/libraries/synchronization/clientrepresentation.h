@@ -30,7 +30,7 @@ private slots:
 	 * Removes the disconnected clients from the list
 	 */
 	void getDisconnected();
-	void handleFileRequestPacketContent(QByteArray& packet, quint16 destination);
+	void handleFileRequest(TextShredderPacket& packet, quint16 destination);
 
 	/**
 	 * ?? NOT CLEAR
