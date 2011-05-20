@@ -129,18 +129,16 @@ void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 	if (index.column() == 0) {
 		QStandardItem *item = model.itemFromIndex(index);
 		bool sharedState = (item->checkState() == Qt::Checked);
-		QSharedPointer<SyncableFile>file =  FileManager::Instance()->getAllFiles().at(index.column());
+		QSharedPointer<SyncableFile>file =  FileManager::Instance()->getAllFiles().at(index.row());
 		file.data()->setShared(sharedState);
-
 		rebuildSharedFilesListTreeView();
 	}
 }
 
 void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
 {
-	if (index.column() > 0) { //Should not be the checkBox column
+	if (index.column() > 0) {
 		qDebug() << "You can't open a file twice! -> Not implemented yet";
-		//You can't open a file twice! -> Not implemented yet
 		openFileInEditor( index );
 	}
 }
