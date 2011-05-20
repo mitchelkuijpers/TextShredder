@@ -118,9 +118,10 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 	if (packet.isEditPacket ()) {
 		qDebug("EditPacketContent");
 		emit incomingEditPacketContent(packet.getContent(), packet.getHeader().getConnectionHandle());
-	} else if (packet.isFileDataPacket ()) {
+	} else if (packet.isFileDataPacket()) {
 		qDebug("FileDatapacket");
-		emit incomingFileDataPacketContent(packet.getContent(), packet.getHeader().getConnectionHandle());
+		quint16 destination =  packet.getHeader().getConnectionHandle();
+		emit incomingFileDataPacketContent(packet.getContent(),destination);
 	} else if (packet.isFileRequestPacket()) {
 		qDebug("RequestPacket");
 		emit incomingFileRequestPacket(packet, packet.getHeader().getConnectionHandle());

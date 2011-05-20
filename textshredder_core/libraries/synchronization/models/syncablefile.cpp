@@ -1,4 +1,4 @@
-#include "../textshredder_core/libraries/synchronization/models/syncablefile.h"
+#include "syncablefile.h"
 
 #define kDefaultFileAlias QString("untitled.txt")
 

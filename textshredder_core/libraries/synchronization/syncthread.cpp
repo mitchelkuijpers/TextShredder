@@ -23,6 +23,7 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>c
 
 void SyncThread::connectSignalsForConnection()
 {
+	qDebug("SyncThread::connectSignalsForConnection");
 	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
 	connect(connectionPointer.data(), SIGNAL(incomingFileDataPacketContent(QByteArray&, quint16)), this, SLOT(receivedFileDataPacketContent(QByteArray&, quint16)));
 }

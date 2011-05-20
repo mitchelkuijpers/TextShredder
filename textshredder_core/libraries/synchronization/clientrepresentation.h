@@ -37,6 +37,7 @@ private slots:
 	 * @param QByteArray bytes
 	 */
 	void processSetAliasPacketContent(QByteArray &bytes);
+	void receivedFileDataPacketContent(TextShredderPacket &packet, quint16 destination);
 
 signals:
 	void clientRepresentationEncounteredEnd();
