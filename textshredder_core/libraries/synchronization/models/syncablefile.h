@@ -6,7 +6,6 @@
 #include "../syncthread.h"
 #include "../../network/models/filerequestpacket.h"
 
-
 typedef enum {
 	FileTypeUNKNOWN = 1,
 	FileTypeTXT = 2,
@@ -40,7 +39,6 @@ public:
 	void setShared(bool share);
 
 	void requestSync();
-	//void createSynchronizationWithPortAndAddress(quint16 port, QString &hostName);
 
 	static void doDeleteLater(SyncableFile *obj);
 

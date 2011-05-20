@@ -1,6 +1,9 @@
 #include "syncthread.h"
 
 int SyncThread::sharedIndex = 1;
+
+quint16 SyncThread::nextSyncThreadHandle = 1;
+
 SyncThread::SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>conn,
 					   QSharedPointer< WorkingCopy> workingCopyPointer) :
 	QObject(parent), connectionPointer(conn), workingCopyPointer(workingCopyPointer),
@@ -13,6 +16,9 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>c
 
 	connectSignalsForConnection();
 	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
+
+	sourceSyncThreadHandle = nextSyncThreadHandle;
+	nextSyncThreadHandle++;
 }
 
 void SyncThread::connectSignalsForConnection()
@@ -34,22 +40,6 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer <WorkingCopy> newWorking
 	shadowCopy.setLogging(&logging);
 	syncThreadNumber = sharedIndex++;
 }
-
-//SyncThread::SyncThread(QObject *parent, WorkingCopy &newWorkingCopy) :
-//		QObject(parent), connection(this), workingCopy(&newWorkingCopy),
-//		shadowCopy(this, *newWorkingCopy.getContent()), editList(NULL), timer(this),
-//		logging(this, QString("SyncThread ").append(QString::number(sharedIndex)))
-//{
-//	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
-//	connect(&connection, SIGNAL(incomingEditPacketContent(QByteArray&)),
-//			this, SLOT(processChanges(QByteArray&)));
-//	connect(&connection, SIGNAL(clientDisconnected()),
-//			this, SLOT(stop()));
-//	connect(&connection, SIGNAL(incomingFileDataPacketContent(QByteArray&)),
-//			this, SLOT(receivedDownloadedContent(QByteArray&)));
-
-//	syncThreadNumber = sharedIndex++;
-//}
 
 void SyncThread::connectionStatusChanged(TextShredderConnectionStatus status) {
 	qDebug("SyncThread::connectionStatusChanged");
@@ -182,4 +172,19 @@ void SyncThread::receivedDownloadedContent(QByteArray & content)
 	shadowCopy.setContent(string);
 	shadowCopy.getBackupCopy()->setContent(string);
 	startSync();
+}
+
+void SyncThread::setDestinationHandle(quint16 destination)
+{
+	destinationSyncThreadHandle = destination;
+}
+
+quint16 SyncThread::getDestinationHandle()
+{
+	return destinationSyncThreadHandle;
+}
+
+quint16 SyncThread::getSourceHandle()
+{
+	return sourceSyncThreadHandle;
 }

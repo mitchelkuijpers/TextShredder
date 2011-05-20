@@ -11,7 +11,6 @@ TextShredderConnection::TextShredderConnection(QObject *parent) :
 	connect(connectionListener.data(), SIGNAL(newConnection(quint16)),
 			this, SLOT(socketDescriptorReady(quint16)));
 	connectionListener.data()->listen();
-	quint16 port = connectionListener.data()->serverPort();
 }
 
 void TextShredderConnection::deleteServer(ConnectionListener *obj)
@@ -140,7 +139,6 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 
 void TextShredderConnection::handleFileRequestPacket(TextShredderPacket &packet)
 {
-	quint16 port = FileRequestPacket::getPort(packet);
 	QString requestedFileName = FileRequestPacket::getFileAlias(packet);
 
 	try {
