@@ -13,7 +13,6 @@ TextShredderPacket * TextShredderPacketParser::makeAllocatedPacketFromBytes(
 											(int) sizeof(unsigned char));
 	if(protocolVersion.data()[0] != kProtocolVersion) {
 		qDebug("Wrong protocol version");
-		throw QString(protocolVersion); //wrong protocolVersion
 	}
 
 	QByteArray length = bytes->mid(kPacketLengthOffset,
@@ -21,13 +20,18 @@ TextShredderPacket * TextShredderPacketParser::makeAllocatedPacketFromBytes(
 	QByteArray type = bytes->mid(kPacketTypeOffset,
 								(int) sizeof(unsigned char));
 	unsigned int iLength = *((unsigned int *)length.data());
+	QByteArray connectionHandleBytes = bytes->mid(kPacketHandleOffset,
+												  (int) sizeof(unsigned int));
+	unsigned int connectionHandle;
+	memcpy(&connectionHandle, connectionHandleBytes.data(), sizeof(unsigned int));
 
 	QByteArray content(bytes->mid(kHeaderLength, iLength));
 	TextShredderHeader header(
 				NULL,
 				(unsigned char) * protocolVersion.data(),
 				(unsigned int) iLength,
-				(unsigned char) * type.data());
+				(unsigned char) * type.data(),
+				connectionHandle);
 	return new TextShredderPacket(
 				NULL, header, content);
 }

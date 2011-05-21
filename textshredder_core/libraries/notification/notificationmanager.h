@@ -8,8 +8,8 @@
 #include <QLabel>
 #include <QDialog>
 
-#include "notificationoption.h"
-#include "notification.h"
+#include "models/notificationoption.h"
+#include "models/notification.h"
 
 class NotificationManager : public QObject
 {

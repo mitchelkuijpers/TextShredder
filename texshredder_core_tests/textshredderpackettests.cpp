@@ -96,8 +96,3 @@ void TextShredderPacketTests::testAppendingData()
 	QVERIFY2(dataPacket->getContent() == "A", "Content did not append correct, it contains: "+dataPacket->getContent());
 	delete dataPacket;
 }
-
-void TextShredderPacketTests::testNumberOfBytesNeeded()
-{
-	TextShredderPacket *TSPacket;
-}

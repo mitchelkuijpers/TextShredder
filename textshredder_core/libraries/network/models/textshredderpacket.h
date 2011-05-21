@@ -10,7 +10,7 @@
 #define kPacketTypeFileData 3
 #define kPacketTypeSetAlias 4
 #define kPacketTypeAvailableFiles 5
-
+#define kPacketTypeAvailableFilesRequest 6
 
 class TextShredderPacket : public QObject
 {
@@ -21,7 +21,7 @@ public:
 	  */
 	TextShredderPacket( QObject * );
 
-	TextShredderPacket(QObject *parent, unsigned char packetType);
+	TextShredderPacket(QObject *parent, unsigned char packetType, unsigned int = 0);
 
 	/**
 	  * Constructor that will initialize a TextShredderPacket with a given
@@ -30,12 +30,12 @@ public:
 	  * @param the header.
 	  * @param the content.
 	  */
-	TextShredderPacket( QObject *, TextShredderHeader &, QByteArray & );
+	TextShredderPacket( QObject *, TextShredderHeader &, QByteArray &);
 
 	/**
 	  * Constructor which makes an TextShredderPacket with
 	  */
-	TextShredderPacket( QObject *, unsigned char, QByteArray & );
+	TextShredderPacket( QObject *, unsigned char, QByteArray &, unsigned int = 0 );
 
 	/**
 	  * Copy constructor
@@ -63,6 +63,7 @@ public:
 	bool isSetAliasPacket();
 
 	bool isSyncableFilesPacket();
+	bool isAvailableFilesPacketRequest();
 	bool isIncomplete();
 
 	void appendContentData(QByteArray & data);

@@ -8,8 +8,8 @@
 #define kProtocolVersionOffset 0
 #define kPacketLengthOffset 1
 #define kPacketTypeOffset 5
-
-#define kHeaderLength 6
+#define kPacketHandleOffset 6
+#define kHeaderLength 10
 
 class TextShredderHeader : QObject
 {
@@ -35,10 +35,11 @@ public:
      * @param the type of content representation which the heades is
                             followed by.
      */
-    TextShredderHeader( QObject *parent,
-                        unsigned char protocolVersion,
-                        unsigned int contentLength,
-                        unsigned char packetType );
+	TextShredderHeader( QObject *parent,
+						unsigned char protocolVersion,
+						unsigned int contentLength,
+						unsigned char packetType,
+						unsigned int connectionHandle = 0);
 
     /**
      * TextShredderHeader coonstructor which makes an header based
@@ -64,16 +65,18 @@ public:
     unsigned char getProtocolVersion();
     unsigned int getContentLength();
     unsigned char getPacketType();
+	unsigned int getConnectionHandle();
 
     /* Setters */
     void setProtocolVersion( unsigned char newValue );
     void setContentLength( unsigned int newValue );
     void setPacketType( unsigned char newValue );
-
+	void setConnectionHandle( unsigned int newValue );
 private:
     unsigned char protocolVersion;
     unsigned int contentLength;
     unsigned char packetType;
+	unsigned int connectionHandle;
 };
 
 #endif // TEXTSHREDDERHEADER_H

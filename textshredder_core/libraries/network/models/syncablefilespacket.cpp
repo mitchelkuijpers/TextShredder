@@ -42,8 +42,6 @@ void SyncableFilesPacket::fillListWithContentsOfPacket(QList <QSharedPointer<Syn
 		parsedPiece = splitContentTillCharacter(contentCopy, '}');
 		fileAlias.append(parsedPiece);
 
-		qDebug() << fileAlias;
-		qDebug() << uniqueIdentifier;
 
 		QSharedPointer<SyncableFile> obj =
 				QSharedPointer<SyncableFile>(new SyncableFile(NULL, uniqueIdentifier,

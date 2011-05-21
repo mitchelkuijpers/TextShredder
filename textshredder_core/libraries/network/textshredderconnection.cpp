@@ -11,7 +11,6 @@ TextShredderConnection::TextShredderConnection(QObject *parent) :
 	connect(connectionListener.data(), SIGNAL(newConnection(quint16)),
 			this, SLOT(socketDescriptorReady(quint16)));
 	connectionListener.data()->listen();
-	quint16 port = connectionListener.data()->serverPort();
 }
 
 void TextShredderConnection::deleteServer(ConnectionListener *obj)
@@ -101,7 +100,6 @@ void TextShredderConnection::read()
 		 buffer.append(inputStream.readAll());
 	}
 
-
 	QByteArray packetData;
 	packetData.append(buffer);
 	parser.handleData(packetData);
@@ -119,33 +117,24 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 	qDebug("TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)");
 	if (packet.isEditPacket ()) {
 		qDebug("EditPacketContent");
-		emit incomingEditPacketContent(packet.getContent());
-	} else if (packet.isFileDataPacket ()) {
+		emit incomingEditPacketContent(packet.getContent(), packet.getHeader().getConnectionHandle());
+	} else if (packet.isFileDataPacket()) {
 		qDebug("FileDatapacket");
-		emit incomingFileDataPacketContent(packet.getContent());
+		quint16 destination =  packet.getHeader().getConnectionHandle();
+		qDebug() << "File data packet destination " << destination;
+		emit incomingFileDataPacket(packet,destination);
 	} else if (packet.isFileRequestPacket()) {
 		qDebug("RequestPacket");
-		handleFileRequestPacket(packet);
+		emit incomingFileRequestPacket(packet);
 	} else if (packet.isSetAliasPacket()) {
 		qDebug("SetAliasPacket");
 		emit incomingSetAliasPacketContent(packet.getContent());
 	} else if (packet.isSyncableFilesPacket()) {
 		qDebug("SyncableFilesPacket");
 		emit incomingSyncableFilesPacket(packet.getContent());
-	}
-}
-
-void TextShredderConnection::handleFileRequestPacket(TextShredderPacket &packet)
-{
-	quint16 port = FileRequestPacket::getPort(packet);
-	QString requestedFileName = FileRequestPacket::getFileAlias(packet);
-
-	try {
-		QString name(socket.peerAddress().toString());
-		QSharedPointer<SyncableFile> file = FileManager::Instance()->getSyncableFileWithName(requestedFileName);
-		file.data()->createSynchronizationWithPortAndAddress(port, name);
-	} catch (QString exception) {
-		//Some error occured. Problably no such file.
+	} else if(packet.isAvailableFilesPacketRequest()) {
+		qDebug("AvailableFileRequestPacket");
+		emit incomingAvailableFilesPacketRequest(packet.getContent());
 	}
 }
 
@@ -165,17 +154,14 @@ void TextShredderConnection::socketStateChanged(QAbstractSocket::SocketState sta
 {
 	if (state == QAbstractSocket::ConnectedState) {
 		this->status = Connected;
-		emit statusChanged(this->status);
+		emit statusChanged(this->status, QAbstractSocket::UnknownSocketError);
 	}
 }
 
 void TextShredderConnection::socketError(QAbstractSocket::SocketError error)
 {
-	// @TODO make good error messages
-	qDebug("We have an error...");
-	qDebug() << error;
 	this->status = Error;
-	emit statusChanged(this->status);
+	emit statusChanged(this->status, error);
 }
 
 void TextShredderConnection::clientHasDisconnected()

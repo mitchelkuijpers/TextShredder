@@ -3,9 +3,9 @@
 
 #include <QObject>
 #include <QString>
-#include "../textshredder_synchronization_lib/textshredderconnection.h"
-#include "../textshredder_synchronization_lib/syncthread.h"
-#include "filesync.h"
+#include "../network/textshredderconnection.h"
+#include "./syncthread.h"
+#include "./filesync.h"
 
 class ClientRepresentation : public QObject
 {
@@ -22,7 +22,7 @@ public:
 	explicit ClientRepresentation(QObject *parent, int socketDescriptor);
 
 private:
-	TextShredderConnection * connection;
+	QSharedPointer<TextShredderConnection> connection;
 	QString alias;
 
 private slots:
@@ -30,6 +30,7 @@ private slots:
 	 * Removes the disconnected clients from the list
 	 */
 	void getDisconnected();
+	void handleFileRequest(TextShredderPacket& packet);
 
 	/**
 	 * ?? NOT CLEAR

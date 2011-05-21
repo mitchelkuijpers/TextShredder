@@ -8,20 +8,23 @@ class Client : public QObject
 {
     Q_OBJECT
 public:
-	Client(QObject *parent);
 
+	static QSharedPointer<Client> Instance();
 	bool connectToServer(QHostAddress &addr, quint16 port);
-
+	QSharedPointer<TextShredderConnection> getConnection();
 private:
-	TextShredderConnection *connection;
+	QSharedPointer<TextShredderConnection> connection;
+	Client(QObject *parent);
+	static QSharedPointer<Client> sharedInstance;
 
 signals:
 	void clientConnected();
-	void clientConnectionError();
+	void clientConnectionError(QAbstractSocket::SocketError);
+	void availableFilesRequest();
 
 private slots:
 	void connectionDidEncounterEnd();
-	void connectionStatusChanged(TextShredderConnectionStatus status);
+	void connectionStatusChanged(TextShredderConnectionStatus status, QAbstractSocket::SocketError error );
 };
 
 #endif // CLIENT_H

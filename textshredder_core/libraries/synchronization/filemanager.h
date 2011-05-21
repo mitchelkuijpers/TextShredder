@@ -47,6 +47,7 @@ public:
 	  * @return the syncable file.
 	  */
 	QSharedPointer<SyncableFile> getSyncableFileWithName(QString &name);
+	QSharedPointer<SyncableFile> getSyncableFileWithIdentifier(QString &identifier);
 
 	QList < QSharedPointer<SyncableFile> > getAllFiles();
 

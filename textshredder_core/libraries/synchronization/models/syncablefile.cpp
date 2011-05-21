@@ -1,5 +1,7 @@
-#include "../textshredder_core/libraries/synchronization/models/syncablefile.h"
+#include "syncablefile.h"
 
+#include "../textshredder_core/libraries/synchronization/models/syncablefile.h"
+#include "../../../client/client.h"
 #define kDefaultFileAlias QString("untitled.txt")
 
 SyncableFile::SyncableFile(QObject *parent, QString &path) :
@@ -10,7 +12,7 @@ SyncableFile::SyncableFile(QObject *parent, QString &path) :
 	QString suffix(fileInfo.suffix ());
 	fileType = typeForSuffix(suffix);
 
-	workingCopy = new WorkingCopy(this);
+	workingCopy = QSharedPointer<WorkingCopy>(new WorkingCopy(this));
 
 	QFile file(path);
 	if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -25,7 +27,7 @@ SyncableFile::SyncableFile(QObject *parent, QString &identifier, QString &alias)
 	QObject(parent), fileIdentifier(identifier), fileAlias(alias), workingCopy(NULL)
 {
 	fileType = FileTypeTXT;
-	workingCopy = new WorkingCopy(this);
+	workingCopy = QSharedPointer<WorkingCopy>(new WorkingCopy(this));
 }
 
 SyncableFile::SyncableFile(QObject *parent, QString &alias, FileType type) :
@@ -78,7 +80,7 @@ FileType SyncableFile::typeForSuffix(QString &suffix)
 	return FileTypeUNKNOWN;
 }
 
-WorkingCopy * SyncableFile::getWorkingCopy()
+QSharedPointer<WorkingCopy> SyncableFile::getWorkingCopy()
 {
 	return workingCopy;
 }
@@ -118,22 +120,18 @@ void SyncableFile::stopSync()
 
 void SyncableFile::requestSync()
 {
-	qDebug("SyncableFile::requestSync()");
-	SyncThread *newThread = new SyncThread(this, *this->workingCopy);
+	QSharedPointer<SyncThread> newThread =
+			QSharedPointer<SyncThread>(new SyncThread(this, Client::Instance().data()->getConnection() , workingCopy));
+
 	syncThreads.append(newThread);
-	qDebug() << fileAlias << " " << newThread->getLocalPort();
-	FileRequestPacket packet(this, newThread->getLocalPort(), fileAlias);
+	qDebug() << "Handle = " <<  newThread.data()->getSourceHandle();
+	FileRequestPacket packet(this, newThread.data()->getSourceHandle(), fileIdentifier);
+	quint16 value = FileRequestPacket::getSourceHandle(packet);
+	qDebug() << "value " << value;
+	qDebug() << "other " << packet.getHeader().getConnectionHandle();
 	emit fileRequestsForSync(packet);
 	qDebug("Create socket SyncableFile::requestSync");
 }
-
-void SyncableFile::createSynchronizationWithPortAndAddress(quint16 port, QString &hostName)
-{
-	qDebug("Should do some sync creation");
-	SyncThread *newThread = new SyncThread(this, port, hostName, *workingCopy);
-	syncThreads.append(newThread);
-}
-
 
 void SyncableFile::doDeleteLater(SyncableFile *obj)
 {
@@ -145,11 +143,21 @@ void SyncableFile::setFileAlias(QString & newFileAlias)
 	this->fileAlias = newFileAlias;
 }
 
-WorkingCopy * SyncableFile::openWorkingCopyForGUI()
+QSharedPointer<WorkingCopy> SyncableFile::openWorkingCopyForGUI()
 {
 	return workingCopy;
 }
 
 void SyncableFile::closeWorkingCopyFromGUI()
 {
+}
+
+void SyncableFile::startSyncOn(quint16 destination,
+							   QSharedPointer<TextShredderConnection> connection)
+{
+	QSharedPointer<SyncThread> sync = QSharedPointer<SyncThread>(
+				new SyncThread(this, connection, this->workingCopy));
+	sync.data()->setDestinationHandle(destination);
+	sync.data()->sendFileDataAndStart();
+	syncThreads.append(sync);
 }

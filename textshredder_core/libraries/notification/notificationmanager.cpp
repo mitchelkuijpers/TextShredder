@@ -16,7 +16,7 @@ NotificationManager * NotificationManager::Instance( )
 	return sharedInstance;
 }
 
-void NotificationManager::createNotificationDialog( Notification & notification )
+void	NotificationManager::createNotificationDialog( Notification & notification )
 {
 	notificationDialog = new QDialog(NULL);
 	notificationDialog->setFixedSize(400, 100);
@@ -70,15 +70,15 @@ void NotificationManager::setWindowTitleBasedOnNotificationType( Notification & 
 void NotificationManager::addButtonsToNotificationDialog( Notification & notification  )
 {
 	int i;
-	for(i = 0; i < notification.getNotificationOptions().length(); i++ ) {
-		NotificationOption option = notification.getNotificationOptions().at(i);
-		QPushButton * button = new QPushButton(option.getLabel());
-		gridLayout->addWidget(button, 3, i);
-	}
+//	for(i = 0; i < notification.getNotificationOptions().length(); i++ ) {
+//		NotificationOption option = notification.getNotificationOptions().at(i);
+//		QPushButton * button = new QPushButton(option.getLabel());
+//		gridLayout->addWidget(button, 3, i);
+//	}
 
 	if ( notification.getHasCancelButton() ) {
 		i++;
-		QPushButton * button = new QPushButton("Cancel");
+		QPushButton * button = new QPushButton("Ok");
 		gridLayout->addWidget(button, 3, i);
 		connect(button, SIGNAL(clicked()), notificationDialog, SLOT(close()));
 	}

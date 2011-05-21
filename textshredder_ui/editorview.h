@@ -9,6 +9,7 @@
 #include <QtCore/QDebug>
 #include <QTreeWidgetItem>
 #include <QResource>
+#include "../textshredder_core/libraries/synchronization/filemanager.h"
 
 namespace Ui {
     class EditorView;
@@ -35,6 +36,10 @@ private:
 	Ui::EditorView *ui;
 	QStandardItemModel model;
 	bool isServer;
+
+	void addCheckBoxToSharedFilesListTreeView( int row, SyncableFile * syncableFile );
+	void addFileNameToSharedFilesListTreeView( int row, SyncableFile * syncableFile );
+	void addStatusIconToSharedFilesListTreeView( int row, SyncableFile * syncableFile );
 
 private slots:
  void on_fileTreeWidget_doubleClicked(QModelIndex index);

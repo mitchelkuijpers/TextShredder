@@ -52,8 +52,6 @@ void ShadowCopyTests::applyEditsTestWithOnePatch()
 
 	testShadow->applyEdits(testEdits);
 
-	qDebug() << text1;
-	qDebug() << *testShadow->getContent();
 	QVERIFY2((*testShadow->getContent()) == text1, "Shadow did not patch");
 	QVERIFY2(testShadow->getRemoteVersion() == oldRemoteVersion+1,
 			 "Didn't update remote version correctly");

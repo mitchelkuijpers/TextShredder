@@ -18,14 +18,14 @@ EditList::EditList(QObject *parent, QByteArray &content)
 	int offSet = 0;
 
 	if (content[offSet++] != '{') {
-		throw QString("Edit packet is not starting with a accolade, cannot make EditList");
+		qDebug() << "EditList::EditList = " << "Edit packet is not starting with a accolade, cannot make EditList";
 	}
 
 	remoteVersion = atoi(&(content.data()[offSet]));
 	offSet += (QString::number (remoteVersion).length () + 1);
 
 	if (content[offSet++] != '{') {
-		throw QString("Edits part in EditList packet is not starting with a accolade, cannot make EditList");
+		qDebug() << "EditList::EditList = " << "Edits part in EditList packet is not starting with a accolade, cannot make EditList";
 	}
 
 	int tempEditLength = 0;
@@ -39,7 +39,7 @@ EditList::EditList(QObject *parent, QByteArray &content)
 			offSet += tempEditLength;
 
 			if (content.at(offSet++) != '}') {
-				throw QString("Edits part in EditList packet is not starting with a accolade, cannot make EditList");
+				qDebug() << "EditList::EditList = " << "Edits part in EditList packet is not starting with a accolade, cannot make EditList";
 			}
 
 			Edit newEdit(this, editBytes);
@@ -57,14 +57,14 @@ EditList::EditList(QObject *parent, TextShredderPacket &packet)
 	QByteArray content = packet.getContent();
 
 	if (content[offSet++] != '{') {
-		throw QString("Edit packet is not starting with a accolade, cannot make EditList");
+		qDebug() << "EditList::EditList = " << "Edit packet is not starting with a accolade, cannot make EditList";
 	}
 
 	remoteVersion = atoi(&(content.data()[offSet]));
 	offSet += (QString::number (remoteVersion).length () + 1);
 
 	if (content[offSet++] != '{') {
-		throw QString("Edits part in EditList packet is not starting with a accolade, cannot make EditList");
+		qDebug() << "EditList::EditList = " << "Edits part in EditList packet is not starting with a accolade, cannot make EditList";
 	}
 
 	int tempEditLength = 0;
@@ -78,7 +78,7 @@ EditList::EditList(QObject *parent, TextShredderPacket &packet)
 			offSet += tempEditLength;
 
 			if (content.at(offSet++) != '}') {
-				throw QString("Edits part in EditList packet is not starting with a accolade, cannot make EditList");
+				qDebug() << "EditList::EditList = " << "Edits part in EditList packet is not starting with a accolade, cannot make EditList";
 			}
 
 			Edit newEdit(this, editBytes);

@@ -74,7 +74,6 @@ void SyncThreadTests::simpleSyncTest()
 	QString messageName("leftshadowcopy content != leftWorkingcopy content");
 	messageName.append(leftShadowCopy->getLocalVersion());
 	messageName.append(*leftWorkingCopy->getContent());
-	qDebug() << QString::number(leftShadowCopy->getLocalVersion());
 
 	QVERIFY2(leftEditList->isEmpty(), "The left editlist should be empty. All are acked.");
 	QVERIFY2(leftShadowCopy->getLocalVersion() == 1,
@@ -210,8 +209,6 @@ void SyncThreadTests::doubleSyncEditList()
 	/**
 	  * Make second edit list for left side
 	  */
-	qDebug() << *leftShadowCopy->getContent();
-	qDebug() << *leftWorkingCopy->getContent();
 	leftSync->pushChanges();
 	EditList leftToRightSecondEditList(*leftEditList);
 	//validate leftWC.con == beforeText.append("d").append("e")
@@ -219,8 +216,6 @@ void SyncThreadTests::doubleSyncEditList()
 			 "leftworkingcopy content != (beforeText + de)");
 
 	//validate leftShadow.con = leftWC.con / leftSh.localVer = 2
-	qDebug() << *leftShadowCopy->getContent();
-	qDebug() << *leftWorkingCopy->getContent();
 	QVERIFY2(*(leftShadowCopy->getContent()) == *(leftWorkingCopy->getContent()),
 			 "leftshadowcopy content != leftWorkingCopy content");
 
@@ -468,9 +463,7 @@ void SyncThreadTests::multipleEditsOnBothSidesTest()
 	QVERIFY(*rightShadowCopy->getContent() == *rightWorkingCopy->getContent());
 	QVERIFY(*rightShadowCopy->getBackupCopy ()->getContent () == beforeText);
 
-	qDebug()<< *leftWorkingCopy->getContent();
 	leftSync->applyReceivedEditList (rightToLeftFirstEditList);
-	qDebug()<< *leftWorkingCopy->getContent();
 
 	rightSync->applyReceivedEditList (leftToRightFirstEditList);
 
@@ -479,9 +472,6 @@ void SyncThreadTests::multipleEditsOnBothSidesTest()
 	QVERIFY(leftShadowCopy->getBackupCopy()->getLocalVersion() == 0);
 	QVERIFY(*leftShadowCopy->getBackupCopy()->getContent() == "");
 	QVERIFY(*leftShadowCopy->getContent () == "d");
-
-	qDebug() << *leftShadowCopy->getContent();
-	qDebug() << *leftWorkingCopy->getContent();
 
 	QVERIFY(*leftShadowCopy->getContent () == *leftWorkingCopy->getContent());
 
@@ -501,8 +491,6 @@ void SyncThreadTests::multipleEditsOnBothSidesTest()
 
 	//Validate:
 
-	qDebug() << (*leftShadowCopy->getContent ());
-	qDebug() << (*leftWorkingCopy->getContent ());
 	//leftWC.con == leftSh.con == leftBU.con == rightWC.con == rightSH.con == rightBU.con
 	QVERIFY2((*leftWorkingCopy->getContent ()) == (*leftShadowCopy->getContent()),
 			 "Left working copy should be equal to its shadow copy");
@@ -586,10 +574,6 @@ void SyncThreadTests::mergedEditsOnBothSidesTest()
 	// leftWC.con == rightSh.con == beforeText.append("123").append("456")
 	// OR
 	// leftWC.con == rightSh.con == beforeText.append("456").append("123")
-//	qDebug() << leftText;
-//	qDebug() << rightText;
-//	qDebug() << expectedTextOne;
-//	qDebug() << expectedTextTwo;
 	QVERIFY2(leftText == rightText, "Working copy content for left and right should be equal.");
 	if ((leftText == expectedTextOne || leftText == expectedTextTwo) == false) {
 		QVERIFY2(false, "The text should be atleast one of the expected texts");
@@ -597,17 +581,25 @@ void SyncThreadTests::mergedEditsOnBothSidesTest()
 }
 
 
+void SyncThreadTests::doDeleteWorkingCopy(WorkingCopy *obj)
+{
+	obj->deleteLater();
+}
+
 void SyncThreadTests::setupVariables()
 {
 	QString startText("abc");
 
-	leftWorkingCopy = new WorkingCopy(this);
+	leftWorkingCopyPointer = QSharedPointer<WorkingCopy> (new WorkingCopy(this));
+	leftWorkingCopy = leftWorkingCopyPointer.data();
 	leftWorkingCopy->getContent()->append (startText);
-	rightWorkingCopy = new WorkingCopy(this);
+
+	rightWorkingCopyPointer = QSharedPointer<WorkingCopy> (new WorkingCopy(this));
+	rightWorkingCopy = rightWorkingCopyPointer.data();
 	rightWorkingCopy->getContent()->append (startText);
 
-	leftSync = new SyncThreadSub(this, *leftWorkingCopy);
-	rightSync = new SyncThreadSub(this, *rightWorkingCopy);
+	leftSync = new SyncThreadSub(this, leftWorkingCopyPointer);
+	rightSync = new SyncThreadSub(this, rightWorkingCopyPointer);
 
 	leftShadowCopy = leftSync->getShadowCopy ();
 	rightShadowCopy = rightSync->getShadowCopy ();

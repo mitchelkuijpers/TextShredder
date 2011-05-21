@@ -24,7 +24,7 @@ Edit::Edit(QObject *parent, QByteArray &byteArray)
 	offSet += (QString::number (localVersion).length () + 1);
 
 	if(byteArray.at(offSet++) != '{') {
-		throw QString("Could not parse Patches from Edit byte array");
+		qDebug() << "Edit::Edit" << "Could not parse Patches from Edit byte array";
 	}
 
 	diff_match_patch dmp;
@@ -40,7 +40,7 @@ Edit::Edit(QObject *parent, QByteArray &byteArray)
 			offSet += tempPatchLength;
 
 			if (byteArray.at(offSet++) != '}') {
-				throw QString("Edits part in EditList packet is not starting with a accolade, cannot make EditList");
+				qDebug() << "Edit::Edit" << "Edits part in EditList packet is not starting with a accolade, cannot make EditList";
 			}
 
 			QList<Patch> newPatchList = dmp.patch_fromText(QString(editBytes));

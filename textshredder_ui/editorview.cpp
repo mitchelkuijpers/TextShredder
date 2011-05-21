@@ -1,7 +1,6 @@
 #include "editorview.h"
 #include "ui_editorview.h"
 #include "syncablefiletextfield.h"
-#include "../textshredder_core/libraries/synchronization/filemanager.h"
 
 EditorView::EditorView(QWidget *parent) :
     QMainWindow(parent),
@@ -42,18 +41,17 @@ void EditorView::on_addFolderButton_clicked()
 	}
 }
 
-void EditorView::setFileTreeWidgetColumnsInModel()
+void EditorView::on_openedFileTabs_tabCloseRequested(int index)
 {
-	model.setHorizontalHeaderItem(0, new QStandardItem(""));
-	model.setHorizontalHeaderItem(1, new QStandardItem( "Files" ));
-	model.setHorizontalHeaderItem(2, new QStandardItem( "Status" ));
-
+	ui->openedFileTabs->removeTab(index);
 }
 
-void EditorView::addFileToFileTreeWidget( QString filePath )
+void EditorView::setFileTreeWidgetColumnsInModel()
 {
-	FileManager::Instance()->addFileWithPath(filePath);
-	rebuildSharedFilesListTreeView();
+	model.setHorizontalHeaderItem( 0, new QStandardItem( "Shared") );
+	model.setHorizontalHeaderItem( 1, new QStandardItem( "Files" ) );
+	model.setHorizontalHeaderItem( 2, new QStandardItem( "" ) );
+
 }
 
 void EditorView::addFolderToFileTreeWidget( QString directoryPath )
@@ -73,65 +71,89 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 	rebuildSharedFilesListTreeView();
 }
 
-
-void EditorView::rebuildSharedFilesListTreeView()
-{
-	qDebug("rebuildSharedFilesListTreeView");
-	QList < QSharedPointer<SyncableFile> > sharedFilesList =
-			FileManager::Instance()->getAllFiles();
-
-
-	model.removeRows(0, model.rowCount());
-	int i = 0;
-	for(i = 0; i < sharedFilesList.count(); i++ ) {
-		QString fileName = sharedFilesList.at(i).data()->getFileAlias();
-
-		QStandardItem *checkBox = new QStandardItem();
-		if ( isServer ) {
-			checkBox->setCheckable( true );
-		}
-		model.setItem(i, 0, checkBox);
-
-		QStandardItem *item = new QStandardItem( fileName );
-		item->setEditable( false );
-		model.setItem(i, 1, item);
-
-		QStandardItem *status = new QStandardItem( QString("Not Syncing") );
-		model.setItem(i, 2, status);
-	}
-
-	ui->fileTreeWidget->setModel(&model);
-
-	setColumnWidths();
-}
-
-void EditorView::setColumnWidths()
-{
-	ui->fileTreeWidget->setColumnWidth(0, 30);
-	ui->fileTreeWidget->setColumnWidth(1, 175);
-	ui->fileTreeWidget->setColumnWidth(2, 30);
-}
-
 void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 {
-	qDebug("A");
 	if (index.column() == 0) {
-		qDebug("B");
 		QStandardItem *item = model.itemFromIndex(index);
 		bool sharedState = (item->checkState() == Qt::Checked);
-		QSharedPointer<SyncableFile>file =  FileManager::Instance()->getAllFiles().at(index.column());
+		QSharedPointer<SyncableFile>file =  FileManager::Instance()->getAllFiles().at(index.row());
 		file.data()->setShared(sharedState);
+		rebuildSharedFilesListTreeView();
 	}
-	//Check if row is checked. Set "isShared" = false
 }
 
 void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
 {
-	if (index.column() > 0) { //Should not be the checkBox column
-		//You can't open a file twice! -> Not implemented yet
-		const QAbstractItemModel * mod = index.model();
+	if (index.column() > 0) {
+		qDebug() << "You can't open a file twice! -> Not implemented yet";
 		openFileInEditor( index );
 	}
+}
+
+void EditorView::rebuildSharedFilesListTreeView()
+{
+	QList < QSharedPointer<SyncableFile> > sharedFilesList =
+			FileManager::Instance()->getAllFiles();
+
+	model.removeRows(0, model.rowCount());
+
+	int i = 0;
+	for(i = 0; i < sharedFilesList.count(); i++ ) {
+
+		SyncableFile * syncableFile = sharedFilesList.at(i).data();
+
+		addCheckBoxToSharedFilesListTreeView( i, syncableFile );
+		addFileNameToSharedFilesListTreeView( i, syncableFile );
+		addStatusIconToSharedFilesListTreeView( i, syncableFile );
+	}
+
+	ui->fileTreeWidget->setModel(&model);
+	setColumnWidths();
+}
+
+void EditorView::addCheckBoxToSharedFilesListTreeView( int row, SyncableFile * syncableFile )
+{
+	QStandardItem *checkBox = new QStandardItem();
+	if ( isServer ) {
+		checkBox->setCheckable( true );
+		if ( syncableFile->isShared() ) {
+			checkBox->setCheckState(Qt::Checked);
+		}
+	}
+
+	model.setItem(row, 0, checkBox);
+}
+
+void EditorView::addFileNameToSharedFilesListTreeView( int row, SyncableFile * syncableFile )
+{
+	QString fileName = syncableFile->getFileAlias();
+	QStandardItem *file = new QStandardItem( fileName );
+	file->setEditable( false );
+	model.setItem(row, 1, file);
+}
+
+void EditorView::addStatusIconToSharedFilesListTreeView( int row, SyncableFile * syncableFile )
+{
+	QStandardItem *status = new QStandardItem( QString("") );
+	if ( syncableFile->isShared() ) {
+		status->setIcon(QIcon(":/ui/status/images/status/user-available.svg"));
+	} else {
+		status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
+	}
+	model.setItem(row, 2, status);
+}
+
+void EditorView::setColumnWidths()
+{
+	ui->fileTreeWidget->setColumnWidth(0, 44);
+	ui->fileTreeWidget->setColumnWidth(1, 175);
+	ui->fileTreeWidget->setColumnWidth(2, 30);
+}
+
+void EditorView::addFileToFileTreeWidget( QString filePath )
+{
+	FileManager::Instance()->addFileWithPath(filePath);
+	rebuildSharedFilesListTreeView();
 }
 
 void EditorView::openFileInEditor( QModelIndex index )
@@ -144,11 +166,6 @@ void EditorView::openFileInEditor( QModelIndex index )
 	if( !isServer ) {
 		file.data()->requestSync();
 	}
-}
-
-void EditorView::on_openedFileTabs_tabCloseRequested(int index)
-{
-	ui->openedFileTabs->removeTab(index);
 }
 
 void EditorView::setToServerMode()

@@ -7,6 +7,7 @@
 #include "models/editlist.h"
 #include "models/shadowcopy.h"
 #include "models/workingcopy.h"
+#include "../network/models/filedatapacket.h"
 
 #include "../logging/textshredderlogging.h"
 
@@ -17,23 +18,29 @@ class SyncThread : public QObject
 	Q_OBJECT
 
 public:
-	SyncThread(QObject *, int port, QString &address, WorkingCopy &);
-	SyncThread(QObject *, WorkingCopy &);
+	SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>conn,
+						   QSharedPointer< WorkingCopy> workingCopyPointer);
+	//SyncThread(QObject *, int port, QString &address, WorkingCopy &);
+	SyncThread(QObject * parent, QSharedPointer <WorkingCopy> newWorkingCopy);
 
 	qint16 getLocalPort();
 
-signals:
+	void setDestinationHandle(quint16 destination);
+	quint16 getDestinationHandle();
+	quint16 getSourceHandle();
+
+	void processChanges(QByteArray &content);
+	void applyReceivedEditList(EditList &incomingEditList);
+	void receivedDownloadedContent(QByteArray & content);
+	void sendFileDataAndStart();
+	void stop();
+	virtual void startSync();
 
 public slots:
-	void processChanges(QByteArray &content);
-	void stop();
 	void pushChanges();
+	void receivedEditPacketContent(QByteArray &content, quint16 destination);
+	void receivedFileDataPacket(TextShredderPacket &packet, quint16 destination);
 
-	void applyReceivedEditList(EditList &incomingEditList);
-
-	virtual void startSync();
-	void receivedDownloadedContent(QByteArray & content);
-	void connectionStatusChanged(TextShredderConnectionStatus status);
 
 protected://Must be protected for test purposes
 	/**
@@ -48,8 +55,8 @@ protected://Must be protected for test purposes
 	  */
 	void writePacketOnConnection(TextShredderPacket &packet);
 
-	TextShredderConnection connection;
-	WorkingCopy * workingCopy;
+	QSharedPointer<TextShredderConnection> connectionPointer;
+	QSharedPointer <WorkingCopy> workingCopyPointer;
 	ShadowCopy shadowCopy;
 	EditList editList;
 	QTimer timer;
@@ -57,6 +64,14 @@ protected://Must be protected for test purposes
 	static int sharedIndex;
 
 	TextShredderLogging logging;
+
+private:
+	void connectSignalsForConnection();
+
+	quint16 sourceSyncThreadHandle;
+	quint16 destinationSyncThreadHandle;
+
+	static quint16 nextSyncThreadHandle;
 };
 
 #endif // SYNCTHREAD_H

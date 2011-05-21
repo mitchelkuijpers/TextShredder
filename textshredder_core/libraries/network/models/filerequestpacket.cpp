@@ -1,6 +1,6 @@
 #include "filerequestpacket.h"
 
-FileRequestPacket::FileRequestPacket(QObject *parent, qint16 port, QString &fileAlias) :
+FileRequestPacket::FileRequestPacket(QObject *parent, quint16 port, QString &fileAlias) :
 		TextShredderPacket(parent, kPacketTypeFileRequest)
 {
 	QByteArray newContent;
@@ -12,7 +12,7 @@ FileRequestPacket::FileRequestPacket(QObject *parent, qint16 port, QString &file
 	this->setContent(newContent);
 }
 
-quint16 FileRequestPacket::getPort(TextShredderPacket & packet)
+quint16 FileRequestPacket::getSourceHandle(TextShredderPacket & packet)
 {
 	QByteArray bytes = packet.getContent();
 	if	(bytes.at(0) != '{') {
@@ -24,7 +24,7 @@ quint16 FileRequestPacket::getPort(TextShredderPacket & packet)
 	return portValue;
 }
 
-QString FileRequestPacket::getFileAlias(TextShredderPacket & packet)
+QString FileRequestPacket::getFileIdentifier(TextShredderPacket & packet)
 {
 	QString contentString(packet.getContent());
 	int commaIndex = contentString.indexOf(',');

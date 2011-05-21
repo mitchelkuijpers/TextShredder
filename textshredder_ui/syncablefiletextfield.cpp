@@ -1,5 +1,6 @@
 #include "syncablefiletextfield.h"
 #include "ui_syncablefiletextfield.h"
+#include <QFileDialog>
 
 SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<SyncableFile> file) :
     QWidget(parent),
@@ -8,9 +9,9 @@ SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<Syn
 {
     ui->setupUi(this);
 
-	WorkingCopy * fileContents = file.data()->getWorkingCopy();
-	connect(file->getWorkingCopy (), SIGNAL(workingCopyChanged()), this, SLOT(workingCopyChanged()));
-	ui->textEditorField->setText(QString(*fileContents->getContent()));
+	WorkingCopy * workingCopy = file.data()->getWorkingCopy().data();
+	connect(workingCopy, SIGNAL(workingCopyChanged()), this, SLOT(workingCopyChanged()));
+	ui->textEditorField->setText(QString(*(workingCopy->getContent())));
 	timer = new QTimer(this);
 	deleteTimer = new QTimer(this);
 	highlighter = new EditorHighLighting(ui->textEditorField->document());
@@ -205,4 +206,27 @@ void SyncableFileTextField::updateCursorPosition()
 void SyncableFileTextField::workingCopyChanged()
 {
 	this->updateTextFieldToWorkingCopyContent();
+}
+
+void SyncableFileTextField::on_saveFileButton_clicked()
+{
+	QString filePath = QFileDialog::getSaveFileName(this, tr("Save File"),
+							   QDir::currentPath(),
+							   tr("Text File (*.txt);;TextShredder Document (*.tsd);;HTML File (*.html)"));
+
+	if ( !filePath.isEmpty() ) {
+		QFile file(filePath);
+
+		QFileInfo info(filePath);
+		QString fileExtension(info.suffix());
+		file.open(QIODevice::WriteOnly | QIODevice::Text);
+		QTextStream out(&file);
+
+		if ( fileExtension.compare("html") == 0 ) {
+			out << ui->textEditorField->toHtml();
+		} else {
+			out << ui->textEditorField->toPlainText();
+		}
+
+	}
 }
