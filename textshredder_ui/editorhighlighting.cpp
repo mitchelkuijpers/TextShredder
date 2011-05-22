@@ -26,8 +26,6 @@ void EditorHighLighting::highlightBlock(const QString &text)
 	if(!diffs.isEmpty()){
 		int start1 = patches.first().start1;
 		int prevDiffSize = diffs.first().text.size();
-		qDebug() << "prevDiffSize " << prevDiffSize;
-		qDebug() << "diffs first text " << diffs.first().text;
 		if(diffs.first().text != ""){
 			if(diffs.first().operation == 0 && start1 == 0){
 				setFormat(0, prevDiffSize, Qt::darkGreen);
@@ -37,7 +35,6 @@ void EditorHighLighting::highlightBlock(const QString &text)
 			}
 			for(int i=1; i < diffs.count(); i++){
 				if(diffs.at(i).operation == 0){
-					qDebug() << "groen";
 					setFormat((patches.first().start1 + prevDiffSize -editPosition), diffs.at(i).text.size(), Qt::darkGreen);
 				}else if(diffs.at(i).operation == 1){
 					setFormat(patches.first().start1 + prevDiffSize - editPosition, diffs.at(i).text.size(), Qt::red);

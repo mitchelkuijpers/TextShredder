@@ -25,7 +25,7 @@ public:
 private:
 	void updateTextFieldToWorkingCopyContent();
 	Ui::SyncableFileTextField *ui;
-	SyncableFile *syncFile;
+	QSharedPointer<SyncableFile> syncFile;
 
 	QTextCursor cursor;
 	void updateTextCursor();

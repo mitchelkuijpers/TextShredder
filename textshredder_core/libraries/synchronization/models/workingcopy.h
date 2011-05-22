@@ -7,7 +7,7 @@
 
 class WorkingCopy : public Patchable, public QMutex
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
     WorkingCopy(QObject *parent);
 

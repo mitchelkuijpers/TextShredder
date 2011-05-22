@@ -8,15 +8,13 @@ SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<Syn
 	beforeRemovedEditsEditSize(0)
 {
     ui->setupUi(this);
-
-	WorkingCopy * workingCopy = file.data()->getWorkingCopy().data();
-	connect(workingCopy, SIGNAL(workingCopyChanged()), this, SLOT(workingCopyChanged()));
-	ui->textEditorField->setText(QString(*(workingCopy->getContent())));
+	syncFile = file;
+	//WorkingCopy * workingCopy = file.data()->getWorkingCopy().data();
+	connect(syncFile.data()->getWorkingCopy().data(), SIGNAL(workingCopyChanged()), this, SLOT(workingCopyChanged()));
+	ui->textEditorField->setPlainText(QString(*(syncFile.data()->getWorkingCopy().data()->getContent())));
 	timer = new QTimer(this);
 	deleteTimer = new QTimer(this);
 	highlighter = new EditorHighLighting(ui->textEditorField->document());
-
-	syncFile = file.data();
 
 	connect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
@@ -29,11 +27,10 @@ SyncableFileTextField::~SyncableFileTextField()
 
 void SyncableFileTextField::textChanged(int position, int charsRemoved, int charsAdded )
 {
-	if(syncFile == NULL)
+	if(syncFile.data() == NULL)
 		return;
 
 	if(!Patches.isEmpty()){
-		qDebug() << Patches.first().toString();
 		if((Patches.first().diffs.at(0).operation == 0 ||
 		   Patches.first().diffs.at(0).operation == 1) ){
 			if(position == 0){
@@ -53,30 +50,30 @@ void SyncableFileTextField::textChanged(int position, int charsRemoved, int char
 		}
 	}
 
-	qDebug() << "deleteTimer";
+
 	//deleteTimer->stop();
-	qDebug() << "deleteTimer done";
-	syncFile->getWorkingCopy()->lock();
-	QString *workingCopyContent = syncFile->getWorkingCopy()->getContent();
+
+	syncFile.data()->getWorkingCopy().data()->lock();
+	QString *workingCopyContent = syncFile.data()->getWorkingCopy().data()->getContent();
 	QString insertString = ui->textEditorField->toPlainText().mid(position, charsAdded );
 	workingCopyContent->replace(position, charsRemoved, insertString);
-	syncFile->getWorkingCopy()->unlock();
+	qDebug() << "workingcopycontent:" << *workingCopyContent;
+	qDebug() << "same shit: " << *syncFile.data()->getWorkingCopy().data()->getContent();
+	syncFile.data()->getWorkingCopy().data()->unlock();
+
 }
 
 void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 {
-	updateCursorPosition();
 	qDebug("ClientEditingWindow::updateTextFieldToWorkingCopyContent()");
-
+	updateCursorPosition();
 	disconnect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
 
 
-	//still needs some clean up
 	QString temp = ui->textEditorField->toPlainText();
-	Patches = syncFile->getWorkingCopy()->getPatchesToConvertString(temp);
-	qDebug() << "Patches: " << Patches.first().toString();
-	ui->textEditorField->setPlainText(*(syncFile->getWorkingCopy()->getContent()));
+	Patches = syncFile.data()->getWorkingCopy().data()->getPatchesToConvertString(temp);
+	ui->textEditorField->setPlainText(*syncFile.data()->getWorkingCopy().data()->getContent());
 
 	EditDeleteColor();
 	highlighter->setPatches(Patches);
@@ -85,17 +82,12 @@ void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 
 	connect(timer, SIGNAL(timeout()), this, SLOT(clearHighlights()));
 	timer->start(2000);
-
-
-
-
 	connect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
 
 	getContentDiffSize();
 	updateTextCursor();
 	ui->textEditorField->setTextCursor(cursor);
-	qDebug() << "cursor pos after update: " << cursor.position();
 }
 
 void SyncableFileTextField::EditDeleteColor()
@@ -146,7 +138,6 @@ void SyncableFileTextField::deleteEdits()
 void SyncableFileTextField::removeDeletes()
 {
 	QString temp;
-
 	if(Patches.first().diffs.at(0).operation == 1){
 		if(ui->textEditorField->toPlainText().mid(0, Patches.first().diffs.at(0).text.size()) ==
 		   Patches.first().diffs.at(0).text){

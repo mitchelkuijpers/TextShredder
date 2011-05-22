@@ -122,7 +122,7 @@ void MainWindow::on_connectButton_clicked()
 
 		quint16 port = ui->serverPortInput->value();
 
-		client->connectToServer(address, port);
+		client.data()->connectToServer(address, port);
 		editorView.setToClientMode();
 
 		ui->connectingLoader->show();
