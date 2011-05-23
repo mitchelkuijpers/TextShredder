@@ -114,7 +114,7 @@ void TextShredderConnection::read()
 
 void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 {
-	qDebug("TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)");
+	qDebug("TextShredderConnection::emitNewIncomingPacket");
 	if (packet.isEditPacket ()) {
 		qDebug("EditPacketContent");
 		emit incomingEditPacketContent(packet.getContent(), packet.getHeader().getConnectionHandle());
@@ -140,7 +140,7 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 
 void TextShredderConnection::write(TextShredderPacket &packet)
 {
-	qDebug("Will write");
+	qDebug("TextShredderConnection::write");
 	qDebug() << QString::number(packet.getHeader().getPacketType());
 	QTextStream outputStream(&socket);
 	QByteArray raw;
