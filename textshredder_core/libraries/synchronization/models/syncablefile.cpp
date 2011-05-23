@@ -5,7 +5,7 @@
 #define kDefaultFileAlias QString("untitled.txt")
 
 SyncableFile::SyncableFile(QObject *parent, QString &path) :
-		QObject(parent), fileIdentifier(QUuid::createUuid().toString()), filePath(path), shared(false)
+		QObject(parent), fileIdentifier(QUuid::createUuid().toString()), filePath(path), shared(false), opened(false)
 {
 	QFileInfo fileInfo(path);
 	fileAlias = fileInfo.fileName();
@@ -24,14 +24,14 @@ SyncableFile::SyncableFile(QObject *parent, QString &path) :
 }
 
 SyncableFile::SyncableFile(QObject *parent, QString &identifier, QString &alias) :
-	QObject(parent), fileIdentifier(identifier), fileAlias(alias), workingCopy(NULL)
+	QObject(parent), fileIdentifier(identifier), fileAlias(alias), workingCopy(NULL), shared(false), opened(false)
 {
 	fileType = FileTypeTXT;
 	workingCopy = QSharedPointer<WorkingCopy>(new WorkingCopy(this));
 }
 
 SyncableFile::SyncableFile(QObject *parent, QString &alias, FileType type) :
-	QObject(parent), fileAlias(alias), workingCopy(NULL), fileType(type)
+	QObject(parent), fileAlias(alias), workingCopy(NULL), fileType(type), shared(false), opened(false)
 {
 
 }
@@ -78,6 +78,21 @@ FileType SyncableFile::typeForSuffix(QString &suffix)
 		return FileTypeHTML;
 	}
 	return FileTypeUNKNOWN;
+}
+
+bool SyncableFile::isOpened()
+{
+	return opened;
+}
+
+void SyncableFile::close()
+{
+	opened = false;
+}
+
+void SyncableFile::open()
+{
+	opened = true;
 }
 
 QSharedPointer<WorkingCopy> SyncableFile::getWorkingCopy()

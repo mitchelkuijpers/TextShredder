@@ -10,6 +10,7 @@
 #include <QTreeWidgetItem>
 #include <QResource>
 #include "../textshredder_core/libraries/synchronization/filemanager.h"
+#include "syncablefiletextfield.h"
 
 namespace Ui {
     class EditorView;
@@ -36,6 +37,7 @@ private:
 	Ui::EditorView *ui;
 	QStandardItemModel model;
 	bool isServer;
+	QList< QSharedPointer<SyncableFileTextField> > openedFilesList;
 
 	void addCheckBoxToSharedFilesListTreeView( int row, SyncableFile * syncableFile );
 	void addFileNameToSharedFilesListTreeView( int row, SyncableFile * syncableFile );

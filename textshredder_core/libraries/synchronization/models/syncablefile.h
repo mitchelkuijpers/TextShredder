@@ -38,6 +38,10 @@ public:
 	bool isShared();
 	void setShared(bool share);
 
+	bool isOpened();
+	void close();
+	void open();
+
 	void requestSync();
 
 	static void doDeleteLater(SyncableFile *obj);
@@ -53,6 +57,7 @@ private:
 	QSharedPointer<WorkingCopy> workingCopy;
 	FileType fileType;
 	bool shared;
+	bool opened;
 
 	QList< QSharedPointer<SyncThread> > syncThreads;
 

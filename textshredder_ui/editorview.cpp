@@ -1,6 +1,5 @@
 #include "editorview.h"
 #include "ui_editorview.h"
-#include "syncablefiletextfield.h"
 
 EditorView::EditorView(QWidget *parent) :
     QMainWindow(parent),
@@ -42,17 +41,11 @@ void EditorView::on_addFolderButton_clicked()
 	}
 }
 
-void EditorView::on_openedFileTabs_tabCloseRequested(int index)
-{
-	ui->openedFileTabs->removeTab(index);
-}
-
 void EditorView::setFileTreeWidgetColumnsInModel()
 {
 	model.setHorizontalHeaderItem( 0, new QStandardItem( "Shared") );
 	model.setHorizontalHeaderItem( 1, new QStandardItem( "Files" ) );
 	model.setHorizontalHeaderItem( 2, new QStandardItem( "" ) );
-
 }
 
 void EditorView::addFolderToFileTreeWidget( QString directoryPath )
@@ -80,26 +73,6 @@ void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 		QSharedPointer<SyncableFile>file =  FileManager::Instance()->getAllFiles().at(index.row());
 		file.data()->setShared(sharedState);
 		rebuildSharedFilesListTreeView();
-	}
-}
-
-void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
-{
-	if (index.column() > 0) {
-		QSharedPointer<SyncableFile> file =  FileManager::Instance()->getAllFiles().at(index.row());
-		QString fileName = file.data()->getFileAlias();
-		bool fileIsOpenedInEditor = false;
-
-		int i;
-		for( i = 0; i < ui->openedFileTabs->count(); i++ ) {
-			if ( fileName == ui->openedFileTabs->tabText(i) ) {
-				fileIsOpenedInEditor = true;
-			}
-		}
-
-		if ( !fileIsOpenedInEditor ) {
-			openFileInEditor( file );
-		}
 	}
 }
 
@@ -149,7 +122,7 @@ void EditorView::addStatusIconToSharedFilesListTreeView( int row, SyncableFile *
 {
 	QStandardItem *status = new QStandardItem( QString("") );
 	if ( syncableFile->isShared() ) {
-		status->setIcon(QIcon(":/ui/status/images/status/user-available.svg"));
+		status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
 	} else {
 		status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
 	}
@@ -169,10 +142,32 @@ void EditorView::addFileToFileTreeWidget( QString filePath )
 	rebuildSharedFilesListTreeView();
 }
 
+void EditorView::on_openedFileTabs_tabCloseRequested(int index)
+{
+	ui->openedFileTabs->removeTab(index);
+	openedFilesList.at(index).data()->close();
+	openedFilesList.removeAt(index);
+}
+
+
+void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
+{
+	if (index.column() > 0) {
+		QSharedPointer<SyncableFile> file =  FileManager::Instance()->getAllFiles().at(index.row());
+
+		if ( !file.data()->isOpened() )
+			openFileInEditor( file );
+	}
+}
+
 void EditorView::openFileInEditor( QSharedPointer<SyncableFile> file )
 {
-	SyncableFileTextField *textfield = new SyncableFileTextField(this, file);
-	ui->openedFileTabs->addTab(textfield, file.data()->getFileAlias());
+	QSharedPointer<SyncableFileTextField> textfield = QSharedPointer<SyncableFileTextField>(new SyncableFileTextField(this, file));
+	ui->openedFileTabs->addTab(textfield.data(), file.data()->getFileAlias());
+
+	openedFilesList.append(textfield);
+
+	file.data()->open();
 
 	if( !isServer ) {
 		file.data()->requestSync();

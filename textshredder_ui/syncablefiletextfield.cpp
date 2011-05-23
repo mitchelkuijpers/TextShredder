@@ -25,6 +25,7 @@ SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<Syn
 
 SyncableFileTextField::~SyncableFileTextField()
 {
+	syncFile.data()->close();
     delete ui;
 }
 
