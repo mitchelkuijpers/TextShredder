@@ -58,7 +58,8 @@ QSharedPointer<SyncableFilesPacket> FileManager::getAvailableFilesPacket()
 {
 	QList< QSharedPointer<SyncableFile> > sharedFiles;
 	fillListWithSharedFiles(sharedFiles);
-	return QSharedPointer<SyncableFilesPacket> ( new SyncableFilesPacket(this, sharedFiles));
+	QSharedPointer<SyncableFilesPacket> packet( new SyncableFilesPacket(this, sharedFiles));
+	return packet;
 }
 
 void FileManager::syncableFileStartedSharing()

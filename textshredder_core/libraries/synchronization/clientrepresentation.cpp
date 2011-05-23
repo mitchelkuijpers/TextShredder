@@ -1,4 +1,5 @@
 #include "clientrepresentation.h"
+#include "../network/models/syncablefilespacket.h"
 
 ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor) :
 	QObject(parent)
@@ -19,7 +20,8 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 	//vraag huidige files op;
 	// stuur een packet met de files;
 
-	// connection.data()->write(FileManager::Instance()->getAvailableFilesPacket().data());
+	QSharedPointer<SyncableFilesPacket> packet((const QSharedPointer<SyncableFilesPacket>)FileManager::Instance()->getAvailableFilesPacket());
+	connection.data()->write(*packet.data());
 }
 
 void ClientRepresentation::processSetAliasPacketContent(QByteArray &bytes)

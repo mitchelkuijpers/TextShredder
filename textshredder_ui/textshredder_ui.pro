@@ -92,5 +92,4 @@ FORMS    += mainwindow.ui \
 	syncablefiletextfield.ui
 
 RESOURCES += images.qrc \
-    fonts.qrc \
-    styles.qrc
+	fonts.qrc
