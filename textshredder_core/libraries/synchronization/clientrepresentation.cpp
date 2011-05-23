@@ -32,8 +32,8 @@ void ClientRepresentation::getDisconnected()
 	disconnect(connection.data(), SIGNAL(clientDisconnected()), this, SLOT(getDisconnected()));
 	disconnect(connection.data(), SIGNAL(incomingSetAliasPacketContent(QByteArray&)),
 			   this, SLOT(processSetAliasPacketContent(QByteArray &)));
-	connection.data()->deleteLater();
 	emit clientRepresentationEncounteredEnd();
+	this->deleteLater();
 }
 
 void ClientRepresentation::handleFileRequest(TextShredderPacket &packet)

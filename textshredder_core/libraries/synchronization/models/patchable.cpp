@@ -24,6 +24,7 @@ QList<Patch> Patchable::getPatchesToConvertString(QString &otherString)
 		return patches;
 	} catch (QString exception) {
 		qDebug() << exception;
+		return QList<Patch>();
 	}
 }
 

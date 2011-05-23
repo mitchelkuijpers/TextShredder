@@ -7,7 +7,9 @@
 #include "models/editlist.h"
 #include "models/shadowcopy.h"
 #include "models/workingcopy.h"
+
 #include "../network/models/filedatapacket.h"
+#include "../network/models/endsynchronizationpacket.h"
 
 #include "../logging/textshredderlogging.h"
 
@@ -20,10 +22,9 @@ class SyncThread : public QObject
 public:
 	SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>conn,
 						   QSharedPointer< WorkingCopy> workingCopyPointer);
-	//SyncThread(QObject *, int port, QString &address, WorkingCopy &);
+
 	SyncThread(QObject * parent, QSharedPointer <WorkingCopy> newWorkingCopy);
 
-	qint16 getLocalPort();
 
 	void setDestinationHandle(quint16 destination);
 	quint16 getDestinationHandle();
@@ -33,15 +34,17 @@ public:
 	void applyReceivedEditList(EditList &incomingEditList);
 	void receivedDownloadedContent(QByteArray & content);
 	void sendFileDataAndStart();
-	void stop();
+	void stopSync();
 	virtual void startSync();
 
 public slots:
 	void pushChanges();
 	void receivedEditPacketContent(QByteArray &content, quint16 destination);
 	void receivedFileDataPacket(TextShredderPacket &packet, quint16 destination);
+	void receivedEndSynchronizationPacket(quint16);
 
-
+signals:
+	void syncThreadStoppedByOtherNode();
 protected://Must be protected for test purposes
 	/**
 	  * Will change the current editlist into a packet
@@ -65,9 +68,13 @@ protected://Must be protected for test purposes
 	static int sharedIndex;
 
 	TextShredderLogging logging;
+	TextShredderLogging performanceLog;
+
 
 private:
-	void connectSignalsForConnection();
+	void breakDownSynchronization();
+	void connectSignalsForSynchronization();
+	void disconnectSignalsForSynchronization();
 
 	quint16 sourceSyncThreadHandle;
 	quint16 destinationSyncThreadHandle;
