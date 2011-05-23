@@ -41,7 +41,7 @@ private:
 	QTimer * timer;
 	QTimer * deleteTimer;
 	QString deletedEdit;
-	QList<Patch> Patches;
+	QList<Patch> patches;
 	void EditDeleteColor();
 	void startDeleteColorTimer();
 	EditorHighLighting * highlighter;

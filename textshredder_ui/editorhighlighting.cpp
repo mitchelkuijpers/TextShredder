@@ -23,7 +23,7 @@ EditorHighLighting::EditorHighLighting(QTextDocument *parent) :
 void EditorHighLighting::highlightBlock(const QString &text)
 {
 
-	if(!diffs.isEmpty()){
+	if(!patches.isEmpty()){
 		int start1 = patches.first().start1;
 		int prevDiffSize = diffs.first().text.size();
 		if(diffs.first().text != ""){
