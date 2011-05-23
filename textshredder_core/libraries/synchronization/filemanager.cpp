@@ -1,5 +1,4 @@
 #include "filemanager.h"
-#include "../network/models/syncablefilespacket.h"
 
 FileManager* FileManager::sharedInstance = NULL;
 
@@ -57,20 +56,24 @@ void FileManager::fillListWithSharedFiles(QList < QSharedPointer<SyncableFile> >
 	}
 }
 
-void FileManager::syncableFileStartedSharing()
+QSharedPointer<SyncableFilesPacket> FileManager::getAvailableFilesPacket()
 {
 	QList< QSharedPointer<SyncableFile> > sharedFiles;
 	fillListWithSharedFiles(sharedFiles);
-	SyncableFilesPacket packet(this, sharedFiles);
-	emit updateClientFiles(packet);
+	QSharedPointer<SyncableFilesPacket> packet( new SyncableFilesPacket(this, sharedFiles));
+	return packet;
+}
+
+void FileManager::syncableFileStartedSharing()
+{
+	QSharedPointer<SyncableFilesPacket> packet((const QSharedPointer<SyncableFilesPacket>)getAvailableFilesPacket());
+	emit updateClientFiles(*packet.data());
 }
 
 void FileManager::syncableFileStoppedSharing()
 {
-	QList< QSharedPointer<SyncableFile> > sharedFiles;
-	fillListWithSharedFiles(sharedFiles);
-	SyncableFilesPacket packet(this, sharedFiles);
-	emit updateClientFiles(packet);
+	QSharedPointer<SyncableFilesPacket> packet((const QSharedPointer<SyncableFilesPacket>)getAvailableFilesPacket());
+	emit updateClientFiles(*packet.data());
 }
 
 void FileManager::shouldMakeRequestForSync(TextShredderPacket &packet)
