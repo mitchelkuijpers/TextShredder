@@ -54,7 +54,7 @@ void FileManager::fillListWithSharedFiles(QList < QSharedPointer<SyncableFile> >
 	}
 }
 
-QSharedPointer<SyncableFilesPacket> FileManager::getAvailableFilesPacket(SyncableFilesPacket packet)
+QSharedPointer<SyncableFilesPacket> FileManager::getAvailableFilesPacket()
 {
 	QList< QSharedPointer<SyncableFile> > sharedFiles;
 	fillListWithSharedFiles(sharedFiles);

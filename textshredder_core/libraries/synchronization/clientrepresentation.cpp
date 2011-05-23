@@ -18,8 +18,8 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 
 	//vraag huidige files op;
 	// stuur een packet met de files;
-	QSharedPointer<SyncableFilesPacket> availableFiles = FileManager::Instance()->getAvailableFilesPacket();
-	connection.data()->write(availableFiles.data());
+
+	// connection.data()->write(FileManager::Instance()->getAvailableFilesPacket().data());
 }
 
 void ClientRepresentation::processSetAliasPacketContent(QByteArray &bytes)
