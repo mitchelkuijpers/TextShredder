@@ -13,6 +13,39 @@
   <property name="windowTitle">
    <string>TextShredder Editor</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QTreeView {
+	font-size: 12px;
+	outline:0;
+ }
+
+ QTreeView::item {
+     border-top-color: transparent;
+     border-bottom-color: transparent;
+border: 1px solid transparent;
+ }
+
+ QTreeView::item:hover {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #e7effd, stop: 1 #cbdaf1);
+     border-top: 1px solid #bfcde4;
+border-bottom: 1px solid #bfcde4;
+ }
+
+ QTreeView::item:selected {
+     border-top: 1px solid #567dbc;
+	border-bottom: 1px solid #567dbc;
+ }
+
+ QTreeView::item:selected:active{
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+stop: 0 #6ea1f1,
+stop: 1 #567dbc);
+ }
+
+ QTreeView::item:selected:!active {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6b9be8, stop: 1 #577fbf);
+ }</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
@@ -69,7 +102,7 @@
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
         <property name="indentation">
-         <number>8</number>
+         <number>0</number>
         </property>
         <attribute name="headerCascadingSectionResizes">
          <bool>false</bool>
