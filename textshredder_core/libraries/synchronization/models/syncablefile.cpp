@@ -123,6 +123,11 @@ void SyncableFile::setShared(bool share)
 		if (shared) {
 			emit fileStartedSharing();
 		} else {
+			qDebug("TODO: SyncableFile::setShared only do when server");
+			for (int i = 0; i < syncThreads.count(); i++) {
+				QSharedPointer<SyncThread> thread = syncThreads.at(i);
+				thread.data()->stopSync();
+			}
 			emit fileStoppedSharing();
 		}
 	}

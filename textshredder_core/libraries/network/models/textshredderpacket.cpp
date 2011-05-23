@@ -61,6 +61,11 @@ bool TextShredderPacket::isSyncableFilesPacket()
 	return (header.getPacketType()) == kPacketTypeAvailableFiles;
 }
 
+bool TextShredderPacket::isEndSynchronizationPacket()
+{
+	return (header.getPacketType() == kPacketTypeSynchronizationEnd);
+}
+
 void TextShredderPacket::setContent(QByteArray &bytes)
 {
 	content = bytes;

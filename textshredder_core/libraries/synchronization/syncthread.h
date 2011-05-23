@@ -7,7 +7,9 @@
 #include "models/editlist.h"
 #include "models/shadowcopy.h"
 #include "models/workingcopy.h"
+
 #include "../network/models/filedatapacket.h"
+#include "../network/models/endsynchronizationpacket.h"
 
 #include "../logging/textshredderlogging.h"
 
@@ -64,6 +66,8 @@ protected://Must be protected for test purposes
 	static int sharedIndex;
 
 	TextShredderLogging logging;
+	TextShredderLogging performanceLog;
+
 
 private:
 	void breakDownSynchronization();
