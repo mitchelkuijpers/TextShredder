@@ -23,5 +23,6 @@
         <file>images/status/user-typing.svg</file>
         <file>images/status/user-offline.svg</file>
         <file>images/status/user-available.svg</file>
+        <file>images/status/user-idle.svg</file>
     </qresource>
 </RCC>
