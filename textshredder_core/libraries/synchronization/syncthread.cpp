@@ -15,18 +15,11 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>c
 
 	shadowCopy.setLogging(&logging);
 
-	connectSignalsForConnection();
-	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
+	connectSignalsForSynchronization();
+
 
 	sourceSyncThreadHandle = nextSyncThreadHandle;
 	nextSyncThreadHandle++;
-}
-
-void SyncThread::connectSignalsForConnection()
-{
-	qDebug("SyncThread::connectSignalsForConnection");
-	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
-	connect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
 }
 
 //For testing only
@@ -166,14 +159,21 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 	shadowCopy.unlock ();
 }
 
-void SyncThread::stop()
-{
-	timer.stop();
+void SyncThread::receivedEndSynchronizationPacket(quint16) {
+	breakDownSynchronization();
+	qDebug("TODO: SyncThread::receivedEndSynchronizationPacket -> Emit sync stopped ");
 }
 
-qint16 SyncThread::getLocalPort()
+void SyncThread::stopSync()
 {
-	return connectionPointer.data()->getLocalPort();
+	breakDownSynchronization();
+	qDebug("TODO: SyncThread::stopSync -> Send EndSynchronization packet");
+}
+
+void SyncThread::breakDownSynchronization()
+{
+	timer.stop();
+	disconnectSignalsForSynchronization();
 }
 
 void SyncThread::setDestinationHandle(quint16 destination)
@@ -205,4 +205,21 @@ void SyncThread::sendFileDataAndStart()
 	writePacketOnConnection(packet);
 	qDebug("writePacketOnConnection(packet) - done");
 	startSync();
+}
+
+void SyncThread::connectSignalsForSynchronization()
+{
+	qDebug("SyncThread::connectSignalsForSynchronization");
+	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
+	connect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
+	connect(connectionPointer.data(), SIGNAL(incomingEndSynchronizationPacket(quint16)), this, SLOT(receivedEndSynchronizationPacket(quint16)));
+	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
+}
+void SyncThread::disconnectSignalsForSynchronization()
+{
+	qDebug("SyncThread::disconnectSignalsForSynchronization");
+	disconnect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
+	disconnect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
+	disconnect(connectionPointer.data(), SIGNAL(incomingEndSynchronizationPacket(quint16)), this, SLOT(receivedEndSynchronizationPacket(quint16)));
+	disconnect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
 }
