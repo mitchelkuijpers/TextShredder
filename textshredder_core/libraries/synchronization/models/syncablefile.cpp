@@ -143,14 +143,10 @@ void SyncableFile::requestSync()
 	QSharedPointer<SyncThread> newThread =
 			QSharedPointer<SyncThread>(new SyncThread(this, Client::Instance().data()->getConnection() , workingCopy));
 
+	connect(newThread.data(), SIGNAL(syncThreadStoppedByOtherNode()), this, SLOT(syncThreadIsStoppedByOtherNode()));
 	syncThreads.append(newThread);
-	qDebug() << "Handle = " <<  newThread.data()->getSourceHandle();
 	FileRequestPacket packet(this, newThread.data()->getSourceHandle(), fileIdentifier);
-	quint16 value = FileRequestPacket::getSourceHandle(packet);
-	qDebug() << "value " << value;
-	qDebug() << "other " << packet.getHeader().getConnectionHandle();
 	emit fileRequestsForSync(packet);
-	qDebug("Create socket SyncableFile::requestSync");
 }
 
 void SyncableFile::doDeleteLater(SyncableFile *obj)
@@ -180,4 +176,17 @@ void SyncableFile::startSyncOn(quint16 destination,
 	sync.data()->setDestinationHandle(destination);
 	sync.data()->sendFileDataAndStart();
 	syncThreads.append(sync);
+}
+
+void SyncableFile::syncThreadIsStoppedByOtherNode()
+{
+	for(int i = 0; i < syncThreads.count(); i++ ) {
+		QSharedPointer<SyncThread> syncPointer = syncThreads.at(i);
+		if (syncPointer.data() == sender()) {
+			syncThreads.removeAt(i);
+			qDebug() << "Remove SyncThread From SyncableFile";
+			break;
+		}
+	}
+	qDebug() << "SyncableFile::syncThreadIsStoppedByOtherNode -> Should never happen";
 }

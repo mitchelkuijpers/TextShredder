@@ -173,6 +173,7 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 void SyncThread::receivedEndSynchronizationPacket(quint16 destination) {
 	if	(destination == sourceSyncThreadHandle) {
 		breakDownSynchronization();
+		emit syncThreadStoppedByOtherNode();
 		qDebug("TODO: SyncThread::receivedEndSynchronizationPacket -> Emit sync stopped ");
 	}
 }

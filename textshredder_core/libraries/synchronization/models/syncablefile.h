@@ -58,9 +58,12 @@ private:
 	FileType fileType;
 	bool shared;
 	bool opened;
+	bool isOnServer;
 
 	QList< QSharedPointer<SyncThread> > syncThreads;
 
+private slots:
+	void syncThreadIsStoppedByOtherNode();
 signals:
 	void fileStoppedSharing();
 	void fileStartedSharing();
