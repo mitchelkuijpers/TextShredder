@@ -18,7 +18,7 @@ Server::Server(QObject *parent):
 
 void Server::incomingConnection(int socketDescriptor)
 {
-	qDebug("AAA");
+	qDebug("new Incoming connection");
 	ClientRepresentation *rep = new ClientRepresentation(this, socketDescriptor);
 	clients.append(rep);
 }

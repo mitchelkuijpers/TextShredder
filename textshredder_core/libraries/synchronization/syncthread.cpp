@@ -113,7 +113,7 @@ void SyncThread::writePacketOfEditList()
 	TextShredderPacket *newPacket = editList.getAllocatedPacket();
 	editList.unlock();
 	writePacketOnConnection(*newPacket);
-	delete newPacket;
+	newPacket->deleteLater();
 }
 
 void SyncThread::writePacketOnConnection(TextShredderPacket &packet)
