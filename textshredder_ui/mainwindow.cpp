@@ -113,7 +113,6 @@ void MainWindow::on_connectButton_clicked()
 		editorView.show();
 		editorView.setToServerMode();
 	} else {
-
 		QSharedPointer<Client> client = Client::Instance();
 		connect(client.data(), SIGNAL(clientConnected()), this, SLOT(clientDidConnect()));
 		connect(client.data(), SIGNAL(clientConnectionError(QAbstractSocket::SocketError)),

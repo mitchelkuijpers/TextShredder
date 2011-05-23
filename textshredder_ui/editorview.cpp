@@ -59,7 +59,7 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 {
 	QDir dir;
 	dir.setPath(directoryPath);
-	QStringList filters("Text File (*.txt);;TextShredder Document (*.tsd);;HTML File (*.html)");
+	QStringList filters("*.txt");
 	QStringList list = dir.entryList(filters);
 
 	int i = 0;
@@ -86,8 +86,20 @@ void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
 {
 	if (index.column() > 0) {
-		qDebug() << "You can't open a file twice! -> Not implemented yet";
-		openFileInEditor( index );
+		QSharedPointer<SyncableFile> file =  FileManager::Instance()->getAllFiles().at(index.row());
+		QString fileName = file.data()->getFileAlias();
+		bool fileIsOpenedInEditor = false;
+
+		int i;
+		for( i = 0; i < ui->openedFileTabs->count(); i++ ) {
+			if ( fileName == ui->openedFileTabs->tabText(i) ) {
+				fileIsOpenedInEditor = true;
+			}
+		}
+
+		if ( !fileIsOpenedInEditor ) {
+			openFileInEditor( file );
+		}
 	}
 }
 
@@ -157,10 +169,8 @@ void EditorView::addFileToFileTreeWidget( QString filePath )
 	rebuildSharedFilesListTreeView();
 }
 
-void EditorView::openFileInEditor( QModelIndex index )
+void EditorView::openFileInEditor( QSharedPointer<SyncableFile> file )
 {
-	QSharedPointer<SyncableFile> file =  FileManager::Instance()->getAllFiles().at(index.row());
-
 	SyncableFileTextField *textfield = new SyncableFileTextField(this, file);
 	ui->openedFileTabs->addTab(textfield, file.data()->getFileAlias());
 

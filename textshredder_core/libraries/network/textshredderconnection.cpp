@@ -132,9 +132,9 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 	} else if (packet.isSyncableFilesPacket()) {
 		qDebug("SyncableFilesPacket");
 		emit incomingSyncableFilesPacket(packet.getContent());
-	} else if(packet.isAvailableFilesPacketRequest()) {
-		qDebug("AvailableFileRequestPacket");
-		emit incomingAvailableFilesPacketRequest(packet.getContent());
+	} else if (packet.isEndSynchronizationPacket()) {
+		qDebug("EndSynchronizationPacket");
+		emit incomingEndSynchronizationPacket(packet.getHeader().getConnectionHandle());
 	}
 }
 

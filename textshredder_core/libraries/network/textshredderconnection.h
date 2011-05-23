@@ -59,10 +59,10 @@ signals:
 	//Incoming packet signals
 	void incomingSetAliasPacketContent(QByteArray &content);
 	void incomingFileRequestPacket(TextShredderPacket &content);
-	void incomingFileDataPacket(TextShredderPacket& content, quint16 filehandle);
-	void incomingEditPacketContent(QByteArray &content, quint16 filehandle);
+	void incomingFileDataPacket(TextShredderPacket& content, quint16 destinationHandle);
+	void incomingEditPacketContent(QByteArray &content, quint16 destinationHandle);
 	void incomingSyncableFilesPacket(QByteArray &content);
-	void incomingAvailableFilesPacketRequest(QByteArray &content);
+	void incomingEndSynchronizationPacket(quint16 destinationHandle);
 
 public slots:
 	void read();

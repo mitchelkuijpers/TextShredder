@@ -26,7 +26,7 @@ public:
 	void setFileTreeWidgetColumnsInModel();
 	void addFileToFileTreeWidget( QString fileName );
 	void addFolderToFileTreeWidget( QString folderName );
-	void openFileInEditor( QModelIndex index );
+	void openFileInEditor( QSharedPointer<SyncableFile> file );
 
 	void setToServerMode();
 	void setToClientMode();
