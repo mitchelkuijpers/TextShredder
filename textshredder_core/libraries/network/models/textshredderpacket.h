@@ -10,6 +10,7 @@
 #define kPacketTypeFileData 3
 #define kPacketTypeSetAlias 4
 #define kPacketTypeAvailableFiles 5
+#define kPacketTypeSynchronizationEnd 6
 
 class TextShredderPacket : public QObject
 {
@@ -20,7 +21,7 @@ public:
 	  */
 	TextShredderPacket( QObject * );
 
-	TextShredderPacket(QObject *parent, unsigned char packetType, unsigned int = 0);
+	TextShredderPacket(QObject *parent, unsigned char packetType, unsigned int destination = 0);
 
 	/**
 	  * Constructor that will initialize a TextShredderPacket with a given
@@ -42,26 +43,15 @@ public:
 	TextShredderPacket(TextShredderPacket & otherPacket);
 
 	/**
-	  * Returns if the packet represents an packet containing edits.
+	  * For the following methods: Returns if packet is such kind of packet.
 	  */
     bool isEditPacket();
-
-	/**
-	  * Returns if the packet represents an packet containing a file request.
-	  */
 	bool isFileRequestPacket();
-
-	/**
-	  * Returns if the packet represents an packet containing file data.
-	  */
 	bool isFileDataPacket();
-
-	/**
-	  * Returns if the packet represents an packet containing file data.
-	  */
+	bool isEndSynchronizationPacket();
 	bool isSetAliasPacket();
-
 	bool isSyncableFilesPacket();
+
 	bool isIncomplete();
 
 	void appendContentData(QByteArray & data);

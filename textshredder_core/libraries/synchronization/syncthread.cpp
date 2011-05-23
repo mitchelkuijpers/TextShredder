@@ -159,15 +159,18 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 	shadowCopy.unlock ();
 }
 
-void SyncThread::receivedEndSynchronizationPacket(quint16) {
-	breakDownSynchronization();
-	qDebug("TODO: SyncThread::receivedEndSynchronizationPacket -> Emit sync stopped ");
+void SyncThread::receivedEndSynchronizationPacket(quint16 destination) {
+	if	(destination == sourceSyncThreadHandle) {
+		breakDownSynchronization();
+		qDebug("TODO: SyncThread::receivedEndSynchronizationPacket -> Emit sync stopped ");
+	}
 }
 
 void SyncThread::stopSync()
 {
 	breakDownSynchronization();
-	qDebug("TODO: SyncThread::stopSync -> Send EndSynchronization packet");
+	EndSynchronizationPacket packet(this, destinationSyncThreadHandle);
+	writePacketOnConnection(packet);
 }
 
 void SyncThread::breakDownSynchronization()
