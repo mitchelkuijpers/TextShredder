@@ -1,5 +1,4 @@
 #include "filemanager.h"
-#include "../network/models/syncablefilespacket.h"
 
 FileManager* FileManager::sharedInstance = NULL;
 
@@ -53,6 +52,13 @@ void FileManager::fillListWithSharedFiles(QList < QSharedPointer<SyncableFile> >
 			list.append(file);
 		}
 	}
+}
+
+QSharedPointer<SyncableFilesPacket> FileManager::getAvailableFilesPacket(SyncableFilesPacket packet)
+{
+	QList< QSharedPointer<SyncableFile> > sharedFiles;
+	fillListWithSharedFiles(sharedFiles);
+	return QSharedPointer<SyncableFilesPacket> ( new SyncableFilesPacket(this, sharedFiles));
 }
 
 void FileManager::syncableFileStartedSharing()

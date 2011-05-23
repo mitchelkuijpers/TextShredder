@@ -15,6 +15,11 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 
 	connect(FileManager::Instance(), SIGNAL(updateClientFiles(TextShredderPacket&)),
 			connection.data(), SLOT(write(TextShredderPacket&)));
+
+	//vraag huidige files op;
+	// stuur een packet met de files;
+	QSharedPointer<SyncableFilesPacket> availableFiles = FileManager::Instance()->getAvailableFilesPacket();
+	connection.data()->write(availableFiles.data());
 }
 
 void ClientRepresentation::processSetAliasPacketContent(QByteArray &bytes)

@@ -4,7 +4,7 @@
 #include <QObject>
 #include "models/syncablefile.h"
 #include "../network/models/textshredderpacket.h"
-
+#include "../network/models/syncablefilespacket.h"
 class FileManager : public QObject
 {
     Q_OBJECT
@@ -50,6 +50,8 @@ public:
 	QSharedPointer<SyncableFile> getSyncableFileWithIdentifier(QString &identifier);
 
 	QList < QSharedPointer<SyncableFile> > getAllFiles();
+	QSharedPointer<SyncableFilesPacket> getAvailableFilesPacket();
+
 
 signals:
 	void fileStarted(SyncableFile *);
