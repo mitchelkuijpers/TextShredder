@@ -53,9 +53,12 @@ private:
 	QSharedPointer<WorkingCopy> workingCopy;
 	FileType fileType;
 	bool shared;
+	bool isOnServer;
 
 	QList< QSharedPointer<SyncThread> > syncThreads;
 
+private slots:
+	void syncThreadIsStoppedByOtherNode();
 signals:
 	void fileStoppedSharing();
 	void fileStartedSharing();
