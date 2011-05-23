@@ -65,6 +65,8 @@ protected://Must be protected for test purposes
 	static int sharedIndex;
 
 	TextShredderLogging logging;
+	TextShredderLogging performanceLog;
+
 
 private:
 	void connectSignalsForConnection();
