@@ -57,6 +57,7 @@ protected://Must be protected for test purposes
 
 	QSharedPointer<TextShredderConnection> connectionPointer;
 	QSharedPointer <WorkingCopy> workingCopyPointer;
+
 	ShadowCopy shadowCopy;
 	EditList editList;
 	QTimer timer;

@@ -4,49 +4,52 @@
 
 
 EditorHighLighting::EditorHighLighting(QObject *parent) :
-		QSyntaxHighlighter(parent)
+		QSyntaxHighlighter(parent), editPosition(0)
 {
 }
 
 EditorHighLighting::EditorHighLighting(QTextEdit *parent) :
-		QSyntaxHighlighter(parent)
+		QSyntaxHighlighter(parent), editPosition(0)
 {
 
 }
 
 EditorHighLighting::EditorHighLighting(QTextDocument *parent) :
-		QSyntaxHighlighter(parent)
+		QSyntaxHighlighter(parent), editPosition(0)
 
 {
 }
 
 void EditorHighLighting::highlightBlock(const QString &text)
 {
-	if(!diffs.isEmpty()){
-		if(diffs.first().text != ""){
-			int start1 = patches.first().start1;
-			int firstDiffSize = diffs.first().text.size();
 
-			for(int i=0; i<text.length(); i++){
-				if(diffs.first().operation == 0 && start1 == 0){
-					setFormat(0, firstDiffSize, Qt::darkGreen);
-				}else if(text.mid(i, firstDiffSize), i == start1){
-					setFormat((i + firstDiffSize), patches.first().length1 - patches.first().length2, Qt::darkGreen);
-				}else if(diffs.at(1).operation == 1){
-					setFormat(patches.first().start1 + firstDiffSize, patches.first().length2 - patches.first().length1, Qt::red);
-					qDebug() << "like a mother fucking bitch?";
-				}else if(diffs.at(0).operation == 1){
-					setFormat(0, patches.first().length2 - patches.first().length1, Qt::red);
-					qDebug() << "just like the biggest mother fucking bitch?";
+	if(!diffs.isEmpty()){
+		int start1 = patches.first().start1;
+		int prevDiffSize = diffs.first().text.size();
+		if(diffs.first().text != ""){
+			if(diffs.first().operation == 0 && start1 == 0){
+				setFormat(0, prevDiffSize, Qt::darkGreen);
+			}
+			else if(diffs.at(0).operation == 1){
+				setFormat(0, diffs.at(0).text.size(), Qt::red);
+			}
+			for(int i=1; i < diffs.count(); i++){
+				if(diffs.at(i).operation == 0){
+					setFormat((patches.first().start1 + prevDiffSize -editPosition), diffs.at(i).text.size(), Qt::darkGreen);
+				}else if(diffs.at(i).operation == 1){
+					setFormat(patches.first().start1 + prevDiffSize - editPosition, diffs.at(i).text.size(), Qt::red);
 				}
+				prevDiffSize += diffs.at(i).text.size();
 			}
 		}
+		editPosition += text.size() +1;
 	}
 
 }
 
 void EditorHighLighting::setPatches(QList<Patch> patches)
 {
+	editPosition = 0;
 	this->patches = patches;
 	this->diffs = patches.first().diffs;
 }

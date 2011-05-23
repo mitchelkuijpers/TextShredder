@@ -25,7 +25,7 @@ public:
 private:
 	void updateTextFieldToWorkingCopyContent();
 	Ui::SyncableFileTextField *ui;
-	SyncableFile *syncFile;
+	QSharedPointer<SyncableFile> syncFile;
 
 	QTextCursor cursor;
 	void updateTextCursor();
@@ -40,11 +40,14 @@ private:
 
 	QTimer * timer;
 	QTimer * deleteTimer;
-	QString deletedEditFirst;
+	QString deletedEdit;
 	QList<Patch> Patches;
 	void EditDeleteColor();
 	void startDeleteColorTimer();
 	EditorHighLighting * highlighter;
+
+	void removeDeletes();
+	int beforeRemovedEditsEditSize;
 
 private slots:
 	void on_saveFileButton_clicked();

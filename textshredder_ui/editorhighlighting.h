@@ -22,6 +22,7 @@ private:
 	QList<Patch> patches;
 	QList<Diff> diffs;
 
+	int editPosition;
 
 };
 
