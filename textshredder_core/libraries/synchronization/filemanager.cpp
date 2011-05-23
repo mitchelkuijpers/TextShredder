@@ -21,6 +21,8 @@ void FileManager::addFileWithPath(QString &path)
 	QSharedPointer<SyncableFile> obj =
 			QSharedPointer<SyncableFile>(new SyncableFile(this, path), SyncableFile::doDeleteLater);
 
+	obj.data()->setOnServer(isServer);
+
 	connect(obj.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
 	connect(obj.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
 	connect(obj.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)),
@@ -79,6 +81,8 @@ void FileManager::shouldMakeRequestForSync(TextShredderPacket &packet)
 void FileManager::addSyncFile( QSharedPointer<SyncableFile> file)
 {
 	fileList.append(file);
+	file.data()->setOnServer(isServer);
+
 	connect(file.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
 	connect(file.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
 	connect(file.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
@@ -155,4 +159,13 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 QList<QSharedPointer<SyncableFile> > FileManager::getAllFiles()
 {
 	return fileList;
+}
+
+void FileManager::setServerSide(bool value)
+{
+	isServer = value;
+}
+bool FileManager::isServerSide()
+{
+	return isServer;
 }

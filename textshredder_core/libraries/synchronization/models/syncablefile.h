@@ -36,9 +36,12 @@ public:
 	QString & getFileIdentifier();
 
 	bool isShared();
-	void setShared(bool share);
-
+	bool isOnServer();
 	bool isOpened();
+
+	void setShared(bool share);
+	void setOnServer(bool value);
+
 	void close();
 	void open();
 
@@ -58,7 +61,7 @@ private:
 	FileType fileType;
 	bool shared;
 	bool opened;
-	bool isOnServer;
+	bool onServer;
 
 	QList< QSharedPointer<SyncThread> > syncThreads;
 

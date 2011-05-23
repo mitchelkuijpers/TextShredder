@@ -88,6 +88,17 @@ bool SyncableFile::isOpened()
 void SyncableFile::close()
 {
 	opened = false;
+	//If client, stop the syncthread -> remove all from list after stop
+	if (!onServer) {
+		qDebug() << "Pollo di client";
+		for(int i = 0; i < syncThreads.count(); i++ ) {
+			QSharedPointer<SyncThread> syncPointer = syncThreads.at(i);
+			syncPointer.data()->stopSync();
+		}
+		syncThreads.clear();
+	} else {
+		qDebug() << "Pollo di server";
+	}
 }
 
 void SyncableFile::open()
@@ -173,6 +184,8 @@ void SyncableFile::startSyncOn(quint16 destination,
 {
 	QSharedPointer<SyncThread> sync = QSharedPointer<SyncThread>(
 				new SyncThread(this, connection, this->workingCopy));
+	connect(sync.data(), SIGNAL(syncThreadStoppedByOtherNode()), this, SLOT(syncThreadIsStoppedByOtherNode()));
+
 	sync.data()->setDestinationHandle(destination);
 	sync.data()->sendFileDataAndStart();
 	syncThreads.append(sync);
@@ -184,9 +197,24 @@ void SyncableFile::syncThreadIsStoppedByOtherNode()
 		QSharedPointer<SyncThread> syncPointer = syncThreads.at(i);
 		if (syncPointer.data() == sender()) {
 			syncThreads.removeAt(i);
-			qDebug() << "Remove SyncThread From SyncableFile";
+			if( isOpened() && !onServer ) {
+				qDebug() << "SyncableFile::syncThreadIsStoppedByOtherNode -> notification if client && isOpened";
+			}
 			break;
 		}
 	}
-	qDebug() << "SyncableFile::syncThreadIsStoppedByOtherNode -> Should never happen";
+	if (onServer && syncThreads.count() == 0) {
+		qDebug() << "SyncableFile:: "
+				<< "Server side all syncs ended";
+		qDebug() << "Save file to local path";
+	}
+}
+
+bool SyncableFile::isOnServer()
+{
+	return onServer;
+}
+void SyncableFile::setOnServer(bool value)
+{
+	onServer = value;
 }

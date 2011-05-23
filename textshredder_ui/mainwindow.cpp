@@ -105,6 +105,8 @@ void MainWindow::on_connectButton_clicked()
 {
 	ui->connectButton->setEnabled(false);
 
+	FileManager::Instance()->setServerSide(ui->isServerInput->isChecked());
+
 	if (ui->isServerInput->isChecked()) {
 		Server *serv = Server::Instance();
 		quint16 port = ui->serverPortInput->value();
