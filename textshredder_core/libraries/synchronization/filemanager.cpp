@@ -64,18 +64,14 @@ QSharedPointer<SyncableFilesPacket> FileManager::getAvailableFilesPacket()
 
 void FileManager::syncableFileStartedSharing()
 {
-	QList< QSharedPointer<SyncableFile> > sharedFiles;
-	fillListWithSharedFiles(sharedFiles);
-	SyncableFilesPacket packet(this, sharedFiles);
-	emit updateClientFiles(packet);
+	QSharedPointer<SyncableFilesPacket> packet((const QSharedPointer<SyncableFilesPacket>)getAvailableFilesPacket());
+	emit updateClientFiles(*packet.data());
 }
 
 void FileManager::syncableFileStoppedSharing()
 {
-	QList< QSharedPointer<SyncableFile> > sharedFiles;
-	fillListWithSharedFiles(sharedFiles);
-	SyncableFilesPacket packet(this, sharedFiles);
-	emit updateClientFiles(packet);
+	QSharedPointer<SyncableFilesPacket> packet((const QSharedPointer<SyncableFilesPacket>)getAvailableFilesPacket());
+	emit updateClientFiles(*packet.data());
 }
 
 void FileManager::shouldMakeRequestForSync(TextShredderPacket &packet)
