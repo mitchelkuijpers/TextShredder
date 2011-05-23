@@ -8,10 +8,13 @@ SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<Syn
 	beforeRemovedEditsEditSize(0)
 {
     ui->setupUi(this);
+
 	syncFile = file;
-	//WorkingCopy * workingCopy = file.data()->getWorkingCopy().data();
-	connect(syncFile.data()->getWorkingCopy().data(), SIGNAL(workingCopyChanged()), this, SLOT(workingCopyChanged()));
-	ui->textEditorField->setPlainText(QString(*(syncFile.data()->getWorkingCopy().data()->getContent())));
+	connect(syncFile.data()->getWorkingCopy().data(), SIGNAL(workingCopyChanged()),
+			this, SLOT(workingCopyChanged()));
+
+	openFileInTextEditor();
+
 	timer = new QTimer(this);
 	deleteTimer = new QTimer(this);
 	highlighter = new EditorHighLighting(ui->textEditorField->document());
@@ -23,6 +26,21 @@ SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<Syn
 SyncableFileTextField::~SyncableFileTextField()
 {
     delete ui;
+}
+
+void SyncableFileTextField::openFileInTextEditor()
+{
+	QFileInfo info(syncFile.data()->getFileAlias());
+	QString fileExtension(info.suffix());
+
+	if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
+		ui->textEditorField->setText("");
+		ui->textEditorField->setAcceptRichText(true);
+		ui->textEditorField->setHtml(*(syncFile.data()->getWorkingCopy().data()->getContent()));
+	} else {
+		ui->textEditorField->setAcceptRichText(false);
+		ui->textEditorField->setPlainText(QString(*(syncFile.data()->getWorkingCopy().data()->getContent())));
+	}
 }
 
 void SyncableFileTextField::textChanged(int position, int charsRemoved, int charsAdded )
@@ -213,7 +231,7 @@ void SyncableFileTextField::on_saveFileButton_clicked()
 		file.open(QIODevice::WriteOnly | QIODevice::Text);
 		QTextStream out(&file);
 
-		if ( fileExtension.compare("html") == 0 ) {
+		if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
 			out << ui->textEditorField->toHtml();
 		} else {
 			out << ui->textEditorField->toPlainText();

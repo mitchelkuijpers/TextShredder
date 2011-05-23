@@ -24,6 +24,8 @@ public:
 
 private:
 	void updateTextFieldToWorkingCopyContent();
+	void openFileInTextEditor();
+
 	Ui::SyncableFileTextField *ui;
 	QSharedPointer<SyncableFile> syncFile;
 
@@ -51,7 +53,7 @@ private:
 
 private slots:
 	void on_saveFileButton_clicked();
- void textChanged(int position, int charsRemoved, int charsAdded );
+	void textChanged(int position, int charsRemoved, int charsAdded );
 	void workingCopyChanged();
 
 	void clearHighlights();
