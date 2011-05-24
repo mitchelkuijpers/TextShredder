@@ -147,8 +147,10 @@ void MainWindow::saveSettings()
 	ConfigurationOptions configOptions = ConfigurationManager::Instance()->getConfigurationOptions();
 	configOptions.setServerPort((quint16) ui->serverPortInput->value());
 
-	configOptions.setLastUsedAlias(ui->aliasInput->text());
-
+	if(ui->aliasInput->text().length() > 0) {
+		QString cleanedAlias = ui->aliasInput->text().remove(QRegExp(QString::fromUtf8("[-`~!@#$%^&*()_—+=|:;<>«»,.?/{}\'\"\\\[\\]\\\\]")));
+		configOptions.setLastUsedAlias(cleanedAlias);
+	}
 	if(ui->serverIpInput->isEnabled()) {
 		configOptions.addHostToKnownHostsList(ui->serverIpInput->currentText());
 		configOptions.setLastKnownIp(ui->serverIpInput->currentText());
