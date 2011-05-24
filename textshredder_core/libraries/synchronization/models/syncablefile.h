@@ -2,7 +2,7 @@
 #define SYNCABLEFILE_H
 
 #include <QObject>
-#include "../textshredder_synchronization_lib/workingcopy.h"
+#include "../textshredder_core/libraries/synchronization/models/workingcopy.h"
 #include "../syncthread.h"
 #include "../../network/models/filerequestpacket.h"
 

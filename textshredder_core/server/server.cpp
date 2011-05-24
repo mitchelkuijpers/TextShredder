@@ -1,5 +1,5 @@
 #include "server.h"
-#include "../textshredder_synchronization_lib/syncthread.h"
+#include "../libraries/synchronization/syncthread.h"
 #include "../libraries/synchronization/clientrepresentation.h"
 
 Server * Server::sharedInstance = NULL;
