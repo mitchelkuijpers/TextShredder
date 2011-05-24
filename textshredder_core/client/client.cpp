@@ -49,7 +49,9 @@ void Client::connectionStatusChanged(TextShredderConnectionStatus status, QAbstr
 
 void Client::connectionDidEncounterEnd()
 {
-
+	QList<QString> users;
+	users << clientAlias;
+	UserManager::Instance()->clearAndAddList(users);
 }
 
 QSharedPointer<TextShredderConnection> Client::getConnection()
