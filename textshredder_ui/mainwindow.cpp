@@ -38,6 +38,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->titleLabelServer->hide();
 
 	performTextSlideInAnimation();
+
+	QRegExp re( "[0-9a-zA-Z]*" );
+	QRegExpValidator *validator = new QRegExpValidator(re, ui->aliasInput);
+	ui->aliasInput->setValidator(validator);
 }
 
 MainWindow::~MainWindow()
@@ -107,10 +111,21 @@ void MainWindow::animationMoveTo(QWidget * target, QRect startRect, QRect endRec
 	animation->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
+bool MainWindow::validateAliasInput()
+{
+	if (ui->aliasInput->text().length() == 0) {
+		return false;
+	}
+	return true;
+}
+
 void MainWindow::on_connectButton_clicked()
 {
+	if (!validateAliasInput()) {
+		qDebug() << "TODO: MainWindow::on_connectButton_clicked" << "Show info balloon or notification or even disable the connect if nothing is filled into the alias field";
+		return;
+	}
 	ui->connectButton->setEnabled(false);
-
 	FileManager::Instance()->setServerSide(ui->isServerInput->isChecked());
 
 	if (ui->isServerInput->isChecked()) {
