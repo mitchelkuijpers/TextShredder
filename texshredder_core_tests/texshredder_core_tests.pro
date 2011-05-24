@@ -57,7 +57,8 @@ SOURCES += main.cpp \
     ../textshredder_core/server/server.cpp \
     ../textshredder_core/libraries/network/models/filedatapacket.cpp \
     filedatapackettest.cpp \
-    configurationmanagertests.cpp
+    configurationmanagertests.cpp \
+    ../textshredder_core/libraries/network/models/endsynchronizationpacket.cpp
 
 HEADERS += \
     autotest.h \
@@ -102,4 +103,5 @@ HEADERS += \
     ../textshredder_core/server/server.h \
     ../textshredder_core/libraries/network/models/filedatapacket.h \
     filedatapackettest.h \
-    configurationmanagertests.h
+    configurationmanagertests.h \
+    ../textshredder_core/libraries/network/models/endsynchronizationpacket.h

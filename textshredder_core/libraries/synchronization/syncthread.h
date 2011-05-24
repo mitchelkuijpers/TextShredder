@@ -7,6 +7,7 @@
 #include "models/editlist.h"
 #include "models/shadowcopy.h"
 #include "models/workingcopy.h"
+#include <QSharedPointer>
 
 #include "../network/models/filedatapacket.h"
 #include "../network/models/endsynchronizationpacket.h"
