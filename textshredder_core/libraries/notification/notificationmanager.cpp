@@ -16,10 +16,10 @@ NotificationManager * NotificationManager::Instance( )
 	return sharedInstance;
 }
 
-void	NotificationManager::createNotificationDialog( Notification & notification )
+void NotificationManager::createNotificationDialog( Notification & notification )
 {
 	notificationDialog = new QDialog(NULL);
-	notificationDialog->setFixedSize(400, 100);
+	notificationDialog->setMinimumSize(400, 100);
 	setWindowTitleBasedOnNotificationType( notification );
 
 	gridLayout = new QGridLayout();

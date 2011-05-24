@@ -86,9 +86,9 @@ void MainWindow::functionToExecute()
 
 void MainWindow::performTextSlideInAnimation()
 {
-	animationMoveTo(ui->titleLabelClient, QRect(300, 20, 451, 141), QRect(110, 20, 451, 141), 500);
-	animationMoveTo(ui->titleLabelServer, QRect(300, 15, 451, 141), QRect(110, 15, 451, 141), 500);
-	animationMoveTo(ui->titleLabelHead, QRect(350, 67, 451, 141), QRect(112, 67, 451, 141), 500);
+	animationMoveTo(ui->titleLabelClient, QRect(350, 0, 451, 141), QRect(100, 0, 451, 141), 500);
+	animationMoveTo(ui->titleLabelServer, QRect(350, 0, 451, 141), QRect(100, 0, 451, 141), 500);
+	animationMoveTo(ui->titleLabelHead, QRect(400, 45, 451, 141), QRect(100, 45, 451, 141), 500);
 }
 
 void MainWindow::animationMoveTo(QWidget * target, QRect startRect, QRect endRect, int animationLength )
