@@ -10,8 +10,8 @@
 
 #include "../network/models/filedatapacket.h"
 #include "../network/models/endsynchronizationpacket.h"
-
 #include "../logging/textshredderlogging.h"
+#include "../performance/performancecalculator.h"
 
 #define WRITETHREAD_INTERVAL 1000
 
@@ -45,6 +45,9 @@ public slots:
 
 signals:
 	void syncThreadStoppedByOtherNode();
+	#ifdef QT_DEBUG
+		void addToAverageLockTime(uint);
+	#endif
 protected://Must be protected for test purposes
 	/**
 	  * Will change the current editlist into a packet
@@ -80,6 +83,10 @@ private:
 	quint16 destinationSyncThreadHandle;
 
 	static quint16 nextSyncThreadHandle;
+
+	QTime performanceTime;
+	void beforeLock();
+	void afterLock();
 };
 
 #endif // SYNCTHREAD_H

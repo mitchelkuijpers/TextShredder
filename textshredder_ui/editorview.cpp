@@ -11,6 +11,7 @@ EditorView::EditorView(QWidget *parent) :
 	setFileTreeWidgetColumnsInModel();
 
 	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView()));
+	connect(PerformanceCalculator::Instance(), SIGNAL(newAverage(long)), this, SLOT(updateAveragePerformance(long)));
 }
 
 EditorView::~EditorView()
@@ -210,4 +211,8 @@ void EditorView::setToClientMode()
 	ui->addFolderButton->setHidden(true);
 
 	setWindowTitle("TextShredder Editor [CLIENT]");
+}
+
+void EditorView::updateAveragePerformance(long averagePerformance)
+{
 }
