@@ -4,7 +4,7 @@
 #include <QObject>
 #include "models/syncablefile.h"
 #include "../network/models/textshredderpacket.h"
-
+#include "../network/models/syncablefilespacket.h"
 class FileManager : public QObject
 {
     Q_OBJECT
@@ -50,7 +50,11 @@ public:
 	QSharedPointer<SyncableFile> getSyncableFileWithIdentifier(QString &identifier);
 
 	QList < QSharedPointer<SyncableFile> > getAllFiles();
+	QSharedPointer<SyncableFilesPacket> getAvailableFilesPacket();
 
+
+	void setServerSide(bool value);
+	bool isServerSide();
 signals:
 	void fileStarted(SyncableFile *);
 	void updateClientFiles(TextShredderPacket &);
@@ -63,7 +67,7 @@ private:
 	FileManager(QObject *parent = 0);
 	QList< QSharedPointer<SyncableFile> > fileList;
 	static FileManager* sharedInstance;
-
+	bool isServer;
 
 private slots:
 	void syncableFileStartedSharing();

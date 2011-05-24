@@ -105,6 +105,8 @@ void MainWindow::on_connectButton_clicked()
 {
 	ui->connectButton->setEnabled(false);
 
+	FileManager::Instance()->setServerSide(ui->isServerInput->isChecked());
+
 	if (ui->isServerInput->isChecked()) {
 		Server *serv = Server::Instance();
 		quint16 port = ui->serverPortInput->value();
@@ -113,7 +115,6 @@ void MainWindow::on_connectButton_clicked()
 		editorView.show();
 		editorView.setToServerMode();
 	} else {
-
 		QSharedPointer<Client> client = Client::Instance();
 		connect(client.data(), SIGNAL(clientConnected()), this, SLOT(clientDidConnect()));
 		connect(client.data(), SIGNAL(clientConnectionError(QAbstractSocket::SocketError)),

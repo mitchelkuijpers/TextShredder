@@ -45,7 +45,8 @@ SOURCES += main.cpp\
 	syncablefiletextfield.cpp \
     ../textshredder_core/libraries/network/connectionlistener.cpp \
     editorhighlighting.cpp \
-    ../textshredder_core/libraries/network/models/filedatapacket.cpp
+    ../textshredder_core/libraries/network/models/filedatapacket.cpp \
+    ../textshredder_core/libraries/network/models/endsynchronizationpacket.cpp
 
 HEADERS  += mainwindow.h \
     editorview.h \
@@ -81,7 +82,8 @@ HEADERS  += mainwindow.h \
 	syncablefiletextfield.h \
     ../textshredder_core/libraries/network/connectionlistener.h \
     editorhighlighting.h \
-    ../textshredder_core/libraries/network/models/filedatapacket.h
+    ../textshredder_core/libraries/network/models/filedatapacket.h \
+    ../textshredder_core/libraries/network/models/endsynchronizationpacket.h
 
 FORMS    += mainwindow.ui \
     editorview.ui \
@@ -90,4 +92,5 @@ FORMS    += mainwindow.ui \
 	syncablefiletextfield.ui
 
 RESOURCES += images.qrc \
-    fonts.qrc
+	fonts.qrc \
+	styles.qrc

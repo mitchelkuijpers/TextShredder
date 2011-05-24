@@ -5,7 +5,7 @@
 #define kDefaultFileAlias QString("untitled.txt")
 
 SyncableFile::SyncableFile(QObject *parent, QString &path) :
-		QObject(parent), fileIdentifier(QUuid::createUuid().toString()), filePath(path), shared(false)
+		QObject(parent), fileIdentifier(QUuid::createUuid().toString()), filePath(path), shared(false), opened(false)
 {
 	QFileInfo fileInfo(path);
 	fileAlias = fileInfo.fileName();
@@ -24,14 +24,14 @@ SyncableFile::SyncableFile(QObject *parent, QString &path) :
 }
 
 SyncableFile::SyncableFile(QObject *parent, QString &identifier, QString &alias) :
-	QObject(parent), fileIdentifier(identifier), fileAlias(alias), workingCopy(NULL)
+	QObject(parent), fileIdentifier(identifier), fileAlias(alias), workingCopy(NULL), shared(false), opened(false)
 {
 	fileType = FileTypeTXT;
 	workingCopy = QSharedPointer<WorkingCopy>(new WorkingCopy(this));
 }
 
 SyncableFile::SyncableFile(QObject *parent, QString &alias, FileType type) :
-	QObject(parent), fileAlias(alias), workingCopy(NULL), fileType(type)
+	QObject(parent), fileAlias(alias), workingCopy(NULL), fileType(type), shared(false), opened(false)
 {
 
 }
@@ -80,6 +80,32 @@ FileType SyncableFile::typeForSuffix(QString &suffix)
 	return FileTypeUNKNOWN;
 }
 
+bool SyncableFile::isOpened()
+{
+	return opened;
+}
+
+void SyncableFile::close()
+{
+	opened = false;
+	//If client, stop the syncthread -> remove all from list after stop
+	if (!onServer) {
+		qDebug() << "Pollo di client";
+		for(int i = 0; i < syncThreads.count(); i++ ) {
+			QSharedPointer<SyncThread> syncPointer = syncThreads.at(i);
+			syncPointer.data()->stopSync();
+		}
+		syncThreads.clear();
+	} else {
+		qDebug() << "Pollo di server";
+	}
+}
+
+void SyncableFile::open()
+{
+	opened = true;
+}
+
 QSharedPointer<WorkingCopy> SyncableFile::getWorkingCopy()
 {
 	return workingCopy;
@@ -108,6 +134,11 @@ void SyncableFile::setShared(bool share)
 		if (shared) {
 			emit fileStartedSharing();
 		} else {
+			qDebug("TODO: SyncableFile::setShared only do when server");
+			for (int i = 0; i < syncThreads.count(); i++) {
+				QSharedPointer<SyncThread> thread = syncThreads.at(i);
+				thread.data()->stopSync();
+			}
 			emit fileStoppedSharing();
 		}
 	}
@@ -123,14 +154,10 @@ void SyncableFile::requestSync()
 	QSharedPointer<SyncThread> newThread =
 			QSharedPointer<SyncThread>(new SyncThread(this, Client::Instance().data()->getConnection() , workingCopy));
 
+	connect(newThread.data(), SIGNAL(syncThreadStoppedByOtherNode()), this, SLOT(syncThreadIsStoppedByOtherNode()));
 	syncThreads.append(newThread);
-	qDebug() << "Handle = " <<  newThread.data()->getSourceHandle();
 	FileRequestPacket packet(this, newThread.data()->getSourceHandle(), fileIdentifier);
-	quint16 value = FileRequestPacket::getSourceHandle(packet);
-	qDebug() << "value " << value;
-	qDebug() << "other " << packet.getHeader().getConnectionHandle();
 	emit fileRequestsForSync(packet);
-	qDebug("Create socket SyncableFile::requestSync");
 }
 
 void SyncableFile::doDeleteLater(SyncableFile *obj)
@@ -157,7 +184,37 @@ void SyncableFile::startSyncOn(quint16 destination,
 {
 	QSharedPointer<SyncThread> sync = QSharedPointer<SyncThread>(
 				new SyncThread(this, connection, this->workingCopy));
+	connect(sync.data(), SIGNAL(syncThreadStoppedByOtherNode()), this, SLOT(syncThreadIsStoppedByOtherNode()));
+
 	sync.data()->setDestinationHandle(destination);
 	sync.data()->sendFileDataAndStart();
 	syncThreads.append(sync);
+}
+
+void SyncableFile::syncThreadIsStoppedByOtherNode()
+{
+	for(int i = 0; i < syncThreads.count(); i++ ) {
+		QSharedPointer<SyncThread> syncPointer = syncThreads.at(i);
+		if (syncPointer.data() == sender()) {
+			syncThreads.removeAt(i);
+			if( isOpened() && !onServer ) {
+				qDebug() << "SyncableFile::syncThreadIsStoppedByOtherNode -> notification if client && isOpened";
+			}
+			break;
+		}
+	}
+	if (onServer && syncThreads.count() == 0) {
+		qDebug() << "SyncableFile:: "
+				<< "Server side all syncs ended";
+		qDebug() << "Save file to local path";
+	}
+}
+
+bool SyncableFile::isOnServer()
+{
+	return onServer;
+}
+void SyncableFile::setOnServer(bool value)
+{
+	onServer = value;
 }

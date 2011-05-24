@@ -1,4 +1,5 @@
 #include "syncthread.h"
+#include "../logging/textshredderlogging.cpp"
 
 int SyncThread::sharedIndex = 1;
 
@@ -8,32 +9,26 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>c
 					   QSharedPointer< WorkingCopy> workingCopyPointer) :
 	QObject(parent), connectionPointer(conn), workingCopyPointer(workingCopyPointer),
 	shadowCopy(this), editList(NULL), timer(NULL),
-	logging(this, QString("SyncThread").append(QString::number(sharedIndex)))
+	logging(this, QString("SyncThread").append(QString::number(sharedIndex))),
+	performanceLog(this, QString("Performance").append(QString::number(sharedIndex)))
 {
 	WorkingCopy *wc = workingCopyPointer.data();
 	shadowCopy.setContent(* wc->getContent());
 
 	shadowCopy.setLogging(&logging);
 
-	connectSignalsForConnection();
-	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
+	connectSignalsForSynchronization();
+
 
 	sourceSyncThreadHandle = nextSyncThreadHandle;
 	nextSyncThreadHandle++;
-}
-
-void SyncThread::connectSignalsForConnection()
-{
-	qDebug("SyncThread::connectSignalsForConnection");
-	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
-	connect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
 }
 
 //For testing only
 SyncThread::SyncThread(QObject * parent, QSharedPointer <WorkingCopy> newWorkingCopy) :
 	QObject(parent), workingCopyPointer(newWorkingCopy),
 	shadowCopy(this, *newWorkingCopy.data()->getContent()), editList(NULL), timer(NULL),
-	logging(this)
+	logging(this), performanceLog(this)
 {
 	shadowCopy.setContent(*workingCopyPointer.data()->getContent()); // set shadow copy
 	shadowCopy.setLogging(&logging);
@@ -47,6 +42,11 @@ void SyncThread::startSync()
 
 void SyncThread::receivedEditPacketContent(QByteArray &content, quint16 destination)
 {
+<<<<<<< HEAD
+=======
+	//really the one who wrote this if statement and sees this comment, plz get a gun, put in your mounth and pull the fucking trigger
+	//Corne wrote this... UGH. Go jerk oloff on the women toilet you fucking pussy ass mother fucker.
+>>>>>>> a05673daa4a0dbb90f711af4b5a679350f2ab5c7
 	if (sourceSyncThreadHandle == destination) {
 		this->processChanges(content);
 	}
@@ -80,6 +80,11 @@ void SyncThread::receivedDownloadedContent(QByteArray & content)
 
 void SyncThread::pushChanges()
 {
+	QTime time;
+	QString before("before: ");
+	before.append(time.currentTime().toString("hh:mm:ss:zzz"));
+	performanceLog.writeLog(before, INFO);
+
 	shadowCopy.lock();
 	workingCopyPointer.data()->lock();
 
@@ -99,6 +104,10 @@ void SyncThread::pushChanges()
 	writePacketOfEditList();
 	workingCopyPointer.data()->unlock();
 	shadowCopy.unlock();
+
+	QString after("after : ");
+	after.append(time.currentTime().toString("hh:mm:ss:zzz"));
+	performanceLog.writeLog(after, INFO);
 }
 
 void SyncThread::writePacketOfEditList()
@@ -107,7 +116,7 @@ void SyncThread::writePacketOfEditList()
 	TextShredderPacket *newPacket = editList.getAllocatedPacket();
 	editList.unlock();
 	writePacketOnConnection(*newPacket);
-	delete newPacket;
+	newPacket->deleteLater();
 }
 
 void SyncThread::writePacketOnConnection(TextShredderPacket &packet)
@@ -164,14 +173,25 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 	shadowCopy.unlock ();
 }
 
-void SyncThread::stop()
-{
-	timer.stop();
+void SyncThread::receivedEndSynchronizationPacket(quint16 destination) {
+	if	(destination == sourceSyncThreadHandle) {
+		breakDownSynchronization();
+		emit syncThreadStoppedByOtherNode();
+		qDebug("TODO: SyncThread::receivedEndSynchronizationPacket -> Emit sync stopped ");
+	}
 }
 
-qint16 SyncThread::getLocalPort()
+void SyncThread::stopSync()
 {
-	return connectionPointer.data()->getLocalPort();
+	breakDownSynchronization();
+	EndSynchronizationPacket packet(this, destinationSyncThreadHandle);
+	writePacketOnConnection(packet);
+}
+
+void SyncThread::breakDownSynchronization()
+{
+	timer.stop();
+	disconnectSignalsForSynchronization();
 }
 
 void SyncThread::setDestinationHandle(quint16 destination)
@@ -203,4 +223,21 @@ void SyncThread::sendFileDataAndStart()
 	writePacketOnConnection(packet);
 	qDebug("writePacketOnConnection(packet) - done");
 	startSync();
+}
+
+void SyncThread::connectSignalsForSynchronization()
+{
+	qDebug("SyncThread::connectSignalsForSynchronization");
+	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
+	connect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
+	connect(connectionPointer.data(), SIGNAL(incomingEndSynchronizationPacket(quint16)), this, SLOT(receivedEndSynchronizationPacket(quint16)));
+	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
+}
+void SyncThread::disconnectSignalsForSynchronization()
+{
+	qDebug("SyncThread::disconnectSignalsForSynchronization");
+	disconnect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
+	disconnect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
+	disconnect(connectionPointer.data(), SIGNAL(incomingEndSynchronizationPacket(quint16)), this, SLOT(receivedEndSynchronizationPacket(quint16)));
+	disconnect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
 }

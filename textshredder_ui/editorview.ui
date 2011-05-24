@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>TextShredder Editor</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
@@ -69,7 +72,7 @@
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
         <property name="indentation">
-         <number>8</number>
+         <number>0</number>
         </property>
         <attribute name="headerCascadingSectionResizes">
          <bool>false</bool>
@@ -134,7 +137,7 @@
        <bool>true</bool>
       </property>
       <property name="movable">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
      </widget>
     </item>

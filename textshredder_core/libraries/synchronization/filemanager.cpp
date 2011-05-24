@@ -1,5 +1,4 @@
 #include "filemanager.h"
-#include "../network/models/syncablefilespacket.h"
 
 FileManager* FileManager::sharedInstance = NULL;
 
@@ -20,6 +19,8 @@ void FileManager::addFileWithPath(QString &path)
 {
 	QSharedPointer<SyncableFile> obj =
 			QSharedPointer<SyncableFile>(new SyncableFile(this, path), SyncableFile::doDeleteLater);
+
+	obj.data()->setOnServer(isServer);
 
 	connect(obj.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
 	connect(obj.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
@@ -55,20 +56,24 @@ void FileManager::fillListWithSharedFiles(QList < QSharedPointer<SyncableFile> >
 	}
 }
 
-void FileManager::syncableFileStartedSharing()
+QSharedPointer<SyncableFilesPacket> FileManager::getAvailableFilesPacket()
 {
 	QList< QSharedPointer<SyncableFile> > sharedFiles;
 	fillListWithSharedFiles(sharedFiles);
-	SyncableFilesPacket packet(this, sharedFiles);
-	emit updateClientFiles(packet);
+	QSharedPointer<SyncableFilesPacket> packet( new SyncableFilesPacket(this, sharedFiles));
+	return packet;
+}
+
+void FileManager::syncableFileStartedSharing()
+{
+	QSharedPointer<SyncableFilesPacket> packet((const QSharedPointer<SyncableFilesPacket>)getAvailableFilesPacket());
+	emit updateClientFiles(*packet.data());
 }
 
 void FileManager::syncableFileStoppedSharing()
 {
-	QList< QSharedPointer<SyncableFile> > sharedFiles;
-	fillListWithSharedFiles(sharedFiles);
-	SyncableFilesPacket packet(this, sharedFiles);
-	emit updateClientFiles(packet);
+	QSharedPointer<SyncableFilesPacket> packet((const QSharedPointer<SyncableFilesPacket>)getAvailableFilesPacket());
+	emit updateClientFiles(*packet.data());
 }
 
 void FileManager::shouldMakeRequestForSync(TextShredderPacket &packet)
@@ -79,6 +84,8 @@ void FileManager::shouldMakeRequestForSync(TextShredderPacket &packet)
 void FileManager::addSyncFile( QSharedPointer<SyncableFile> file)
 {
 	fileList.append(file);
+	file.data()->setOnServer(isServer);
+
 	connect(file.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
 	connect(file.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
 	connect(file.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
@@ -155,4 +162,13 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 QList<QSharedPointer<SyncableFile> > FileManager::getAllFiles()
 {
 	return fileList;
+}
+
+void FileManager::setServerSide(bool value)
+{
+	isServer = value;
+}
+bool FileManager::isServerSide()
+{
+	return isServer;
 }

@@ -114,7 +114,7 @@ void TextShredderConnection::read()
 
 void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 {
-	qDebug("TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)");
+	qDebug("TextShredderConnection::emitNewIncomingPacket");
 	if (packet.isEditPacket ()) {
 		qDebug("EditPacketContent");
 		emit incomingEditPacketContent(packet.getContent(), packet.getHeader().getConnectionHandle());
@@ -132,15 +132,15 @@ void TextShredderConnection::emitNewIncomingPacket(TextShredderPacket &packet)
 	} else if (packet.isSyncableFilesPacket()) {
 		qDebug("SyncableFilesPacket");
 		emit incomingSyncableFilesPacket(packet.getContent());
-	} else if(packet.isAvailableFilesPacketRequest()) {
-		qDebug("AvailableFileRequestPacket");
-		emit incomingAvailableFilesPacketRequest(packet.getContent());
+	} else if (packet.isEndSynchronizationPacket()) {
+		qDebug("EndSynchronizationPacket");
+		emit incomingEndSynchronizationPacket(packet.getHeader().getConnectionHandle());
 	}
 }
 
 void TextShredderConnection::write(TextShredderPacket &packet)
 {
-	qDebug("Will write");
+	qDebug("TextShredderConnection::write");
 	qDebug() << QString::number(packet.getHeader().getPacketType());
 	QTextStream outputStream(&socket);
 	QByteArray raw;
