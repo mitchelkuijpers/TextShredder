@@ -74,6 +74,7 @@ private slots:
 	void syncableFileStoppedSharing();
 	void shouldMakeRequestForSync(TextShredderPacket &packet);
 	void syncableFileDidChange();
+	void syncableFileShouldBeRemoved();
 
 public slots:
 	void handleReceivedSyncableFiles(QByteArray &content);

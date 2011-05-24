@@ -139,11 +139,13 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 		bool found = false;
 		for (int j = 0; j < fileList.count(); j++) {
 			if (file.data()->getFileIdentifier() == fileList.at(j).data()->getFileIdentifier()) {
+				fileList.at(j).data()->setShared(true);
 				found = true;
 				qDebug() << "found the motherfucker";
 			}
 		}
 		if (found == false) {
+			file.data()->setShared(true);
 			addSyncFile(file);
 		}
 	}
@@ -160,7 +162,6 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 			}
 		}
 		if (found == false) {
-
 			this->removeFile(existingFile);
 		} else {
 			i++;
@@ -182,4 +183,16 @@ void FileManager::setServerSide(bool value)
 bool FileManager::isServerSide()
 {
 	return isServer;
+}
+
+void FileManager::syncableFileShouldBeRemoved()
+{
+	SyncableFile *fileToRemove = (SyncableFile *)sender();
+	for (int i = 0; i < this->fileList.count(); i ++) {
+		QSharedPointer<SyncableFile> existing = fileList.at(i);
+		if (existing.data() == fileToRemove) {
+			fileList.removeAt(i);
+			return;
+		}
+	}
 }
