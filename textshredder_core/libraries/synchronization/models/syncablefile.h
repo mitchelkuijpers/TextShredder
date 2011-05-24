@@ -7,6 +7,16 @@
 #include "../../network/models/filerequestpacket.h"
 
 typedef enum {
+	Unknown = 1,
+	Unshared = 2,
+	UnopenedSharedFile =3,
+	Idle = 4,
+	Editing = 5,
+	Syncing = 6,
+	Offline = 7
+} SyncableFileStatus;
+
+typedef enum {
 	FileTypeUNKNOWN = 1,
 	FileTypeTXT = 2,
 	FileTypePHP = 3,
@@ -51,6 +61,7 @@ public:
 
 	QSharedPointer<WorkingCopy> openWorkingCopyForGUI();
 	void closeWorkingCopyFromGUI();
+	SyncableFileStatus calculateStatus();
 
 private:
 	QString fileIdentifier;

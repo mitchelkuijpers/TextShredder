@@ -218,3 +218,27 @@ void SyncableFile::setOnServer(bool value)
 {
 	onServer = value;
 }
+
+SyncableFileStatus SyncableFile::calculateStatus()
+{
+	if (syncThreads.count() > 0) {
+		return Syncing;
+	} else if (!onServer && isShared() && !opened) {
+		return UnopenedSharedFile;
+	} else if (onServer && isShared() && !opened) {
+		return UnopenedSharedFile;
+	} else if (!onServer && !isShared() && !opened) {
+		//Should not happen
+	} else if (onServer && !isShared() && !opened) {
+		return Unshared;
+	} else if (!onServer && isShared() && opened) {
+		return Syncing;
+	} else if (onServer && isShared() && opened) {
+		return Editing;
+	} else if (!onServer && !isShared() && opened) {
+		return Offline;
+	} else if (onServer && !isShared() && opened) {
+		return Editing;
+	}
+	return Unknown;
+}
