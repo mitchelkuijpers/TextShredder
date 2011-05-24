@@ -47,8 +47,6 @@ void SyncThread::startSync()
 
 void SyncThread::receivedEditPacketContent(QByteArray &content, quint16 destination)
 {
-	//really the one who wrote this if statement and sees this comment, plz get a gun, put in your mounth and pull the fucking trigger
-	//Corne wrote this... UGH. Go jerk off on the women toilet you fucking pussy ass mother fucker.
 	if (sourceSyncThreadHandle == destination) {
 		this->processChanges(content);
 	}
