@@ -88,14 +88,17 @@ bool SyncableFile::isOpened()
 void SyncableFile::close()
 {
 	opened = false;
+
 	//If client, stop the syncthread -> remove all from list after stop
 	if (!onServer) {
-		qDebug() << "Pollo di client";
 		for(int i = 0; i < syncThreads.count(); i++ ) {
 			QSharedPointer<SyncThread> syncPointer = syncThreads.at(i);
 			syncPointer.data()->stopSync();
 		}
 		syncThreads.clear();
+		if (!isShared()) {
+			emit syncableFileShouldBeRemoved();
+		}
 	} else {
 		qDebug() << "Pollo di server";
 	}
@@ -136,10 +139,16 @@ void SyncableFile::setShared(bool share)
 		if (shared) {
 			emit fileStartedSharing();
 		} else {
-			qDebug("TODO: SyncableFile::setShared only do when server");
-			for (int i = 0; i < syncThreads.count(); i++) {
-				QSharedPointer<SyncThread> thread = syncThreads.at(i);
-				thread.data()->stopSync();
+			if (onServer) {
+				qDebug() << "Stop Syncing on server";
+
+				for (int i = 0; i < syncThreads.count(); i++) {
+					QSharedPointer<SyncThread> thread = syncThreads.at(i);
+					thread.data()->stopSync();
+				}
+				qDebug() << "SyncableFile::setShared " << "//Evaluate this save";
+				saveFileToPath();
+				syncThreads.clear();
 			}
 			emit fileStoppedSharing();
 		}
@@ -193,6 +202,7 @@ void SyncableFile::startSyncOn(quint16 destination,
 	sync.data()->setDestinationHandle(destination);
 	sync.data()->sendFileDataAndStart();
 	syncThreads.append(sync);
+	emit syncableFileChanged();
 }
 
 void SyncableFile::syncThreadIsStoppedByOtherNode()
@@ -208,12 +218,17 @@ void SyncableFile::syncThreadIsStoppedByOtherNode()
 		}
 	}
 	if (onServer && syncThreads.count() == 0) {
-		qDebug() << "SyncableFile:: "
-				<< "Server side all syncs ended";
-		qDebug() << "Save file to local path";
+		saveFileToPath();
 	}
 
 	emit syncableFileChanged();
+}
+
+void SyncableFile::saveFileToPath()
+{
+	qDebug() << "SyncableFile:: "
+			<< "Server side all syncs ended";
+	qDebug() << "Save file to local path";
 }
 
 bool SyncableFile::isOnServer()

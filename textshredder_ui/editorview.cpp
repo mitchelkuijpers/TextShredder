@@ -68,7 +68,7 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 
 void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 {
-	if (index.column() == 0) {
+	if (index.column() == 0 && isServer) {
 		QStandardItem *item = model.itemFromIndex(index);
 		bool sharedState = (item->checkState() == Qt::Checked);
 		QSharedPointer<SyncableFile>file =  FileManager::Instance()->getAllFiles().at(index.row());
@@ -131,13 +131,13 @@ void EditorView::addStatusIconToSharedFilesListTreeView( int row, SyncableFile *
 			status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
 			break;
 		case 3:
-			status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
+			status->setIcon(QIcon(":/ui/status/images/status/user-editing.svg"));
 			break;
 		case 4:
-			status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
+			status->setIcon(QIcon(":/ui/status/images/status/user-editing.svg"));
 			break;
 		case 5:
-			status->setIcon(QIcon(":/ui/status/images/status/user-available.svg"));
+			status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
 			break;
 		case 6:
 			status->setIcon(QIcon(":/ui/status/images/status/user-available.svg"));

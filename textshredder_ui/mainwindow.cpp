@@ -4,6 +4,8 @@
 #include "../textshredder_core/libraries/configuration/configurationmanager.h"
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
+#include <QHostAddress>
+#include <QNetworkInterface>
 
 #include "../textshredder_core/server/server.h"
 
@@ -14,8 +16,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	ConfigurationManager::Instance()->load();
 	ConfigurationOptions configOptions = ConfigurationManager::Instance()->getConfigurationOptions();
     ui->setupUi(this);
+
 	this->setFixedSize(this->width(),this->height());
+
 	ui->serverIpInput->setFocus();
+	ui->aliasInput->setText(configOptions.getLastUsedAlias());
+	ui->aliasInput->setFocus();
 
 	ui->serverIpInput->addItem(configOptions.getLastKnownIp());
 	int i;
@@ -56,7 +62,7 @@ void MainWindow::changeWindowStateToServer()
 	ui->titleLabelServer->show();
 	ui->titleLabelClient->hide();
 	ui->serverIpInput->setEnabled(false);
-	ui->serverIpInput->setEditText("Not needed, you are the server.");
+	ui->serverIpInput->setEditText("Your IP: " + QString(QNetworkInterface::allAddresses().at(4).toString()));
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/server.svg"));
 }
 
@@ -68,7 +74,7 @@ void MainWindow::changeWindowStateToClient()
 	ui->serverIpInput->setEnabled(true);
 	ui->serverIpInput->setEditText("127.0.0.1");
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/userfolder.svg"));
-	ui->serverIpInput->setFocus();
+	ui->aliasInput->setFocus();
 }
 
 void MainWindow::on_cancelButton_clicked()
@@ -86,9 +92,9 @@ void MainWindow::functionToExecute()
 
 void MainWindow::performTextSlideInAnimation()
 {
-	animationMoveTo(ui->titleLabelClient, QRect(300, 20, 451, 141), QRect(110, 20, 451, 141), 500);
-	animationMoveTo(ui->titleLabelServer, QRect(300, 15, 451, 141), QRect(110, 15, 451, 141), 500);
-	animationMoveTo(ui->titleLabelHead, QRect(350, 67, 451, 141), QRect(112, 67, 451, 141), 500);
+	animationMoveTo(ui->titleLabelClient, QRect(350, 0, 451, 141), QRect(100, 0, 451, 141), 500);
+	animationMoveTo(ui->titleLabelServer, QRect(350, 0, 451, 141), QRect(100, 0, 451, 141), 500);
+	animationMoveTo(ui->titleLabelHead, QRect(400, 45, 451, 141), QRect(100, 45, 451, 141), 500);
 }
 
 void MainWindow::animationMoveTo(QWidget * target, QRect startRect, QRect endRect, int animationLength )
@@ -139,6 +145,18 @@ void MainWindow::saveSettings()
 	ConfigurationManager::Instance()->load();
 	ConfigurationOptions configOptions = ConfigurationManager::Instance()->getConfigurationOptions();
 	configOptions.setServerPort((quint16) ui->serverPortInput->value());
+
+	if(ui->aliasInput->text().length() > 0) {
+		QString cleanedAlias = ui->aliasInput->text().remove(QRegExp(QString::fromUtf8("[-`~!@#$%^&*()_—+=|:;<>«»,.?/{}\'\"\\\[\\]\\\\]")));
+		configOptions.setLastUsedAlias(cleanedAlias);
+	}
+	else {
+		Notification notification(this, "The specified alias can only contain alphanumeric characters and must be longer then 1 character!", 2, true);
+		NotificationManager::Instance()->createNotificationDialog(notification);
+		ui->aliasInput->setFocus();
+		ui->connectButton->setEnabled(true);
+		ui->connectingLoader->hide();
+	}
 	if(ui->serverIpInput->isEnabled()) {
 		configOptions.addHostToKnownHostsList(ui->serverIpInput->currentText());
 		configOptions.setLastKnownIp(ui->serverIpInput->currentText());

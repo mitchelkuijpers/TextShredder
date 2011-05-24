@@ -2,7 +2,7 @@
 #define SYNCABLEFILE_H
 
 #include <QObject>
-#include "../textshredder_synchronization_lib/workingcopy.h"
+#include "../textshredder_core/libraries/synchronization/models/workingcopy.h"
 #include "../syncthread.h"
 #include "../../network/models/filerequestpacket.h"
 
@@ -75,6 +75,7 @@ private:
 	bool onServer;
 
 	QList< QSharedPointer<SyncThread> > syncThreads;
+	void saveFileToPath();
 
 private slots:
 	void syncThreadIsStoppedByOtherNode();
@@ -83,6 +84,7 @@ signals:
 	void fileStartedSharing();
 	void fileRequestsForSync(TextShredderPacket &);
 	void syncableFileChanged();
+	void syncableFileShouldBeRemoved();
 };
 
 #endif // SYNCABLEFILE_H

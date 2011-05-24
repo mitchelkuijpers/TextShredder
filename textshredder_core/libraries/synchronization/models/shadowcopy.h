@@ -6,7 +6,7 @@
 #include "backupcopy.h"
 #include "edit.h"
 #include "patchable.h"
-#include "../textshredder_gui/textshredderlogging.h"
+#include "../textshredder_core/libraries/logging/textshredderlogging.h"
 
 class ShadowCopy : public Patchable, public QMutex
 {

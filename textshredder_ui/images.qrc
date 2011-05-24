@@ -24,5 +24,7 @@
         <file>images/status/user-offline.svg</file>
         <file>images/status/user-available.svg</file>
         <file>images/status/user-idle.svg</file>
+        <file>images/status/user-busy.svg</file>
+        <file>images/status/user-editing.svg</file>
     </qresource>
 </RCC>
