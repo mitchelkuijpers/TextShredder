@@ -122,41 +122,31 @@ void EditorView::addStatusIconToSharedFilesListTreeView( int row, SyncableFile *
 {
 	QStandardItem *status = new QStandardItem( QString("") );
 
-	if ( syncableFile->isOnServer() ) {
-		setServerStatusIcons(syncableFile, status);
-	} else  {
-		setClientStatusIcons(syncableFile, status);
+	switch( syncableFile->calculateStatus() ) {
+		case 1:
+			status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
+			break;
+		case 2:
+			status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
+			break;
+		case 3:
+			status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
+			break;
+		case 4:
+			status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
+			break;
+		case 5:
+			status->setIcon(QIcon(":/ui/status/images/status/user-online.svg"));
+			break;
+		case 6:
+			status->setIcon(QIcon(":/ui/status/images/status/user-online.svg"));
+			break;
+		case 7:
+			status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
+			break;
 	}
 
 	model.setItem(row, 2, status);
-}
-
-void EditorView::setServerStatusIcons(SyncableFile * syncableFile, QStandardItem *status)
-{
-	if ( !syncableFile->isShared() ) {
-		status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
-
-	} else if ( syncableFile->syncThreadCount() == 0 ) {
-		status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
-
-	} else if ( syncableFile->syncThreadCount() > 0 ) {
-		status->setIcon(QIcon(":/ui/status/images/status/user-online.svg"));
-
-	}
-}
-
-void EditorView::setClientStatusIcons(SyncableFile * syncableFile, QStandardItem *status)
-{
-	if ( !syncableFile->isShared() ) {
-		status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
-
-	} else if ( !syncableFile->isOpened() ) {
-		status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
-
-	} else if ( syncableFile->isOpened()  ) {
-		status->setIcon(QIcon(":/ui/status/images/status/user-online.svg"));
-
-	}
 }
 
 void EditorView::setColumnWidths()
