@@ -4,6 +4,8 @@
 #include "../textshredder_core/libraries/configuration/configurationmanager.h"
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
+#include <QHostAddress>
+#include <QNetworkInterface>
 
 #include "../textshredder_core/server/server.h"
 
@@ -14,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ConfigurationManager::Instance()->load();
 	ConfigurationOptions configOptions = ConfigurationManager::Instance()->getConfigurationOptions();
     ui->setupUi(this);
+
 	this->setFixedSize(this->width(),this->height());
 	ui->aliasInput->setFocus();
 
@@ -56,7 +59,7 @@ void MainWindow::changeWindowStateToServer()
 	ui->titleLabelServer->show();
 	ui->titleLabelClient->hide();
 	ui->serverIpInput->setEnabled(false);
-	ui->serverIpInput->setEditText("Not needed, you are the server.");
+	ui->serverIpInput->setEditText("Your IP: " + QString(QNetworkInterface::allAddresses().at(4).toString()));
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/server.svg"));
 }
 
