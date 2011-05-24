@@ -73,6 +73,8 @@ private slots:
 	void syncableFileStartedSharing();
 	void syncableFileStoppedSharing();
 	void shouldMakeRequestForSync(TextShredderPacket &packet);
+	void syncableFileDidChange();
+
 public slots:
 	void handleReceivedSyncableFiles(QByteArray &content);
 };

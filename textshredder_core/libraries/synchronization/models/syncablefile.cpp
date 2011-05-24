@@ -99,11 +99,13 @@ void SyncableFile::close()
 	} else {
 		qDebug() << "Pollo di server";
 	}
+	emit syncableFileChanged();
 }
 
 void SyncableFile::open()
 {
 	opened = true;
+	emit syncableFileChanged();
 }
 
 QSharedPointer<WorkingCopy> SyncableFile::getWorkingCopy()
@@ -142,6 +144,7 @@ void SyncableFile::setShared(bool share)
 			emit fileStoppedSharing();
 		}
 	}
+	emit syncableFileChanged();
 }
 
 void SyncableFile::stopSync()
@@ -158,6 +161,7 @@ void SyncableFile::requestSync()
 	syncThreads.append(newThread);
 	FileRequestPacket packet(this, newThread.data()->getSourceHandle(), fileIdentifier);
 	emit fileRequestsForSync(packet);
+	emit syncableFileChanged();
 }
 
 void SyncableFile::doDeleteLater(SyncableFile *obj)
@@ -208,6 +212,8 @@ void SyncableFile::syncThreadIsStoppedByOtherNode()
 				<< "Server side all syncs ended";
 		qDebug() << "Save file to local path";
 	}
+
+	emit syncableFileChanged();
 }
 
 bool SyncableFile::isOnServer()
@@ -222,22 +228,23 @@ void SyncableFile::setOnServer(bool value)
 SyncableFileStatus SyncableFile::calculateStatus()
 {
 	if (syncThreads.count() > 0) {
-		//Currently Syncing
+		return Syncing;
 	} else if (!onServer && isShared() && !opened) {
-		//CLient has file which is not opened.
+		return UnopenedSharedFile;
 	} else if (onServer && isShared() && !opened) {
-		//Server has file which is not opened but shared
+		return UnopenedSharedFile;
 	} else if (!onServer && !isShared() && !opened) {
-
+		//Should not happen
 	} else if (onServer && !isShared() && !opened) {
-
+		return Unshared;
 	} else if (!onServer && isShared() && opened) {
-
+		return Syncing;
 	} else if (onServer && isShared() && opened) {
-
+		return Editing;
 	} else if (!onServer && !isShared() && opened) {
-
+		return Offline;
 	} else if (onServer && !isShared() && opened) {
-
+		return Editing;
 	}
+	return Unknown;
 }

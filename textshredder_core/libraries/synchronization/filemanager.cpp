@@ -24,6 +24,7 @@ void FileManager::addFileWithPath(QString &path)
 
 	connect(obj.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
 	connect(obj.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
+	connect(obj.data(), SIGNAL(syncableFileChanged()), this, SLOT(syncableFileDidChange()));
 	connect(obj.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)),
 			this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
 	fileList.append(obj);
@@ -39,6 +40,7 @@ void FileManager::removeFile (QSharedPointer<SyncableFile> file)
 			disconnect(file.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
 			disconnect(file.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
 			disconnect(file.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
+			disconnect(file.data(), SIGNAL(syncableFileChanged()), this, SLOT(syncableFileDidChange()));
 			file.data()->stopSync();
 			fileList.removeAt(i);
 			break;
@@ -90,8 +92,13 @@ void FileManager::addSyncFile( QSharedPointer<SyncableFile> file)
 	qDebug() << "adding file to filemanager" << file.data()->getFileAlias();
 	connect(file.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
 	connect(file.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
+	connect(file.data(), SIGNAL(syncableFileChanged()), this, SLOT(syncableFileDidChange()));
 	connect(file.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
 	emit fileStarted( file.data() );
+}
+
+void FileManager::syncableFileDidChange() {
+	emit availableFilesChanged();
 }
 
 QSharedPointer<SyncableFile> FileManager::getSyncableFileWithName(QString &name)

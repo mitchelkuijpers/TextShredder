@@ -7,7 +7,13 @@
 #include "../../network/models/filerequestpacket.h"
 
 typedef enum {
-	SomeStatus
+	Unknown = 1,
+	Unshared = 2,
+	UnopenedSharedFile =3,
+	Idle = 4,
+	Editing = 5,
+	Syncing = 6,
+	Offline = 7
 } SyncableFileStatus;
 
 typedef enum {
@@ -76,6 +82,7 @@ signals:
 	void fileStoppedSharing();
 	void fileStartedSharing();
 	void fileRequestsForSync(TextShredderPacket &);
+	void syncableFileChanged();
 };
 
 #endif // SYNCABLEFILE_H

@@ -42,6 +42,8 @@ private:
 	void addCheckBoxToSharedFilesListTreeView( int row, SyncableFile * syncableFile );
 	void addFileNameToSharedFilesListTreeView( int row, SyncableFile * syncableFile );
 	void addStatusIconToSharedFilesListTreeView( int row, SyncableFile * syncableFile );
+	void setServerStatusIcons(SyncableFile * syncableFile, QStandardItem *status);
+	void setClientStatusIcons(SyncableFile * syncableFile, QStandardItem *status);
 
 private slots:
  void on_fileTreeWidget_doubleClicked(QModelIndex index);
