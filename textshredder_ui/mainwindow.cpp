@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 	this->setFixedSize(this->width(),this->height());
 	ui->serverIpInput->setFocus();
-
+	ui->aliasInput->setText(configOptions.getLastUsedAlias());
 	ui->serverIpInput->addItem(configOptions.getLastKnownIp());
 	int i;
 	for(i = 0; i < configOptions.getKnownHostsList().count(); i++){
@@ -133,12 +133,16 @@ void MainWindow::on_connectButton_clicked()
 		saveSettings();
 	}
 }
-
+//check op alias input: > 0 && tekens en cijfers
+//zoniet dan notification
 void MainWindow::saveSettings()
 {
 	ConfigurationManager::Instance()->load();
 	ConfigurationOptions configOptions = ConfigurationManager::Instance()->getConfigurationOptions();
 	configOptions.setServerPort((quint16) ui->serverPortInput->value());
+
+	configOptions.setLastUsedAlias(ui->aliasInput->text());
+
 	if(ui->serverIpInput->isEnabled()) {
 		configOptions.addHostToKnownHostsList(ui->serverIpInput->currentText());
 		configOptions.setLastKnownIp(ui->serverIpInput->currentText());
