@@ -105,6 +105,7 @@ void SyncableFile::close()
 void SyncableFile::open()
 {
 	opened = true;
+	emit syncableFileChanged();
 }
 
 QSharedPointer<WorkingCopy> SyncableFile::getWorkingCopy()
