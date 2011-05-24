@@ -18,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
 	this->setFixedSize(this->width(),this->height());
+
+	ui->serverIpInput->setFocus();
+	ui->aliasInput->setText(configOptions.getLastUsedAlias());
 	ui->aliasInput->setFocus();
 
 	ui->serverIpInput->addItem(configOptions.getLastKnownIp());
@@ -142,6 +145,18 @@ void MainWindow::saveSettings()
 	ConfigurationManager::Instance()->load();
 	ConfigurationOptions configOptions = ConfigurationManager::Instance()->getConfigurationOptions();
 	configOptions.setServerPort((quint16) ui->serverPortInput->value());
+
+	if(ui->aliasInput->text().length() > 0) {
+		QString cleanedAlias = ui->aliasInput->text().remove(QRegExp(QString::fromUtf8("[-`~!@#$%^&*()_—+=|:;<>«»,.?/{}\'\"\\\[\\]\\\\]")));
+		configOptions.setLastUsedAlias(cleanedAlias);
+	}
+	else {
+		Notification notification(this, "The specified alias can only contain alphanumeric characters and must be longer then 1 character!", 2, true);
+		NotificationManager::Instance()->createNotificationDialog(notification);
+		ui->aliasInput->setFocus();
+		ui->connectButton->setEnabled(true);
+		ui->connectingLoader->hide();
+	}
 	if(ui->serverIpInput->isEnabled()) {
 		configOptions.addHostToKnownHostsList(ui->serverIpInput->currentText());
 		configOptions.setLastKnownIp(ui->serverIpInput->currentText());

@@ -1,8 +1,10 @@
 #ifndef CONFIGURATIONMANAGERTESTS_H
 #define CONFIGURATIONMANAGERTESTS_H
 #include "../textshredder_core/libraries/configuration/configurationmanager.h"
+#include "../textshredder_core/libraries/configuration/models/configurationoptions.h"
 #include <QObject>
-#include <QtCore>
+#include <QtCore/QString>
+
 #include "autotest.h"
 class ConfigurationManagerTests: public QObject
 {
@@ -12,7 +14,6 @@ public:
 	void testSetNewOptions();
 
 };
-QBool operator !=(ConfigurationOptions, QBool);
 
 DECLARE_TEST(ConfigurationManagerTests);
 

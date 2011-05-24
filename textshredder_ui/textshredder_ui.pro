@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     ../textshredder_core/libraries/network/connectionlistener.cpp \
     editorhighlighting.cpp \
     ../textshredder_core/libraries/network/models/filedatapacket.cpp \
-    ../textshredder_core/libraries/network/models/endsynchronizationpacket.cpp
+    ../textshredder_core/libraries/network/models/endsynchronizationpacket.cpp \
+    ../textshredder_core/libraries/performance/performancecalculator.cpp
 
 HEADERS  += mainwindow.h \
     editorview.h \
@@ -82,7 +83,8 @@ HEADERS  += mainwindow.h \
     ../textshredder_core/libraries/network/connectionlistener.h \
     editorhighlighting.h \
     ../textshredder_core/libraries/network/models/filedatapacket.h \
-    ../textshredder_core/libraries/network/models/endsynchronizationpacket.h
+    ../textshredder_core/libraries/network/models/endsynchronizationpacket.h \
+    ../textshredder_core/libraries/performance/performancecalculator.h
 
 FORMS    += mainwindow.ui \
     editorview.ui \

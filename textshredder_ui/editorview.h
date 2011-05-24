@@ -11,6 +11,7 @@
 #include <QResource>
 #include "../textshredder_core/libraries/synchronization/filemanager.h"
 #include "syncablefiletextfield.h"
+#include "../textshredder_core/libraries/performance/performancecalculator.h"
 
 namespace Ui {
     class EditorView;
@@ -52,6 +53,7 @@ private slots:
  void on_addFolderButton_clicked();
  void on_addFileButton_clicked();
  void rebuildSharedFilesListTreeView();
+ void updateAveragePerformance(long);
 
 };
 
