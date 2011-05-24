@@ -121,11 +121,31 @@ void EditorView::addFileNameToSharedFilesListTreeView( int row, SyncableFile * s
 void EditorView::addStatusIconToSharedFilesListTreeView( int row, SyncableFile * syncableFile )
 {
 	QStandardItem *status = new QStandardItem( QString("") );
-	if ( syncableFile->isShared() ) {
-		status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
-	} else {
-		status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
+
+	switch( syncableFile->calculateStatus() ) {
+		case 1:
+			status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
+			break;
+		case 2:
+			status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
+			break;
+		case 3:
+			status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
+			break;
+		case 4:
+			status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
+			break;
+		case 5:
+			status->setIcon(QIcon(":/ui/status/images/status/user-online.svg"));
+			break;
+		case 6:
+			status->setIcon(QIcon(":/ui/status/images/status/user-online.svg"));
+			break;
+		case 7:
+			status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
+			break;
 	}
+
 	model.setItem(row, 2, status);
 }
 
