@@ -75,6 +75,7 @@ private:
 	bool onServer;
 
 	QList< QSharedPointer<SyncThread> > syncThreads;
+	void saveFileToPath();
 
 private slots:
 	void syncThreadIsStoppedByOtherNode();
@@ -83,6 +84,7 @@ signals:
 	void fileStartedSharing();
 	void fileRequestsForSync(TextShredderPacket &);
 	void syncableFileChanged();
+	void syncableFileShouldBeRemoved();
 };
 
 #endif // SYNCABLEFILE_H
