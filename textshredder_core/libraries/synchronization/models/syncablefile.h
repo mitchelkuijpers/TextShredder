@@ -82,6 +82,7 @@ signals:
 	void fileStoppedSharing();
 	void fileStartedSharing();
 	void fileRequestsForSync(TextShredderPacket &);
+	void syncableFileChanged();
 };
 
 #endif // SYNCABLEFILE_H

@@ -99,6 +99,7 @@ void SyncableFile::close()
 	} else {
 		qDebug() << "Pollo di server";
 	}
+	emit syncableFileChanged();
 }
 
 void SyncableFile::open()
@@ -142,6 +143,7 @@ void SyncableFile::setShared(bool share)
 			emit fileStoppedSharing();
 		}
 	}
+	emit syncableFileChanged();
 }
 
 void SyncableFile::stopSync()
@@ -158,6 +160,7 @@ void SyncableFile::requestSync()
 	syncThreads.append(newThread);
 	FileRequestPacket packet(this, newThread.data()->getSourceHandle(), fileIdentifier);
 	emit fileRequestsForSync(packet);
+	emit syncableFileChanged();
 }
 
 void SyncableFile::doDeleteLater(SyncableFile *obj)
@@ -208,6 +211,8 @@ void SyncableFile::syncThreadIsStoppedByOtherNode()
 				<< "Server side all syncs ended";
 		qDebug() << "Save file to local path";
 	}
+
+	emit syncableFileChanged();
 }
 
 bool SyncableFile::isOnServer()
