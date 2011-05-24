@@ -221,26 +221,23 @@ void SyncableFile::setOnServer(bool value)
 
 SyncableFileStatus SyncableFile::calculateStatus()
 {
-	if (!onServer && isShared() && !opened) {
-		//CLient has file which is not opened.
+	if (syncThreads.count() > 0) {
+		//Currently Syncing
 	} else if (!onServer && isShared() && !opened) {
-	}
-	if (syncThreads.count() > 0 ) {
-		//Currently syncing.
-	} else if (!isOpened() && onServer) {
-		if (!shared) {
-			//Server not shared file
-		} else {
-			//Server not editing shared file
-		}
-	} else if (!isOpened() && !onServer) {
-		if (shared) {
-			//Client did not open file
-		} else {
-			//Should not happen
-		}
-	} else if (isOpened()) {
+		//CLient has file which is not opened.
+	} else if (onServer && isShared() && !opened) {
+		//Server has file which is not opened but shared
+	} else if (!onServer && !isShared() && !opened) {
+
+	} else if (onServer && !isShared() && !opened) {
+
+	} else if (!onServer && isShared() && opened) {
+
+	} else if (onServer && isShared() && opened) {
+
+	} else if (!onServer && !isShared() && opened) {
+
+	} else if (onServer && !isShared() && opened) {
 
 	}
-
 }
