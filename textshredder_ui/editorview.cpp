@@ -80,7 +80,7 @@ void EditorView::rebuildSharedFilesListTreeView()
 {
 	QList < QSharedPointer<SyncableFile> > sharedFilesList =
 			FileManager::Instance()->getAllFiles();
-
+	qDebug() << "shardedFileList count: " << sharedFilesList.count();
 	model.removeRows(0, model.rowCount());
 
 	int i = 0;

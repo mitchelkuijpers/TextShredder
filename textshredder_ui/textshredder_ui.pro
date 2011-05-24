@@ -9,7 +9,6 @@ QT       += core gui network
 TARGET = textshredder_ui
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
 		mainwindow.cpp \
     editorview.cpp \
