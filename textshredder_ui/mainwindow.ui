@@ -95,7 +95,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>226</x>
-      <y>310</y>
+      <y>320</y>
       <width>121</width>
       <height>32</height>
      </rect>
@@ -108,7 +108,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>350</x>
-      <y>310</y>
+      <y>320</y>
       <width>121</width>
       <height>32</height>
      </rect>
@@ -236,7 +236,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>340</y>
+      <y>350</y>
       <width>151</width>
       <height>16</height>
      </rect>
@@ -315,6 +315,15 @@ p, li { white-space: pre-wrap; }
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>aliasInput</tabstop>
+  <tabstop>serverIpInput</tabstop>
+  <tabstop>serverPortInput</tabstop>
+  <tabstop>rememberSettingsInput</tabstop>
+  <tabstop>connectButton</tabstop>
+  <tabstop>cancelButton</tabstop>
+  <tabstop>isServerInput</tabstop>
+ </tabstops>
  <resources>
   <include location="images.qrc"/>
  </resources>

@@ -15,8 +15,11 @@ MainWindow::MainWindow(QWidget *parent) :
 	ConfigurationOptions configOptions = ConfigurationManager::Instance()->getConfigurationOptions();
     ui->setupUi(this);
 	this->setFixedSize(this->width(),this->height());
+
 	ui->serverIpInput->setFocus();
 	ui->aliasInput->setText(configOptions.getLastUsedAlias());
+	ui->aliasInput->setFocus();
+
 	ui->serverIpInput->addItem(configOptions.getLastKnownIp());
 	int i;
 	for(i = 0; i < configOptions.getKnownHostsList().count(); i++){
@@ -68,7 +71,7 @@ void MainWindow::changeWindowStateToClient()
 	ui->serverIpInput->setEnabled(true);
 	ui->serverIpInput->setEditText("127.0.0.1");
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/userfolder.svg"));
-	ui->serverIpInput->setFocus();
+	ui->aliasInput->setFocus();
 }
 
 void MainWindow::on_cancelButton_clicked()
