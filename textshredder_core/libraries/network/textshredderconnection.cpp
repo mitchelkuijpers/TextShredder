@@ -143,6 +143,7 @@ void TextShredderConnection::write(TextShredderPacket &packet)
 	qDebug("TextShredderConnection::write");
 	qDebug() << QString::number(packet.getHeader().getPacketType());
 	QTextStream outputStream(&socket);
+
 	QByteArray raw;
 	packet.getHeader().appendToQByteArray(raw);
 	raw.append(packet.getContent());

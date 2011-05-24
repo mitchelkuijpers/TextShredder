@@ -68,6 +68,8 @@ void FileManager::syncableFileStartedSharing()
 {
 	QSharedPointer<SyncableFilesPacket> packet((const QSharedPointer<SyncableFilesPacket>)getAvailableFilesPacket());
 	emit updateClientFiles(*packet.data());
+	qDebug() << "packetdata: " << packet.data()->getContent();
+	qDebug() << "paketheaderlenght " << packet.data()->getHeader().getContentLength();
 }
 
 void FileManager::syncableFileStoppedSharing()
@@ -85,7 +87,7 @@ void FileManager::addSyncFile( QSharedPointer<SyncableFile> file)
 {
 	fileList.append(file);
 	file.data()->setOnServer(isServer);
-
+	qDebug() << "adding file to filemanager" << file.data()->getFileAlias();
 	connect(file.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
 	connect(file.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
 	connect(file.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
@@ -122,7 +124,8 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 {
 	QList< QSharedPointer<SyncableFile> > list;
 	SyncableFilesPacket::fillListWithContentsOfPacket(list, content);
-
+	qDebug() << "incominglistcount: " << list.count();
+	qDebug() << "content: " << content;
 	for (int i = 0; i < list.count(); i ++ ) {
 		QSharedPointer<SyncableFile> file = list.at(i);
 
@@ -130,6 +133,7 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 		for (int j = 0; j < fileList.count(); j++) {
 			if (file.data()->getFileIdentifier() == fileList.at(j).data()->getFileIdentifier()) {
 				found = true;
+				qDebug() << "found the motherfucker";
 			}
 		}
 		if (found == false) {
