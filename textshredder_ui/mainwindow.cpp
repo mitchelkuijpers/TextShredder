@@ -139,8 +139,7 @@ void MainWindow::on_connectButton_clicked()
 		saveSettings();
 	}
 }
-//check op alias input: > 0 && tekens en cijfers
-//zoniet dan notification
+
 void MainWindow::saveSettings()
 {
 	ConfigurationManager::Instance()->load();
@@ -150,6 +149,13 @@ void MainWindow::saveSettings()
 	if(ui->aliasInput->text().length() > 0) {
 		QString cleanedAlias = ui->aliasInput->text().remove(QRegExp(QString::fromUtf8("[-`~!@#$%^&*()_—+=|:;<>«»,.?/{}\'\"\\\[\\]\\\\]")));
 		configOptions.setLastUsedAlias(cleanedAlias);
+	}
+	else {
+		Notification notification(this, "The specified alias can only contain alphanumeric characters and must be longer then 1 character!", 2, true);
+		NotificationManager::Instance()->createNotificationDialog(notification);
+		ui->aliasInput->setFocus();
+		ui->connectButton->setEnabled(true);
+		ui->connectingLoader->hide();
 	}
 	if(ui->serverIpInput->isEnabled()) {
 		configOptions.addHostToKnownHostsList(ui->serverIpInput->currentText());
