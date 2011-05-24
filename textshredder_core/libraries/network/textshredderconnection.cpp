@@ -96,13 +96,19 @@ void TextShredderConnection::read()
 	QTextStream inputStream(&socket);
 	QString buffer;
 
+	inputStream.setAutoDetectUnicode(false);
+	inputStream.setCodec("UTF-8" );
+
 	while(!inputStream.atEnd()) {
 		 buffer.append(inputStream.readAll());
+
+		 qDebug() << "inputstream " << buffer;
 	}
 
 	QByteArray packetData;
 	packetData.append(buffer);
 	parser.handleData(packetData);
+	qDebug() << "read packetData: " << packetData;
 
 	while(parser.hasMorePackets()) {
 		TextShredderPacket * packet = parser.nextPacket();
@@ -143,6 +149,10 @@ void TextShredderConnection::write(TextShredderPacket &packet)
 	qDebug("TextShredderConnection::write");
 	qDebug() << QString::number(packet.getHeader().getPacketType());
 	QTextStream outputStream(&socket);
+
+
+	outputStream.setAutoDetectUnicode(false);
+	outputStream.setCodec("UTF-8");
 
 	QByteArray raw;
 	packet.getHeader().appendToQByteArray(raw);
