@@ -11,7 +11,6 @@
 #include "models/textshredderpacket.h"
 #include "textshredderpacketparser.h"
 #include <QTcpServer>
-#include "connectionlistener.h"
 
 typedef enum {
 	Disconnected = 0,
@@ -28,18 +27,15 @@ class TextShredderConnection : public QObject
 {
     Q_OBJECT
 public:
-	TextShredderConnection(QObject *parent);
 	TextShredderConnection(QObject *parent, int socketDescriptor);
 	TextShredderConnection(QObject *parent, QString &hostName, int port, bool startImmediately = true);
 	QString getPeerAdress();
 	unsigned int getPort();
 
-	quint16 getLocalPort();
 	void startConnection();
-
+	~TextShredderConnection();
 private:
-	QSharedPointer<ConnectionListener> connectionListener;
-	QTcpSocket socket;
+	QSharedPointer <QTcpSocket> socket;
 	QList<TextShredderPacket> queue;
 	TextShredderConnectionStatus status;
 	TextShredderPacketParser parser;
@@ -63,6 +59,7 @@ signals:
 	void incomingEditPacketContent(QByteArray &content, quint16 destinationHandle);
 	void incomingSyncableFilesPacket(QByteArray &content);
 	void incomingEndSynchronizationPacket(quint16 destinationHandle);
+	void incomingOnlineUsersPacket(TextShredderPacket &packet);
 
 public slots:
 	void read();
@@ -71,8 +68,5 @@ public slots:
 	void socketError(QAbstractSocket::SocketError);
 	void clientHasDisconnected();
 	void sendPacket(TextShredderPacket &);
-
-	void deleteServer(ConnectionListener *obj);
-	void socketDescriptorReady(quint16 socketDescriptor);
 };
 #endif // TEXTSHREDDERCONNECTION_H

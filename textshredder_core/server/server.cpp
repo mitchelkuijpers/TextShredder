@@ -1,6 +1,8 @@
 #include "server.h"
 #include "../textshredder_synchronization_lib/syncthread.h"
 #include "../libraries/synchronization/clientrepresentation.h"
+#include "../libraries/network/models/onlineuserspacket.h"
+#include "usermanager.h"
 
 Server * Server::sharedInstance = NULL;
 
@@ -18,9 +20,10 @@ Server::Server(QObject *parent):
 
 void Server::incomingConnection(int socketDescriptor)
 {
-	qDebug("new Incoming connection");
-	ClientRepresentation *rep = new ClientRepresentation(this, socketDescriptor);
-	connect(rep, SIGNAL(clientRepresentationDidChangeAlias()), this, SLOT(processAliasChangeFromClientRepresentation()));
+	QSharedPointer<ClientRepresentation> rep = QSharedPointer<ClientRepresentation>(
+			new ClientRepresentation(this, socketDescriptor));
+	connect(rep.data(), SIGNAL(clientRepresentationDidChangeAlias()), this, SLOT(processAliasChangeFromClientRepresentation()));
+	connect(rep.data(), SIGNAL(clientRepresentationEncounteredEnd()), this, SLOT(removeClientRepresentationSlot()));
 	clients.append(rep);
 }
 
@@ -31,5 +34,49 @@ int Server::numberOfClients()
 
 void Server::processAliasChangeFromClientRepresentation()
 {
-	qDebug("Server::processAliasChangeFromClientRepresentation()");
+	sendUsersToAllClients();
 }
+
+void Server::sendUsersToAllClients()
+{
+	OnlineUsersPacket packet(this, UserManager::Instance()->getUsers());
+	for (int i = 0; i < clients.count(); i++ ) {
+		if (clients.at(i).isNull()) {
+			qDebug() << "Object is null";
+		} else {
+			clients.at(i)->sendPacket(packet);
+		}
+	}
+}
+
+void Server::setServerAlias(QString newAlias)
+{
+	UserManager::Instance()->removeAlias(serverAlias);
+	serverAlias = newAlias;
+	serverAlias.append("(Server)");
+	UserManager::Instance()->addAlias(serverAlias);
+}
+
+void Server::removeClientRepresentationSlot()
+{
+	qDebug() << "Server::removeClientRepresentationSlot";
+	ClientRepresentation *rep = (ClientRepresentation *) sender();
+
+	for (int i = 0; i < clients.count(); i ++ ) {
+		QSharedPointer <ClientRepresentation> internalRep = clients.at(i);
+		if (internalRep.isNull()) {
+			clients.removeAt(i);
+			i--;
+		}
+		else if (rep == internalRep.data()) {
+			qDebug() << "Server::removeClientRepresentationSlot() error when uncommentign following line";
+			//When uncommenting the following line there will be a crash.
+			//The TextShredderConnectionWill be deallocated even when not uncommenting this line...
+			//clients.removeAt(i);
+			internalRep.clear();
+			sendUsersToAllClients();
+			return;
+		}
+	}
+}
+

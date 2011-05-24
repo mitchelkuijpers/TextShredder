@@ -109,6 +109,7 @@ void MainWindow::on_connectButton_clicked()
 
 	if (ui->isServerInput->isChecked()) {
 		Server *serv = Server::Instance();
+		serv->setServerAlias(ui->aliasInput->text());
 		quint16 port = ui->serverPortInput->value();
 		serv->listen(QHostAddress::Any, port);
 		this->hide();
@@ -116,6 +117,7 @@ void MainWindow::on_connectButton_clicked()
 		editorView.setToServerMode();
 	} else {
 		QSharedPointer<Client> client = Client::Instance();
+		client.data()->setAlias(ui->aliasInput->text());
 		connect(client.data(), SIGNAL(clientConnected()), this, SLOT(clientDidConnect()));
 		connect(client.data(), SIGNAL(clientConnectionError(QAbstractSocket::SocketError)),
 				this, SLOT(clientHadError(QAbstractSocket::SocketError)));

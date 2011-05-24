@@ -64,7 +64,7 @@
        </widget>
       </item>
       <item row="5" column="0" colspan="2">
-       <widget class="QListWidget" name="listWidget"/>
+       <widget class="UserListView" name="listWidget"/>
       </item>
       <item row="1" column="0" colspan="2">
        <widget class="QTreeView" name="fileTreeWidget">
@@ -162,6 +162,11 @@
    <extends>QWidget</extends>
    <header location="global">editorribbon.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>UserListView</class>
+   <extends>QListWidget</extends>
+   <header>userlistview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -46,7 +46,10 @@ SOURCES += main.cpp\
     editorhighlighting.cpp \
     ../textshredder_core/libraries/network/models/filedatapacket.cpp \
 	../textshredder_core/libraries/network/models/endsynchronizationpacket.cpp \
-	../textshredder_core/libraries/network/models/setaliaspacket.cpp
+	../textshredder_core/libraries/network/models/setaliaspacket.cpp \
+    ../textshredder_core/libraries/network/models/onlineuserspacket.cpp \
+    ../textshredder_core/server/usermanager.cpp \
+    userlistview.cpp
 HEADERS  += mainwindow.h \
     editorview.h \
     editorribbon.h \
@@ -83,7 +86,10 @@ HEADERS  += mainwindow.h \
     editorhighlighting.h \
     ../textshredder_core/libraries/network/models/filedatapacket.h \
 	../textshredder_core/libraries/network/models/endsynchronizationpacket.h \
-	../textshredder_core/libraries/network/models/setaliaspacket.h
+	../textshredder_core/libraries/network/models/setaliaspacket.h \
+    ../textshredder_core/libraries/network/models/onlineuserspacket.h \
+    ../textshredder_core/server/usermanager.h \
+    userlistview.h
 
 FORMS    += mainwindow.ui \
     editorview.ui \

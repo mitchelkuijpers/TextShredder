@@ -19,8 +19,10 @@ public:
 	 * @param Qobject parent.
 	 * @param int The socketdescriptor
 	 */
-	explicit ClientRepresentation(QObject *parent, int socketDescriptor);
+	ClientRepresentation(QObject *parent, int socketDescriptor);
 
+	QString getAlias();
+	void sendPacket(TextShredderPacket &packet);
 private:
 	QSharedPointer<TextShredderConnection> connection;
 	QString alias;

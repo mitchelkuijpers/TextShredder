@@ -70,8 +70,6 @@ void FileManager::syncableFileStartedSharing()
 {
 	QSharedPointer<SyncableFilesPacket> packet((const QSharedPointer<SyncableFilesPacket>)getAvailableFilesPacket());
 	emit updateClientFiles(*packet.data());
-	qDebug() << "packetdata: " << packet.data()->getContent();
-	qDebug() << "paketheaderlenght " << packet.data()->getHeader().getContentLength();
 }
 
 void FileManager::syncableFileStoppedSharing()

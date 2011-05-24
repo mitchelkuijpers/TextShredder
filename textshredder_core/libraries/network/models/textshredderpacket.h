@@ -11,6 +11,7 @@
 #define kPacketTypeSetAlias 4
 #define kPacketTypeAvailableFiles 5
 #define kPacketTypeSynchronizationEnd 6
+#define kPacketTypeOnlineUsers 7
 
 class TextShredderPacket : public QObject
 {
@@ -51,7 +52,7 @@ public:
 	bool isEndSynchronizationPacket();
 	bool isSetAliasPacket();
 	bool isSyncableFilesPacket();
-
+	bool isOnlineUsersPacket();
 	bool isIncomplete();
 
 	void appendContentData(QByteArray & data);

@@ -10,6 +10,8 @@ class Server : public QTcpServer
     Q_OBJECT
 public:
 	static Server * Instance();
+	void setServerAlias(QString newAlias);
+	void sendUsersToAllClients();
 
 protected:
 	void incomingConnection(int socketDescriptor);
@@ -20,11 +22,13 @@ private:
 	int numberOfClients();
 
 	QString serverAlias;
-	QList <ClientRepresentation *> clients;
+
+	QList < QSharedPointer<ClientRepresentation> > clients;
 	static Server * sharedInstance;
 
 private slots:
 	void processAliasChangeFromClientRepresentation();
+	void removeClientRepresentationSlot();
 };
 
 #endif // SERVER_H

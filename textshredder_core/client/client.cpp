@@ -1,6 +1,8 @@
 #include "client.h"
 #include "../libraries/synchronization/filemanager.h"
 #include "../libraries/network/models/setaliaspacket.h"
+#include "../libraries/network/models/onlineuserspacket.h"
+#include "../server/usermanager.h"
 
 QSharedPointer<Client> Client::sharedInstance;
 
@@ -28,6 +30,8 @@ bool Client::connectToServer(QHostAddress &addr, quint16 port)
 			this, SLOT(connectionStatusChanged(TextShredderConnectionStatus, QAbstractSocket::SocketError)));
 	connect(connection.data(), SIGNAL(incomingSyncableFilesPacket(QByteArray&)),
 			FileManager::Instance(), SLOT(handleReceivedSyncableFiles(QByteArray &)));
+	connect(connection.data(), SIGNAL(incomingOnlineUsersPacket(TextShredderPacket&)),
+			this, SLOT(connectionReceivedOnlineUsersPacket(TextShredderPacket &)));
 	connection.data()->startConnection();
 	return true;
 }
@@ -36,11 +40,8 @@ void Client::connectionStatusChanged(TextShredderConnectionStatus status, QAbstr
 {
 	if (status == Connected) {
 		emit clientConnected();
-
-		QString name("My name");
-		SetAliasPacket packet(this, name);
-		//connection.data()->write(packet);
-
+		SetAliasPacket packet(this, clientAlias);
+		connection.data()->write(packet);
 	} else if (status == Error) {
 		emit clientConnectionError(error);
 	}
@@ -54,4 +55,15 @@ void Client::connectionDidEncounterEnd()
 QSharedPointer<TextShredderConnection> Client::getConnection()
 {
 	return this->connection;
+}
+
+void Client::setAlias(QString newAlias)
+{
+	clientAlias = newAlias;
+}
+
+void Client::connectionReceivedOnlineUsersPacket(TextShredderPacket &packet)
+{
+	QList<QString> userNames = OnlineUsersPacket::userListFromPacket(packet);
+	UserManager::Instance()->clearAndAddList(userNames);
 }
