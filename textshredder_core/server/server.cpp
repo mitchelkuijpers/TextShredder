@@ -20,6 +20,7 @@ void Server::incomingConnection(int socketDescriptor)
 {
 	qDebug("new Incoming connection");
 	ClientRepresentation *rep = new ClientRepresentation(this, socketDescriptor);
+	connect(rep, SIGNAL(clientRepresentationDidChangeAlias()), this, SLOT(processAliasChangeFromClientRepresentation()));
 	clients.append(rep);
 }
 
@@ -28,3 +29,7 @@ int Server::numberOfClients()
 	return clients.count();
 }
 
+void Server::processAliasChangeFromClientRepresentation()
+{
+	qDebug("Server::processAliasChangeFromClientRepresentation()");
+}

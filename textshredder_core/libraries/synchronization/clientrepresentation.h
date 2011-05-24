@@ -40,6 +40,7 @@ private slots:
 
 signals:
 	void clientRepresentationEncounteredEnd();
+	void clientRepresentationDidChangeAlias();
 };
 
 #endif // CLIENTREPRESENTATION_H

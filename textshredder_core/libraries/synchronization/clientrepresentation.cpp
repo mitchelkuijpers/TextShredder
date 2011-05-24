@@ -26,7 +26,10 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 
 void ClientRepresentation::processSetAliasPacketContent(QByteArray &bytes)
 {
+	qDebug("ClientRepresentation::processSetAliasPacketContent");
 	alias = QString(bytes);
+
+	emit clientRepresentationDidChangeAlias();
 }
 
 void ClientRepresentation::getDisconnected()

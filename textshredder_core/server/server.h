@@ -19,8 +19,12 @@ private:
 	bool listenWithFile(const QHostAddress &address, quint16 port);
 	int numberOfClients();
 
+	QString serverAlias;
 	QList <ClientRepresentation *> clients;
 	static Server * sharedInstance;
+
+private slots:
+	void processAliasChangeFromClientRepresentation();
 };
 
 #endif // SERVER_H

@@ -1,5 +1,6 @@
 #include "client.h"
 #include "../libraries/synchronization/filemanager.h"
+#include "../libraries/network/models/setaliaspacket.h"
 
 QSharedPointer<Client> Client::sharedInstance;
 
@@ -35,9 +36,11 @@ void Client::connectionStatusChanged(TextShredderConnectionStatus status, QAbstr
 {
 	if (status == Connected) {
 		emit clientConnected();
-//		TextShredderPacket packet;
-//		packet = TextShredderPacket(this, kPacketTypeAvailableFilesRequest);
-//		FileManager::Instance()->sendFileRequest(packet);
+
+		QString name("My name");
+		SetAliasPacket packet(this, name);
+		//connection.data()->write(packet);
+
 	} else if (status == Error) {
 		emit clientConnectionError(error);
 	}

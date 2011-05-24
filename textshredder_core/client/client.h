@@ -16,6 +16,7 @@ private:
 	QSharedPointer<TextShredderConnection> connection;
 	Client(QObject *parent);
 	static QSharedPointer<Client> sharedInstance;
+	QString clientAlias;
 
 signals:
 	void clientConnected();
