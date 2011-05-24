@@ -49,7 +49,9 @@ SOURCES += main.cpp\
 	../textshredder_core/libraries/network/models/setaliaspacket.cpp \
     ../textshredder_core/libraries/network/models/onlineuserspacket.cpp \
     ../textshredder_core/server/usermanager.cpp \
-    userlistview.cpp
+	userlistview.cpp \
+	../textshredder_core/libraries/performance/performancecalculator.cpp
+
 HEADERS  += mainwindow.h \
     editorview.h \
     editorribbon.h \
@@ -89,7 +91,8 @@ HEADERS  += mainwindow.h \
 	../textshredder_core/libraries/network/models/setaliaspacket.h \
     ../textshredder_core/libraries/network/models/onlineuserspacket.h \
     ../textshredder_core/server/usermanager.h \
-    userlistview.h
+	userlistview.h \
+	../textshredder_core/libraries/performance/performancecalculator.h
 
 FORMS    += mainwindow.ui \
     editorview.ui \

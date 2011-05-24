@@ -2,7 +2,7 @@
 #define PATCHABLE_H
 
 #include <QObject>
-#include "../textshredder_diff_match_patch/diff_match_patch.h"
+#include "../textshredder_core/libraries/diff_match_patch/diff_match_patch.h"
 
 class Patchable : public QObject
 {

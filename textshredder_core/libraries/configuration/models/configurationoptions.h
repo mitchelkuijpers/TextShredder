@@ -25,6 +25,8 @@ public:
 	void setKnownHostsList(QStringList knownHosts);
 	void setLastKnownIpIndex(quint16 lastKnownIpIndexToBeInserted);
 	void setLastKnownIp(QString lastKnownIpToSet);
+	QString getLastUsedAlias();
+	void setLastUsedAlias(QString lastUsedAliasToSet);
 	ConfigurationOptions& operator =(const ConfigurationOptions&);
 
 private:
@@ -32,7 +34,7 @@ private:
 	QString lastKnownIp;
 	QStringList knownHostsList;
 	quint16 lastKnownIpIndex;
-
+	QString lastUsedAlias;
 };
 
 QDataStream &operator<<(QDataStream &out, ConfigurationOptions & options);
