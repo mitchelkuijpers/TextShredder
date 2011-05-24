@@ -7,6 +7,7 @@
 #include "models/editlist.h"
 #include "models/shadowcopy.h"
 #include "models/workingcopy.h"
+#include <QSharedPointer>
 
 #include "../network/models/filedatapacket.h"
 #include "../network/models/endsynchronizationpacket.h"
@@ -42,6 +43,7 @@ public slots:
 	void receivedEditPacketContent(QByteArray &content, quint16 destination);
 	void receivedFileDataPacket(TextShredderPacket &packet, quint16 destination);
 	void receivedEndSynchronizationPacket(quint16);
+
 
 signals:
 	void syncThreadStoppedByOtherNode();

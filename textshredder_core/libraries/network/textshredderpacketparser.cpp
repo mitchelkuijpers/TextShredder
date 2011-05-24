@@ -1,4 +1,5 @@
 #include "textshredderpacketparser.h"
+#include <QtCore>
 
 TextShredderPacketParser::TextShredderPacketParser():
 	incompletePacket(NULL)
@@ -11,8 +12,10 @@ TextShredderPacket * TextShredderPacketParser::makeAllocatedPacketFromBytes(
 {
 	QByteArray protocolVersion = bytes->mid(kProtocolVersionOffset,
 											(int) sizeof(unsigned char));
+	qDebug() << "bytes: " << *bytes;
 	if(protocolVersion.data()[0] != kProtocolVersion) {
 		qDebug("Wrong protocol version");
+
 	}
 
 	QByteArray length = bytes->mid(kPacketLengthOffset,
@@ -38,6 +41,7 @@ TextShredderPacket * TextShredderPacketParser::makeAllocatedPacketFromBytes(
 
 void TextShredderPacketParser::handleData(QByteArray & incomingData)
 {
+	qDebug() << "incomingData: " << incomingData;
 	if(incompleteData.length() > 0) {
 		incomingData.insert(0, incompleteData);
 		incompleteData.clear();
