@@ -67,7 +67,7 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 
 void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 {
-	if (index.column() == 0) {
+	if (index.column() == 0 && isServer) {
 		QStandardItem *item = model.itemFromIndex(index);
 		bool sharedState = (item->checkState() == Qt::Checked);
 		QSharedPointer<SyncableFile>file =  FileManager::Instance()->getAllFiles().at(index.row());
