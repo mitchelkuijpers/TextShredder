@@ -136,10 +136,10 @@ void EditorView::addStatusIconToSharedFilesListTreeView( int row, SyncableFile *
 			status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
 			break;
 		case 5:
-			status->setIcon(QIcon(":/ui/status/images/status/user-online.svg"));
+			status->setIcon(QIcon(":/ui/status/images/status/user-available.svg"));
 			break;
 		case 6:
-			status->setIcon(QIcon(":/ui/status/images/status/user-online.svg"));
+			status->setIcon(QIcon(":/ui/status/images/status/user-available.svg"));
 			break;
 		case 7:
 			status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
