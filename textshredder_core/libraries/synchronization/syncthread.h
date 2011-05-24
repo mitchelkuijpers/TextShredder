@@ -43,6 +43,7 @@ public slots:
 	void receivedFileDataPacket(TextShredderPacket &packet, quint16 destination);
 	void receivedEndSynchronizationPacket(quint16);
 
+
 signals:
 	void syncThreadStoppedByOtherNode();
 protected://Must be protected for test purposes
