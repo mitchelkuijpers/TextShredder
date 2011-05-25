@@ -45,7 +45,12 @@ SOURCES += main.cpp\
     ../textshredder_core/libraries/network/connectionlistener.cpp \
     editorhighlighting.cpp \
     ../textshredder_core/libraries/network/models/filedatapacket.cpp \
-    ../textshredder_core/libraries/network/models/endsynchronizationpacket.cpp
+	../textshredder_core/libraries/network/models/endsynchronizationpacket.cpp \
+	../textshredder_core/libraries/network/models/setaliaspacket.cpp \
+    ../textshredder_core/libraries/network/models/onlineuserspacket.cpp \
+    ../textshredder_core/server/usermanager.cpp \
+	userlistview.cpp \
+	../textshredder_core/libraries/performance/performancecalculator.cpp
 
 HEADERS  += mainwindow.h \
     editorview.h \
@@ -82,7 +87,12 @@ HEADERS  += mainwindow.h \
     ../textshredder_core/libraries/network/connectionlistener.h \
     editorhighlighting.h \
     ../textshredder_core/libraries/network/models/filedatapacket.h \
-    ../textshredder_core/libraries/network/models/endsynchronizationpacket.h
+	../textshredder_core/libraries/network/models/endsynchronizationpacket.h \
+	../textshredder_core/libraries/network/models/setaliaspacket.h \
+    ../textshredder_core/libraries/network/models/onlineuserspacket.h \
+    ../textshredder_core/server/usermanager.h \
+	userlistview.h \
+	../textshredder_core/libraries/performance/performancecalculator.h
 
 FORMS    += mainwindow.ui \
     editorview.ui \

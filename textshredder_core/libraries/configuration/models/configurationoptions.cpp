@@ -13,6 +13,7 @@ ConfigurationOptions::ConfigurationOptions(const ConfigurationOptions &copy):
 	lastKnownIpIndex = copy.lastKnownIpIndex;
 	knownHostsList= copy.knownHostsList;
 	lastKnownIp = copy.lastKnownIp;
+	lastUsedAlias = copy.lastUsedAlias;
 }
 
 ConfigurationOptions& ConfigurationOptions::operator =(const ConfigurationOptions& options)
@@ -21,6 +22,7 @@ ConfigurationOptions& ConfigurationOptions::operator =(const ConfigurationOption
 	lastKnownIpIndex = options.lastKnownIpIndex;
 	knownHostsList = options.knownHostsList;
 	lastKnownIp = options.lastKnownIp;
+	lastUsedAlias = options.lastUsedAlias;
 	return *this;
 }
 
@@ -65,8 +67,17 @@ void ConfigurationOptions::setLastKnownIp(QString lastKnownIpToSet)
 
 QDataStream &operator<<(QDataStream &out, ConfigurationOptions &options)
 {
-	out << options.getKnownHostsList() << QString::number(options.getServerPort()) << options.getLastKnownIp();
+	out << options.getKnownHostsList() << QString::number(options.getServerPort()) << options.getLastUsedAlias() << options.getLastKnownIp();
 	return out;
+}
+
+QString ConfigurationOptions::getLastUsedAlias()
+{
+	return this->lastUsedAlias;
+}
+void ConfigurationOptions::setLastUsedAlias(QString lastUsedAliasToSet)
+{
+	this->lastUsedAlias = lastUsedAliasToSet;
 }
 
 QDataStream &operator>>(QDataStream &in, ConfigurationOptions &options)
@@ -74,12 +85,13 @@ QDataStream &operator>>(QDataStream &in, ConfigurationOptions &options)
 	QString lastKnownIp;
 	QStringList knownHosts;
 	QString portString;
+	QString lastAlias;
 
-	in >> knownHosts >> portString >> lastKnownIp;
+	in >> knownHosts >> portString >> lastAlias >> lastKnownIp;
 
 	options.setKnownHostsList(knownHosts);
 	options.setServerPort(portString.toInt());
 	options.setLastKnownIp(lastKnownIp);
-
+	options.setLastUsedAlias(lastAlias);
 	return in;
 }

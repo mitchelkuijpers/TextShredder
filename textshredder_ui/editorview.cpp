@@ -8,9 +8,8 @@ EditorView::EditorView(QWidget *parent) :
 	ui->setupUi(this);
 	ui->fileTreeWidget->setFocus();
 
-	setFileTreeWidgetColumnsInModel();
-
 	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView()));
+	connect(PerformanceCalculator::Instance(), SIGNAL(newAverage(long)), this, SLOT(updateAveragePerformance(long)));
 }
 
 EditorView::~EditorView()
@@ -43,9 +42,15 @@ void EditorView::on_addFolderButton_clicked()
 
 void EditorView::setFileTreeWidgetColumnsInModel()
 {
-	model.setHorizontalHeaderItem( 0, new QStandardItem( "Shared") );
-	model.setHorizontalHeaderItem( 1, new QStandardItem( "Files" ) );
-	model.setHorizontalHeaderItem( 2, new QStandardItem( "" ) );
+	if ( isServer ) {
+		model.setHorizontalHeaderItem( 0, new QStandardItem( "Shared") );
+		model.setHorizontalHeaderItem( 1, new QStandardItem( "Files" ) );
+		model.setHorizontalHeaderItem( 2, new QStandardItem( "" ) );
+	} else {
+		model.setHorizontalHeaderItem( 0, new QStandardItem( "Files" ) );
+		model.setHorizontalHeaderItem( 1, new QStandardItem( "" ) );
+	}
+
 }
 
 void EditorView::addFolderToFileTreeWidget( QString directoryPath )
@@ -67,7 +72,7 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 
 void EditorView::on_fileTreeWidget_clicked(QModelIndex index)
 {
-	if (index.column() == 0) {
+	if (index.column() == 0 && isServer) {
 		QStandardItem *item = model.itemFromIndex(index);
 		bool sharedState = (item->checkState() == Qt::Checked);
 		QSharedPointer<SyncableFile>file =  FileManager::Instance()->getAllFiles().at(index.row());
@@ -83,12 +88,16 @@ void EditorView::rebuildSharedFilesListTreeView()
 	qDebug() << "shardedFileList count: " << sharedFilesList.count();
 	model.removeRows(0, model.rowCount());
 
+	setFileTreeWidgetColumnsInModel();
+
 	int i = 0;
 	for(i = 0; i < sharedFilesList.count(); i++ ) {
 
 		SyncableFile * syncableFile = sharedFilesList.at(i).data();
 
-		addCheckBoxToSharedFilesListTreeView( i, syncableFile );
+		if ( isServer ) {
+			addCheckBoxToSharedFilesListTreeView( i, syncableFile );
+		}
 		addFileNameToSharedFilesListTreeView( i, syncableFile );
 		addStatusIconToSharedFilesListTreeView( i, syncableFile );
 	}
@@ -115,7 +124,12 @@ void EditorView::addFileNameToSharedFilesListTreeView( int row, SyncableFile * s
 	QString fileName = syncableFile->getFileAlias();
 	QStandardItem *file = new QStandardItem( fileName );
 	file->setEditable( false );
-	model.setItem(row, 1, file);
+
+	if ( isServer ) {
+		model.setItem(row, 1, file);
+	} else {
+		model.setItem(row, 0, file);
+	}
 }
 
 void EditorView::addStatusIconToSharedFilesListTreeView( int row, SyncableFile * syncableFile )
@@ -125,35 +139,51 @@ void EditorView::addStatusIconToSharedFilesListTreeView( int row, SyncableFile *
 	switch( syncableFile->calculateStatus() ) {
 		case 1:
 			status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
+			status->setToolTip("Unknown");
 			break;
 		case 2:
 			status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
+			status->setToolTip("Unshared");
 			break;
 		case 3:
-			status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
+			status->setIcon(QIcon(":/ui/status/images/status/user-editing.svg"));
+			status->setToolTip("Unopened shared file");
 			break;
 		case 4:
-			status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
+			status->setIcon(QIcon(":/ui/status/images/status/user-editing.svg"));
+			status->setToolTip("Idle");
 			break;
 		case 5:
-			status->setIcon(QIcon(":/ui/status/images/status/user-available.svg"));
+			status->setIcon(QIcon(":/ui/status/images/status/user-idle.svg"));
+			status->setToolTip("Editing");
 			break;
 		case 6:
 			status->setIcon(QIcon(":/ui/status/images/status/user-available.svg"));
+			status->setToolTip("Syncing");
 			break;
 		case 7:
 			status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
+			status->setToolTip("Offline");
 			break;
 	}
 
-	model.setItem(row, 2, status);
+	if ( isServer ) {
+		model.setItem(row, 2, status);
+	} else {
+		model.setItem(row, 1, status);
+	}
 }
 
 void EditorView::setColumnWidths()
 {
-	ui->fileTreeWidget->setColumnWidth(0, 44);
-	ui->fileTreeWidget->setColumnWidth(1, 175);
-	ui->fileTreeWidget->setColumnWidth(2, 30);
+	if ( isServer ) {
+		ui->fileTreeWidget->setColumnWidth(0, 44);
+		ui->fileTreeWidget->setColumnWidth(1, 175);
+		ui->fileTreeWidget->setColumnWidth(2, 30);
+	} else {
+		ui->fileTreeWidget->setColumnWidth(0, 219);
+		ui->fileTreeWidget->setColumnWidth(1, 30);
+	}
 }
 
 void EditorView::addFileToFileTreeWidget( QString filePath )
@@ -172,7 +202,7 @@ void EditorView::on_openedFileTabs_tabCloseRequested(int index)
 
 void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
 {
-	if (index.column() > 0) {
+	if (index.column() > 0 || !isServer ) {
 		QSharedPointer<SyncableFile> file =  FileManager::Instance()->getAllFiles().at(index.row());
 
 		if ( !file.data()->isOpened() )
@@ -210,4 +240,9 @@ void EditorView::setToClientMode()
 	ui->addFolderButton->setHidden(true);
 
 	setWindowTitle("TextShredder Editor [CLIENT]");
+}
+
+void EditorView::updateAveragePerformance(long averagePerformance)
+{
+	ui->processingTimeLabel->setText("Average processing time: " + QString::number(averagePerformance) + "ms");
 }

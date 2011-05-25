@@ -5,7 +5,7 @@
 SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<SyncableFile> file) :
     QWidget(parent),
 	ui(new Ui::SyncableFileTextField),
-	beforeRemovedEditsEditSize(0)
+	highlightingOn(true)
 {
     ui->setupUi(this);
 
@@ -49,29 +49,6 @@ void SyncableFileTextField::textChanged(int position, int charsRemoved, int char
 	if(syncFile.data() == NULL)
 		return;
 
-	if(!patches.isEmpty()){
-		if((patches.first().diffs.at(0).operation == 0 ||
-		   patches.first().diffs.at(0).operation == 1) ){
-			if(position == 0){
-				beforeRemovedEditsEditSize = charsAdded - charsRemoved;
-			}else{
-				beforeRemovedEditsEditSize = 0;
-			}
-		}else if((patches.first().diffs.at(1).operation == 0 ||
-				 patches.first().diffs.at(1).operation == 1)){
-			if(position < (patches.first().start1 + patches.first().diffs.at(0).text.size())){
-				beforeRemovedEditsEditSize = charsAdded - charsRemoved;
-			}else{
-				beforeRemovedEditsEditSize =0;
-			}
-		}else{
-			beforeRemovedEditsEditSize = 0;
-		}
-	}
-
-
-	//deleteTimer->stop();
-
 	syncFile.data()->getWorkingCopy().data()->lock();
 	QString *workingCopyContent = syncFile.data()->getWorkingCopy().data()->getContent();
 	QString insertString = ui->textEditorField->toPlainText().mid(position, charsAdded );
@@ -87,12 +64,13 @@ void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 	disconnect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
 
-
-	QString temp = ui->textEditorField->toPlainText();
-	patches = syncFile.data()->getWorkingCopy().data()->getPatchesToConvertString(temp);
+	if(highlightingOn == true){
+		QString temp = ui->textEditorField->toPlainText();
+		patches = syncFile.data()->getWorkingCopy().data()->getPatchesToConvertString(temp);
+	}
 	ui->textEditorField->setPlainText(*syncFile.data()->getWorkingCopy().data()->getContent());
 
-	if(!patches.isEmpty()){
+	if(!patches.isEmpty() && highlightingOn == true){
 		EditDeleteColor();
 		highlighter->setPatches(patches);
 		highlighter->rehighlight();
@@ -111,28 +89,30 @@ void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 
 void SyncableFileTextField::EditDeleteColor()
 {
-	//also needs some clean up
-	if(!patches.isEmpty()){
-		if(patches.first().diffs.count() >= 2){
-			if(patches.first().diffs.at(0).operation == 1){
-				deletedEdit = patches.first().diffs.first().text;
-				deletedEdit.append(ui->textEditorField->toPlainText());
 
-				startDeleteColorTimer();
-			}else if(patches.first().diffs.at(1).operation == 1){
+	if(!patches.isEmpty()){
+		int beforeDiffSize =0;
+		bool deletes = false;
+		for(int i=0; i<patches.first().diffs.count(); i++){
+			if(patches.first().diffs.at(i).operation == 1){
 				deletedEdit = ui->textEditorField->toPlainText();
-				deletedEdit.insert(patches.first().start1 +
-										patches.first().diffs.first().text.size(),
-										patches.first().diffs.at(1).text);
-				startDeleteColorTimer();
+				deletedEdit.insert(patches.first().start1 + beforeDiffSize,
+										patches.first().diffs.at(i).text);
+				ui->textEditorField->setPlainText(deletedEdit);
+				deletes =true;
 			}
+			beforeDiffSize += patches.first().diffs.at(i).text.size();
+
 		}
+		if(deletes){
+			startDeleteColorTimer();
+		}
+
 	}
 }
 
 void SyncableFileTextField::startDeleteColorTimer()
 {
-	ui->textEditorField->setPlainText(deletedEdit);
 	connect(deleteTimer, SIGNAL(timeout()), this, SLOT(deleteEdits()));
 	deleteTimer->start(1000);
 	deleteTimer->blockSignals(false);
@@ -158,21 +138,21 @@ void SyncableFileTextField::deleteEdits()
 void SyncableFileTextField::removeDeletes()
 {
 	QString temp;
+	int patchSize = 0;
 	if(!patches.isEmpty()){
-		if(patches.first().diffs.at(0).operation == 1){
-			if(ui->textEditorField->toPlainText().mid(0, patches.first().diffs.at(0).text.size()) ==
-			   patches.first().diffs.at(0).text){
-				temp = ui->textEditorField->toPlainText().remove(patches.first().start1, patches.first().diffs.at(0).text.size());
+		for(int i=0; i<patches.first().diffs.count(); i++){
+			if(patches.first().diffs.at(i).operation == 1){
+				temp = ui->textEditorField->toPlainText();
+				temp.remove(patches.first().start1 + patchSize, patches.first().diffs.at(i).text.size());
+				patchSize -= patches.first().diffs.at(i).text.size();
 				ui->textEditorField->setPlainText(temp);
+			}else{
+				patchSize += patches.first().diffs.at(i).text.size();
 			}
-		}else if(patches.first().diffs.at(1).operation == 1){
-			if(ui->textEditorField->toPlainText().mid(patches.first().start1 + patches.first().diffs.at(0).text.size(),
-													  patches.first().diffs.at(1).text.size()) == patches.first().diffs.at(1).text){
-				temp = ui->textEditorField->toPlainText().remove(patches.first().start1 + patches.first().diffs.at(0).text.size() +
-																 beforeRemovedEditsEditSize, patches.first().diffs.at(1).text.size());
-				ui->textEditorField->setPlainText(temp);
-			}
+
 		}
+		patches.clear();
+		qDebug() << "patches cleared";
 	}
 }
 

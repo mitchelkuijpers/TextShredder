@@ -2,7 +2,10 @@
 #define SYNCTHREADSUB_H
 
 #include <QObject>
-#include "../textshredder_core/libraries/synchronization/syncthread.h"
+#include <QSharedPointer>
+
+#include "../textshredder_core/libraries/synchronization/syncthread.h";
+#include "../textshredder_core/libraries/synchronization/models/workingcopy.h";
 #include "../textshredder_core/libraries/logging/textshredderlogging.h"
 
 #include "../textshredder_core/libraries/synchronization/models/editlist.h"

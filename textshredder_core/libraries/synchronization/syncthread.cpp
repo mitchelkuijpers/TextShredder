@@ -42,6 +42,8 @@ void SyncThread::startSync()
 
 void SyncThread::receivedEditPacketContent(QByteArray &content, quint16 destination)
 {
+	//really the one who wrote this if statement and sees this comment, plz get a gun, put in your mounth and pull the fucking trigger
+	//Corne wrote this... UGH. Go jerk oloff on the women toilet you fucking pussy ass mother fucker.
 	if (sourceSyncThreadHandle == destination) {
 		this->processChanges(content);
 	}
@@ -75,10 +77,7 @@ void SyncThread::receivedDownloadedContent(QByteArray & content)
 
 void SyncThread::pushChanges()
 {
-	QTime time;
-	QString before("before: ");
-	before.append(time.currentTime().toString("hh:mm:ss:zzz"));
-	performanceLog.writeLog(before, INFO);
+	beforeLock();
 
 	shadowCopy.lock();
 	workingCopyPointer.data()->lock();
@@ -100,9 +99,7 @@ void SyncThread::pushChanges()
 	workingCopyPointer.data()->unlock();
 	shadowCopy.unlock();
 
-	QString after("after : ");
-	after.append(time.currentTime().toString("hh:mm:ss:zzz"));
-	performanceLog.writeLog(after, INFO);
+	afterLock();
 }
 
 void SyncThread::writePacketOfEditList()
@@ -227,6 +224,9 @@ void SyncThread::connectSignalsForSynchronization()
 	connect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
 	connect(connectionPointer.data(), SIGNAL(incomingEndSynchronizationPacket(quint16)), this, SLOT(receivedEndSynchronizationPacket(quint16)));
 	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
+	#ifdef QT_DEBUG
+	connect(this, SIGNAL(addToAverageLockTime(uint)), PerformanceCalculator::Instance(), SLOT(addNewLockTime(uint)));
+	#endif
 }
 void SyncThread::disconnectSignalsForSynchronization()
 {
@@ -235,4 +235,20 @@ void SyncThread::disconnectSignalsForSynchronization()
 	disconnect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
 	disconnect(connectionPointer.data(), SIGNAL(incomingEndSynchronizationPacket(quint16)), this, SLOT(receivedEndSynchronizationPacket(quint16)));
 	disconnect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
+}
+
+void SyncThread::beforeLock()
+{
+	if(performanceTime.isNull()) {
+		performanceTime.start();
+	} else {
+		performanceTime.restart();
+	}
+}
+
+void SyncThread::afterLock()
+{
+	unsigned int milliseconds = performanceTime.elapsed();
+	qDebug() << "last lock time: " << milliseconds;
+	emit addToAverageLockTime(milliseconds);
 }

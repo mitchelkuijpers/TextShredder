@@ -12,10 +12,14 @@ public:
 	static QSharedPointer<Client> Instance();
 	bool connectToServer(QHostAddress &addr, quint16 port);
 	QSharedPointer<TextShredderConnection> getConnection();
+
+	void setAlias(QString newAlias);
+
 private:
 	QSharedPointer<TextShredderConnection> connection;
 	Client(QObject *parent);
 	static QSharedPointer<Client> sharedInstance;
+	QString clientAlias;
 
 signals:
 	void clientConnected();
@@ -25,6 +29,7 @@ signals:
 private slots:
 	void connectionDidEncounterEnd();
 	void connectionStatusChanged(TextShredderConnectionStatus status, QAbstractSocket::SocketError error );
+	void connectionReceivedOnlineUsersPacket(TextShredderPacket &packet);
 };
 
 #endif // CLIENT_H

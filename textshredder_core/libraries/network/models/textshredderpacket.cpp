@@ -66,6 +66,11 @@ bool TextShredderPacket::isEndSynchronizationPacket()
 	return (header.getPacketType() == kPacketTypeSynchronizationEnd);
 }
 
+bool TextShredderPacket::isOnlineUsersPacket()
+{
+	return (header.getPacketType() == kPacketTypeOnlineUsers);
+}
+
 void TextShredderPacket::setContent(QByteArray &bytes)
 {
 	content = bytes;

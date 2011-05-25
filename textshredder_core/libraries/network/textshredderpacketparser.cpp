@@ -15,7 +15,6 @@ TextShredderPacket * TextShredderPacketParser::makeAllocatedPacketFromBytes(
 
 	if(protocolVersion.data()[0] != kProtocolVersion) {
 		qDebug("Wrong protocol version");
-
 	}
 
 	QByteArray length = bytes->mid(kPacketLengthOffset,

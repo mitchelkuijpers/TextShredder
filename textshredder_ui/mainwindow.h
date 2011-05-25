@@ -36,6 +36,8 @@ private:
     Ui::MainWindow *ui;
 	EditorView editorView;
 
+	bool validateAliasInput();
+
 private slots:
 	void on_connectButton_clicked();
 	void on_cancelButton_clicked();

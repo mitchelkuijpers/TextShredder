@@ -19,7 +19,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
-     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0,0">
+     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0,0,0,0,0">
       <property name="sizeConstraint">
        <enum>QLayout::SetDefaultConstraint</enum>
       </property>
@@ -28,6 +28,12 @@
       </property>
       <item row="0" column="0" colspan="2">
        <widget class="QLabel" name="sharedFilesLabel">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Shared files:</string>
         </property>
@@ -58,13 +64,19 @@
       </item>
       <item row="4" column="0" colspan="2">
        <widget class="QLabel" name="activeClientsLabel">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Active clients</string>
         </property>
        </widget>
       </item>
       <item row="5" column="0" colspan="2">
-       <widget class="QListWidget" name="listWidget"/>
+       <widget class="UserListView" name="listWidget"/>
       </item>
       <item row="1" column="0" colspan="2">
        <widget class="QTreeView" name="fileTreeWidget">
@@ -102,6 +114,26 @@
         </property>
         <property name="text">
          <string>Disconnect</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0" colspan="2">
+       <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Statistics</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0" colspan="2">
+       <widget class="QLabel" name="processingTimeLabel">
+        <property name="text">
+         <string>Currently no information available</string>
         </property>
        </widget>
       </item>
@@ -162,6 +194,11 @@
    <extends>QWidget</extends>
    <header location="global">editorribbon.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>UserListView</class>
+   <extends>QListWidget</extends>
+   <header>userlistview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

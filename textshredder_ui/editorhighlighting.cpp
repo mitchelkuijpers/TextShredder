@@ -4,43 +4,41 @@
 
 
 EditorHighLighting::EditorHighLighting(QObject *parent) :
-		QSyntaxHighlighter(parent), editPosition(0)
+		QSyntaxHighlighter(parent), editPosition(0), highlightingOn(true)
 {
 }
 
 EditorHighLighting::EditorHighLighting(QTextEdit *parent) :
-		QSyntaxHighlighter(parent), editPosition(0)
+		QSyntaxHighlighter(parent), editPosition(0), highlightingOn(true)
 {
 
 }
 
 EditorHighLighting::EditorHighLighting(QTextDocument *parent) :
-		QSyntaxHighlighter(parent), editPosition(0)
+		QSyntaxHighlighter(parent), editPosition(0), highlightingOn(true)
 
 {
 }
 
 void EditorHighLighting::highlightBlock(const QString &text)
 {
+	if(!patches.isEmpty() && highlightingOn == true){
 
-	if(!patches.isEmpty()){
-		int start1 = patches.first().start1;
-		int prevDiffSize = diffs.first().text.size();
-		if(diffs.first().text != ""){
-			if(diffs.first().operation == 0 && start1 == 0){
-				setFormat(0, prevDiffSize, Qt::darkGreen);
-			}
-			else if(diffs.at(0).operation == 1){
-				setFormat(0, diffs.at(0).text.size(), Qt::red);
-			}
-			for(int i=1; i < diffs.count(); i++){
-				if(diffs.at(i).operation == 0){
-					setFormat((patches.first().start1 + prevDiffSize -editPosition), diffs.at(i).text.size(), Qt::darkGreen);
-				}else if(diffs.at(i).operation == 1){
-					setFormat(patches.first().start1 + prevDiffSize - editPosition, diffs.at(i).text.size(), Qt::red);
-				}
+		int prevDiffSize =0;
+
+		for(int i=0; i < diffs.count(); i++){
+			if(diffs.at(i).operation == 0){
+				setFormat((patches.first().start1 + prevDiffSize -editPosition), diffs.at(i).text.size(), Qt::darkGreen);
+				prevDiffSize += diffs.at(i).text.size();
+
+			}else if(diffs.at(i).operation == 1){
+				setFormat(patches.first().start1 + prevDiffSize - editPosition, diffs.at(i).text.size(), Qt::red);
+				prevDiffSize -= diffs.at(i).text.size();
+			}else{
 				prevDiffSize += diffs.at(i).text.size();
 			}
+
+
 		}
 		editPosition += text.size() +1;
 	}
@@ -50,6 +48,7 @@ void EditorHighLighting::highlightBlock(const QString &text)
 void EditorHighLighting::setPatches(QList<Patch> patches)
 {
 	editPosition = 0;
+
 	this->patches = patches;
 	this->diffs = patches.first().diffs;
 }
