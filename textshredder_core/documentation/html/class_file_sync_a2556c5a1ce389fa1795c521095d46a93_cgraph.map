@@ -1,5 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$class_file_sync.html#a2be3e41d19e9f1f012ee0ff5a7d425a4" title="FileSync::processFileRequest" alt="" coords="187,5,384,35"/>
-<area shape="rect" id="node7" href="$class_file_sync.html#a11d7da6ffe6f47cda757cd7e8aad30b5" title="FileSync::sendDownload" alt="" coords="203,59,368,88"/>
-<area shape="rect" id="node5" href="$class_file_sync.html#a6172cce8e50f9c487ac08d92cc5f0b6e" title="FileSync::createDownload" alt="" coords="433,5,607,35"/>
-</map>

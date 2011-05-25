@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classdiff__match__patch.html#afb9335ec40ffb7b74a822a1210d90e19" title="diff_match_patch::patch_make" alt="" coords="311,32,511,61"/>
-<area shape="rect" id="node5" href="$class_patchable.html#ab3016a99f60b10bae143365fb2cf1450" title="Patchable::getPatchesToConvertString" alt="" coords="561,5,809,35"/>
-<area shape="rect" id="node9" href="$classdiff__match__patch.html#ac5992f58192fc44530f33dd40202c165" title="diff_match_patch::patch_make" alt="" coords="585,59,785,88"/>
-<area shape="rect" id="node7" href="$class_sync_thread.html#a94389440ca73f3f638c73ed9075dc0e0" title="SyncThread::pushChanges" alt="" coords="860,5,1039,35"/>
-</map>

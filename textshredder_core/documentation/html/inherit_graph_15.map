@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node1" href="$class_patchable.html" title="Patchable" alt="" coords="5,59,85,88"/>
-<area shape="rect" id="node3" href="$class_backup_copy.html" title="BackupCopy" alt="" coords="136,5,232,35"/>
-<area shape="rect" id="node5" href="$class_shadow_copy.html" title="ShadowCopy" alt="" coords="135,59,233,88"/>
-<area shape="rect" id="node7" href="$class_working_copy.html" title="WorkingCopy" alt="" coords="133,112,235,141"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$class_syncable_file.html#a131f0d449bd537c81e8923f183cae7e2" title="SyncableFile::isShared" alt="" coords="257,5,412,35"/>
-<area shape="rect" id="node5" href="$class_syncable_file.html#a13cc1700a5695b1cce76848d1741cc25" title="SyncableFile::syncableFileChanged" alt="" coords="220,59,449,88"/>
-<area shape="rect" id="node7" href="$class_syncable_file.html#abd42e21e8c7e9c886d85675e1796580e" title="SyncableFile::syncableFileShouldBeRemoved" alt="" coords="189,112,480,141"/>
-</map>

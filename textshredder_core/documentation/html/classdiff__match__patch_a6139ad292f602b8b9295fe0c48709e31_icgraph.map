@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classdiff__match__patch.html#ad64d391bc3f34cad326f869eedb748f9" title="diff_match_patch::diff_cleanupMerge" alt="" coords="295,32,529,61"/>
-<area shape="rect" id="node5" href="$classdiff__match__patch.html#a41df9d26471d7d9f4ca085ab9f5da945" title="diff_match_patch::diff_cleanupEfficiency" alt="" coords="579,5,837,35"/>
-<area shape="rect" id="node15" href="$classdiff__match__patch.html#a1150e91652b023e8893555f737ac9894" title="diff_match_patch::diff_cleanupSemantic" alt="" coords="581,59,835,88"/>
-<area shape="rect" id="node7" href="$classdiff__match__patch.html#afb9335ec40ffb7b74a822a1210d90e19" title="diff_match_patch::patch_make" alt="" coords="887,32,1087,61"/>
-<area shape="rect" id="node9" href="$class_patchable.html#ab3016a99f60b10bae143365fb2cf1450" title="Patchable::getPatchesToConvertString" alt="" coords="1137,5,1385,35"/>
-<area shape="rect" id="node13" href="$classdiff__match__patch.html#ac5992f58192fc44530f33dd40202c165" title="diff_match_patch::patch_make" alt="" coords="1161,59,1361,88"/>
-<area shape="rect" id="node11" href="$class_sync_thread.html#a94389440ca73f3f638c73ed9075dc0e0" title="SyncThread::pushChanges" alt="" coords="1436,5,1615,35"/>
-</map>

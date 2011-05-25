@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$class_configuration_options.html#a202aeecd48633ccd66a9d6036243e1c1" title="ConfigurationOptions::setKnownHostsList" alt="" coords="139,5,405,35"/>
-<area shape="rect" id="node5" href="$class_configuration_options.html#a2d76df25f9a9ae674040c1613c7ca710" title="ConfigurationOptions::setLastKnownIp" alt="" coords="149,59,395,88"/>
-<area shape="rect" id="node7" href="$class_configuration_options.html#a8c77c122800da43fabb018283651c591" title="ConfigurationOptions::setLastUsedAlias" alt="" coords="145,112,399,141"/>
-<area shape="rect" id="node9" href="$class_configuration_options.html#a3db64a191544db35136970a41a8ba06a" title="ConfigurationOptions::setServerPort" alt="" coords="156,165,388,195"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$class_file_manager.html#a60c5ccbe09b28ec490bc8f21e0e66c4d" title="FileManager::addFileWithPath" alt="" coords="303,5,500,35"/>
-<area shape="rect" id="node5" href="$class_syncable_files_packet.html#aaec97eef27ecea6af99b743f5e93ca4e" title="SyncableFilesPacket::fillListWithContentsOfPacket" alt="" coords="240,59,563,88"/>
-<area shape="rect" id="node7" href="$class_file_manager.html#af7782d02aab9b30b0c30a0806e3afdf5" title="FileManager::handleReceivedSyncableFiles" alt="" coords="612,59,887,88"/>
-</map>

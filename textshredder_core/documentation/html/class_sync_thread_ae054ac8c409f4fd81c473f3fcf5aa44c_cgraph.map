@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$class_file_data_packet.html#a7b0a80af65a8be68961bc61eeb3e40f2" title="FileDataPacket::getConnectionHandle" alt="" coords="304,5,549,35"/>
-<area shape="rect" id="node7" href="$class_file_data_packet.html#a3c2ff0442d42f365a25fe10c63d362aa" title="FileDataPacket::getFileDataContent" alt="" coords="311,59,543,88"/>
-<area shape="rect" id="node10" href="$class_sync_thread.html#a07ecfc517a9536a5b4b3f71f91d7e940" title="SyncThread::receivedDownloadedContent" alt="" coords="293,112,560,141"/>
-<area shape="rect" id="node5" href="$class_text_shredder_packet.html#a406e7051b2b719b600b149e263d45d65" title="TextShredderPacket::getContent" alt="" coords="608,5,821,35"/>
-<area shape="rect" id="node12" href="$class_shadow_copy.html#a5ed0b6e1f144468afca9129449a35fbc" title="ShadowCopy::getBackupCopy" alt="" coords="615,59,815,88"/>
-<area shape="rect" id="node14" href="$class_patchable.html#aa386892c91c1718cd5151ccc491e1bbf" title="Patchable::setContent" alt="" coords="639,112,791,141"/>
-<area shape="rect" id="node16" href="$class_sync_thread.html#a698ef3633b24d3529a6c17e5e3a99170" title="SyncThread::startSync" alt="" coords="637,165,792,195"/>
-</map>

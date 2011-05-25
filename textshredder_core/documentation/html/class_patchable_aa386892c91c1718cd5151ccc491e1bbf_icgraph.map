@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$class_shadow_copy.html#a7c6bfe84627fa3d8afd1b5a09fde6a0e" title="ShadowCopy::backup" alt="" coords="264,5,413,35"/>
-<area shape="rect" id="node11" href="$class_sync_thread.html#a07ecfc517a9536a5b4b3f71f91d7e940" title="SyncThread::receivedDownloadedContent" alt="" coords="205,59,472,88"/>
-<area shape="rect" id="node15" href="$class_sync_thread.html#a838e6607043e507e4f06b3ee0e931d60" title="SyncThread::SyncThread" alt="" coords="253,112,424,141"/>
-<area shape="rect" id="node5" href="$class_sync_thread.html#a15b6e123fe1c76643597836618256619" title="SyncThread::applyReceivedEditList" alt="" coords="525,5,755,35"/>
-<area shape="rect" id="node7" href="$class_sync_thread.html#a5d627a46f2748963951890020902c81e" title="SyncThread::processChanges" alt="" coords="809,5,1007,35"/>
-<area shape="rect" id="node9" href="$class_sync_thread.html#a6942467b2594dac2cca3fb6844676548" title="SyncThread::receivedEditPacketContent" alt="" coords="1056,5,1315,35"/>
-<area shape="rect" id="node13" href="$class_sync_thread.html#ae054ac8c409f4fd81c473f3fcf5aa44c" title="SyncThread::receivedFileDataPacket" alt="" coords="521,59,759,88"/>
-</map>
