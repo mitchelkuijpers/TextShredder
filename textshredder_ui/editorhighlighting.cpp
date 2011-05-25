@@ -25,20 +25,16 @@ void EditorHighLighting::highlightBlock(const QString &text)
 	if(!patches.isEmpty() && highlightingOn == true){
 
 		int prevDiffSize =0;
-
 		for(int i=0; i < diffs.count(); i++){
 			if(diffs.at(i).operation == 0){
 				setFormat((patches.first().start1 + prevDiffSize -editPosition), diffs.at(i).text.size(), Qt::darkGreen);
 				prevDiffSize += diffs.at(i).text.size();
-
 			}else if(diffs.at(i).operation == 1){
 				setFormat(patches.first().start1 + prevDiffSize - editPosition, diffs.at(i).text.size(), Qt::red);
 				prevDiffSize -= diffs.at(i).text.size();
 			}else{
 				prevDiffSize += diffs.at(i).text.size();
 			}
-
-
 		}
 		editPosition += text.size() +1;
 	}
