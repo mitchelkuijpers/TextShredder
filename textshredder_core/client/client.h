@@ -50,15 +50,6 @@ private slots:
 	void connectionDidEncounterEnd();
 
 	/**
-	 * Handle the status change in the connection
-	 * When the status param is connected, it emits a signal,
-	 * sets the alias packet and writes the packet to the connection.
-	 * When the status param is error, it emits the clientconnectionerror signal
-	 * @param status The status of the connection.
-	 * @param error The error message which will be shown to the client.
-	 */
-	void connectionStatusChanged(TextShredderConnectionStatus status, QAbstractSocket::SocketError error );
-	/**
 	 * Creates a Qlist with usernames from onlineuserspacket.
 	 * Clears and adds the list to the userManager
 	 * @param &packet The packet which holds the users
