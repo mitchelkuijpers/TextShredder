@@ -26,8 +26,10 @@ bool Client::connectToServer(QHostAddress &addr, quint16 port)
 
 	connect(connection.data(), SIGNAL(clientDisconnected()),
 			this, SLOT(connectionDidEncounterEnd()));
-	connect(connection.data(), SIGNAL(statusChanged(TextShredderConnectionStatus, QAbstractSocket::SocketError)),
-			this, SLOT(connectionStatusChanged(TextShredderConnectionStatus, QAbstractSocket::SocketError)));
+	connect(connection.data(), SIGNAL(socketConnectedSuccessfully()),
+			this, SLOT(connectionSuccessful()));
+	connect(connection.data(), SIGNAL(socketErrorReceived(QAbstractSocket::SocketError)),
+			this, SLOT(connectionError(QAbstractSocket::SocketError)));
 	connect(connection.data(), SIGNAL(incomingSyncableFilesPacket(QByteArray&)),
 			FileManager::Instance(), SLOT(handleReceivedSyncableFiles(QByteArray &)));
 	connect(connection.data(), SIGNAL(incomingOnlineUsersPacket(TextShredderPacket&)),
@@ -36,15 +38,16 @@ bool Client::connectToServer(QHostAddress &addr, quint16 port)
 	return true;
 }
 
-void Client::connectionStatusChanged(TextShredderConnectionStatus status, QAbstractSocket::SocketError error )
+void Client::connectionSuccessful()
 {
-	if (status == Connected) {
-		emit clientConnected();
-		SetAliasPacket packet(this, clientAlias);
-		connection.data()->write(packet);
-	} else if (status == Error) {
-		emit clientConnectionError(error);
-	}
+	emit clientConnected();
+	SetAliasPacket packet(this, clientAlias);
+	connection.data()->write(packet);
+}
+
+void Client::connectionError(QAbstractSocket::SocketError error )
+{
+	emit clientConnectionError(error);
 }
 
 void Client::connectionDidEncounterEnd()

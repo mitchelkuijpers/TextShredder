@@ -48,6 +48,7 @@ private slots:
 	 * Clear and add the new ALiasList
 	 */
 	void connectionDidEncounterEnd();
+
 	/**
 	 * Handle the status change in the connection
 	 * When the status param is connected, it emits a signal,
@@ -62,6 +63,9 @@ private slots:
 	 * Clears and adds the list to the userManager
 	 * @param &packet The packet which holds the users
 	 */
+
+	void connectionSuccessful();
+	void connectionError( QAbstractSocket::SocketError error );
 	void connectionReceivedOnlineUsersPacket(TextShredderPacket &packet);
 };
 
