@@ -27,12 +27,31 @@ class TextShredderConnection : public QObject
 {
     Q_OBJECT
 public:
+	/**
+	 * Constructor which sets up the connection, with the given socket and sets its status to neutral
+	 */
 	TextShredderConnection(QObject *parent, int socketDescriptor);
+	/**
+	 * Constructor which sets the param variables
+	 */
 	TextShredderConnection(QObject *parent, QString &hostName, int port, bool startImmediately = true);
+	/**
+	 * Gets the ipaddress of the client on the connected socket.
+	 * @return The ipaddress of the client on the connected socket.
+	 */
 	QString getPeerAdress();
+	/**
+	 * Gets the port of the client on the connected socket.
+	 * @return The port which the connection listens on
+	 */
 	unsigned int getPort();
-
+	/**
+	 * Connects the client on the given socket
+	 */
 	void startConnection();
+	/**
+	 * Destructor
+	 */
 	~TextShredderConnection();
 private:
 	QSharedPointer <QTcpSocket> socket;
@@ -42,13 +61,24 @@ private:
 	unsigned int port;
 	QString hostAddressString;
 
+	/**
+	 * Sets up all the correct signals for the socket
+	 */
 	void setupSignalsForSocket();
+	/**
+	 * Breaks down all the correct signals for the socket
+	 */
 	void breakDownSignalsForSocket();
-
+	/**
+	 * Sends the right emit according to the packettype
+	 * @param &packet The packet which holds the type
+	 */
 	void emitNewIncomingPacket(TextShredderPacket &packet);
 
 signals:
-	void statusChanged(TextShredderConnectionStatus, QAbstractSocket::SocketError);
+	void socketConnectedSuccessfully();
+	void socketErrorReceived(QAbstractSocket::SocketError);
+
 	void queueChanged();
 	void clientDisconnected();
 

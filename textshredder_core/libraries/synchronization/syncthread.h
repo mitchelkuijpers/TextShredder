@@ -3,16 +3,19 @@
 
 #include <QObject>
 #include <QTimer>
-#include "../network/textshredderconnection.h"
+#include <QSharedPointer>
+
 #include "models/editlist.h"
 #include "models/shadowcopy.h"
 #include "models/workingcopy.h"
-#include <QSharedPointer>
 
+#include "../network/textshredderconnection.h"
 #include "../network/models/filedatapacket.h"
 #include "../network/models/endsynchronizationpacket.h"
+
 #include "../logging/textshredderlogging.h"
 #include "../performance/performancecalculator.h"
+
 
 #define WRITETHREAD_INTERVAL 1000
 
@@ -21,22 +24,48 @@ class SyncThread : public QObject
 	Q_OBJECT
 
 public:
+	/**
+	  * Constuctor which will setup a SyncThread with an connection and working copy.
+	  *
+	  * @param parent the parent of the object.
+	  * @param conn the connection on which the communication happens.
+	  * @param workingCopyPointer the working copy used for the synchronization.
+	  */
 	SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>conn,
 						   QSharedPointer< WorkingCopy> workingCopyPointer);
 
+	/**
+	  * Constuctor which will setup a SyncThread with an working copy.
+	  * This constructor is mainly used for testing.
+	  *
+	  * @param the parent of the object.
+	  * @param the working copy used for the synchronization.
+	  */
 	SyncThread(QObject * parent, QSharedPointer <WorkingCopy> newWorkingCopy);
 
-
-	void setDestinationHandle(quint16 destination);
-	quint16 getDestinationHandle();
-	quint16 getSourceHandle();
-
+	/**
+	  * Method will process changes from content of an packet.
+	  * This packet should represent bytes of the edit.
+	  *
+	  * @param the bytes on which an edit list is made.
+	  */
 	void processChanges(QByteArray &content);
+
+	/**
+	  * Method that will apply an received edit list.
+	  * It will process the edits on the shadow and working copy.
+	  *
+	  * @param incomingEditList received editlist.
+	  */
 	void applyReceivedEditList(EditList &incomingEditList);
 	void receivedDownloadedContent(QByteArray & content);
 	void sendFileDataAndStart();
 	void stopSync();
 	virtual void startSync();
+
+	void setDestinationHandle(quint16 destination);
+	quint16 getDestinationHandle();
+	quint16 getSourceHandle();
 
 public slots:
 	void pushChanges();

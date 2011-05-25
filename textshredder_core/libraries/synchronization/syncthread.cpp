@@ -161,7 +161,7 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 
 	shadowCopy.applyLocalEdits(editList.getEdits());
 
-	editList.updateToRemote(shadowCopy.getRemoteVersion());
+	editList.setRemoteVersion(shadowCopy.getRemoteVersion());
 	editList.unlock ();
 	workingCopyPointer.data()->unlock();
 	shadowCopy.unlock ();

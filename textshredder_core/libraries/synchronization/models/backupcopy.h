@@ -9,32 +9,43 @@ class BackupCopy : public Patchable
     Q_OBJECT
 
 public:
-		/**
-		 * Constructor. Passes the parent to the Patchable class
-		 * Sets the localversion variable to zero.
-		 *
-		 * @param Qobject parent.
-		 */
-        BackupCopy( QObject *parent);
+	/**
+	 * Constructor. Passes the parent to the Patchable class
+	 * Sets the localversion variable to zero.
+	 *
+	 * @param parent The parent of the object.
+	 */
+	BackupCopy( QObject *parent);
 
-		/**
-		 * Constructor. Passes the parent to the Patchable class
-		 * Sets the localversion to the localVersion variable.
-		 * Set content to the content param
-		 *
-		 * @param Qobject parent.
-		 * @param localVersion The localversion of the backupcopy
-		 * @param content, the content of the backupcopy
-		 */
-		BackupCopy( QObject *parent, unsigned int localVersion, QString content );
-		unsigned int getLocalVersion();
-		void setLocalVersion(unsigned int newLocalVersion);
+	/**
+	 * Constructor. Passes the parent to the Patchable class
+	 * Sets the localversion to the localVersion variable.
+	 * Set content to the content param
+	 *
+	 * @param parent The parent of the object.
+	 * @param localVersion The localversion of the backupcopy
+	 * @param content The content of the backupcopy
+	 */
+	BackupCopy( QObject *parent, unsigned int localVersion, QString content );
 
-signals:
+	/**
+	  * Method returns the local version of the Backup object
+	  *
+	  * @return The local version of the Backup object.
+	  */
+	unsigned int getLocalVersion();
 
-public slots:
+	/**
+	  * Method will set the local version of the Backup object
+	  *
+	  * @param The new local version of the Backup object.
+	  */
+	void setLocalVersion(unsigned int newLocalVersion);
 
 private:
+	/**
+	  * The local version of the BackupCopy object.
+	  */
 	unsigned int localVersion;
 
 };
