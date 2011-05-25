@@ -83,8 +83,7 @@ void MainWindow::changeWindowStateToClient()
 
 void MainWindow::on_cancelButton_clicked()
 {
-	//Notification notification(this, "You have clicked the cancel button!\nNothing happens.", 4);
-	//NotificationManager::Instance()->createNotificationDialog(notification);
+	this->close();
 }
 
 void MainWindow::functionToExecute()
