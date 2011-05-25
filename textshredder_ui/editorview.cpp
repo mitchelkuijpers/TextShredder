@@ -138,7 +138,7 @@ void EditorView::addStatusIconToSharedFilesListTreeView( int row, SyncableFile *
 
 	switch( syncableFile->calculateStatus() ) {
 		case 1:
-			status->setIcon(QIcon(":/ui/status/images/status/user-offline.svg"));
+			status->setIcon(QIcon(":/ui/status/images/status/user-busy.svg"));
 			status->setToolTip("Unknown");
 			break;
 		case 2:

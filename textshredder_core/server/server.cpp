@@ -54,7 +54,7 @@ void Server::setServerAlias(QString newAlias)
 {
 	UserManager::Instance()->removeAlias(serverAlias);
 	serverAlias = newAlias;
-	serverAlias.append("(Server)");
+	serverAlias.append(" (Server)");
 	UserManager::Instance()->addAlias(serverAlias);
 }
 

@@ -66,7 +66,7 @@ void MainWindow::changeWindowStateToServer()
 	ui->titleLabelServer->show();
 	ui->titleLabelClient->hide();
 	ui->serverIpInput->setEnabled(false);
-	ui->serverIpInput->setEditText("Your IP: " + QString(QNetworkInterface::allAddresses().at(4).toString()));
+	ui->serverIpInput->setEditText("Your IP: 0.0.0.0");
 	ui->avatarLabel->setPixmap(QPixmap(":/ui/main/images/server.svg"));
 }
 
@@ -83,8 +83,7 @@ void MainWindow::changeWindowStateToClient()
 
 void MainWindow::on_cancelButton_clicked()
 {
-	Notification notification(this, "You have clicked the cancel button!\nNothing happens.", 4);
-	NotificationManager::Instance()->createNotificationDialog(notification);
+	this->close();
 }
 
 void MainWindow::functionToExecute()
@@ -164,8 +163,7 @@ void MainWindow::saveSettings()
 	configOptions.setServerPort((quint16) ui->serverPortInput->value());
 
 	if(ui->aliasInput->text().length() > 0) {
-		QString cleanedAlias = ui->aliasInput->text().remove(QRegExp(QString::fromUtf8("[-`~!@#$%^&*()_—+=|:;<>«»,.?/{}\'\"\\\[\\]\\\\]")));
-		configOptions.setLastUsedAlias(cleanedAlias);
+		configOptions.setLastUsedAlias(ui->aliasInput->text());
 	}
 	else {
 		Notification notification(this, "The specified alias can only contain alphanumeric characters and must be longer then 1 character!", 2, true);

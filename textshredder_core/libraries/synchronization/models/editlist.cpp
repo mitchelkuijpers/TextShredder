@@ -94,11 +94,6 @@ unsigned int EditList::getRemoteVersion()
 	return remoteVersion;
 }
 
-void EditList::updateToRemote(	unsigned int newRemoteVersion)
-{
-	this->remoteVersion = newRemoteVersion;
-}
-
 EditList & EditList::operator=(EditList & otherEditList) {
 	this->remoteVersion = otherEditList.remoteVersion;
 	this->edits = otherEditList.edits;
