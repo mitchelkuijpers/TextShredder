@@ -8,8 +8,12 @@ EditorView::EditorView(QWidget *parent) :
 	ui->setupUi(this);
 	ui->fileTreeWidget->setFocus();
 
-	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()), this, SLOT(rebuildSharedFilesListTreeView()));
-	connect(PerformanceCalculator::Instance(), SIGNAL(newAverage(long)), this, SLOT(updateAveragePerformance(long)));
+	connect(FileManager::Instance(), SIGNAL(availableFilesChanged()),
+			this, SLOT(rebuildSharedFilesListTreeView()));
+	connect(PerformanceCalculator::Instance(), SIGNAL(newAverage(float)),
+			this, SLOT(updateAveragePerformance(float)));
+	connect(PerformanceCalculator::Instance(), SIGNAL(newAveragePercentage(float)),
+			this, SLOT(updateAveragePerformancePercentage(float)));
 }
 
 EditorView::~EditorView()
@@ -238,7 +242,14 @@ void EditorView::setToClientMode()
 	setWindowTitle("TextShredder Editor [CLIENT]");
 }
 
-void EditorView::updateAveragePerformance(long averagePerformance)
+void EditorView::updateAveragePerformance(float averagePerformance)
 {
+	qDebug() << averagePerformance;
 	ui->processingTimeLabel->setText("Average processing time: " + QString::number(averagePerformance) + "ms");
+}
+
+void EditorView::updateAveragePerformancePercentage(float averagePerformance)
+{
+	ui->healthBar->setDisabled(false);
+	ui->healthBar->setValue(averagePerformance);
 }

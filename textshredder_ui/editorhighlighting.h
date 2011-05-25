@@ -21,8 +21,11 @@ public:
 private:
 	QList<Patch> patches;
 	QList<Diff> diffs;
-
 	int editPosition;
+	bool highlightingOn;
+
+
+
 
 };
 

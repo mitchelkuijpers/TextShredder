@@ -40,7 +40,6 @@ TextShredderPacket * TextShredderPacketParser::makeAllocatedPacketFromBytes(
 
 void TextShredderPacketParser::handleData(QByteArray & incomingData)
 {
-	qDebug() << "incomingData: " << incomingData;
 	if(incompleteData.length() > 0) {
 		incomingData.insert(0, incompleteData);
 		incompleteData.clear();

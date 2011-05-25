@@ -8,15 +8,22 @@ class TextShredderLogDir : public QObject
 {
     Q_OBJECT
 public:
+	/**
+	  * Returns a TextShredderLogDir singleton instance
+	  */
     static TextShredderLogDir * getInstance();
-    QString * getPath();
+	/**
+	  * Returns a QString pointer to the directory
+	  */
+	QString * getPath();
 
 signals:
 
 public slots:
 
 private:
-    TextShredderLogDir(QObject *parent);
+
+	TextShredderLogDir(QObject *parent);
     static TextShredderLogDir * dirInstance;
     QString DirPath;
 };

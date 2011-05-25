@@ -81,7 +81,6 @@ void TextShredderConnection::read()
 
 	inputStream.setAutoDetectUnicode(false);
 	inputStream.setCodec("UTF-8" );
-
 	while(!inputStream.atEnd()) {
 		 buffer.append(inputStream.readAll());
 	}
