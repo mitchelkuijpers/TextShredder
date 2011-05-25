@@ -14,16 +14,16 @@
 #include "../textshredder_core/libraries/performance/performancecalculator.h"
 
 namespace Ui {
-    class EditorView;
+	class EditorView;
 }
 
 class EditorView : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit EditorView(QWidget *parent = 0);
-    ~EditorView();
+	explicit EditorView(QWidget *parent = 0);
+	~EditorView();
 	void setModel();
 	void setFileTreeWidgetColumnsInModel();
 	void addFileToFileTreeWidget( QString fileName );
@@ -53,8 +53,8 @@ private slots:
  void on_addFolderButton_clicked();
  void on_addFileButton_clicked();
  void rebuildSharedFilesListTreeView();
- void updateAveragePerformance(long);
-
+ void updateAveragePerformance(float);
+ void updateAveragePerformancePercentage(float);
 };
 
 #endif // EDITORVIEW_H
