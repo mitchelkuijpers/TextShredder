@@ -1,36 +1,25 @@
 #include "shadowcopy.h"
 #include "editlist.h"
 
-
-ShadowCopy::ShadowCopy(QObject *parent) :
-		Patchable(parent), localVersion(0), remoteVersion(0), logging(NULL)
-{
-	this->backupCopy = new BackupCopy(this, 0, "");
-}
-
 ShadowCopy::ShadowCopy(QObject *parent, QString content) :
-		Patchable(parent), localVersion(0), remoteVersion(0), logging(NULL)
+		Patchable(parent, content), localVersion(0), remoteVersion(0),
+		backupCopy(this, 0, content)
 {
-	this->content = content;
-	this->backupCopy = new BackupCopy(this, 0, content);
+	//this->content = content;
+	//this->backupCopy = new BackupCopy(this, 0, content);
 }
 
 
 void ShadowCopy::revert()
 {
-	QString revertMessage("Will revert Shadow Copy: ");
-	revertMessage.append(QString::number(localVersion));
-	revertMessage.append(" to ");
-	content = *(backupCopy->getContent());
-	localVersion = backupCopy->getLocalVersion();
-	revertMessage.append(QString::number(localVersion));
-	log(revertMessage);
+	content = *(backupCopy.getContent());
+	localVersion = backupCopy.getLocalVersion();
 }
 
 void ShadowCopy::backup()
 {
-	backupCopy->setContent(this->content);
-	backupCopy->setLocalVersion(this->localVersion);
+	backupCopy.setContent(this->content);
+	backupCopy.setLocalVersion(this->localVersion);
 }
 
 void ShadowCopy::applyEdits( QList<Edit> & edits )
@@ -46,8 +35,7 @@ void ShadowCopy::applyEdits( QList<Edit> & edits )
 			remoteVersion++;
 			count++;
 		} else {
-			QString logMessage("++++++++++++++++++++++ Houston we have a problem -> ShadowCopy::applyEdits");
-			log(logMessage);
+			qDebug() << "++++++++++++++++++++++ Houston we have a problem -> ShadowCopy::applyEdits";
 			count++;
 		}
 	}
@@ -55,29 +43,18 @@ void ShadowCopy::applyEdits( QList<Edit> & edits )
 
 void ShadowCopy::applyLocalEdits( QList<Edit> & edits )
 {
-	QString logm("Current local version is -> ");
-	logm.append(QString::number(this->localVersion));
-	log(logm);
 	int count = 0;
 	while(count < edits.size()) {
 		Edit e = edits.at(count);
 
 		if(e.getLocalVersion() == localVersion) {
 			this->applyPatches(e.getPatches());
-			QString logMessage("Increase Local Version");
-			log(logMessage);
 			localVersion++;
 		} else {
-			QString logMessage("++++++++++++++++++++++ Houston we have a another problem -> ShadowCopy::applyAckedEdits");
-			log(logMessage);
+			qDebug() << "++++++++++++++++++++++ Houston we have a another problem -> ShadowCopy::applyAckedEdits";
 		}
 		count++;
 	}
-}
-
-void ShadowCopy::processPatches( QList<Patch> &patches)
-{
-	this->applyPatches(patches);
 }
 
 unsigned int ShadowCopy::getRemoteVersion()
@@ -90,7 +67,7 @@ unsigned int ShadowCopy::getLocalVersion()
 	return localVersion;
 }
 
-BackupCopy * ShadowCopy::getBackupCopy()
+BackupCopy & ShadowCopy::getBackupCopy()
 {
 	return backupCopy;
 }
@@ -98,16 +75,4 @@ BackupCopy * ShadowCopy::getBackupCopy()
 void ShadowCopy::setLocalVersion(int version)
 {
 	localVersion = version;
-}
-
-void ShadowCopy::setLogging(TextShredderLogging *log)
-{
-	this->logging = log;
-}
-
-void ShadowCopy::log(QString &logString)
-{
-	if(logging != NULL) {
-		logging->writeLog (logString, DEBUG);
-	}
 }

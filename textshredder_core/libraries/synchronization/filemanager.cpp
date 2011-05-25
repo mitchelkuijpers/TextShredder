@@ -18,7 +18,7 @@ FileManager * FileManager::Instance()
 void FileManager::addFileWithPath(QString &path)
 {
 	QSharedPointer<SyncableFile> obj =
-			QSharedPointer<SyncableFile>(new SyncableFile(this, path), SyncableFile::doDeleteLater);
+			QSharedPointer<SyncableFile>(new SyncableFile(this, path));
 
 	obj.data()->setOnServer(isServer);
 

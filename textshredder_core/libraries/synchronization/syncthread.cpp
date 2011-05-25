@@ -15,7 +15,6 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>c
 	WorkingCopy *wc = workingCopyPointer.data();
 	shadowCopy.setContent(* wc->getContent());
 
-	shadowCopy.setLogging(&logging);
 
 	connectSignalsForSynchronization();
 
@@ -31,7 +30,6 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer <WorkingCopy> newWorking
 	logging(this), performanceLog(this)
 {
 	shadowCopy.setContent(*workingCopyPointer.data()->getContent()); // set shadow copy
-	shadowCopy.setLogging(&logging);
 	syncThreadNumber = sharedIndex++;
 }
 
@@ -70,7 +68,7 @@ void SyncThread::receivedDownloadedContent(QByteArray & content)
 	QString string(content);
 	workingCopyPointer.data()->setContent(string);
 	shadowCopy.setContent(string);
-	shadowCopy.getBackupCopy()->setContent(string);
+	shadowCopy.getBackupCopy().setContent(string);
 	startSync();
 }
 

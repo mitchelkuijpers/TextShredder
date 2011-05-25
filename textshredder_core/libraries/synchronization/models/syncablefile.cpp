@@ -2,6 +2,7 @@
 
 #include "../textshredder_core/libraries/synchronization/models/syncablefile.h"
 #include "../../../client/client.h"
+
 #define kDefaultFileAlias QString("untitled.txt")
 
 SyncableFile::SyncableFile(QObject *parent, QString &path) :
@@ -91,16 +92,10 @@ void SyncableFile::close()
 
 	//If client, stop the syncthread -> remove all from list after stop
 	if (!onServer) {
-		for(int i = 0; i < syncThreads.count(); i++ ) {
-			QSharedPointer<SyncThread> syncPointer = syncThreads.at(i);
-			syncPointer.data()->stopSync();
-		}
-		syncThreads.clear();
+		stopSync();
 		if (!isShared()) {
 			emit syncableFileShouldBeRemoved();
 		}
-	} else {
-		qDebug() << "Pollo di server";
 	}
 	emit syncableFileChanged();
 }
@@ -108,7 +103,10 @@ void SyncableFile::close()
 void SyncableFile::open()
 {
 	opened = true;
+	if (!onServer) {
+	}
 	emit syncableFileChanged();
+	requestSync();
 }
 
 QSharedPointer<WorkingCopy> SyncableFile::getWorkingCopy()
@@ -141,11 +139,7 @@ void SyncableFile::setShared(bool share)
 		} else {
 			if (onServer) {
 				qDebug() << "Stop Syncing on server";
-
-				for (int i = 0; i < syncThreads.count(); i++) {
-					QSharedPointer<SyncThread> thread = syncThreads.at(i);
-					thread.data()->stopSync();
-				}
+				stopSync();
 				qDebug() << "SyncableFile::setShared " << "//Evaluate this save";
 				saveFileToPath();
 				syncThreads.clear();
@@ -158,7 +152,11 @@ void SyncableFile::setShared(bool share)
 
 void SyncableFile::stopSync()
 {
-
+	for(int i = 0; i < syncThreads.count(); i++ ) {
+		QSharedPointer<SyncThread> syncPointer = syncThreads.at(i);
+		syncPointer.data()->stopSync();
+	}
+	syncThreads.clear();
 }
 
 void SyncableFile::requestSync()
@@ -173,23 +171,9 @@ void SyncableFile::requestSync()
 	emit syncableFileChanged();
 }
 
-void SyncableFile::doDeleteLater(SyncableFile *obj)
-{
-	obj->deleteLater();
-}
-
 void SyncableFile::setFileAlias(QString & newFileAlias)
 {
 	this->fileAlias = newFileAlias;
-}
-
-QSharedPointer<WorkingCopy> SyncableFile::openWorkingCopyForGUI()
-{
-	return workingCopy;
-}
-
-void SyncableFile::closeWorkingCopyFromGUI()
-{
 }
 
 void SyncableFile::startSyncOn(quint16 destination,

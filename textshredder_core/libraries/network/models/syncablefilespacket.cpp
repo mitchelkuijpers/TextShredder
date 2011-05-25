@@ -44,8 +44,7 @@ void SyncableFilesPacket::fillListWithContentsOfPacket(QList <QSharedPointer<Syn
 
 
 		QSharedPointer<SyncableFile> obj =
-				QSharedPointer<SyncableFile>(new SyncableFile(NULL, uniqueIdentifier,
-															  fileAlias), SyncableFile::doDeleteLater);
+				QSharedPointer<SyncableFile>(new SyncableFile(NULL, uniqueIdentifier, fileAlias));
 		list.append(obj);
 		obj.clear();
 	}

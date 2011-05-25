@@ -218,10 +218,6 @@ void EditorView::openFileInEditor( QSharedPointer<SyncableFile> file )
 	openedFilesList.append(textfield);
 
 	file.data()->open();
-
-	if( !isServer ) {
-		file.data()->requestSync();
-	}
 }
 
 void EditorView::setToServerMode()
