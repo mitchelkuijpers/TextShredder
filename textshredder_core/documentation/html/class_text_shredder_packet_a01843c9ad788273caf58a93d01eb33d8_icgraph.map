@@ -1,0 +1,14 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_text_shredder_packet.html#a7b04ce6a4d8147b67e287fdf5547cf4b" title="TextShredderPacket::isIncomplete" alt="" coords="296,5,517,35"/>
+<area shape="rect" id="node9" href="$class_text_shredder_packet.html#ab92e4b564377864eab0bba03addd0397" title="TextShredderPacket::numberOfBytesNeeded" alt="" coords="264,59,549,88"/>
+<area shape="rect" id="node12" href="$class_text_shredder_packet.html#ad99bb4feaa8734922d2842322dbf511c" title="TextShredderPacket::operator==" alt="" coords="301,112,512,141"/>
+<area shape="rect" id="node14" href="$class_sync_thread.html#a50f1506b24f64af4cc99db115298c2b2" title="SyncThread::sendFileDataAndStart" alt="" coords="611,217,837,247"/>
+<area shape="rect" id="node16" href="$class_text_shredder_connection.html#acf1e4260675c90dde5c2bd9a16907863" title="TextShredderConnection::write" alt="" coords="305,165,508,195"/>
+<area shape="rect" id="node20" href="$class_sync_thread.html#a954c2e1a65ff3a473c3c7dc5350e0497" title="SyncThread::writePacketOnConnection" alt="" coords="281,271,532,300"/>
+<area shape="rect" id="node5" href="$class_text_shredder_packet_parser.html#a332ffaa1da7aa61fc2e5fe3cbed15d5a" title="TextShredderPacketParser::handleData" alt="" coords="597,32,851,61"/>
+<area shape="rect" id="node7" href="$class_text_shredder_connection.html#af026ddf63817564ba3b494bb3fe63768" title="TextShredderConnection::read" alt="" coords="900,32,1097,61"/>
+<area shape="rect" id="node18" href="$class_text_shredder_connection.html#a11e920ba0fc122613d84e70fb018a6a1" title="TextShredderConnection::sendPacket" alt="" coords="603,164,845,193"/>
+<area shape="rect" id="node23" href="$class_sync_thread.html#a6479eed6d3f611deb5986030427f91eb" title="SyncThread::stopSync" alt="" coords="647,324,801,353"/>
+<area shape="rect" id="node25" href="$class_sync_thread.html#ae2a92c2744e665d492f43130757453da" title="SyncThread::writePacketOfEditList" alt="" coords="611,271,837,300"/>
+<area shape="rect" id="node27" href="$class_sync_thread.html#a94389440ca73f3f638c73ed9075dc0e0" title="SyncThread::pushChanges" alt="" coords="909,271,1088,300"/>
+</map>

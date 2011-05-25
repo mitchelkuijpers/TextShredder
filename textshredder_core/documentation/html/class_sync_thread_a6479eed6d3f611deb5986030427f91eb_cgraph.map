@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_sync_thread.html#a954c2e1a65ff3a473c3c7dc5350e0497" title="SyncThread::writePacketOnConnection" alt="" coords="209,32,460,61"/>
+<area shape="rect" id="node5" href="$class_text_shredder_packet.html#a01843c9ad788273caf58a93d01eb33d8" title="TextShredderPacket::getHeader" alt="" coords="543,5,751,35"/>
+<area shape="rect" id="node7" href="$class_text_shredder_header.html#a2e4f22ee325b12ab1eab01e908eb4b73" title="TextShredderHeader::setConnectionHandle" alt="" coords="509,59,784,88"/>
+</map>

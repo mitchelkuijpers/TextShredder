@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_notification_manager.html#a1479ae381037129062610bc71c0a5744" title="NotificationManager::addButtonsToNotificationDialog" alt="" coords="367,5,697,35"/>
+<area shape="rect" id="node7" href="$class_notification.html#a8572346b3b6864c798d0c88c84a9488f" title="Notification::getMessage" alt="" coords="449,59,615,88"/>
+<area shape="rect" id="node9" href="$class_notification_manager.html#a2c0a6908cd5d75059e7ada13355933c2" title="NotificationManager::setWindowTitleBasedOnNotificationType" alt="" coords="340,112,724,141"/>
+<area shape="rect" id="node5" href="$class_notification.html#ade29a0210eeebe611d28fbe07fbd64f7" title="Notification::getHasCancelButton" alt="" coords="775,5,991,35"/>
+<area shape="rect" id="node11" href="$class_notification.html#a01d1f04d52cb0b0849ad2f6fa2b398e0" title="Notification::getNotificationType" alt="" coords="779,112,987,141"/>
+</map>

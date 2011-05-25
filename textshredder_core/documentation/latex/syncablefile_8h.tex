@@ -1,0 +1,124 @@
+\hypertarget{syncablefile_8h}{
+\section{libraries/synchronization/models/syncablefile.h File Reference}
+\label{syncablefile_8h}\index{libraries/synchronization/models/syncablefile.h@{libraries/synchronization/models/syncablefile.h}}
+}
+{\ttfamily \#include $<$QObject$>$}\par
+{\ttfamily \#include \char`\"{}../textshredder\_\-core/libraries/synchronization/models/workingcopy.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../syncthread.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../../network/models/filerequestpacket.h\char`\"{}}\par
+Include dependency graph for syncablefile.h:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{syncablefile_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{syncablefile_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_syncable_file}{SyncableFile}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{syncablefile_8h_a9c6830313033d89085f8e1389f01060d}{SyncableFileStatus} \{ \par
+\hyperlink{syncablefile_8h_a9c6830313033d89085f8e1389f01060da4e81c184ac3ad48a389cd4454c4a05bb}{Unknown} =  1, 
+\hyperlink{syncablefile_8h_a9c6830313033d89085f8e1389f01060da7669d878ca884f0fa932b29e0d193233}{Unshared} =  2, 
+\hyperlink{syncablefile_8h_a9c6830313033d89085f8e1389f01060da5a12baafe6033e4be3b522fb80c8874b}{UnopenedSharedFile} = 3, 
+\hyperlink{syncablefile_8h_a9c6830313033d89085f8e1389f01060dad3fa9ae9431d6cb1772f9d9df48cab19}{Idle} =  4, 
+\par
+\hyperlink{syncablefile_8h_a9c6830313033d89085f8e1389f01060da6c52dc1151ae8aeb31099b59a08bebf8}{Editing} =  5, 
+\hyperlink{syncablefile_8h_a9c6830313033d89085f8e1389f01060dab3f88f69cbe0813dbf3af46516ff4373}{Syncing} =  6, 
+\hyperlink{syncablefile_8h_a9c6830313033d89085f8e1389f01060da14a8422362717bf220f96dfbeb4db851}{Offline} =  7
+ \}
+\item 
+enum \hyperlink{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3}{FileType} \{ \hyperlink{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3a187cd4211ad05fe0770a3c3105727f8c}{FileTypeUNKNOWN} =  1, 
+\hyperlink{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3a4263e3fec5d641993adcc3c6515e7745}{FileTypeTXT} =  2, 
+\hyperlink{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3a2ba12601d02b2a3cb61af0a6384b5e1d}{FileTypePHP} =  3, 
+\hyperlink{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3a11a3002d8da0a759233fef826806a868}{FileTypeHTML} =  4
+ \}
+\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3}{
+\index{syncablefile.h@{syncablefile.h}!FileType@{FileType}}
+\index{FileType@{FileType}!syncablefile.h@{syncablefile.h}}
+\subsubsection[{FileType}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf FileType}}}
+\label{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3}
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{FileTypeUNKNOWN@{FileTypeUNKNOWN}!syncablefile.h@{syncablefile.h}}\index{syncablefile.h@{syncablefile.h}!FileTypeUNKNOWN@{FileTypeUNKNOWN}}\item[{\em 
+\hypertarget{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3a187cd4211ad05fe0770a3c3105727f8c}{
+FileTypeUNKNOWN}
+\label{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3a187cd4211ad05fe0770a3c3105727f8c}
+}]\index{FileTypeTXT@{FileTypeTXT}!syncablefile.h@{syncablefile.h}}\index{syncablefile.h@{syncablefile.h}!FileTypeTXT@{FileTypeTXT}}\item[{\em 
+\hypertarget{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3a4263e3fec5d641993adcc3c6515e7745}{
+FileTypeTXT}
+\label{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3a4263e3fec5d641993adcc3c6515e7745}
+}]\index{FileTypePHP@{FileTypePHP}!syncablefile.h@{syncablefile.h}}\index{syncablefile.h@{syncablefile.h}!FileTypePHP@{FileTypePHP}}\item[{\em 
+\hypertarget{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3a2ba12601d02b2a3cb61af0a6384b5e1d}{
+FileTypePHP}
+\label{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3a2ba12601d02b2a3cb61af0a6384b5e1d}
+}]\index{FileTypeHTML@{FileTypeHTML}!syncablefile.h@{syncablefile.h}}\index{syncablefile.h@{syncablefile.h}!FileTypeHTML@{FileTypeHTML}}\item[{\em 
+\hypertarget{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3a11a3002d8da0a759233fef826806a868}{
+FileTypeHTML}
+\label{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3a11a3002d8da0a759233fef826806a868}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 19 of file syncablefile.h.
+
+\hypertarget{syncablefile_8h_a9c6830313033d89085f8e1389f01060d}{
+\index{syncablefile.h@{syncablefile.h}!SyncableFileStatus@{SyncableFileStatus}}
+\index{SyncableFileStatus@{SyncableFileStatus}!syncablefile.h@{syncablefile.h}}
+\subsubsection[{SyncableFileStatus}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf SyncableFileStatus}}}
+\label{syncablefile_8h_a9c6830313033d89085f8e1389f01060d}
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{Unknown@{Unknown}!syncablefile.h@{syncablefile.h}}\index{syncablefile.h@{syncablefile.h}!Unknown@{Unknown}}\item[{\em 
+\hypertarget{syncablefile_8h_a9c6830313033d89085f8e1389f01060da4e81c184ac3ad48a389cd4454c4a05bb}{
+Unknown}
+\label{syncablefile_8h_a9c6830313033d89085f8e1389f01060da4e81c184ac3ad48a389cd4454c4a05bb}
+}]\index{Unshared@{Unshared}!syncablefile.h@{syncablefile.h}}\index{syncablefile.h@{syncablefile.h}!Unshared@{Unshared}}\item[{\em 
+\hypertarget{syncablefile_8h_a9c6830313033d89085f8e1389f01060da7669d878ca884f0fa932b29e0d193233}{
+Unshared}
+\label{syncablefile_8h_a9c6830313033d89085f8e1389f01060da7669d878ca884f0fa932b29e0d193233}
+}]\index{UnopenedSharedFile@{UnopenedSharedFile}!syncablefile.h@{syncablefile.h}}\index{syncablefile.h@{syncablefile.h}!UnopenedSharedFile@{UnopenedSharedFile}}\item[{\em 
+\hypertarget{syncablefile_8h_a9c6830313033d89085f8e1389f01060da5a12baafe6033e4be3b522fb80c8874b}{
+UnopenedSharedFile}
+\label{syncablefile_8h_a9c6830313033d89085f8e1389f01060da5a12baafe6033e4be3b522fb80c8874b}
+}]\index{Idle@{Idle}!syncablefile.h@{syncablefile.h}}\index{syncablefile.h@{syncablefile.h}!Idle@{Idle}}\item[{\em 
+\hypertarget{syncablefile_8h_a9c6830313033d89085f8e1389f01060dad3fa9ae9431d6cb1772f9d9df48cab19}{
+Idle}
+\label{syncablefile_8h_a9c6830313033d89085f8e1389f01060dad3fa9ae9431d6cb1772f9d9df48cab19}
+}]\index{Editing@{Editing}!syncablefile.h@{syncablefile.h}}\index{syncablefile.h@{syncablefile.h}!Editing@{Editing}}\item[{\em 
+\hypertarget{syncablefile_8h_a9c6830313033d89085f8e1389f01060da6c52dc1151ae8aeb31099b59a08bebf8}{
+Editing}
+\label{syncablefile_8h_a9c6830313033d89085f8e1389f01060da6c52dc1151ae8aeb31099b59a08bebf8}
+}]\index{Syncing@{Syncing}!syncablefile.h@{syncablefile.h}}\index{syncablefile.h@{syncablefile.h}!Syncing@{Syncing}}\item[{\em 
+\hypertarget{syncablefile_8h_a9c6830313033d89085f8e1389f01060dab3f88f69cbe0813dbf3af46516ff4373}{
+Syncing}
+\label{syncablefile_8h_a9c6830313033d89085f8e1389f01060dab3f88f69cbe0813dbf3af46516ff4373}
+}]\index{Offline@{Offline}!syncablefile.h@{syncablefile.h}}\index{syncablefile.h@{syncablefile.h}!Offline@{Offline}}\item[{\em 
+\hypertarget{syncablefile_8h_a9c6830313033d89085f8e1389f01060da14a8422362717bf220f96dfbeb4db851}{
+Offline}
+\label{syncablefile_8h_a9c6830313033d89085f8e1389f01060da14a8422362717bf220f96dfbeb4db851}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 9 of file syncablefile.h.
+

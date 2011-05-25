@@ -1,0 +1,135 @@
+\hypertarget{class_server}{
+\section{Server Class Reference}
+\label{class_server}\index{Server@{Server}}
+}
+
+
+{\ttfamily \#include $<$server.h$>$}
+
+
+
+Collaboration diagram for Server:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=209pt]{class_server__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_server_af6867f3b0e768ecdfa4cca2755a6a60b}{setServerAlias} (QString newAlias)
+\item 
+void \hyperlink{class_server_a55398b8dffc88e16f03be9afe72d8b09}{sendUsersToAllClients} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_server}{Server} $\ast$ \hyperlink{class_server_a319f8da4a27ca0b79f37c3d741336464}{Instance} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_server_a48091e8b382412a1f63f05f4cc0ad599}{incomingConnection} (int socketDescriptor)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 8 of file server.h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_server_a48091e8b382412a1f63f05f4cc0ad599}{
+\index{Server@{Server}!incomingConnection@{incomingConnection}}
+\index{incomingConnection@{incomingConnection}!Server@{Server}}
+\subsubsection[{incomingConnection}]{\setlength{\rightskip}{0pt plus 5cm}void Server::incomingConnection (
+\begin{DoxyParamCaption}
+\item[{int}]{socketDescriptor}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_server_a48091e8b382412a1f63f05f4cc0ad599}
+
+
+Definition at line 21 of file server.cpp.
+
+\hypertarget{class_server_a319f8da4a27ca0b79f37c3d741336464}{
+\index{Server@{Server}!Instance@{Instance}}
+\index{Instance@{Instance}!Server@{Server}}
+\subsubsection[{Instance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Server} $\ast$ Server::Instance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_server_a319f8da4a27ca0b79f37c3d741336464}
+
+
+Definition at line 9 of file server.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{class_server_a319f8da4a27ca0b79f37c3d741336464_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_server_a55398b8dffc88e16f03be9afe72d8b09}{
+\index{Server@{Server}!sendUsersToAllClients@{sendUsersToAllClients}}
+\index{sendUsersToAllClients@{sendUsersToAllClients}!Server@{Server}}
+\subsubsection[{sendUsersToAllClients}]{\setlength{\rightskip}{0pt plus 5cm}void Server::sendUsersToAllClients (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_server_a55398b8dffc88e16f03be9afe72d8b09}
+
+
+Definition at line 40 of file server.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=388pt]{class_server_a55398b8dffc88e16f03be9afe72d8b09_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_server_af6867f3b0e768ecdfa4cca2755a6a60b}{
+\index{Server@{Server}!setServerAlias@{setServerAlias}}
+\index{setServerAlias@{setServerAlias}!Server@{Server}}
+\subsubsection[{setServerAlias}]{\setlength{\rightskip}{0pt plus 5cm}void Server::setServerAlias (
+\begin{DoxyParamCaption}
+\item[{QString}]{newAlias}
+\end{DoxyParamCaption}
+)}}
+\label{class_server_af6867f3b0e768ecdfa4cca2755a6a60b}
+
+
+Definition at line 52 of file server.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{class_server_af6867f3b0e768ecdfa4cca2755a6a60b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+server/\hyperlink{server_8h}{server.h}\item 
+server/\hyperlink{server_8cpp}{server.cpp}\end{DoxyCompactItemize}

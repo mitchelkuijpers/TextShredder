@@ -1,0 +1,16 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$shadowcopy_8h.html" title="libraries/synchronization/models/shadowcopy.h" alt="" coords="713,83,1009,112"/>
+<area shape="rect" id="node30" href="$backupcopy_8cpp.html" title="libraries/synchronization/models/backupcopy.cpp" alt="" coords="1033,83,1340,112"/>
+<area shape="rect" id="node5" href="$syncthread_8h.html" title="libraries/synchronization/syncthread.h" alt="" coords="592,160,832,189"/>
+<area shape="rect" id="node28" href="$shadowcopy_8cpp.html" title="libraries/synchronization/models/shadowcopy.cpp" alt="" coords="856,160,1165,189"/>
+<area shape="rect" id="node7" href="$syncablefile_8h.html" title="libraries/synchronization/models/syncablefile.h" alt="" coords="376,237,667,267"/>
+<area shape="rect" id="node15" href="$clientrepresentation_8h.html" title="libraries/synchronization/clientrepresentation.h" alt="" coords="480,469,771,499"/>
+<area shape="rect" id="node26" href="$syncthread_8cpp.html" title="libraries/synchronization/syncthread.cpp" alt="" coords="749,237,1003,267"/>
+<area shape="rect" id="node9" href="$filemanager_8h.html" title="libraries/synchronization/filemanager.h" alt="" coords="101,315,344,344"/>
+<area shape="rect" id="node23" href="$syncablefile_8cpp.html" title="libraries/synchronization/models/syncablefile.cpp" alt="" coords="368,315,675,344"/>
+<area shape="rect" id="node11" href="$client_8cpp.html" title="client/client.cpp" alt="" coords="5,392,117,421"/>
+<area shape="rect" id="node13" href="$filesync_8h.html" title="libraries/synchronization/filesync.h" alt="" coords="141,392,363,421"/>
+<area shape="rect" id="node21" href="$filemanager_8cpp.html" title="libraries/synchronization/filemanager.cpp" alt="" coords="387,392,645,421"/>
+<area shape="rect" id="node19" href="$filesync_8cpp.html" title="libraries/synchronization/filesync.cpp" alt="" coords="135,469,369,499"/>
+<area shape="rect" id="node17" href="$clientrepresentation_8cpp.html" title="libraries/synchronization/clientrepresentation.cpp" alt="" coords="473,547,777,576"/>
+</map>

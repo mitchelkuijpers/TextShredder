@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_edit.html#af7a7bd4cb0fa6ebc6dc238b0613d4b73" title="Edit::appendEditBytesToByteArray" alt="" coords="164,5,388,35"/>
+<area shape="rect" id="node11" href="$class_patch.html#a2159b94942e91391e8d4e29d06735286" title="Patch::operator==" alt="" coords="213,59,339,88"/>
+<area shape="rect" id="node13" href="$classdiff__match__patch.html#ab23a8022e207c5aa2fd2ee7dad604341" title="diff_match_patch::patch_toText" alt="" coords="173,112,379,141"/>
+<area shape="rect" id="node5" href="$class_edit_list.html#ace8dff1c04b64ed883808949b3b5c650" title="EditList::getAllocatedPacket" alt="" coords="437,5,624,35"/>
+<area shape="rect" id="node7" href="$class_sync_thread.html#ae2a92c2744e665d492f43130757453da" title="SyncThread::writePacketOfEditList" alt="" coords="672,5,899,35"/>
+<area shape="rect" id="node9" href="$class_sync_thread.html#a94389440ca73f3f638c73ed9075dc0e0" title="SyncThread::pushChanges" alt="" coords="948,5,1127,35"/>
+</map>

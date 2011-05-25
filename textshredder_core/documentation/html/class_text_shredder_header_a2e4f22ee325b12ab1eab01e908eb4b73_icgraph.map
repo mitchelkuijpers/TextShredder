@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_sync_thread.html#a50f1506b24f64af4cc99db115298c2b2" title="SyncThread::sendFileDataAndStart" alt="" coords="631,5,857,35"/>
+<area shape="rect" id="node5" href="$class_sync_thread.html#a954c2e1a65ff3a473c3c7dc5350e0497" title="SyncThread::writePacketOnConnection" alt="" coords="329,59,580,88"/>
+<area shape="rect" id="node8" href="$class_sync_thread.html#a6479eed6d3f611deb5986030427f91eb" title="SyncThread::stopSync" alt="" coords="667,59,821,88"/>
+<area shape="rect" id="node10" href="$class_sync_thread.html#ae2a92c2744e665d492f43130757453da" title="SyncThread::writePacketOfEditList" alt="" coords="631,112,857,141"/>
+<area shape="rect" id="node12" href="$class_sync_thread.html#a94389440ca73f3f638c73ed9075dc0e0" title="SyncThread::pushChanges" alt="" coords="908,112,1087,141"/>
+</map>

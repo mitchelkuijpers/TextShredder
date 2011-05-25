@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_patchable.html#a38e7876689db45f8e3a45d65ccdc6009" title="Patchable::applyPatches" alt="" coords="255,59,420,88"/>
+<area shape="rect" id="node5" href="$class_shadow_copy.html#a536db8c68e3b5cf89b30b609012fb13a" title="ShadowCopy::applyEdits" alt="" coords="487,5,655,35"/>
+<area shape="rect" id="node13" href="$class_shadow_copy.html#a222d6d0835c4dea04c5f3d4a4ebf6e82" title="ShadowCopy::applyLocalEdits" alt="" coords="471,59,671,88"/>
+<area shape="rect" id="node18" href="$class_shadow_copy.html#a2af9f4a92de936eb8856d05d5499a185" title="ShadowCopy::processPatches" alt="" coords="469,112,672,141"/>
+<area shape="rect" id="node7" href="$class_sync_thread.html#a15b6e123fe1c76643597836618256619" title="SyncThread::applyReceivedEditList" alt="" coords="721,5,951,35"/>
+<area shape="rect" id="node9" href="$class_sync_thread.html#a5d627a46f2748963951890020902c81e" title="SyncThread::processChanges" alt="" coords="1001,5,1199,35"/>
+<area shape="rect" id="node11" href="$class_sync_thread.html#a6942467b2594dac2cca3fb6844676548" title="SyncThread::receivedEditPacketContent" alt="" coords="1248,5,1507,35"/>
+<area shape="rect" id="node16" href="$class_sync_thread.html#a94389440ca73f3f638c73ed9075dc0e0" title="SyncThread::pushChanges" alt="" coords="747,59,925,88"/>
+</map>

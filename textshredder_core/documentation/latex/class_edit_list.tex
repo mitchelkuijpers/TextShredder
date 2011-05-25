@@ -1,0 +1,385 @@
+\hypertarget{class_edit_list}{
+\section{EditList Class Reference}
+\label{class_edit_list}\index{EditList@{EditList}}
+}
+
+
+{\ttfamily \#include $<$editlist.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_edit_list_af5a5ad85bc3dc6bf7d7d94b8972dc0b6}{EditList} (QObject $\ast$parent, int remoteVersion=0)
+\item 
+\hyperlink{class_edit_list_ae6490c68d1d4a99f11afd1c93d2eca47}{EditList} (QObject $\ast$parent, QByteArray \&content)
+\item 
+\hyperlink{class_edit_list_a2129725c156538af8c5912ce6c626989}{EditList} (QObject $\ast$parent, \hyperlink{class_text_shredder_packet}{TextShredderPacket} \&)
+\item 
+\hyperlink{class_edit_list_a7f73f8142ba50f5b0fd13fc7e3394fc6}{EditList} (const \hyperlink{class_edit_list}{EditList} \&)
+\item 
+\hyperlink{class_edit_list}{EditList} \& \hyperlink{class_edit_list_a7dd9e0691bcf825162566fd3cac2d0a4}{operator=} (\hyperlink{class_edit_list}{EditList} \&)
+\item 
+bool \hyperlink{class_edit_list_a87b54d8fba61e771b8fe13e7125d708c}{operator==} (\hyperlink{class_edit_list}{EditList} \&)
+\item 
+bool \hyperlink{class_edit_list_a78ba00570b93a8fa794ab9c681a0dd81}{isEmpty} ()
+\item 
+void \hyperlink{class_edit_list_ac0fb07cc115af078014d3643f821f835}{empty} ()
+\item 
+void \hyperlink{class_edit_list_af1e561962340b1b24023052415ef8f94}{addEdit} (const \hyperlink{class_edit}{Edit} \&)
+\item 
+void \hyperlink{class_edit_list_a8e7b3099b3ce693e01b1321b723ec65f}{updateToRemote} (unsigned int newRemoteVersion)
+\item 
+\hyperlink{class_text_shredder_packet}{TextShredderPacket} $\ast$ \hyperlink{class_edit_list_ace8dff1c04b64ed883808949b3b5c650}{getAllocatedPacket} ()
+\item 
+void \hyperlink{class_edit_list_a425671ff64a7e6bee3231ed8a62e87aa}{setRemoteVersion} (unsigned int)
+\item 
+unsigned int \hyperlink{class_edit_list_a00c2180e295bcb80830f782c04d3e0ee}{getRemoteVersion} ()
+\item 
+QList$<$ \hyperlink{class_edit}{Edit} $>$ \& \hyperlink{class_edit_list_a4527628441bec5a178f04dd9c5b1a433}{getEdits} ()
+\item 
+QList$<$ \hyperlink{class_edit}{Edit} $>$ \hyperlink{class_edit_list_ae67563b61f7b2e36d62636b2979232b3}{popEditsUpToLocalVersion} (unsigned int version)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 10 of file editlist.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_edit_list_af5a5ad85bc3dc6bf7d7d94b8972dc0b6}{
+\index{EditList@{EditList}!EditList@{EditList}}
+\index{EditList@{EditList}!EditList@{EditList}}
+\subsubsection[{EditList}]{\setlength{\rightskip}{0pt plus 5cm}EditList::EditList (
+\begin{DoxyParamCaption}
+\item[{QObject $\ast$}]{parent, }
+\item[{int}]{remoteVersion = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_af5a5ad85bc3dc6bf7d7d94b8972dc0b6}
+Constructor which makes an \hyperlink{class_edit_list}{EditList} with or withou a remote version.
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & remoteVersion which will be used. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 3 of file editlist.cpp.
+
+\hypertarget{class_edit_list_ae6490c68d1d4a99f11afd1c93d2eca47}{
+\index{EditList@{EditList}!EditList@{EditList}}
+\index{EditList@{EditList}!EditList@{EditList}}
+\subsubsection[{EditList}]{\setlength{\rightskip}{0pt plus 5cm}EditList::EditList (
+\begin{DoxyParamCaption}
+\item[{QObject $\ast$}]{parent, }
+\item[{QByteArray \&}]{content}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_ae6490c68d1d4a99f11afd1c93d2eca47}
+Constructor which makes an \hyperlink{class_edit_list}{EditList} with QByteArray
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & remoteVersion which will be used. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 15 of file editlist.cpp.
+
+\hypertarget{class_edit_list_a2129725c156538af8c5912ce6c626989}{
+\index{EditList@{EditList}!EditList@{EditList}}
+\index{EditList@{EditList}!EditList@{EditList}}
+\subsubsection[{EditList}]{\setlength{\rightskip}{0pt plus 5cm}EditList::EditList (
+\begin{DoxyParamCaption}
+\item[{QObject $\ast$}]{parent, }
+\item[{{\bf TextShredderPacket} \&}]{packet}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_a2129725c156538af8c5912ce6c626989}
+Constructor which makes an \hyperlink{class_edit_list}{EditList} with a \hyperlink{class_text_shredder_packet}{TextShredderPacket} object
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & remoteVersion which will be used. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 53 of file editlist.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=366pt]{class_edit_list_a2129725c156538af8c5912ce6c626989_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_edit_list_a7f73f8142ba50f5b0fd13fc7e3394fc6}{
+\index{EditList@{EditList}!EditList@{EditList}}
+\index{EditList@{EditList}!EditList@{EditList}}
+\subsubsection[{EditList}]{\setlength{\rightskip}{0pt plus 5cm}EditList::EditList (
+\begin{DoxyParamCaption}
+\item[{const {\bf EditList} \&}]{otherEditList}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_a7f73f8142ba50f5b0fd13fc7e3394fc6}
+
+
+Definition at line 8 of file editlist.cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_edit_list_af1e561962340b1b24023052415ef8f94}{
+\index{EditList@{EditList}!addEdit@{addEdit}}
+\index{addEdit@{addEdit}!EditList@{EditList}}
+\subsubsection[{addEdit}]{\setlength{\rightskip}{0pt plus 5cm}void EditList::addEdit (
+\begin{DoxyParamCaption}
+\item[{const {\bf Edit} \&}]{e}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_af1e561962340b1b24023052415ef8f94}
+Function will add an \hyperlink{class_edit}{Edit} object to the edits in the \hyperlink{class_edit_list}{EditList} object 
+
+Definition at line 113 of file editlist.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{class_edit_list_af1e561962340b1b24023052415ef8f94_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_edit_list_ac0fb07cc115af078014d3643f821f835}{
+\index{EditList@{EditList}!empty@{empty}}
+\index{empty@{empty}!EditList@{EditList}}
+\subsubsection[{empty}]{\setlength{\rightskip}{0pt plus 5cm}void EditList::empty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_ac0fb07cc115af078014d3643f821f835}
+Empty the edit list. 
+
+Definition at line 158 of file editlist.cpp.
+
+\hypertarget{class_edit_list_ace8dff1c04b64ed883808949b3b5c650}{
+\index{EditList@{EditList}!getAllocatedPacket@{getAllocatedPacket}}
+\index{getAllocatedPacket@{getAllocatedPacket}!EditList@{EditList}}
+\subsubsection[{getAllocatedPacket}]{\setlength{\rightskip}{0pt plus 5cm}{\bf TextShredderPacket} $\ast$ EditList::getAllocatedPacket (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_ace8dff1c04b64ed883808949b3b5c650}
+Function will return a packet with the \hyperlink{class_edit_list}{EditList} as content. 
+
+Definition at line 129 of file editlist.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_edit_list_ace8dff1c04b64ed883808949b3b5c650_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_edit_list_ace8dff1c04b64ed883808949b3b5c650_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_edit_list_a4527628441bec5a178f04dd9c5b1a433}{
+\index{EditList@{EditList}!getEdits@{getEdits}}
+\index{getEdits@{getEdits}!EditList@{EditList}}
+\subsubsection[{getEdits}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ {\bf Edit} $>$ \& EditList::getEdits (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_a4527628441bec5a178f04dd9c5b1a433}
+
+
+Definition at line 124 of file editlist.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_edit_list_a4527628441bec5a178f04dd9c5b1a433_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_edit_list_a00c2180e295bcb80830f782c04d3e0ee}{
+\index{EditList@{EditList}!getRemoteVersion@{getRemoteVersion}}
+\index{getRemoteVersion@{getRemoteVersion}!EditList@{EditList}}
+\subsubsection[{getRemoteVersion}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int EditList::getRemoteVersion (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_a00c2180e295bcb80830f782c04d3e0ee}
+
+
+Definition at line 92 of file editlist.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_edit_list_a00c2180e295bcb80830f782c04d3e0ee_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_edit_list_a78ba00570b93a8fa794ab9c681a0dd81}{
+\index{EditList@{EditList}!isEmpty@{isEmpty}}
+\index{isEmpty@{isEmpty}!EditList@{EditList}}
+\subsubsection[{isEmpty}]{\setlength{\rightskip}{0pt plus 5cm}bool EditList::isEmpty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_a78ba00570b93a8fa794ab9c681a0dd81}
+Check whetter \hyperlink{class_edit_list}{EditList} does not contain any \hyperlink{class_edit}{Edit} objects. 
+
+Definition at line 153 of file editlist.cpp.
+
+\hypertarget{class_edit_list_a7dd9e0691bcf825162566fd3cac2d0a4}{
+\index{EditList@{EditList}!operator=@{operator=}}
+\index{operator=@{operator=}!EditList@{EditList}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf EditList} \& EditList::operator= (
+\begin{DoxyParamCaption}
+\item[{{\bf EditList} \&}]{otherEditList}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_a7dd9e0691bcf825162566fd3cac2d0a4}
+
+
+Definition at line 102 of file editlist.cpp.
+
+\hypertarget{class_edit_list_a87b54d8fba61e771b8fe13e7125d708c}{
+\index{EditList@{EditList}!operator==@{operator==}}
+\index{operator==@{operator==}!EditList@{EditList}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool EditList::operator== (
+\begin{DoxyParamCaption}
+\item[{{\bf EditList} \&}]{otherList}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_a87b54d8fba61e771b8fe13e7125d708c}
+
+
+Definition at line 108 of file editlist.cpp.
+
+\hypertarget{class_edit_list_ae67563b61f7b2e36d62636b2979232b3}{
+\index{EditList@{EditList}!popEditsUpToLocalVersion@{popEditsUpToLocalVersion}}
+\index{popEditsUpToLocalVersion@{popEditsUpToLocalVersion}!EditList@{EditList}}
+\subsubsection[{popEditsUpToLocalVersion}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ {\bf Edit} $>$ EditList::popEditsUpToLocalVersion (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{version}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_ae67563b61f7b2e36d62636b2979232b3}
+
+
+Definition at line 162 of file editlist.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_edit_list_ae67563b61f7b2e36d62636b2979232b3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_edit_list_ae67563b61f7b2e36d62636b2979232b3_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_edit_list_a425671ff64a7e6bee3231ed8a62e87aa}{
+\index{EditList@{EditList}!setRemoteVersion@{setRemoteVersion}}
+\index{setRemoteVersion@{setRemoteVersion}!EditList@{EditList}}
+\subsubsection[{setRemoteVersion}]{\setlength{\rightskip}{0pt plus 5cm}void EditList::setRemoteVersion (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{newRemoteVersion}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_a425671ff64a7e6bee3231ed8a62e87aa}
+
+
+Definition at line 119 of file editlist.cpp.
+
+\hypertarget{class_edit_list_a8e7b3099b3ce693e01b1321b723ec65f}{
+\index{EditList@{EditList}!updateToRemote@{updateToRemote}}
+\index{updateToRemote@{updateToRemote}!EditList@{EditList}}
+\subsubsection[{updateToRemote}]{\setlength{\rightskip}{0pt plus 5cm}void EditList::updateToRemote (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{newRemoteVersion}
+\end{DoxyParamCaption}
+)}}
+\label{class_edit_list_a8e7b3099b3ce693e01b1321b723ec65f}
+Function will update \hyperlink{class_edit_list}{EditList} to a given remote version.
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & remote version to update to. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 97 of file editlist.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_edit_list_a8e7b3099b3ce693e01b1321b723ec65f_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+libraries/synchronization/models/\hyperlink{editlist_8h}{editlist.h}\item 
+libraries/synchronization/models/\hyperlink{editlist_8cpp}{editlist.cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,637 @@
+\hypertarget{class_syncable_file}{
+\section{SyncableFile Class Reference}
+\label{class_syncable_file}\index{SyncableFile@{SyncableFile}}
+}
+
+
+{\ttfamily \#include $<$syncablefile.h$>$}
+
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_syncable_file_a6f7d3887c7178af437011a3739528aa4}{fileStoppedSharing} ()
+\item 
+void \hyperlink{class_syncable_file_aa6f791c9ba6b6a334fb812049703a06f}{fileStartedSharing} ()
+\item 
+void \hyperlink{class_syncable_file_af7e647ff2106c70dd088ba925796fa18}{fileRequestsForSync} (\hyperlink{class_text_shredder_packet}{TextShredderPacket} \&)
+\item 
+void \hyperlink{class_syncable_file_a13cc1700a5695b1cce76848d1741cc25}{syncableFileChanged} ()
+\item 
+void \hyperlink{class_syncable_file_abd42e21e8c7e9c886d85675e1796580e}{syncableFileShouldBeRemoved} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_syncable_file_a526bff9bfae19da3eb36da1160d5fbe3}{SyncableFile} (QObject $\ast$parent, QString \&path)
+\item 
+\hyperlink{class_syncable_file_a76a84186e9e262ede70f2362c4efc2b1}{SyncableFile} (QObject $\ast$parent, QString \&alias, \hyperlink{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3}{FileType} type)
+\item 
+\hyperlink{class_syncable_file_a07ed75f67e26b5f8a258c12c11209ee1}{SyncableFile} (const \hyperlink{class_syncable_file}{SyncableFile} \&other)
+\item 
+\hyperlink{class_syncable_file_af420d72b6a6446840e2f6720343a53bc}{SyncableFile} (QObject $\ast$parent, QString \&identifier, QString \&alias)
+\item 
+\hyperlink{class_syncable_file}{SyncableFile} \& \hyperlink{class_syncable_file_ad28f7c64481102e24a9b92bdfa5d81d5}{operator=} (const \hyperlink{class_syncable_file}{SyncableFile} \&other)
+\item 
+bool \hyperlink{class_syncable_file_ac7e8ec7d9b962ac3b8a03fc44ffe5f84}{operator==} (const \hyperlink{class_syncable_file}{SyncableFile} \&other)
+\item 
+void \hyperlink{class_syncable_file_a7ddbefbcb6915bde00852900b240af23}{changeFileType} (\hyperlink{syncablefile_8h_a2c794c5c13ab4dd7e65bad031dbe41c3}{FileType} type)
+\item 
+void \hyperlink{class_syncable_file_ad13755c7315c239c569af843997c0ffa}{startSyncOn} (quint16, QSharedPointer$<$ \hyperlink{class_text_shredder_connection}{TextShredderConnection} $>$ connection)
+\item 
+void \hyperlink{class_syncable_file_ac62b1f7bb6afa0489c76a047dab9b203}{stopSync} ()
+\item 
+QSharedPointer$<$ \hyperlink{class_working_copy}{WorkingCopy} $>$ \hyperlink{class_syncable_file_ab646e7a3e628ec2eaf0a00110eda20f8}{getWorkingCopy} ()
+\item 
+QString \& \hyperlink{class_syncable_file_ab566d4933d0d04e9cd2551aa1c2f468a}{getFileAlias} ()
+\item 
+void \hyperlink{class_syncable_file_a38be63e6cef6773c25d1c5f1daccc080}{setFileAlias} (QString \&)
+\item 
+QString \& \hyperlink{class_syncable_file_a85be83dfe6ce5c3272aaef26bb45b1ef}{getFileIdentifier} ()
+\item 
+bool \hyperlink{class_syncable_file_a131f0d449bd537c81e8923f183cae7e2}{isShared} ()
+\item 
+bool \hyperlink{class_syncable_file_a1e62d77fcf259e500198f4d77e28d498}{isOnServer} ()
+\item 
+bool \hyperlink{class_syncable_file_a2702330bcc15c3131455f5392106c088}{isOpened} ()
+\item 
+void \hyperlink{class_syncable_file_a5f136cb23aaec934c688843a141cba92}{setShared} (bool share)
+\item 
+void \hyperlink{class_syncable_file_a9e74d9db10a0b3199177509f3ed694ff}{setOnServer} (bool value)
+\item 
+void \hyperlink{class_syncable_file_a2c342b508a96733102f96e38cb289889}{close} ()
+\item 
+void \hyperlink{class_syncable_file_a4e98844d45ce336813d2d7dc879c3f72}{open} ()
+\item 
+void \hyperlink{class_syncable_file_ab3ef540a235ffc7c479f07ad0b14f722}{requestSync} ()
+\item 
+QSharedPointer$<$ \hyperlink{class_working_copy}{WorkingCopy} $>$ \hyperlink{class_syncable_file_ab3dd03418165cb9dcaa5b8e831844d92}{openWorkingCopyForGUI} ()
+\item 
+void \hyperlink{class_syncable_file_a4255c08954993cd032fb775a2b884199}{closeWorkingCopyFromGUI} ()
+\item 
+\hyperlink{syncablefile_8h_a9c6830313033d89085f8e1389f01060d}{SyncableFileStatus} \hyperlink{class_syncable_file_aa1cca0675140234f5c68bd797abe2429}{calculateStatus} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_syncable_file_ae522f2ddafedca2b67d5883c3530293d}{doDeleteLater} (\hyperlink{class_syncable_file}{SyncableFile} $\ast$obj)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 26 of file syncablefile.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_syncable_file_a526bff9bfae19da3eb36da1160d5fbe3}{
+\index{SyncableFile@{SyncableFile}!SyncableFile@{SyncableFile}}
+\index{SyncableFile@{SyncableFile}!SyncableFile@{SyncableFile}}
+\subsubsection[{SyncableFile}]{\setlength{\rightskip}{0pt plus 5cm}SyncableFile::SyncableFile (
+\begin{DoxyParamCaption}
+\item[{QObject $\ast$}]{parent, }
+\item[{QString \&}]{path}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a526bff9bfae19da3eb36da1160d5fbe3}
+
+
+Definition at line 7 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_a76a84186e9e262ede70f2362c4efc2b1}{
+\index{SyncableFile@{SyncableFile}!SyncableFile@{SyncableFile}}
+\index{SyncableFile@{SyncableFile}!SyncableFile@{SyncableFile}}
+\subsubsection[{SyncableFile}]{\setlength{\rightskip}{0pt plus 5cm}SyncableFile::SyncableFile (
+\begin{DoxyParamCaption}
+\item[{QObject $\ast$}]{parent, }
+\item[{QString \&}]{alias, }
+\item[{{\bf FileType}}]{type}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a76a84186e9e262ede70f2362c4efc2b1}
+
+
+Definition at line 33 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_a07ed75f67e26b5f8a258c12c11209ee1}{
+\index{SyncableFile@{SyncableFile}!SyncableFile@{SyncableFile}}
+\index{SyncableFile@{SyncableFile}!SyncableFile@{SyncableFile}}
+\subsubsection[{SyncableFile}]{\setlength{\rightskip}{0pt plus 5cm}SyncableFile::SyncableFile (
+\begin{DoxyParamCaption}
+\item[{const {\bf SyncableFile} \&}]{other}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a07ed75f67e26b5f8a258c12c11209ee1}
+
+
+Definition at line 39 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_af420d72b6a6446840e2f6720343a53bc}{
+\index{SyncableFile@{SyncableFile}!SyncableFile@{SyncableFile}}
+\index{SyncableFile@{SyncableFile}!SyncableFile@{SyncableFile}}
+\subsubsection[{SyncableFile}]{\setlength{\rightskip}{0pt plus 5cm}SyncableFile::SyncableFile (
+\begin{DoxyParamCaption}
+\item[{QObject $\ast$}]{parent, }
+\item[{QString \&}]{identifier, }
+\item[{QString \&}]{alias}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_af420d72b6a6446840e2f6720343a53bc}
+
+
+Definition at line 26 of file syncablefile.cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_syncable_file_aa1cca0675140234f5c68bd797abe2429}{
+\index{SyncableFile@{SyncableFile}!calculateStatus@{calculateStatus}}
+\index{calculateStatus@{calculateStatus}!SyncableFile@{SyncableFile}}
+\subsubsection[{calculateStatus}]{\setlength{\rightskip}{0pt plus 5cm}{\bf SyncableFileStatus} SyncableFile::calculateStatus (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_aa1cca0675140234f5c68bd797abe2429}
+
+
+Definition at line 243 of file syncablefile.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=380pt]{class_syncable_file_aa1cca0675140234f5c68bd797abe2429_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_a7ddbefbcb6915bde00852900b240af23}{
+\index{SyncableFile@{SyncableFile}!changeFileType@{changeFileType}}
+\index{changeFileType@{changeFileType}!SyncableFile@{SyncableFile}}
+\subsubsection[{changeFileType}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::changeFileType (
+\begin{DoxyParamCaption}
+\item[{{\bf FileType}}]{type}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a7ddbefbcb6915bde00852900b240af23}
+Will change the file type for the \hyperlink{class_syncable_file}{SyncableFile} 
+
+Definition at line 65 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_a2c342b508a96733102f96e38cb289889}{
+\index{SyncableFile@{SyncableFile}!close@{close}}
+\index{close@{close}!SyncableFile@{SyncableFile}}
+\subsubsection[{close}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::close (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a2c342b508a96733102f96e38cb289889}
+
+
+Definition at line 88 of file syncablefile.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_syncable_file_a2c342b508a96733102f96e38cb289889_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_a4255c08954993cd032fb775a2b884199}{
+\index{SyncableFile@{SyncableFile}!closeWorkingCopyFromGUI@{closeWorkingCopyFromGUI}}
+\index{closeWorkingCopyFromGUI@{closeWorkingCopyFromGUI}!SyncableFile@{SyncableFile}}
+\subsubsection[{closeWorkingCopyFromGUI}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::closeWorkingCopyFromGUI (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a4255c08954993cd032fb775a2b884199}
+
+
+Definition at line 191 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_ae522f2ddafedca2b67d5883c3530293d}{
+\index{SyncableFile@{SyncableFile}!doDeleteLater@{doDeleteLater}}
+\index{doDeleteLater@{doDeleteLater}!SyncableFile@{SyncableFile}}
+\subsubsection[{doDeleteLater}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::doDeleteLater (
+\begin{DoxyParamCaption}
+\item[{{\bf SyncableFile} $\ast$}]{obj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_syncable_file_ae522f2ddafedca2b67d5883c3530293d}
+
+
+Definition at line 176 of file syncablefile.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_syncable_file_ae522f2ddafedca2b67d5883c3530293d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_af7e647ff2106c70dd088ba925796fa18}{
+\index{SyncableFile@{SyncableFile}!fileRequestsForSync@{fileRequestsForSync}}
+\index{fileRequestsForSync@{fileRequestsForSync}!SyncableFile@{SyncableFile}}
+\subsubsection[{fileRequestsForSync}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::fileRequestsForSync (
+\begin{DoxyParamCaption}
+\item[{{\bf TextShredderPacket} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
+\label{class_syncable_file_af7e647ff2106c70dd088ba925796fa18}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_syncable_file_af7e647ff2106c70dd088ba925796fa18_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_aa6f791c9ba6b6a334fb812049703a06f}{
+\index{SyncableFile@{SyncableFile}!fileStartedSharing@{fileStartedSharing}}
+\index{fileStartedSharing@{fileStartedSharing}!SyncableFile@{SyncableFile}}
+\subsubsection[{fileStartedSharing}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::fileStartedSharing (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
+\label{class_syncable_file_aa6f791c9ba6b6a334fb812049703a06f}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=396pt]{class_syncable_file_aa6f791c9ba6b6a334fb812049703a06f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_a6f7d3887c7178af437011a3739528aa4}{
+\index{SyncableFile@{SyncableFile}!fileStoppedSharing@{fileStoppedSharing}}
+\index{fileStoppedSharing@{fileStoppedSharing}!SyncableFile@{SyncableFile}}
+\subsubsection[{fileStoppedSharing}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::fileStoppedSharing (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
+\label{class_syncable_file_a6f7d3887c7178af437011a3739528aa4}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_syncable_file_a6f7d3887c7178af437011a3739528aa4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_ab566d4933d0d04e9cd2551aa1c2f468a}{
+\index{SyncableFile@{SyncableFile}!getFileAlias@{getFileAlias}}
+\index{getFileAlias@{getFileAlias}!SyncableFile@{SyncableFile}}
+\subsubsection[{getFileAlias}]{\setlength{\rightskip}{0pt plus 5cm}QString \& SyncableFile::getFileAlias (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_ab566d4933d0d04e9cd2551aa1c2f468a}
+
+
+Definition at line 119 of file syncablefile.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_syncable_file_ab566d4933d0d04e9cd2551aa1c2f468a_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_a85be83dfe6ce5c3272aaef26bb45b1ef}{
+\index{SyncableFile@{SyncableFile}!getFileIdentifier@{getFileIdentifier}}
+\index{getFileIdentifier@{getFileIdentifier}!SyncableFile@{SyncableFile}}
+\subsubsection[{getFileIdentifier}]{\setlength{\rightskip}{0pt plus 5cm}QString \& SyncableFile::getFileIdentifier (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a85be83dfe6ce5c3272aaef26bb45b1ef}
+
+
+Definition at line 124 of file syncablefile.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_syncable_file_a85be83dfe6ce5c3272aaef26bb45b1ef_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_ab646e7a3e628ec2eaf0a00110eda20f8}{
+\index{SyncableFile@{SyncableFile}!getWorkingCopy@{getWorkingCopy}}
+\index{getWorkingCopy@{getWorkingCopy}!SyncableFile@{SyncableFile}}
+\subsubsection[{getWorkingCopy}]{\setlength{\rightskip}{0pt plus 5cm}QSharedPointer$<$ {\bf WorkingCopy} $>$ SyncableFile::getWorkingCopy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_ab646e7a3e628ec2eaf0a00110eda20f8}
+
+
+Definition at line 114 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_a1e62d77fcf259e500198f4d77e28d498}{
+\index{SyncableFile@{SyncableFile}!isOnServer@{isOnServer}}
+\index{isOnServer@{isOnServer}!SyncableFile@{SyncableFile}}
+\subsubsection[{isOnServer}]{\setlength{\rightskip}{0pt plus 5cm}bool SyncableFile::isOnServer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a1e62d77fcf259e500198f4d77e28d498}
+
+
+Definition at line 234 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_a2702330bcc15c3131455f5392106c088}{
+\index{SyncableFile@{SyncableFile}!isOpened@{isOpened}}
+\index{isOpened@{isOpened}!SyncableFile@{SyncableFile}}
+\subsubsection[{isOpened}]{\setlength{\rightskip}{0pt plus 5cm}bool SyncableFile::isOpened (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a2702330bcc15c3131455f5392106c088}
+
+
+Definition at line 83 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_a131f0d449bd537c81e8923f183cae7e2}{
+\index{SyncableFile@{SyncableFile}!isShared@{isShared}}
+\index{isShared@{isShared}!SyncableFile@{SyncableFile}}
+\subsubsection[{isShared}]{\setlength{\rightskip}{0pt plus 5cm}bool SyncableFile::isShared (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a131f0d449bd537c81e8923f183cae7e2}
+
+
+Definition at line 129 of file syncablefile.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=380pt]{class_syncable_file_a131f0d449bd537c81e8923f183cae7e2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_a4e98844d45ce336813d2d7dc879c3f72}{
+\index{SyncableFile@{SyncableFile}!open@{open}}
+\index{open@{open}!SyncableFile@{SyncableFile}}
+\subsubsection[{open}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::open (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a4e98844d45ce336813d2d7dc879c3f72}
+
+
+Definition at line 108 of file syncablefile.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=390pt]{class_syncable_file_a4e98844d45ce336813d2d7dc879c3f72_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_ab3dd03418165cb9dcaa5b8e831844d92}{
+\index{SyncableFile@{SyncableFile}!openWorkingCopyForGUI@{openWorkingCopyForGUI}}
+\index{openWorkingCopyForGUI@{openWorkingCopyForGUI}!SyncableFile@{SyncableFile}}
+\subsubsection[{openWorkingCopyForGUI}]{\setlength{\rightskip}{0pt plus 5cm}QSharedPointer$<$ {\bf WorkingCopy} $>$ SyncableFile::openWorkingCopyForGUI (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_ab3dd03418165cb9dcaa5b8e831844d92}
+
+
+Definition at line 186 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_ad28f7c64481102e24a9b92bdfa5d81d5}{
+\index{SyncableFile@{SyncableFile}!operator=@{operator=}}
+\index{operator=@{operator=}!SyncableFile@{SyncableFile}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf SyncableFile} \& SyncableFile::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf SyncableFile} \&}]{other}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_ad28f7c64481102e24a9b92bdfa5d81d5}
+
+
+Definition at line 54 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_ac7e8ec7d9b962ac3b8a03fc44ffe5f84}{
+\index{SyncableFile@{SyncableFile}!operator==@{operator==}}
+\index{operator==@{operator==}!SyncableFile@{SyncableFile}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool SyncableFile::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf SyncableFile} \&}]{other}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_ac7e8ec7d9b962ac3b8a03fc44ffe5f84}
+
+
+Definition at line 49 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_ab3ef540a235ffc7c479f07ad0b14f722}{
+\index{SyncableFile@{SyncableFile}!requestSync@{requestSync}}
+\index{requestSync@{requestSync}!SyncableFile@{SyncableFile}}
+\subsubsection[{requestSync}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::requestSync (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_ab3ef540a235ffc7c479f07ad0b14f722}
+
+
+Definition at line 164 of file syncablefile.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_syncable_file_ab3ef540a235ffc7c479f07ad0b14f722_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_a38be63e6cef6773c25d1c5f1daccc080}{
+\index{SyncableFile@{SyncableFile}!setFileAlias@{setFileAlias}}
+\index{setFileAlias@{setFileAlias}!SyncableFile@{SyncableFile}}
+\subsubsection[{setFileAlias}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::setFileAlias (
+\begin{DoxyParamCaption}
+\item[{QString \&}]{newFileAlias}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a38be63e6cef6773c25d1c5f1daccc080}
+
+
+Definition at line 181 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_a9e74d9db10a0b3199177509f3ed694ff}{
+\index{SyncableFile@{SyncableFile}!setOnServer@{setOnServer}}
+\index{setOnServer@{setOnServer}!SyncableFile@{SyncableFile}}
+\subsubsection[{setOnServer}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::setOnServer (
+\begin{DoxyParamCaption}
+\item[{bool}]{value}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a9e74d9db10a0b3199177509f3ed694ff}
+
+
+Definition at line 238 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_a5f136cb23aaec934c688843a141cba92}{
+\index{SyncableFile@{SyncableFile}!setShared@{setShared}}
+\index{setShared@{setShared}!SyncableFile@{SyncableFile}}
+\subsubsection[{setShared}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::setShared (
+\begin{DoxyParamCaption}
+\item[{bool}]{share}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_a5f136cb23aaec934c688843a141cba92}
+
+
+Definition at line 134 of file syncablefile.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_syncable_file_a5f136cb23aaec934c688843a141cba92_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_ad13755c7315c239c569af843997c0ffa}{
+\index{SyncableFile@{SyncableFile}!startSyncOn@{startSyncOn}}
+\index{startSyncOn@{startSyncOn}!SyncableFile@{SyncableFile}}
+\subsubsection[{startSyncOn}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::startSyncOn (
+\begin{DoxyParamCaption}
+\item[{quint16}]{destination, }
+\item[{QSharedPointer$<$ {\bf TextShredderConnection} $>$}]{connection}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_ad13755c7315c239c569af843997c0ffa}
+
+
+Definition at line 195 of file syncablefile.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_syncable_file_ad13755c7315c239c569af843997c0ffa_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_ac62b1f7bb6afa0489c76a047dab9b203}{
+\index{SyncableFile@{SyncableFile}!stopSync@{stopSync}}
+\index{stopSync@{stopSync}!SyncableFile@{SyncableFile}}
+\subsubsection[{stopSync}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::stopSync (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_syncable_file_ac62b1f7bb6afa0489c76a047dab9b203}
+
+
+Definition at line 159 of file syncablefile.cpp.
+
+\hypertarget{class_syncable_file_a13cc1700a5695b1cce76848d1741cc25}{
+\index{SyncableFile@{SyncableFile}!syncableFileChanged@{syncableFileChanged}}
+\index{syncableFileChanged@{syncableFileChanged}!SyncableFile@{SyncableFile}}
+\subsubsection[{syncableFileChanged}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::syncableFileChanged (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
+\label{class_syncable_file_a13cc1700a5695b1cce76848d1741cc25}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_syncable_file_a13cc1700a5695b1cce76848d1741cc25_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_syncable_file_abd42e21e8c7e9c886d85675e1796580e}{
+\index{SyncableFile@{SyncableFile}!syncableFileShouldBeRemoved@{syncableFileShouldBeRemoved}}
+\index{syncableFileShouldBeRemoved@{syncableFileShouldBeRemoved}!SyncableFile@{SyncableFile}}
+\subsubsection[{syncableFileShouldBeRemoved}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::syncableFileShouldBeRemoved (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
+\label{class_syncable_file_abd42e21e8c7e9c886d85675e1796580e}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_syncable_file_abd42e21e8c7e9c886d85675e1796580e_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+libraries/synchronization/models/\hyperlink{syncablefile_8h}{syncablefile.h}\item 
+libraries/synchronization/models/\hyperlink{syncablefile_8cpp}{syncablefile.cpp}\end{DoxyCompactItemize}

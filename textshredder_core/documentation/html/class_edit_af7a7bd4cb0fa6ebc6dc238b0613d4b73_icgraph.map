@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_edit_list.html#ace8dff1c04b64ed883808949b3b5c650" title="EditList::getAllocatedPacket" alt="" coords="280,5,467,35"/>
+<area shape="rect" id="node5" href="$class_sync_thread.html#ae2a92c2744e665d492f43130757453da" title="SyncThread::writePacketOfEditList" alt="" coords="515,5,741,35"/>
+<area shape="rect" id="node7" href="$class_sync_thread.html#a94389440ca73f3f638c73ed9075dc0e0" title="SyncThread::pushChanges" alt="" coords="791,5,969,35"/>
+</map>

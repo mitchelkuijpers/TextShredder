@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_text_shredder_header.html#a9b2b89e987bd2836e367def221982ba4" title="TextShredderHeader::getConnectionHandle" alt="" coords="283,5,557,35"/>
+<area shape="rect" id="node5" href="$class_text_shredder_packet.html#a01843c9ad788273caf58a93d01eb33d8" title="TextShredderPacket::getHeader" alt="" coords="639,84,847,113"/>
+<area shape="rect" id="node7" href="$class_text_shredder_header.html#a2e4f22ee325b12ab1eab01e908eb4b73" title="TextShredderHeader::setConnectionHandle" alt="" coords="605,163,880,192"/>
+<area shape="rect" id="node9" href="$class_sync_thread.html#a698ef3633b24d3529a6c17e5e3a99170" title="SyncThread::startSync" alt="" coords="343,163,497,192"/>
+<area shape="rect" id="node11" href="$class_sync_thread.html#a954c2e1a65ff3a473c3c7dc5350e0497" title="SyncThread::writePacketOnConnection" alt="" coords="295,109,545,139"/>
+</map>

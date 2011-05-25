@@ -1,0 +1,187 @@
+\hypertarget{class_patch}{
+\section{Patch Class Reference}
+\label{class_patch}\index{Patch@{Patch}}
+}
+
+
+{\ttfamily \#include $<$diff\_\-match\_\-patch.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_patch_a65fdd4bb128b8f50c1b9dcc008f20360}{Patch} ()
+\item 
+bool \hyperlink{class_patch_afdc9aba846465494845201a26d0fc20f}{isNull} () const 
+\item 
+QString \hyperlink{class_patch_a53799d5296a89879d88f76c8f10602e7}{toString} ()
+\item 
+bool \hyperlink{class_patch_a2159b94942e91391e8d4e29d06735286}{operator==} (const \hyperlink{class_patch}{Patch} \&)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QList$<$ \hyperlink{class_diff}{Diff} $>$ \hyperlink{class_patch_a5017c7eb1118cc8ebe7030dd7a86475a}{diffs}
+\item 
+int \hyperlink{class_patch_ae2fbf0aefd6ab5aeec4379cf388ff158}{start1}
+\item 
+int \hyperlink{class_patch_a1ceab2853be39f706627f98e4d2ad8d6}{start2}
+\item 
+int \hyperlink{class_patch_a6f1d748d94184a8f492bece1f967777d}{length1}
+\item 
+int \hyperlink{class_patch_a9ef05324cac27ec93ebd0be4270e9d1e}{length2}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class representing one patch operation. 
+
+Definition at line 107 of file diff\_\-match\_\-patch.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_patch_a65fdd4bb128b8f50c1b9dcc008f20360}{
+\index{Patch@{Patch}!Patch@{Patch}}
+\index{Patch@{Patch}!Patch@{Patch}}
+\subsubsection[{Patch}]{\setlength{\rightskip}{0pt plus 5cm}Patch::Patch (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_patch_a65fdd4bb128b8f50c1b9dcc008f20360}
+Constructor. Initializes with an empty list of diffs. 
+
+Definition at line 99 of file diff\_\-match\_\-patch.cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_patch_afdc9aba846465494845201a26d0fc20f}{
+\index{Patch@{Patch}!isNull@{isNull}}
+\index{isNull@{isNull}!Patch@{Patch}}
+\subsubsection[{isNull}]{\setlength{\rightskip}{0pt plus 5cm}bool Patch::isNull (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_patch_afdc9aba846465494845201a26d0fc20f}
+
+
+Definition at line 104 of file diff\_\-match\_\-patch.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_patch_afdc9aba846465494845201a26d0fc20f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_patch_a2159b94942e91391e8d4e29d06735286}{
+\index{Patch@{Patch}!operator==@{operator==}}
+\index{operator==@{operator==}!Patch@{Patch}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool Patch::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Patch} \&}]{otherPatch}
+\end{DoxyParamCaption}
+)}}
+\label{class_patch_a2159b94942e91391e8d4e29d06735286}
+
+
+Definition at line 112 of file diff\_\-match\_\-patch.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{class_patch_a2159b94942e91391e8d4e29d06735286_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_patch_a53799d5296a89879d88f76c8f10602e7}{
+\index{Patch@{Patch}!toString@{toString}}
+\index{toString@{toString}!Patch@{Patch}}
+\subsubsection[{toString}]{\setlength{\rightskip}{0pt plus 5cm}QString Patch::toString (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_patch_a53799d5296a89879d88f76c8f10602e7}
+Emmulate GNU diff's format. Header: @ -\/382,8 +481,9 @ Indicies are printed as 1-\/based, not 0-\/based. \begin{DoxyReturn}{Returns}
+The GNU diff string 
+\end{DoxyReturn}
+
+
+Definition at line 124 of file diff\_\-match\_\-patch.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_patch_a53799d5296a89879d88f76c8f10602e7_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_patch_a5017c7eb1118cc8ebe7030dd7a86475a}{
+\index{Patch@{Patch}!diffs@{diffs}}
+\index{diffs@{diffs}!Patch@{Patch}}
+\subsubsection[{diffs}]{\setlength{\rightskip}{0pt plus 5cm}QList$<${\bf Diff}$>$ {\bf Patch::diffs}}}
+\label{class_patch_a5017c7eb1118cc8ebe7030dd7a86475a}
+
+
+Definition at line 109 of file diff\_\-match\_\-patch.h.
+
+\hypertarget{class_patch_a6f1d748d94184a8f492bece1f967777d}{
+\index{Patch@{Patch}!length1@{length1}}
+\index{length1@{length1}!Patch@{Patch}}
+\subsubsection[{length1}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf Patch::length1}}}
+\label{class_patch_a6f1d748d94184a8f492bece1f967777d}
+
+
+Definition at line 112 of file diff\_\-match\_\-patch.h.
+
+\hypertarget{class_patch_a9ef05324cac27ec93ebd0be4270e9d1e}{
+\index{Patch@{Patch}!length2@{length2}}
+\index{length2@{length2}!Patch@{Patch}}
+\subsubsection[{length2}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf Patch::length2}}}
+\label{class_patch_a9ef05324cac27ec93ebd0be4270e9d1e}
+
+
+Definition at line 113 of file diff\_\-match\_\-patch.h.
+
+\hypertarget{class_patch_ae2fbf0aefd6ab5aeec4379cf388ff158}{
+\index{Patch@{Patch}!start1@{start1}}
+\index{start1@{start1}!Patch@{Patch}}
+\subsubsection[{start1}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf Patch::start1}}}
+\label{class_patch_ae2fbf0aefd6ab5aeec4379cf388ff158}
+
+
+Definition at line 110 of file diff\_\-match\_\-patch.h.
+
+\hypertarget{class_patch_a1ceab2853be39f706627f98e4d2ad8d6}{
+\index{Patch@{Patch}!start2@{start2}}
+\index{start2@{start2}!Patch@{Patch}}
+\subsubsection[{start2}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf Patch::start2}}}
+\label{class_patch_a1ceab2853be39f706627f98e4d2ad8d6}
+
+
+Definition at line 111 of file diff\_\-match\_\-patch.h.
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+libraries/diff\_\-match\_\-patch/\hyperlink{diff__match__patch_8h}{diff\_\-match\_\-patch.h}\item 
+libraries/diff\_\-match\_\-patch/\hyperlink{diff__match__patch_8cpp}{diff\_\-match\_\-patch.cpp}\end{DoxyCompactItemize}

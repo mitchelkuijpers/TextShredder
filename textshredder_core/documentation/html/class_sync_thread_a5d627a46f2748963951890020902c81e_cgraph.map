@@ -1,0 +1,36 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_sync_thread.html#a15b6e123fe1c76643597836618256619" title="SyncThread::applyReceivedEditList" alt="" coords="255,323,484,352"/>
+<area shape="rect" id="node76" href="$class_text_shredder_logging.html#a2601dcb09435776bf37e633c56e40e63" title="TextShredderLogging::writeLog" alt="" coords="548,589,751,619"/>
+<area shape="rect" id="node5" href="$class_shadow_copy.html#a536db8c68e3b5cf89b30b609012fb13a" title="ShadowCopy::applyEdits" alt="" coords="565,216,733,245"/>
+<area shape="rect" id="node43" href="$class_edit.html#ae4989945109f8d569796b32cd7713969" title="Edit::getPatches" alt="" coords="855,191,972,220"/>
+<area shape="rect" id="node45" href="$class_shadow_copy.html#a222d6d0835c4dea04c5f3d4a4ebf6e82" title="ShadowCopy::applyLocalEdits" alt="" coords="549,269,749,299"/>
+<area shape="rect" id="node50" href="$class_shadow_copy.html#a7c6bfe84627fa3d8afd1b5a09fde6a0e" title="ShadowCopy::backup" alt="" coords="575,376,724,405"/>
+<area shape="rect" id="node56" href="$class_edit_list.html#a4527628441bec5a178f04dd9c5b1a433" title="EditList::getEdits" alt="" coords="588,429,711,459"/>
+<area shape="rect" id="node58" href="$class_shadow_copy.html#a53ea25db19b20a6770e60d81a6b507f4" title="ShadowCopy::getLocalVersion" alt="" coords="549,483,749,512"/>
+<area shape="rect" id="node61" href="$class_shadow_copy.html#a4bfafd0823dbc2788c936608ec22ea54" title="ShadowCopy::getRemoteVersion" alt="" coords="541,536,757,565"/>
+<area shape="rect" id="node63" href="$class_edit_list.html#a00c2180e295bcb80830f782c04d3e0ee" title="EditList::getRemoteVersion" alt="" coords="559,5,740,35"/>
+<area shape="rect" id="node65" href="$class_edit_list.html#ae67563b61f7b2e36d62636b2979232b3" title="EditList::popEditsUpToLocalVersion" alt="" coords="533,323,765,352"/>
+<area shape="rect" id="node68" href="$class_shadow_copy.html#aafdb5f83bfac6e782fee171272883a56" title="ShadowCopy::revert" alt="" coords="579,59,720,88"/>
+<area shape="rect" id="node74" href="$class_edit_list.html#a8e7b3099b3ce693e01b1321b723ec65f" title="EditList::updateToRemote" alt="" coords="563,112,736,141"/>
+<area shape="rect" id="node7" href="$class_patchable.html#a38e7876689db45f8e3a45d65ccdc6009" title="Patchable::applyPatches" alt="" coords="831,244,996,273"/>
+<area shape="rect" id="node41" href="$class_edit.html#a6e7a8b3892d028eb64860e87c73aef24" title="Edit::getLocalVersion" alt="" coords="840,297,987,327"/>
+<area shape="rect" id="node9" href="$classdiff__match__patch.html#acbdd755dfb40abc85760b4f8fbcdc98f" title="diff_match_patch::patch_apply" alt="" coords="1061,244,1261,273"/>
+<area shape="rect" id="node11" href="$classdiff__match__patch.html#afd96870070c1dc460d1c261fa3f0f485" title="diff_match_patch::diff_cleanupSemanticLossless" alt="" coords="1309,7,1616,36"/>
+<area shape="rect" id="node15" href="$classdiff__match__patch.html#a5183e0300c4fbe6b993cae9844f57c11" title="diff_match_patch::diff_levenshtein" alt="" coords="1352,60,1573,89"/>
+<area shape="rect" id="node17" href="$classdiff__match__patch.html#a82fe78383b2fddf542fe83e057252e53" title="diff_match_patch::diff_main" alt="" coords="1372,113,1553,143"/>
+<area shape="rect" id="node19" href="$classdiff__match__patch.html#a6a1995ece702b50091f3883518864ea7" title="diff_match_patch::diff_text1" alt="" coords="1692,164,1876,193"/>
+<area shape="rect" id="node21" href="$classdiff__match__patch.html#a9d3e1424496704a7e1d1f7995d465f20" title="diff_match_patch::diff_text2" alt="" coords="1692,271,1876,300"/>
+<area shape="rect" id="node23" href="$classdiff__match__patch.html#a91474da17c89bab2ca34efa207fe85b4" title="diff_match_patch::diff_xIndex" alt="" coords="1365,321,1560,351"/>
+<area shape="rect" id="node25" href="$classdiff__match__patch.html#aab1a27bfbb05e041a969617bf6594c23" title="diff_match_patch::match_main" alt="" coords="1363,375,1563,404"/>
+<area shape="rect" id="node31" href="$classdiff__match__patch.html#a03d8b23bf20cbfc3e454aad38ff366d8" title="diff_match_patch::patch_addPadding" alt="" coords="1344,428,1581,457"/>
+<area shape="rect" id="node33" href="$classdiff__match__patch.html#aa4b405c41f79af23a8e60129c8e9a721" title="diff_match_patch::patch_deepCopy" alt="" coords="1349,481,1576,511"/>
+<area shape="rect" id="node35" href="$classdiff__match__patch.html#a8b026488adde70dcc268fc50d170f4e3" title="diff_match_patch::patch_splitMax" alt="" coords="1353,217,1572,247"/>
+<area shape="rect" id="node13" href="$classdiff__match__patch.html#aed765d65d9e6fb78de3725416a262586" title="diff_match_patch::diff_commonSuffix" alt="" coords="1665,7,1903,36"/>
+<area shape="rect" id="node27" href="$classdiff__match__patch.html#a9d8ebaab2f4cd4fb2ab01a3110c56b86" title="diff_match_patch::match_bitap" alt="" coords="1684,375,1884,404"/>
+<area shape="rect" id="node29" href="$classdiff__match__patch.html#a106c32e9978fc36cafe6f1bc8f81bf8d" title="diff_match_patch::match_alphabet" alt="" coords="1953,375,2175,404"/>
+<area shape="rect" id="node39" href="$class_patch.html#afdc9aba846465494845201a26d0fc20f" title="Patch::isNull" alt="" coords="1736,217,1832,247"/>
+<area shape="rect" id="node52" href="$class_patchable.html#aa386892c91c1718cd5151ccc491e1bbf" title="Patchable::setContent" alt="" coords="837,429,989,459"/>
+<area shape="rect" id="node54" href="$class_backup_copy.html#ad45949032ac10d51fbf434d2dd14f0ad" title="BackupCopy::setLocalVersion" alt="" coords="815,376,1012,405"/>
+<area shape="rect" id="node70" href="$class_patchable.html#a5abdd9e99d4ab7287cd1f47b23294bea" title="Patchable::getContent" alt="" coords="837,85,989,115"/>
+<area shape="rect" id="node72" href="$class_backup_copy.html#aabb99f6658042af9c1713f3e3ffb77a4" title="BackupCopy::getLocalVersion" alt="" coords="815,32,1012,61"/>
+</map>

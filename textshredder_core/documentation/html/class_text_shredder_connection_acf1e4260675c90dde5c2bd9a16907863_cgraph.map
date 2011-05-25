@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_text_shredder_header.html#ad7e8deeb7d42051266808cd1552ec4dc" title="TextShredderHeader::appendToQByteArray" alt="" coords="256,5,531,35"/>
+<area shape="rect" id="node5" href="$class_text_shredder_packet.html#a406e7051b2b719b600b149e263d45d65" title="TextShredderPacket::getContent" alt="" coords="287,59,500,88"/>
+<area shape="rect" id="node7" href="$class_text_shredder_packet.html#a01843c9ad788273caf58a93d01eb33d8" title="TextShredderPacket::getHeader" alt="" coords="289,112,497,141"/>
+</map>

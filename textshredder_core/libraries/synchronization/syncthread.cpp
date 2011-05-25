@@ -120,6 +120,8 @@ void SyncThread::writePacketOnConnection(TextShredderPacket &packet)
 
 void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 {
+	beforeLock();
+
 	QString editListMessage("+ Received EditList, based on version: ");
 	editListMessage += QString::number(incomingEditList.getRemoteVersion());
 	logging.writeLog (editListMessage, DEBUG);
@@ -163,6 +165,8 @@ void SyncThread::applyReceivedEditList(EditList &incomingEditList)
 	editList.unlock ();
 	workingCopyPointer.data()->unlock();
 	shadowCopy.unlock ();
+
+	afterLock();
 }
 
 void SyncThread::receivedEndSynchronizationPacket(quint16 destination) {
@@ -224,9 +228,7 @@ void SyncThread::connectSignalsForSynchronization()
 	connect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
 	connect(connectionPointer.data(), SIGNAL(incomingEndSynchronizationPacket(quint16)), this, SLOT(receivedEndSynchronizationPacket(quint16)));
 	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
-	#ifdef QT_DEBUG
 	connect(this, SIGNAL(addToAverageLockTime(uint)), PerformanceCalculator::Instance(), SLOT(addNewLockTime(uint)));
-	#endif
 }
 void SyncThread::disconnectSignalsForSynchronization()
 {
@@ -249,6 +251,5 @@ void SyncThread::beforeLock()
 void SyncThread::afterLock()
 {
 	unsigned int milliseconds = performanceTime.elapsed();
-	qDebug() << "last lock time: " << milliseconds;
 	emit addToAverageLockTime(milliseconds);
 }

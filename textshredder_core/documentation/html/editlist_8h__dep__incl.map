@@ -1,0 +1,15 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$syncthread_8h.html" title="libraries/synchronization/syncthread.h" alt="" coords="592,83,832,112"/>
+<area shape="rect" id="node26" href="$editlist_8cpp.html" title="libraries/synchronization/models/editlist.cpp" alt="" coords="856,83,1131,112"/>
+<area shape="rect" id="node28" href="$shadowcopy_8cpp.html" title="libraries/synchronization/models/shadowcopy.cpp" alt="" coords="1155,83,1464,112"/>
+<area shape="rect" id="node5" href="$syncablefile_8h.html" title="libraries/synchronization/models/syncablefile.h" alt="" coords="376,160,667,189"/>
+<area shape="rect" id="node13" href="$clientrepresentation_8h.html" title="libraries/synchronization/clientrepresentation.h" alt="" coords="480,392,771,421"/>
+<area shape="rect" id="node24" href="$syncthread_8cpp.html" title="libraries/synchronization/syncthread.cpp" alt="" coords="749,160,1003,189"/>
+<area shape="rect" id="node7" href="$filemanager_8h.html" title="libraries/synchronization/filemanager.h" alt="" coords="101,237,344,267"/>
+<area shape="rect" id="node21" href="$syncablefile_8cpp.html" title="libraries/synchronization/models/syncablefile.cpp" alt="" coords="368,237,675,267"/>
+<area shape="rect" id="node9" href="$client_8cpp.html" title="client/client.cpp" alt="" coords="5,315,117,344"/>
+<area shape="rect" id="node11" href="$filesync_8h.html" title="libraries/synchronization/filesync.h" alt="" coords="141,315,363,344"/>
+<area shape="rect" id="node19" href="$filemanager_8cpp.html" title="libraries/synchronization/filemanager.cpp" alt="" coords="387,315,645,344"/>
+<area shape="rect" id="node17" href="$filesync_8cpp.html" title="libraries/synchronization/filesync.cpp" alt="" coords="135,392,369,421"/>
+<area shape="rect" id="node15" href="$clientrepresentation_8cpp.html" title="libraries/synchronization/clientrepresentation.cpp" alt="" coords="473,469,777,499"/>
+</map>

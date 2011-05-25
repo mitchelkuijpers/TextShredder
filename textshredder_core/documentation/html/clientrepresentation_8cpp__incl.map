@@ -1,0 +1,13 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$clientrepresentation_8h.html" title="clientrepresentation.h" alt="" coords="2023,83,2169,112"/>
+<area shape="rect" id="node11" href="$syncthread_8h.html" title="./syncthread.h" alt="" coords="993,160,1097,189"/>
+<area shape="rect" id="node62" href="$filesync_8h.html" title="./filesync.h" alt="" coords="2111,160,2196,189"/>
+<area shape="rect" id="node17" href="$editlist_8h.html" title="models/editlist.h" alt="" coords="515,237,632,267"/>
+<area shape="rect" id="node31" href="$shadowcopy_8h.html" title="models/shadowcopy.h" alt="" coords="339,237,491,267"/>
+<area shape="rect" id="node47" href="$workingcopy_8h.html" title="models/workingcopy.h" alt="" coords="59,237,211,267"/>
+<area shape="rect" id="node24" href="$edit_8h.html" title="edit.h" alt="" coords="845,315,899,344"/>
+<area shape="rect" id="node35" href="$backupcopy_8h.html" title="backupcopy.h" alt="" coords="669,315,771,344"/>
+<area shape="rect" id="node38" href="$patchable_8h.html" title="patchable.h" alt="" coords="600,392,688,421"/>
+<area shape="rect" id="node68" href="$filemanager_8h.html" title="filemanager.h" alt="" coords="2296,237,2395,267"/>
+<area shape="rect" id="node71" href="$syncablefile_8h.html" title="models/syncablefile.h" alt="" coords="2383,315,2529,344"/>
+</map>

@@ -1,0 +1,17 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classdiff__match__patch.html#acbdd755dfb40abc85760b4f8fbcdc98f" title="diff_match_patch::patch_apply" alt="" coords="221,244,421,273"/>
+<area shape="rect" id="node5" href="$classdiff__match__patch.html#afd96870070c1dc460d1c261fa3f0f485" title="diff_match_patch::diff_cleanupSemanticLossless" alt="" coords="469,5,776,35"/>
+<area shape="rect" id="node9" href="$classdiff__match__patch.html#a5183e0300c4fbe6b993cae9844f57c11" title="diff_match_patch::diff_levenshtein" alt="" coords="512,59,733,88"/>
+<area shape="rect" id="node11" href="$classdiff__match__patch.html#a82fe78383b2fddf542fe83e057252e53" title="diff_match_patch::diff_main" alt="" coords="532,112,713,141"/>
+<area shape="rect" id="node13" href="$classdiff__match__patch.html#a6a1995ece702b50091f3883518864ea7" title="diff_match_patch::diff_text1" alt="" coords="852,244,1036,273"/>
+<area shape="rect" id="node15" href="$classdiff__match__patch.html#a9d3e1424496704a7e1d1f7995d465f20" title="diff_match_patch::diff_text2" alt="" coords="852,429,1036,459"/>
+<area shape="rect" id="node17" href="$classdiff__match__patch.html#a91474da17c89bab2ca34efa207fe85b4" title="diff_match_patch::diff_xIndex" alt="" coords="525,269,720,299"/>
+<area shape="rect" id="node19" href="$classdiff__match__patch.html#aab1a27bfbb05e041a969617bf6594c23" title="diff_match_patch::match_main" alt="" coords="523,165,723,195"/>
+<area shape="rect" id="node25" href="$classdiff__match__patch.html#a03d8b23bf20cbfc3e454aad38ff366d8" title="diff_match_patch::patch_addPadding" alt="" coords="504,376,741,405"/>
+<area shape="rect" id="node27" href="$classdiff__match__patch.html#aa4b405c41f79af23a8e60129c8e9a721" title="diff_match_patch::patch_deepCopy" alt="" coords="509,429,736,459"/>
+<area shape="rect" id="node29" href="$classdiff__match__patch.html#a8b026488adde70dcc268fc50d170f4e3" title="diff_match_patch::patch_splitMax" alt="" coords="513,323,732,352"/>
+<area shape="rect" id="node7" href="$classdiff__match__patch.html#aed765d65d9e6fb78de3725416a262586" title="diff_match_patch::diff_commonSuffix" alt="" coords="825,5,1063,35"/>
+<area shape="rect" id="node21" href="$classdiff__match__patch.html#a9d8ebaab2f4cd4fb2ab01a3110c56b86" title="diff_match_patch::match_bitap" alt="" coords="844,165,1044,195"/>
+<area shape="rect" id="node23" href="$classdiff__match__patch.html#a106c32e9978fc36cafe6f1bc8f81bf8d" title="diff_match_patch::match_alphabet" alt="" coords="1113,165,1335,195"/>
+<area shape="rect" id="node33" href="$class_patch.html#afdc9aba846465494845201a26d0fc20f" title="Patch::isNull" alt="" coords="896,323,992,352"/>
+</map>

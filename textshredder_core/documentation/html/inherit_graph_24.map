@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="node1" href="$class_text_shredder_packet.html" title="TextShredderPacket" alt="" coords="5,165,147,195"/>
+<area shape="rect" id="node3" href="$class_available_files_request_packet.html" title="AvailableFilesRequestPacket" alt="" coords="196,5,388,35"/>
+<area shape="rect" id="node5" href="$class_end_synchronization_packet.html" title="EndSynchronizationPacket" alt="" coords="203,59,381,88"/>
+<area shape="rect" id="node7" href="$class_file_data_packet.html" title="FileDataPacket" alt="" coords="236,112,348,141"/>
+<area shape="rect" id="node9" href="$class_file_request_packet.html" title="FileRequestPacket" alt="" coords="225,165,359,195"/>
+<area shape="rect" id="node11" href="$class_online_users_packet.html" title="OnlineUsersPacket" alt="" coords="225,219,359,248"/>
+<area shape="rect" id="node13" href="$class_set_alias_packet.html" title="SetAliasPacket" alt="" coords="236,272,348,301"/>
+<area shape="rect" id="node15" href="$class_syncable_files_packet.html" title="SyncableFilesPacket" alt="" coords="220,325,364,355"/>
+</map>

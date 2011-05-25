@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$class_patchable.html" title="Patchable" alt="" coords="27,101,107,131"/>
+<area shape="rect" id="node8" href="$class_backup_copy.html" title="BackupCopy" alt="" coords="75,181,171,211"/>
+<area shape="rect" id="node4" href="$classdiff__match__patch.html" title="diff_match_patch" alt="" coords="5,5,128,35"/>
+<area shape="rect" id="node6" href="$class_text_shredder_logging.html" title="TextShredderLogging" alt="" coords="195,181,339,211"/>
+</map>

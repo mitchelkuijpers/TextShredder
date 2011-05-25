@@ -1,0 +1,13 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$syncablefile_8h.html" title="libraries/synchronization/models/syncablefile.h" alt="" coords="305,83,596,112"/>
+<area shape="rect" id="node21" href="$filerequestpacket_8cpp.html" title="libraries/network/models/filerequestpacket.cpp" alt="" coords="620,83,911,112"/>
+<area shape="rect" id="node23" href="$textshredderconnection_8cpp.html" title="libraries/network/textshredderconnection.cpp" alt="" coords="935,83,1215,112"/>
+<area shape="rect" id="node5" href="$filemanager_8h.html" title="libraries/synchronization/filemanager.h" alt="" coords="180,160,423,189"/>
+<area shape="rect" id="node19" href="$syncablefile_8cpp.html" title="libraries/synchronization/models/syncablefile.cpp" alt="" coords="447,160,753,189"/>
+<area shape="rect" id="node7" href="$client_8cpp.html" title="client/client.cpp" alt="" coords="55,237,167,267"/>
+<area shape="rect" id="node9" href="$filesync_8h.html" title="libraries/synchronization/filesync.h" alt="" coords="191,237,412,267"/>
+<area shape="rect" id="node17" href="$filemanager_8cpp.html" title="libraries/synchronization/filemanager.cpp" alt="" coords="436,237,695,267"/>
+<area shape="rect" id="node11" href="$clientrepresentation_8h.html" title="libraries/synchronization/clientrepresentation.h" alt="" coords="12,315,303,344"/>
+<area shape="rect" id="node15" href="$filesync_8cpp.html" title="libraries/synchronization/filesync.cpp" alt="" coords="327,315,561,344"/>
+<area shape="rect" id="node13" href="$clientrepresentation_8cpp.html" title="libraries/synchronization/clientrepresentation.cpp" alt="" coords="5,392,309,421"/>
+</map>

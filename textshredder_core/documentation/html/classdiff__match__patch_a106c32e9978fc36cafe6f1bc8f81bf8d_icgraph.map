@@ -1,0 +1,13 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classdiff__match__patch.html#a9d8ebaab2f4cd4fb2ab01a3110c56b86" title="diff_match_patch::match_bitap" alt="" coords="279,59,479,88"/>
+<area shape="rect" id="node5" href="$classdiff__match__patch.html#aab1a27bfbb05e041a969617bf6594c23" title="diff_match_patch::match_main" alt="" coords="529,59,729,88"/>
+<area shape="rect" id="node7" href="$classdiff__match__patch.html#acbdd755dfb40abc85760b4f8fbcdc98f" title="diff_match_patch::patch_apply" alt="" coords="779,59,979,88"/>
+<area shape="rect" id="node9" href="$class_patchable.html#a38e7876689db45f8e3a45d65ccdc6009" title="Patchable::applyPatches" alt="" coords="1028,59,1193,88"/>
+<area shape="rect" id="node11" href="$class_shadow_copy.html#a536db8c68e3b5cf89b30b609012fb13a" title="ShadowCopy::applyEdits" alt="" coords="1260,5,1428,35"/>
+<area shape="rect" id="node19" href="$class_shadow_copy.html#a222d6d0835c4dea04c5f3d4a4ebf6e82" title="ShadowCopy::applyLocalEdits" alt="" coords="1244,59,1444,88"/>
+<area shape="rect" id="node24" href="$class_shadow_copy.html#a2af9f4a92de936eb8856d05d5499a185" title="ShadowCopy::processPatches" alt="" coords="1243,112,1445,141"/>
+<area shape="rect" id="node13" href="$class_sync_thread.html#a15b6e123fe1c76643597836618256619" title="SyncThread::applyReceivedEditList" alt="" coords="1495,5,1724,35"/>
+<area shape="rect" id="node15" href="$class_sync_thread.html#a5d627a46f2748963951890020902c81e" title="SyncThread::processChanges" alt="" coords="1775,5,1972,35"/>
+<area shape="rect" id="node17" href="$class_sync_thread.html#a6942467b2594dac2cca3fb6844676548" title="SyncThread::receivedEditPacketContent" alt="" coords="2021,5,2280,35"/>
+<area shape="rect" id="node22" href="$class_sync_thread.html#a94389440ca73f3f638c73ed9075dc0e0" title="SyncThread::pushChanges" alt="" coords="1520,59,1699,88"/>
+</map>

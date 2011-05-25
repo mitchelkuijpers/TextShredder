@@ -1,0 +1,149 @@
+\hypertarget{class_client}{
+\section{Client Class Reference}
+\label{class_client}\index{Client@{Client}}
+}
+
+
+{\ttfamily \#include $<$client.h$>$}
+
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_client_a9ce3a42731df631923c830cad7fdd3a9}{clientConnected} ()
+\item 
+void \hyperlink{class_client_a01cb1f3d745c830e77513e56bb30465c}{clientConnectionError} (QAbstractSocket::SocketError)
+\item 
+void \hyperlink{class_client_a1390021ee4d8190c5372df480e8d3949}{availableFilesRequest} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_client_a9ece2ab35718491266ca7d807d1ec963}{connectToServer} (QHostAddress \&addr, quint16 port)
+\item 
+QSharedPointer$<$ \hyperlink{class_text_shredder_connection}{TextShredderConnection} $>$ \hyperlink{class_client_a9fa7845f7bb959609337128fd01830ba}{getConnection} ()
+\item 
+void \hyperlink{class_client_a4675bd71963582698fcc2ac0c4bf64f9}{setAlias} (QString newAlias)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static QSharedPointer$<$ \hyperlink{class_client}{Client} $>$ \hyperlink{class_client_a34475d4f810658aa0c748497eca1b10d}{Instance} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 7 of file client.h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_client_a1390021ee4d8190c5372df480e8d3949}{
+\index{Client@{Client}!availableFilesRequest@{availableFilesRequest}}
+\index{availableFilesRequest@{availableFilesRequest}!Client@{Client}}
+\subsubsection[{availableFilesRequest}]{\setlength{\rightskip}{0pt plus 5cm}void Client::availableFilesRequest (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
+\label{class_client_a1390021ee4d8190c5372df480e8d3949}
+\hypertarget{class_client_a9ce3a42731df631923c830cad7fdd3a9}{
+\index{Client@{Client}!clientConnected@{clientConnected}}
+\index{clientConnected@{clientConnected}!Client@{Client}}
+\subsubsection[{clientConnected}]{\setlength{\rightskip}{0pt plus 5cm}void Client::clientConnected (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
+\label{class_client_a9ce3a42731df631923c830cad7fdd3a9}
+\hypertarget{class_client_a01cb1f3d745c830e77513e56bb30465c}{
+\index{Client@{Client}!clientConnectionError@{clientConnectionError}}
+\index{clientConnectionError@{clientConnectionError}!Client@{Client}}
+\subsubsection[{clientConnectionError}]{\setlength{\rightskip}{0pt plus 5cm}void Client::clientConnectionError (
+\begin{DoxyParamCaption}
+\item[{QAbstractSocket::SocketError}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
+\label{class_client_a01cb1f3d745c830e77513e56bb30465c}
+\hypertarget{class_client_a9ece2ab35718491266ca7d807d1ec963}{
+\index{Client@{Client}!connectToServer@{connectToServer}}
+\index{connectToServer@{connectToServer}!Client@{Client}}
+\subsubsection[{connectToServer}]{\setlength{\rightskip}{0pt plus 5cm}bool Client::connectToServer (
+\begin{DoxyParamCaption}
+\item[{QHostAddress \&}]{addr, }
+\item[{quint16}]{port}
+\end{DoxyParamCaption}
+)}}
+\label{class_client_a9ece2ab35718491266ca7d807d1ec963}
+
+
+Definition at line 22 of file client.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{class_client_a9ece2ab35718491266ca7d807d1ec963_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_client_a9fa7845f7bb959609337128fd01830ba}{
+\index{Client@{Client}!getConnection@{getConnection}}
+\index{getConnection@{getConnection}!Client@{Client}}
+\subsubsection[{getConnection}]{\setlength{\rightskip}{0pt plus 5cm}QSharedPointer$<$ {\bf TextShredderConnection} $>$ Client::getConnection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_client_a9fa7845f7bb959609337128fd01830ba}
+
+
+Definition at line 57 of file client.cpp.
+
+\hypertarget{class_client_a34475d4f810658aa0c748497eca1b10d}{
+\index{Client@{Client}!Instance@{Instance}}
+\index{Instance@{Instance}!Client@{Client}}
+\subsubsection[{Instance}]{\setlength{\rightskip}{0pt plus 5cm}QSharedPointer$<$ {\bf Client} $>$ Client::Instance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_client_a34475d4f810658aa0c748497eca1b10d}
+
+
+Definition at line 9 of file client.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{class_client_a34475d4f810658aa0c748497eca1b10d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_client_a4675bd71963582698fcc2ac0c4bf64f9}{
+\index{Client@{Client}!setAlias@{setAlias}}
+\index{setAlias@{setAlias}!Client@{Client}}
+\subsubsection[{setAlias}]{\setlength{\rightskip}{0pt plus 5cm}void Client::setAlias (
+\begin{DoxyParamCaption}
+\item[{QString}]{newAlias}
+\end{DoxyParamCaption}
+)}}
+\label{class_client_a4675bd71963582698fcc2ac0c4bf64f9}
+
+
+Definition at line 62 of file client.cpp.
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+client/\hyperlink{client_8h}{client.h}\item 
+client/\hyperlink{client_8cpp}{client.cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_text_shredder_packet.html#a0dbf8f5f92606e68f0d5fff0a05c5706" title="TextShredderPacket::isEditPacket" alt="" coords="341,5,563,35"/>
+<area shape="rect" id="node5" href="$class_text_shredder_packet.html#a99d58e7565f91e84c7542b84133efea5" title="TextShredderPacket::isEndSynchronizationPacket" alt="" coords="295,59,609,88"/>
+<area shape="rect" id="node7" href="$class_text_shredder_packet.html#a6a81e27703b5a654a474bd551d87d43e" title="TextShredderPacket::isFileDataPacket" alt="" coords="328,112,576,141"/>
+<area shape="rect" id="node9" href="$class_text_shredder_packet.html#ad381881d43e80c3e5efbb836fc194344" title="TextShredderPacket::isFileRequestPacket" alt="" coords="317,165,587,195"/>
+<area shape="rect" id="node11" href="$class_text_shredder_packet.html#a524b88338d3b28c4c7582e124ac8396e" title="TextShredderPacket::isOnlineUsersPacket" alt="" coords="316,219,588,248"/>
+<area shape="rect" id="node13" href="$class_text_shredder_packet.html#aed86c5a608385a57d9cf94de8578bf37" title="TextShredderPacket::isSetAliasPacket" alt="" coords="328,272,576,301"/>
+<area shape="rect" id="node15" href="$class_text_shredder_packet.html#a92c1abb32d95601b6fc2e47dc0c1b2f3" title="TextShredderPacket::isSyncableFilesPacket" alt="" coords="311,325,593,355"/>
+</map>

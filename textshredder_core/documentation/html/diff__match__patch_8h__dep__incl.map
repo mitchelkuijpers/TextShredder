@@ -1,0 +1,22 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$patchable_8h.html" title="libraries/synchronization/models/patchable.h" alt="" coords="677,83,955,112"/>
+<area shape="rect" id="node45" href="$diff__match__patch_8cpp.html" title="libraries/diff_match_patch/diff_match_patch.cpp" alt="" coords="979,83,1277,112"/>
+<area shape="rect" id="node5" href="$workingcopy_8h.html" title="libraries/synchronization/models/workingcopy.h" alt="" coords="348,237,644,267"/>
+<area shape="rect" id="node33" href="$backupcopy_8h.html" title="libraries/synchronization/models/backupcopy.h" alt="" coords="761,160,1055,189"/>
+<area shape="rect" id="node35" href="$shadowcopy_8h.html" title="libraries/synchronization/models/shadowcopy.h" alt="" coords="668,237,964,267"/>
+<area shape="rect" id="node43" href="$patchable_8cpp.html" title="libraries/synchronization/models/patchable.cpp" alt="" coords="1079,160,1372,189"/>
+<area shape="rect" id="node7" href="$syncablefile_8h.html" title="libraries/synchronization/models/syncablefile.h" alt="" coords="159,392,449,421"/>
+<area shape="rect" id="node25" href="$syncthread_8h.html" title="libraries/synchronization/syncthread.h" alt="" coords="675,315,915,344"/>
+<area shape="rect" id="node31" href="$workingcopy_8cpp.html" title="libraries/synchronization/models/workingcopy.cpp" alt="" coords="341,315,651,344"/>
+<area shape="rect" id="node9" href="$filemanager_8h.html" title="libraries/synchronization/filemanager.h" alt="" coords="101,469,344,499"/>
+<area shape="rect" id="node23" href="$syncablefile_8cpp.html" title="libraries/synchronization/models/syncablefile.cpp" alt="" coords="368,469,675,499"/>
+<area shape="rect" id="node11" href="$client_8cpp.html" title="client/client.cpp" alt="" coords="5,547,117,576"/>
+<area shape="rect" id="node13" href="$filesync_8h.html" title="libraries/synchronization/filesync.h" alt="" coords="141,547,363,576"/>
+<area shape="rect" id="node21" href="$filemanager_8cpp.html" title="libraries/synchronization/filemanager.cpp" alt="" coords="387,547,645,576"/>
+<area shape="rect" id="node15" href="$clientrepresentation_8h.html" title="libraries/synchronization/clientrepresentation.h" alt="" coords="480,624,771,653"/>
+<area shape="rect" id="node19" href="$filesync_8cpp.html" title="libraries/synchronization/filesync.cpp" alt="" coords="135,624,369,653"/>
+<area shape="rect" id="node17" href="$clientrepresentation_8cpp.html" title="libraries/synchronization/clientrepresentation.cpp" alt="" coords="473,701,777,731"/>
+<area shape="rect" id="node29" href="$syncthread_8cpp.html" title="libraries/synchronization/syncthread.cpp" alt="" coords="749,392,1003,421"/>
+<area shape="rect" id="node40" href="$backupcopy_8cpp.html" title="libraries/synchronization/models/backupcopy.cpp" alt="" coords="988,237,1295,267"/>
+<area shape="rect" id="node38" href="$shadowcopy_8cpp.html" title="libraries/synchronization/models/shadowcopy.cpp" alt="" coords="939,315,1248,344"/>
+</map>

@@ -1,0 +1,387 @@
+\hypertarget{class_file_manager}{
+\section{FileManager Class Reference}
+\label{class_file_manager}\index{FileManager@{FileManager}}
+}
+
+
+{\ttfamily \#include $<$filemanager.h$>$}
+
+
+
+Collaboration diagram for FileManager:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{class_file_manager__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_file_manager_af7782d02aab9b30b0c30a0806e3afdf5}{handleReceivedSyncableFiles} (QByteArray \&content)
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_file_manager_a1478d2bd7bb6b084d2738c447825d8a5}{fileStarted} (\hyperlink{class_syncable_file}{SyncableFile} $\ast$)
+\item 
+void \hyperlink{class_file_manager_adbc673287db646fa3439f489778959eb}{updateClientFiles} (\hyperlink{class_text_shredder_packet}{TextShredderPacket} \&)
+\item 
+void \hyperlink{class_file_manager_aeb3e2775406f8de411994fd3f6fd4463}{sendFileRequest} (\hyperlink{class_text_shredder_packet}{TextShredderPacket} \&)
+\item 
+void \hyperlink{class_file_manager_a6d680024ada196c677fe4bf5ebe781a5}{availableFilesChanged} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_file_manager_a60c5ccbe09b28ec490bc8f21e0e66c4d}{addFileWithPath} (QString \&path)
+\item 
+void \hyperlink{class_file_manager_a5cb8a2cdfb49753efeb7dbf2fcdfb4a5}{removeFile} (QSharedPointer$<$ \hyperlink{class_syncable_file}{SyncableFile} $>$ file)
+\item 
+void \hyperlink{class_file_manager_ad222e2b0ca8c0d0e6dd5716624cf8f06}{addSyncFile} (QSharedPointer$<$ \hyperlink{class_syncable_file}{SyncableFile} $>$)
+\item 
+QSharedPointer$<$ \hyperlink{class_syncable_file}{SyncableFile} $>$ \hyperlink{class_file_manager_a2961bda971d6458ab55832b41704d9f9}{getSyncableFileWithName} (QString \&name)
+\item 
+QSharedPointer$<$ \hyperlink{class_syncable_file}{SyncableFile} $>$ \hyperlink{class_file_manager_ad71a0047e9faa3f3510b9175ea47f2c4}{getSyncableFileWithIdentifier} (QString \&identifier)
+\item 
+QList$<$ QSharedPointer$<$ \hyperlink{class_syncable_file}{SyncableFile} $>$ $>$ \hyperlink{class_file_manager_a78d65093730b93c0c30f676e44021853}{getAllFiles} ()
+\item 
+QSharedPointer$<$ \hyperlink{class_syncable_files_packet}{SyncableFilesPacket} $>$ \hyperlink{class_file_manager_ab42fde7f37edfb81aa5262cea92ae5af}{getAvailableFilesPacket} ()
+\item 
+void \hyperlink{class_file_manager_a9f7a8b670ab37bc42aebb6d9a712541c}{setServerSide} (bool value)
+\item 
+bool \hyperlink{class_file_manager_a43fb32e069f3fc332ee6b956610f5c45}{isServerSide} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_file_manager}{FileManager} $\ast$ \hyperlink{class_file_manager_a53d5d8ca38b516507565f0529c10c29c}{Instance} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 8 of file filemanager.h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_file_manager_a60c5ccbe09b28ec490bc8f21e0e66c4d}{
+\index{FileManager@{FileManager}!addFileWithPath@{addFileWithPath}}
+\index{addFileWithPath@{addFileWithPath}!FileManager@{FileManager}}
+\subsubsection[{addFileWithPath}]{\setlength{\rightskip}{0pt plus 5cm}void FileManager::addFileWithPath (
+\begin{DoxyParamCaption}
+\item[{QString \&}]{path}
+\end{DoxyParamCaption}
+)}}
+\label{class_file_manager_a60c5ccbe09b28ec490bc8f21e0e66c4d}
+Adds a file with a path to the \hyperlink{class_syncable_file}{SyncableFile} list.
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & path to the file. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 18 of file filemanager.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_file_manager_a60c5ccbe09b28ec490bc8f21e0e66c4d_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_file_manager_ad222e2b0ca8c0d0e6dd5716624cf8f06}{
+\index{FileManager@{FileManager}!addSyncFile@{addSyncFile}}
+\index{addSyncFile@{addSyncFile}!FileManager@{FileManager}}
+\subsubsection[{addSyncFile}]{\setlength{\rightskip}{0pt plus 5cm}void FileManager::addSyncFile (
+\begin{DoxyParamCaption}
+\item[{QSharedPointer$<$ {\bf SyncableFile} $>$}]{file}
+\end{DoxyParamCaption}
+)}}
+\label{class_file_manager_ad222e2b0ca8c0d0e6dd5716624cf8f06}
+Adds a \hyperlink{class_syncable_file}{SyncableFile} to the \hyperlink{class_syncable_file}{SyncableFile} list.
+
+\begin{DoxyReturn}{Returns}
+the syncable file. 
+\end{DoxyReturn}
+
+
+Definition at line 86 of file filemanager.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=366pt]{class_file_manager_ad222e2b0ca8c0d0e6dd5716624cf8f06_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_file_manager_ad222e2b0ca8c0d0e6dd5716624cf8f06_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_file_manager_a6d680024ada196c677fe4bf5ebe781a5}{
+\index{FileManager@{FileManager}!availableFilesChanged@{availableFilesChanged}}
+\index{availableFilesChanged@{availableFilesChanged}!FileManager@{FileManager}}
+\subsubsection[{availableFilesChanged}]{\setlength{\rightskip}{0pt plus 5cm}void FileManager::availableFilesChanged (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
+\label{class_file_manager_a6d680024ada196c677fe4bf5ebe781a5}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_file_manager_a6d680024ada196c677fe4bf5ebe781a5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_file_manager_a1478d2bd7bb6b084d2738c447825d8a5}{
+\index{FileManager@{FileManager}!fileStarted@{fileStarted}}
+\index{fileStarted@{fileStarted}!FileManager@{FileManager}}
+\subsubsection[{fileStarted}]{\setlength{\rightskip}{0pt plus 5cm}void FileManager::fileStarted (
+\begin{DoxyParamCaption}
+\item[{{\bf SyncableFile} $\ast$}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
+\label{class_file_manager_a1478d2bd7bb6b084d2738c447825d8a5}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_file_manager_a1478d2bd7bb6b084d2738c447825d8a5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_file_manager_a78d65093730b93c0c30f676e44021853}{
+\index{FileManager@{FileManager}!getAllFiles@{getAllFiles}}
+\index{getAllFiles@{getAllFiles}!FileManager@{FileManager}}
+\subsubsection[{getAllFiles}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ QSharedPointer$<$ {\bf SyncableFile} $>$ $>$ FileManager::getAllFiles (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_file_manager_a78d65093730b93c0c30f676e44021853}
+
+
+Definition at line 172 of file filemanager.cpp.
+
+\hypertarget{class_file_manager_ab42fde7f37edfb81aa5262cea92ae5af}{
+\index{FileManager@{FileManager}!getAvailableFilesPacket@{getAvailableFilesPacket}}
+\index{getAvailableFilesPacket@{getAvailableFilesPacket}!FileManager@{FileManager}}
+\subsubsection[{getAvailableFilesPacket}]{\setlength{\rightskip}{0pt plus 5cm}QSharedPointer$<$ {\bf SyncableFilesPacket} $>$ FileManager::getAvailableFilesPacket (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_file_manager_ab42fde7f37edfb81aa5262cea92ae5af}
+
+
+Definition at line 61 of file filemanager.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_file_manager_ab42fde7f37edfb81aa5262cea92ae5af_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_file_manager_ad71a0047e9faa3f3510b9175ea47f2c4}{
+\index{FileManager@{FileManager}!getSyncableFileWithIdentifier@{getSyncableFileWithIdentifier}}
+\index{getSyncableFileWithIdentifier@{getSyncableFileWithIdentifier}!FileManager@{FileManager}}
+\subsubsection[{getSyncableFileWithIdentifier}]{\setlength{\rightskip}{0pt plus 5cm}QSharedPointer$<$ {\bf SyncableFile} $>$ FileManager::getSyncableFileWithIdentifier (
+\begin{DoxyParamCaption}
+\item[{QString \&}]{identifier}
+\end{DoxyParamCaption}
+)}}
+\label{class_file_manager_ad71a0047e9faa3f3510b9175ea47f2c4}
+
+
+Definition at line 115 of file filemanager.cpp.
+
+\hypertarget{class_file_manager_a2961bda971d6458ab55832b41704d9f9}{
+\index{FileManager@{FileManager}!getSyncableFileWithName@{getSyncableFileWithName}}
+\index{getSyncableFileWithName@{getSyncableFileWithName}!FileManager@{FileManager}}
+\subsubsection[{getSyncableFileWithName}]{\setlength{\rightskip}{0pt plus 5cm}QSharedPointer$<$ {\bf SyncableFile} $>$ FileManager::getSyncableFileWithName (
+\begin{DoxyParamCaption}
+\item[{QString \&}]{name}
+\end{DoxyParamCaption}
+)}}
+\label{class_file_manager_a2961bda971d6458ab55832b41704d9f9}
+Returns a \hyperlink{class_syncable_file}{SyncableFile} with a given name from the \hyperlink{class_syncable_file}{SyncableFile} list.
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & name of the \hyperlink{class_syncable_file}{SyncableFile} needed.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the syncable file. 
+\end{DoxyReturn}
+
+
+Definition at line 102 of file filemanager.cpp.
+
+\hypertarget{class_file_manager_af7782d02aab9b30b0c30a0806e3afdf5}{
+\index{FileManager@{FileManager}!handleReceivedSyncableFiles@{handleReceivedSyncableFiles}}
+\index{handleReceivedSyncableFiles@{handleReceivedSyncableFiles}!FileManager@{FileManager}}
+\subsubsection[{handleReceivedSyncableFiles}]{\setlength{\rightskip}{0pt plus 5cm}void FileManager::handleReceivedSyncableFiles (
+\begin{DoxyParamCaption}
+\item[{QByteArray \&}]{content}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{class_file_manager_af7782d02aab9b30b0c30a0806e3afdf5}
+
+
+Definition at line 128 of file filemanager.cpp.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_file_manager_af7782d02aab9b30b0c30a0806e3afdf5_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_file_manager_a53d5d8ca38b516507565f0529c10c29c}{
+\index{FileManager@{FileManager}!Instance@{Instance}}
+\index{Instance@{Instance}!FileManager@{FileManager}}
+\subsubsection[{Instance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf FileManager} $\ast$ FileManager::Instance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_file_manager_a53d5d8ca38b516507565f0529c10c29c}
+Singleton instance getter.
+
+\begin{DoxyReturn}{Returns}
+the instance. 
+\end{DoxyReturn}
+
+
+Definition at line 10 of file filemanager.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_file_manager_a53d5d8ca38b516507565f0529c10c29c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_file_manager_a43fb32e069f3fc332ee6b956610f5c45}{
+\index{FileManager@{FileManager}!isServerSide@{isServerSide}}
+\index{isServerSide@{isServerSide}!FileManager@{FileManager}}
+\subsubsection[{isServerSide}]{\setlength{\rightskip}{0pt plus 5cm}bool FileManager::isServerSide (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_file_manager_a43fb32e069f3fc332ee6b956610f5c45}
+
+
+Definition at line 181 of file filemanager.cpp.
+
+\hypertarget{class_file_manager_a5cb8a2cdfb49753efeb7dbf2fcdfb4a5}{
+\index{FileManager@{FileManager}!removeFile@{removeFile}}
+\index{removeFile@{removeFile}!FileManager@{FileManager}}
+\subsubsection[{removeFile}]{\setlength{\rightskip}{0pt plus 5cm}void FileManager::removeFile (
+\begin{DoxyParamCaption}
+\item[{QSharedPointer$<$ {\bf SyncableFile} $>$}]{file}
+\end{DoxyParamCaption}
+)}}
+\label{class_file_manager_a5cb8a2cdfb49753efeb7dbf2fcdfb4a5}
+Removes a file from the Syncable file list.
+
+
+\begin{DoxyParams}{Parameters}
+{\em the} & file to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 35 of file filemanager.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_file_manager_a5cb8a2cdfb49753efeb7dbf2fcdfb4a5_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_file_manager_aeb3e2775406f8de411994fd3f6fd4463}{
+\index{FileManager@{FileManager}!sendFileRequest@{sendFileRequest}}
+\index{sendFileRequest@{sendFileRequest}!FileManager@{FileManager}}
+\subsubsection[{sendFileRequest}]{\setlength{\rightskip}{0pt plus 5cm}void FileManager::sendFileRequest (
+\begin{DoxyParamCaption}
+\item[{{\bf TextShredderPacket} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
+\label{class_file_manager_aeb3e2775406f8de411994fd3f6fd4463}
+\hypertarget{class_file_manager_a9f7a8b670ab37bc42aebb6d9a712541c}{
+\index{FileManager@{FileManager}!setServerSide@{setServerSide}}
+\index{setServerSide@{setServerSide}!FileManager@{FileManager}}
+\subsubsection[{setServerSide}]{\setlength{\rightskip}{0pt plus 5cm}void FileManager::setServerSide (
+\begin{DoxyParamCaption}
+\item[{bool}]{value}
+\end{DoxyParamCaption}
+)}}
+\label{class_file_manager_a9f7a8b670ab37bc42aebb6d9a712541c}
+
+
+Definition at line 177 of file filemanager.cpp.
+
+\hypertarget{class_file_manager_adbc673287db646fa3439f489778959eb}{
+\index{FileManager@{FileManager}!updateClientFiles@{updateClientFiles}}
+\index{updateClientFiles@{updateClientFiles}!FileManager@{FileManager}}
+\subsubsection[{updateClientFiles}]{\setlength{\rightskip}{0pt plus 5cm}void FileManager::updateClientFiles (
+\begin{DoxyParamCaption}
+\item[{{\bf TextShredderPacket} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
+\label{class_file_manager_adbc673287db646fa3439f489778959eb}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+libraries/synchronization/\hyperlink{filemanager_8h}{filemanager.h}\item 
+libraries/synchronization/\hyperlink{filemanager_8cpp}{filemanager.cpp}\end{DoxyCompactItemize}

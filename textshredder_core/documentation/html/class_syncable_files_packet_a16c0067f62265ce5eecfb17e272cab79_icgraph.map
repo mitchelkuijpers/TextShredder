@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_syncable_files_packet.html#aaec97eef27ecea6af99b743f5e93ca4e" title="SyncableFilesPacket::fillListWithContentsOfPacket" alt="" coords="352,5,675,35"/>
+<area shape="rect" id="node5" href="$class_file_manager.html#af7782d02aab9b30b0c30a0806e3afdf5" title="FileManager::handleReceivedSyncableFiles" alt="" coords="724,5,999,35"/>
+</map>

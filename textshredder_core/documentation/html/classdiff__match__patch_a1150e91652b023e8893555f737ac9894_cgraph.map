@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classdiff__match__patch.html#ad64d391bc3f34cad326f869eedb748f9" title="diff_match_patch::diff_cleanupMerge" alt="" coords="345,5,580,35"/>
+<area shape="rect" id="node9" href="$classdiff__match__patch.html#afd96870070c1dc460d1c261fa3f0f485" title="diff_match_patch::diff_cleanupSemanticLossless" alt="" coords="309,59,616,88"/>
+<area shape="rect" id="node12" href="$classdiff__match__patch.html#aa47c81e235ed1609fb915f03316d21dc" title="diff_match_patch::diff_commonOverlap" alt="" coords="337,112,588,141"/>
+<area shape="rect" id="node5" href="$classdiff__match__patch.html#a6139ad292f602b8b9295fe0c48709e31" title="diff_match_patch::diff_commonPrefix" alt="" coords="665,5,903,35"/>
+<area shape="rect" id="node7" href="$classdiff__match__patch.html#aed765d65d9e6fb78de3725416a262586" title="diff_match_patch::diff_commonSuffix" alt="" coords="665,59,903,88"/>
+</map>

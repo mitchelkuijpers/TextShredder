@@ -1,0 +1,20 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$workingcopy_8h.html" title="libraries/synchronization/models/workingcopy.h" alt="" coords="348,160,644,189"/>
+<area shape="rect" id="node31" href="$backupcopy_8h.html" title="libraries/synchronization/models/backupcopy.h" alt="" coords="761,83,1055,112"/>
+<area shape="rect" id="node33" href="$shadowcopy_8h.html" title="libraries/synchronization/models/shadowcopy.h" alt="" coords="668,160,964,189"/>
+<area shape="rect" id="node41" href="$patchable_8cpp.html" title="libraries/synchronization/models/patchable.cpp" alt="" coords="1079,83,1372,112"/>
+<area shape="rect" id="node5" href="$syncablefile_8h.html" title="libraries/synchronization/models/syncablefile.h" alt="" coords="159,315,449,344"/>
+<area shape="rect" id="node23" href="$syncthread_8h.html" title="libraries/synchronization/syncthread.h" alt="" coords="675,237,915,267"/>
+<area shape="rect" id="node29" href="$workingcopy_8cpp.html" title="libraries/synchronization/models/workingcopy.cpp" alt="" coords="341,237,651,267"/>
+<area shape="rect" id="node7" href="$filemanager_8h.html" title="libraries/synchronization/filemanager.h" alt="" coords="101,392,344,421"/>
+<area shape="rect" id="node21" href="$syncablefile_8cpp.html" title="libraries/synchronization/models/syncablefile.cpp" alt="" coords="368,392,675,421"/>
+<area shape="rect" id="node9" href="$client_8cpp.html" title="client/client.cpp" alt="" coords="5,469,117,499"/>
+<area shape="rect" id="node11" href="$filesync_8h.html" title="libraries/synchronization/filesync.h" alt="" coords="141,469,363,499"/>
+<area shape="rect" id="node19" href="$filemanager_8cpp.html" title="libraries/synchronization/filemanager.cpp" alt="" coords="387,469,645,499"/>
+<area shape="rect" id="node13" href="$clientrepresentation_8h.html" title="libraries/synchronization/clientrepresentation.h" alt="" coords="480,547,771,576"/>
+<area shape="rect" id="node17" href="$filesync_8cpp.html" title="libraries/synchronization/filesync.cpp" alt="" coords="135,547,369,576"/>
+<area shape="rect" id="node15" href="$clientrepresentation_8cpp.html" title="libraries/synchronization/clientrepresentation.cpp" alt="" coords="473,624,777,653"/>
+<area shape="rect" id="node27" href="$syncthread_8cpp.html" title="libraries/synchronization/syncthread.cpp" alt="" coords="749,315,1003,344"/>
+<area shape="rect" id="node38" href="$backupcopy_8cpp.html" title="libraries/synchronization/models/backupcopy.cpp" alt="" coords="988,160,1295,189"/>
+<area shape="rect" id="node36" href="$shadowcopy_8cpp.html" title="libraries/synchronization/models/shadowcopy.cpp" alt="" coords="939,237,1248,267"/>
+</map>

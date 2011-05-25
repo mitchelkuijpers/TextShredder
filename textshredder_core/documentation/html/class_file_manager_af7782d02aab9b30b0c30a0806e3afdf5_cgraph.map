@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_file_manager.html#ad222e2b0ca8c0d0e6dd5716624cf8f06" title="FileManager::addSyncFile" alt="" coords="405,5,579,35"/>
+<area shape="rect" id="node7" href="$class_file_manager.html#a6d680024ada196c677fe4bf5ebe781a5" title="FileManager::availableFilesChanged" alt="" coords="376,59,608,88"/>
+<area shape="rect" id="node9" href="$class_syncable_files_packet.html#aaec97eef27ecea6af99b743f5e93ca4e" title="SyncableFilesPacket::fillListWithContentsOfPacket" alt="" coords="331,112,653,141"/>
+<area shape="rect" id="node15" href="$class_file_manager.html#a5cb8a2cdfb49753efeb7dbf2fcdfb4a5" title="FileManager::removeFile" alt="" coords="409,165,575,195"/>
+<area shape="rect" id="node5" href="$class_file_manager.html#a1478d2bd7bb6b084d2738c447825d8a5" title="FileManager::fileStarted" alt="" coords="771,5,931,35"/>
+<area shape="rect" id="node11" href="$class_syncable_file.html#ae522f2ddafedca2b67d5883c3530293d" title="SyncableFile::doDeleteLater" alt="" coords="757,85,944,115"/>
+<area shape="rect" id="node13" href="$class_syncable_files_packet.html#a16c0067f62265ce5eecfb17e272cab79" title="SyncableFilesPacket::splitContentTillCharacter" alt="" coords="703,139,999,168"/>
+</map>

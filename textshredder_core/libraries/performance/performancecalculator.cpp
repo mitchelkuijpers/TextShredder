@@ -14,25 +14,39 @@ PerformanceCalculator * PerformanceCalculator::Instance()
 PerformanceCalculator::PerformanceCalculator(QObject * parent) :
 QObject(parent)
 {
+	this->lockingTimeAverage = 0;
+	timer.setInterval(PERFORMANCE_INTERVAL);
+	timer.start();
+	connect(&timer, SIGNAL(timeout()), this, SLOT(sendSignals()));
 }
 
 void PerformanceCalculator::addNewLockTime(uint lockTime) {
-	this->lockingTimes.append(lockTime);
+	this->lockingTimes.prepend(lockTime);
 	reCalculateAverageLockTime();
-	emit newAverage(this->lockingTimeAverage);
-	qDebug() << "average locktime: " << this->lockingTimeAverage;
 }
 
 void PerformanceCalculator::reCalculateAverageLockTime() {
-	int totalCount = this->lockingTimes.count();
-	int total = 0;
+	mutex.lock();
+	float total = 0;
 	int i = 0;
-	for(i =0; i < totalCount; i++) {
+	int maxLocktimes = MAX_LOCKTIMES;
+	while(this->lockingTimes.count() > maxLocktimes) {
+		this->lockingTimes.removeLast();
+	}
+	for(i = 0; i < this->lockingTimes.count(); ++i) {
 		total += this->lockingTimes.at(i);
 	}
-	this->lockingTimeAverage = total / totalCount;
+	this->lockingTimeAverage = total / this->lockingTimes.count();
+	mutex.unlock();
 }
 
-long PerformanceCalculator::getAverage() {
-	return this->lockingTimeAverage;
+void PerformanceCalculator::sendSignals() {
+	float invertedPercentage = 0;
+	emit newAverage(this->lockingTimeAverage);
+	if(this->lockingTimeAverage < 8) {
+		float percentageStep = 100/8;
+		float percentage = this->lockingTimeAverage * percentageStep;
+		invertedPercentage = 100 - percentage;
+	}
+	emit newAveragePercentage(invertedPercentage);
 }

@@ -1,0 +1,150 @@
+\hypertarget{class_backup_copy}{
+\section{BackupCopy Class Reference}
+\label{class_backup_copy}\index{BackupCopy@{BackupCopy}}
+}
+
+
+{\ttfamily \#include $<$backupcopy.h$>$}
+
+
+
+Inheritance diagram for BackupCopy:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=152pt]{class_backup_copy__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for BackupCopy:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=187pt]{class_backup_copy__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_backup_copy_a55c332e48b3f59719cf29b9aa2c1f04b}{BackupCopy} (QObject $\ast$parent)
+\item 
+\hyperlink{class_backup_copy_a4bc923f08568cc9bb950739d7f7296d1}{BackupCopy} (QObject $\ast$parent, unsigned int localVersion, QString \hyperlink{class_patchable_a4c55c830faef821364995f097c96d34d}{content})
+\item 
+unsigned int \hyperlink{class_backup_copy_aabb99f6658042af9c1713f3e3ffb77a4}{getLocalVersion} ()
+\item 
+void \hyperlink{class_backup_copy_ad45949032ac10d51fbf434d2dd14f0ad}{setLocalVersion} (unsigned int newLocalVersion)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 7 of file backupcopy.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_backup_copy_a55c332e48b3f59719cf29b9aa2c1f04b}{
+\index{BackupCopy@{BackupCopy}!BackupCopy@{BackupCopy}}
+\index{BackupCopy@{BackupCopy}!BackupCopy@{BackupCopy}}
+\subsubsection[{BackupCopy}]{\setlength{\rightskip}{0pt plus 5cm}BackupCopy::BackupCopy (
+\begin{DoxyParamCaption}
+\item[{QObject $\ast$}]{parent}
+\end{DoxyParamCaption}
+)}}
+\label{class_backup_copy_a55c332e48b3f59719cf29b9aa2c1f04b}
+Constructor. Passes the parent to the \hyperlink{class_patchable}{Patchable} class Sets the localversion variable to zero.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Qobject} & parent. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 3 of file backupcopy.cpp.
+
+\hypertarget{class_backup_copy_a4bc923f08568cc9bb950739d7f7296d1}{
+\index{BackupCopy@{BackupCopy}!BackupCopy@{BackupCopy}}
+\index{BackupCopy@{BackupCopy}!BackupCopy@{BackupCopy}}
+\subsubsection[{BackupCopy}]{\setlength{\rightskip}{0pt plus 5cm}BackupCopy::BackupCopy (
+\begin{DoxyParamCaption}
+\item[{QObject $\ast$}]{parent, }
+\item[{unsigned int}]{localVersion, }
+\item[{QString}]{content}
+\end{DoxyParamCaption}
+)}}
+\label{class_backup_copy_a4bc923f08568cc9bb950739d7f7296d1}
+Constructor. Passes the parent to the \hyperlink{class_patchable}{Patchable} class Sets the localversion to the localVersion variable. Set content to the content param
+
+
+\begin{DoxyParams}{Parameters}
+{\em Qobject} & parent. \\
+\hline
+{\em localVersion} & The localversion of the backupcopy \\
+\hline
+{\em content,the} & content of the backupcopy \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 8 of file backupcopy.cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_backup_copy_aabb99f6658042af9c1713f3e3ffb77a4}{
+\index{BackupCopy@{BackupCopy}!getLocalVersion@{getLocalVersion}}
+\index{getLocalVersion@{getLocalVersion}!BackupCopy@{BackupCopy}}
+\subsubsection[{getLocalVersion}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int BackupCopy::getLocalVersion (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_backup_copy_aabb99f6658042af9c1713f3e3ffb77a4}
+
+
+Definition at line 14 of file backupcopy.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_backup_copy_aabb99f6658042af9c1713f3e3ffb77a4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_backup_copy_ad45949032ac10d51fbf434d2dd14f0ad}{
+\index{BackupCopy@{BackupCopy}!setLocalVersion@{setLocalVersion}}
+\index{setLocalVersion@{setLocalVersion}!BackupCopy@{BackupCopy}}
+\subsubsection[{setLocalVersion}]{\setlength{\rightskip}{0pt plus 5cm}void BackupCopy::setLocalVersion (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{newLocalVersion}
+\end{DoxyParamCaption}
+)}}
+\label{class_backup_copy_ad45949032ac10d51fbf434d2dd14f0ad}
+
+
+Definition at line 19 of file backupcopy.cpp.
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_backup_copy_ad45949032ac10d51fbf434d2dd14f0ad_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+libraries/synchronization/models/\hyperlink{backupcopy_8h}{backupcopy.h}\item 
+libraries/synchronization/models/\hyperlink{backupcopy_8cpp}{backupcopy.cpp}\end{DoxyCompactItemize}

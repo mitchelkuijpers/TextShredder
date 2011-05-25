@@ -1,0 +1,15 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classdiff__match__patch.html#a1150e91652b023e8893555f737ac9894" title="diff_match_patch::diff_cleanupSemantic" alt="" coords="361,72,615,101"/>
+<area shape="rect" id="node13" href="$classdiff__match__patch.html#acbdd755dfb40abc85760b4f8fbcdc98f" title="diff_match_patch::patch_apply" alt="" coords="388,152,588,181"/>
+<area shape="rect" id="node5" href="$classdiff__match__patch.html#afb9335ec40ffb7b74a822a1210d90e19" title="diff_match_patch::patch_make" alt="" coords="665,59,865,88"/>
+<area shape="rect" id="node7" href="$class_patchable.html#ab3016a99f60b10bae143365fb2cf1450" title="Patchable::getPatchesToConvertString" alt="" coords="916,5,1164,35"/>
+<area shape="rect" id="node11" href="$classdiff__match__patch.html#ac5992f58192fc44530f33dd40202c165" title="diff_match_patch::patch_make" alt="" coords="940,59,1140,88"/>
+<area shape="rect" id="node9" href="$class_sync_thread.html#a94389440ca73f3f638c73ed9075dc0e0" title="SyncThread::pushChanges" alt="" coords="1240,32,1419,61"/>
+<area shape="rect" id="node15" href="$class_patchable.html#a38e7876689db45f8e3a45d65ccdc6009" title="Patchable::applyPatches" alt="" coords="683,159,848,188"/>
+<area shape="rect" id="node17" href="$class_shadow_copy.html#a536db8c68e3b5cf89b30b609012fb13a" title="ShadowCopy::applyEdits" alt="" coords="956,165,1124,195"/>
+<area shape="rect" id="node25" href="$class_shadow_copy.html#a222d6d0835c4dea04c5f3d4a4ebf6e82" title="ShadowCopy::applyLocalEdits" alt="" coords="940,112,1140,141"/>
+<area shape="rect" id="node29" href="$class_shadow_copy.html#a2af9f4a92de936eb8856d05d5499a185" title="ShadowCopy::processPatches" alt="" coords="939,219,1141,248"/>
+<area shape="rect" id="node19" href="$class_sync_thread.html#a15b6e123fe1c76643597836618256619" title="SyncThread::applyReceivedEditList" alt="" coords="1215,139,1444,168"/>
+<area shape="rect" id="node21" href="$class_sync_thread.html#a5d627a46f2748963951890020902c81e" title="SyncThread::processChanges" alt="" coords="1495,139,1692,168"/>
+<area shape="rect" id="node23" href="$class_sync_thread.html#a6942467b2594dac2cca3fb6844676548" title="SyncThread::receivedEditPacketContent" alt="" coords="1741,139,2000,168"/>
+</map>
