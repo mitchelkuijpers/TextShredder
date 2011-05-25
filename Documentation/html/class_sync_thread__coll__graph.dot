@@ -1,0 +1,20 @@
+digraph G
+{
+  edge [fontname="FreeSans.ttf",fontsize="10",labelfontname="FreeSans.ttf",labelfontsize="10"];
+  node [fontname="FreeSans.ttf",fontsize="10",shape=record];
+  Node1 [label="SyncThread",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="shadowCopy",fontname="FreeSans.ttf"];
+  Node2 [label="ShadowCopy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_shadow_copy.html"];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="FreeSans.ttf"];
+  Node3 [label="Patchable",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_patchable.html"];
+  Node4 -> Node3 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="dmpAlgorithm",fontname="FreeSans.ttf"];
+  Node4 [label="diff_match_patch",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html"];
+  Node5 -> Node2 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="logging",fontname="FreeSans.ttf"];
+  Node5 [label="TextShredderLogging",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_text_shredder_logging.html"];
+  Node6 -> Node2 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="backupCopy",fontname="FreeSans.ttf"];
+  Node6 [label="BackupCopy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_backup_copy.html"];
+  Node3 -> Node6 [dir=back,color="midnightblue",fontsize="10",style="solid",fontname="FreeSans.ttf"];
+  Node5 -> Node1 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="logging\nperformanceLog",fontname="FreeSans.ttf"];
+  Node7 -> Node1 [dir=back,color="darkorchid3",fontsize="10",style="dashed",label="editList",fontname="FreeSans.ttf"];
+  Node7 [label="EditList",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_edit_list.html"];
+}

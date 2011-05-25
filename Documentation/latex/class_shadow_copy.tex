@@ -1,0 +1,112 @@
+\section{ShadowCopy Class Reference}
+\label{class_shadow_copy}\index{ShadowCopy@{ShadowCopy}}
+
+
+Inherits {\bf Patchable}.
+
+
+
+Collaboration diagram for ShadowCopy:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries ShadowCopy} (QObject $\ast$parent)\label{class_shadow_copy_a113c966f7daed0ffb99f7a57561a7801}
+
+\item 
+{\bfseries ShadowCopy} (QObject $\ast$parent, QString content)\label{class_shadow_copy_ac5fc9ad047d2690a72ab538dcd6ab4f7}
+
+\item 
+unsigned int {\bfseries getLocalVersion} ()\label{class_shadow_copy_a53ea25db19b20a6770e60d81a6b507f4}
+
+\item 
+unsigned int {\bfseries getRemoteVersion} ()\label{class_shadow_copy_a4bfafd0823dbc2788c936608ec22ea54}
+
+\item 
+{\bf BackupCopy} $\ast$ {\bfseries getBackupCopy} ()\label{class_shadow_copy_a5ed0b6e1f144468afca9129449a35fbc}
+
+\item 
+void {\bf revert} ()
+\item 
+void {\bf backup} ()
+\item 
+void {\bf applyEdits} (QList$<$ {\bf Edit} $>$ \&edits)
+\item 
+void {\bfseries applyLocalEdits} (QList$<$ {\bf Edit} $>$ \&edits)\label{class_shadow_copy_a222d6d0835c4dea04c5f3d4a4ebf6e82}
+
+\item 
+void {\bf processPatches} (QList$<$ {\bf Patch} $>$ \&patches)
+\item 
+void {\bfseries setLocalVersion} (int version)\label{class_shadow_copy_a434a5dc5be342886362d005f98831fe0}
+
+\item 
+void {\bfseries setLogging} ({\bf TextShredderLogging} $\ast$log)\label{class_shadow_copy_af50ac8c141db70dc5a4311de5790ccf9}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{ShadowCopy@{ShadowCopy}!applyEdits@{applyEdits}}
+\index{applyEdits@{applyEdits}!ShadowCopy@{ShadowCopy}}
+\subsubsection[{applyEdits}]{\setlength{\rightskip}{0pt plus 5cm}void ShadowCopy::applyEdits (
+\begin{DoxyParamCaption}
+\item[{QList$<$ {\bf Edit} $>$ \&}]{ edits}
+\end{DoxyParamCaption}
+)}\label{class_shadow_copy_a536db8c68e3b5cf89b30b609012fb13a}
+Fucntion to apply edits if not done yet to the Shadow Copy 
+\begin{DoxyParams}{Parameters}
+\item[{\em List}]of edits that need to be commited \end{DoxyParams}
+
+
+Here is the caller graph for this function:
+
+
+\index{ShadowCopy@{ShadowCopy}!backup@{backup}}
+\index{backup@{backup}!ShadowCopy@{ShadowCopy}}
+\subsubsection[{backup}]{\setlength{\rightskip}{0pt plus 5cm}void ShadowCopy::backup (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_shadow_copy_a7c6bfe84627fa3d8afd1b5a09fde6a0e}
+Fucntion to make a backup of your current version 
+
+Here is the call graph for this function:
+
+
+
+
+Here is the caller graph for this function:
+
+
+\index{ShadowCopy@{ShadowCopy}!processPatches@{processPatches}}
+\index{processPatches@{processPatches}!ShadowCopy@{ShadowCopy}}
+\subsubsection[{processPatches}]{\setlength{\rightskip}{0pt plus 5cm}void ShadowCopy::processPatches (
+\begin{DoxyParamCaption}
+\item[{QList$<$ {\bf Patch} $>$ \&}]{ patches}
+\end{DoxyParamCaption}
+)}\label{class_shadow_copy_a2af9f4a92de936eb8856d05d5499a185}
+Function to apply the changes you have made in your workingcopy 
+\begin{DoxyParams}{Parameters}
+\item[{\em List}]of patches from changes you made \end{DoxyParams}
+\index{ShadowCopy@{ShadowCopy}!revert@{revert}}
+\index{revert@{revert}!ShadowCopy@{ShadowCopy}}
+\subsubsection[{revert}]{\setlength{\rightskip}{0pt plus 5cm}void ShadowCopy::revert (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_shadow_copy_aafdb5f83bfac6e782fee171272883a56}
+Function to revert content to previous version 
+
+Here is the call graph for this function:
+
+
+
+
+Here is the caller graph for this function:
+
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/synchronization/models/shadowcopy.h\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/synchronization/models/shadowcopy.cpp\end{DoxyCompactItemize}

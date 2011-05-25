@@ -1,0 +1,127 @@
+\section{TextShredderPacket Class Reference}
+\label{class_text_shredder_packet}\index{TextShredderPacket@{TextShredderPacket}}
+
+
+Inherited by {\bf AvailableFilesRequestPacket}, {\bf EndSynchronizationPacket}, {\bf FileDataPacket}, {\bf FileRequestPacket}, {\bf OnlineUsersPacket}, {\bf SetAliasPacket}, and {\bf SyncableFilesPacket}.
+
+
+
+Collaboration diagram for TextShredderPacket:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf TextShredderPacket} (QObject $\ast$)
+\item 
+{\bfseries TextShredderPacket} (QObject $\ast$parent, unsigned char packetType, unsigned int destination=0)\label{class_text_shredder_packet_a009abc4d71b449c2bf91d01b33049ed0}
+
+\item 
+{\bf TextShredderPacket} (QObject $\ast$, {\bf TextShredderHeader} \&, QByteArray \&)
+\item 
+{\bf TextShredderPacket} (QObject $\ast$, unsigned char, QByteArray \&, unsigned int=0)
+\item 
+{\bf TextShredderPacket} ({\bf TextShredderPacket} \&otherPacket)
+\item 
+bool {\bf isEditPacket} ()
+\item 
+bool {\bfseries isFileRequestPacket} ()\label{class_text_shredder_packet_ad381881d43e80c3e5efbb836fc194344}
+
+\item 
+bool {\bfseries isFileDataPacket} ()\label{class_text_shredder_packet_a6a81e27703b5a654a474bd551d87d43e}
+
+\item 
+bool {\bfseries isEndSynchronizationPacket} ()\label{class_text_shredder_packet_a99d58e7565f91e84c7542b84133efea5}
+
+\item 
+bool {\bfseries isSetAliasPacket} ()\label{class_text_shredder_packet_aed86c5a608385a57d9cf94de8578bf37}
+
+\item 
+bool {\bfseries isSyncableFilesPacket} ()\label{class_text_shredder_packet_a92c1abb32d95601b6fc2e47dc0c1b2f3}
+
+\item 
+bool {\bfseries isOnlineUsersPacket} ()\label{class_text_shredder_packet_a524b88338d3b28c4c7582e124ac8396e}
+
+\item 
+bool {\bfseries isIncomplete} ()\label{class_text_shredder_packet_a7b04ce6a4d8147b67e287fdf5547cf4b}
+
+\item 
+void {\bfseries appendContentData} (QByteArray \&data)\label{class_text_shredder_packet_ad6a11eece39b3a067bdbe619307bce18}
+
+\item 
+unsigned int {\bfseries length} ()\label{class_text_shredder_packet_acff3eb69a34be30dffd28ea20636411d}
+
+\item 
+unsigned int {\bfseries numberOfBytesNeeded} ()\label{class_text_shredder_packet_ab92e4b564377864eab0bba03addd0397}
+
+\item 
+{\bf TextShredderPacket} \& {\bfseries operator=} ({\bf TextShredderPacket} \&otherPacket)\label{class_text_shredder_packet_a7b8542510c5958431aca2968e65ee0fd}
+
+\item 
+bool {\bfseries operator==} ({\bf TextShredderPacket} \&otherPacket)\label{class_text_shredder_packet_ad99bb4feaa8734922d2842322dbf511c}
+
+\item 
+void {\bfseries setContent} (QByteArray \&bytes)\label{class_text_shredder_packet_a5f40205dff89b280506ee90c7990f2a2}
+
+\item 
+QByteArray \& {\bfseries getContent} ()\label{class_text_shredder_packet_a406e7051b2b719b600b149e263d45d65}
+
+\item 
+{\bf TextShredderHeader} \& {\bfseries getHeader} ()\label{class_text_shredder_packet_a01843c9ad788273caf58a93d01eb33d8}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{TextShredderPacket@{TextShredderPacket}!TextShredderPacket@{TextShredderPacket}}
+\index{TextShredderPacket@{TextShredderPacket}!TextShredderPacket@{TextShredderPacket}}
+\subsubsection[{TextShredderPacket}]{\setlength{\rightskip}{0pt plus 5cm}TextShredderPacket::TextShredderPacket (
+\begin{DoxyParamCaption}
+\item[{QObject $\ast$}]{ parent}
+\end{DoxyParamCaption}
+)}\label{class_text_shredder_packet_a8b6a8953275c2f3b35e5829b61310ef3}
+Default constructor. \index{TextShredderPacket@{TextShredderPacket}!TextShredderPacket@{TextShredderPacket}}
+\index{TextShredderPacket@{TextShredderPacket}!TextShredderPacket@{TextShredderPacket}}
+\subsubsection[{TextShredderPacket}]{\setlength{\rightskip}{0pt plus 5cm}TextShredderPacket::TextShredderPacket (
+\begin{DoxyParamCaption}
+\item[{QObject $\ast$}]{ parent, }
+\item[{{\bf TextShredderHeader} \&}]{ header, }
+\item[{QByteArray \&}]{ content}
+\end{DoxyParamCaption}
+)}\label{class_text_shredder_packet_a284467aa2879c552687e54286f5d9b72}
+Constructor that will initialize a \doxyref{TextShredderPacket}{p.}{class_text_shredder_packet} with a given \doxyref{TextShredderHeader}{p.}{class_text_shredder_header} and content.
+
+
+\begin{DoxyParams}{Parameters}
+\item[{\em the}]header. \item[{\em the}]content. \end{DoxyParams}
+\index{TextShredderPacket@{TextShredderPacket}!TextShredderPacket@{TextShredderPacket}}
+\index{TextShredderPacket@{TextShredderPacket}!TextShredderPacket@{TextShredderPacket}}
+\subsubsection[{TextShredderPacket}]{\setlength{\rightskip}{0pt plus 5cm}TextShredderPacket::TextShredderPacket (
+\begin{DoxyParamCaption}
+\item[{QObject $\ast$}]{ parent, }
+\item[{unsigned char}]{ packetType, }
+\item[{QByteArray \&}]{ content, }
+\item[{unsigned int}]{ destination = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}\label{class_text_shredder_packet_a24abeae2c2825cdc18d0cd44d2e029e4}
+Constructor which makes an \doxyref{TextShredderPacket}{p.}{class_text_shredder_packet} with \index{TextShredderPacket@{TextShredderPacket}!TextShredderPacket@{TextShredderPacket}}
+\index{TextShredderPacket@{TextShredderPacket}!TextShredderPacket@{TextShredderPacket}}
+\subsubsection[{TextShredderPacket}]{\setlength{\rightskip}{0pt plus 5cm}TextShredderPacket::TextShredderPacket (
+\begin{DoxyParamCaption}
+\item[{{\bf TextShredderPacket} \&}]{ otherPacket}
+\end{DoxyParamCaption}
+)}\label{class_text_shredder_packet_a12de40a56989203aa16e4b1f973f1fd1}
+Copy constructor 
+
+\subsection{Member Function Documentation}
+\index{TextShredderPacket@{TextShredderPacket}!isEditPacket@{isEditPacket}}
+\index{isEditPacket@{isEditPacket}!TextShredderPacket@{TextShredderPacket}}
+\subsubsection[{isEditPacket}]{\setlength{\rightskip}{0pt plus 5cm}bool TextShredderPacket::isEditPacket (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_text_shredder_packet_a0dbf8f5f92606e68f0d5fff0a05c5706}
+For the following methods: Returns if packet is such kind of packet. 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/network/models/textshredderpacket.h\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/network/models/textshredderpacket.cpp\end{DoxyCompactItemize}

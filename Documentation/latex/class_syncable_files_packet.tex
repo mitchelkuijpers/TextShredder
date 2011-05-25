@@ -1,0 +1,33 @@
+\section{SyncableFilesPacket Class Reference}
+\label{class_syncable_files_packet}\index{SyncableFilesPacket@{SyncableFilesPacket}}
+
+
+Inherits {\bf TextShredderPacket}.
+
+
+
+Collaboration diagram for SyncableFilesPacket:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries SyncableFilesPacket} (QObject $\ast$parent, QList$<$ QSharedPointer$<$ {\bf SyncableFile} $>$ $>$ \&files)\label{class_syncable_files_packet_a5ebeafe18bd390024bc8ee9015a4f19f}
+
+\item 
+void {\bfseries appendFileDataToArray} (QByteArray \&byteArray, {\bf SyncableFile} $\ast$file)\label{class_syncable_files_packet_a1c567d98b13db7aa2abe4604d5cd7589}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries fillListWithContentsOfPacket} (QList$<$ QSharedPointer$<$ {\bf SyncableFile} $>$ $>$ \&list, QByteArray \&content)\label{class_syncable_files_packet_aaec97eef27ecea6af99b743f5e93ca4e}
+
+\item 
+static QByteArray {\bfseries splitContentTillCharacter} (QByteArray \&original, char c)\label{class_syncable_files_packet_a16c0067f62265ce5eecfb17e272cab79}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/network/models/syncablefilespacket.h\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/network/models/syncablefilespacket.cpp\end{DoxyCompactItemize}

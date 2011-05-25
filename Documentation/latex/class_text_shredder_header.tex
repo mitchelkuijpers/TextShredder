@@ -1,0 +1,109 @@
+\section{TextShredderHeader Class Reference}
+\label{class_text_shredder_header}\index{TextShredderHeader@{TextShredderHeader}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries TextShredderHeader} (QObject $\ast$parent)\label{class_text_shredder_header_a710e334166b5c7b9b91897e46f63f3b5}
+
+\item 
+{\bf TextShredderHeader} ()
+\item 
+{\bf TextShredderHeader} (QObject $\ast$parent, unsigned char protocolVersion, unsigned int contentLength, unsigned char packetType, unsigned int connectionHandle=0)
+\item 
+{\bf TextShredderHeader} (QObject $\ast$parent, const QByteArray \&)
+\item 
+{\bfseries TextShredderHeader} (const {\bf TextShredderHeader} \&other)\label{class_text_shredder_header_a618adc6a7918f55c8f6807b845e1547c}
+
+\item 
+{\bf TextShredderHeader} \& {\bfseries operator=} (const {\bf TextShredderHeader} \&other)\label{class_text_shredder_header_abcbd0ba41642a2340ef2556752048296}
+
+\item 
+bool {\bfseries operator==} (const {\bf TextShredderHeader} \&other)\label{class_text_shredder_header_a83dfd4a857cce517216c7b6bca9652d6}
+
+\item 
+void {\bf appendToQByteArray} (QByteArray \&)
+\item 
+unsigned char {\bfseries getProtocolVersion} ()\label{class_text_shredder_header_a96a0170a2228e193dadf92ca8265ea38}
+
+\item 
+unsigned int {\bfseries getContentLength} ()\label{class_text_shredder_header_a7aca6a07e8d76056d800d8cd04e45757}
+
+\item 
+unsigned char {\bfseries getPacketType} ()\label{class_text_shredder_header_a756d1290b20059dcf1bdc4f75712f6e0}
+
+\item 
+unsigned int {\bfseries getConnectionHandle} ()\label{class_text_shredder_header_a9b2b89e987bd2836e367def221982ba4}
+
+\item 
+void {\bfseries setProtocolVersion} (unsigned char newValue)\label{class_text_shredder_header_a8d57a57f9a017eacaac9fa7eebc4dde1}
+
+\item 
+void {\bfseries setContentLength} (unsigned int newValue)\label{class_text_shredder_header_a32ab4d7bbf415dc30f3b2412ff8997b4}
+
+\item 
+void {\bfseries setPacketType} (unsigned char newValue)\label{class_text_shredder_header_ac916700cde35756d7e7412bf18a9fdb9}
+
+\item 
+void {\bfseries setConnectionHandle} (unsigned int newValue)\label{class_text_shredder_header_a2e4f22ee325b12ab1eab01e908eb4b73}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{TextShredderHeader@{TextShredderHeader}!TextShredderHeader@{TextShredderHeader}}
+\index{TextShredderHeader@{TextShredderHeader}!TextShredderHeader@{TextShredderHeader}}
+\subsubsection[{TextShredderHeader}]{\setlength{\rightskip}{0pt plus 5cm}TextShredderHeader::TextShredderHeader (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_text_shredder_header_a3a9da963dc639519819d6e87bf9c5c4d}
+Default constructor which makes a \doxyref{TextShredderHeader}{p.}{class_text_shredder_header} object with a protocolVersion set to kProtocolVersion and other values set to 0 \index{TextShredderHeader@{TextShredderHeader}!TextShredderHeader@{TextShredderHeader}}
+\index{TextShredderHeader@{TextShredderHeader}!TextShredderHeader@{TextShredderHeader}}
+\subsubsection[{TextShredderHeader}]{\setlength{\rightskip}{0pt plus 5cm}TextShredderHeader::TextShredderHeader (
+\begin{DoxyParamCaption}
+\item[{QObject $\ast$}]{ parent, }
+\item[{unsigned char}]{ protocolVersion, }
+\item[{unsigned int}]{ contentLength, }
+\item[{unsigned char}]{ packetType, }
+\item[{unsigned int}]{ connectionHandle = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}\label{class_text_shredder_header_ac48d4f60c290a67225d3848257048b19}
+\doxyref{TextShredderHeader}{p.}{class_text_shredder_header} constructor which makes an object which properties are set to the given parameters.
+
+
+\begin{DoxyParams}{Parameters}
+\item[{\em the}]headers protocolVersion. \item[{\em the}]length of the body the header precedes. \item[{\em the}]type of content representation which the heades is followed by. \end{DoxyParams}
+\index{TextShredderHeader@{TextShredderHeader}!TextShredderHeader@{TextShredderHeader}}
+\index{TextShredderHeader@{TextShredderHeader}!TextShredderHeader@{TextShredderHeader}}
+\subsubsection[{TextShredderHeader}]{\setlength{\rightskip}{0pt plus 5cm}TextShredderHeader::TextShredderHeader (
+\begin{DoxyParamCaption}
+\item[{QObject $\ast$}]{ parent, }
+\item[{const QByteArray \&}]{ buffer}
+\end{DoxyParamCaption}
+)}\label{class_text_shredder_header_a4fa434dbeb695671d484f21e9d771fbe}
+\doxyref{TextShredderHeader}{p.}{class_text_shredder_header} coonstructor which makes an header based on bytes stored in a QByteArray
+
+
+\begin{DoxyParams}{Parameters}
+\item[{\em the}]byte array on which the header will be based on. \end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{TextShredderHeader@{TextShredderHeader}!appendToQByteArray@{appendToQByteArray}}
+\index{appendToQByteArray@{appendToQByteArray}!TextShredderHeader@{TextShredderHeader}}
+\subsubsection[{appendToQByteArray}]{\setlength{\rightskip}{0pt plus 5cm}void TextShredderHeader::appendToQByteArray (
+\begin{DoxyParamCaption}
+\item[{QByteArray \&}]{ buffer}
+\end{DoxyParamCaption}
+)}\label{class_text_shredder_header_ad7e8deeb7d42051266808cd1552ec4dc}
+Function to make a byte array representation of a \doxyref{TextShredderHeader}{p.}{class_text_shredder_header}
+
+
+\begin{DoxyParams}{Parameters}
+\item[{\em the}]byte array in which the byte representation is stored. \end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/network/models/textshredderheader.h\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/network/models/textshredderheader.cpp\end{DoxyCompactItemize}

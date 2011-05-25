@@ -1,0 +1,74 @@
+\section{Patch Class Reference}
+\label{class_patch}\index{Patch@{Patch}}
+
+
+{\ttfamily \#include $<$diff\_\-match\_\-patch.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf Patch} ()
+\item 
+bool {\bfseries isNull} () const \label{class_patch_afdc9aba846465494845201a26d0fc20f}
+
+\item 
+QString {\bf toString} ()
+\item 
+bool {\bfseries operator==} (const {\bf Patch} \&)\label{class_patch_a2159b94942e91391e8d4e29d06735286}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QList$<$ {\bf Diff} $>$ {\bfseries diffs}\label{class_patch_a5017c7eb1118cc8ebe7030dd7a86475a}
+
+\item 
+int {\bfseries start1}\label{class_patch_ae2fbf0aefd6ab5aeec4379cf388ff158}
+
+\item 
+int {\bfseries start2}\label{class_patch_a1ceab2853be39f706627f98e4d2ad8d6}
+
+\item 
+int {\bfseries length1}\label{class_patch_a6f1d748d94184a8f492bece1f967777d}
+
+\item 
+int {\bfseries length2}\label{class_patch_a9ef05324cac27ec93ebd0be4270e9d1e}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class representing one patch operation. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Patch@{Patch}!Patch@{Patch}}
+\index{Patch@{Patch}!Patch@{Patch}}
+\subsubsection[{Patch}]{\setlength{\rightskip}{0pt plus 5cm}Patch::Patch (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_patch_a65fdd4bb128b8f50c1b9dcc008f20360}
+Constructor. Initializes with an empty list of diffs. 
+
+\subsection{Member Function Documentation}
+\index{Patch@{Patch}!toString@{toString}}
+\index{toString@{toString}!Patch@{Patch}}
+\subsubsection[{toString}]{\setlength{\rightskip}{0pt plus 5cm}QString Patch::toString (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_patch_a53799d5296a89879d88f76c8f10602e7}
+Emmulate GNU diff's format. Header: @ -\/382,8 +481,9 @ Indicies are printed as 1-\/based, not 0-\/based. \begin{DoxyReturn}{Returns}
+The GNU diff string 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:
+
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/diff\_\-match\_\-patch/diff\_\-match\_\-patch.h\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/diff\_\-match\_\-patch/diff\_\-match\_\-patch.cpp\end{DoxyCompactItemize}

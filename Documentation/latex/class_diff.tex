@@ -1,0 +1,98 @@
+\section{Diff Class Reference}
+\label{class_diff}\index{Diff@{Diff}}
+
+
+{\ttfamily \#include $<$diff\_\-match\_\-patch.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf Diff} (Operation \_\-operation, const QString \&\_\-text)
+\item 
+bool {\bfseries isNull} () const \label{class_diff_af06b43fba4ac4d642296a9e1f60a97cb}
+
+\item 
+QString {\bf toString} () const 
+\item 
+bool {\bf operator==} (const {\bf Diff} \&d) const 
+\item 
+bool {\bfseries operator!=} (const {\bf Diff} \&d) const \label{class_diff_ae527433d87f2a87c63ab2fec50a00a8e}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static QString {\bfseries strOperation} (Operation op)\label{class_diff_a922600ec44c726ba32675b33e0c52ac6}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Operation {\bfseries operation}\label{class_diff_a134b63b7f79fbb3596a42bb7b2a5140e}
+
+\item 
+QString {\bfseries text}\label{class_diff_a5aab41a87ff74a0f572962ede20d9f2d}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class representing one diff operation. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Diff@{Diff}!Diff@{Diff}}
+\index{Diff@{Diff}!Diff@{Diff}}
+\subsubsection[{Diff}]{\setlength{\rightskip}{0pt plus 5cm}Diff::Diff (
+\begin{DoxyParamCaption}
+\item[{Operation}]{ \_\-operation, }
+\item[{const QString \&}]{ \_\-text}
+\end{DoxyParamCaption}
+)}\label{class_diff_a8fafc882c451d2b3768b0637aa0fe6b6}
+Constructor. Initializes the diff with the provided values. 
+\begin{DoxyParams}{Parameters}
+\item[{\em operation}]One of INSERT, DELETE or EQUAL. \item[{\em text}]The text being applied.\end{DoxyParams}
+Constructor. Initializes the diff with the provided values. 
+\begin{DoxyParams}{Parameters}
+\item[{\em operation}]One of INSERT, DELETE or EQUAL \item[{\em text}]The text being applied \end{DoxyParams}
+
+
+Here is the call graph for this function:
+
+
+
+
+Here is the caller graph for this function:
+
+
+
+
+\subsection{Member Function Documentation}
+\index{Diff@{Diff}!operator==@{operator==}}
+\index{operator==@{operator==}!Diff@{Diff}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool Diff::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Diff} \&}]{ d}
+\end{DoxyParamCaption}
+) const}\label{class_diff_ae3bb825450a577a92813370db37aa973}
+Is this \doxyref{Diff}{p.}{class_diff} equivalent to another \doxyref{Diff}{p.}{class_diff}? 
+\begin{DoxyParams}{Parameters}
+\item[{\em d}]Another \doxyref{Diff}{p.}{class_diff} to compare against \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true or false 
+\end{DoxyReturn}
+\index{Diff@{Diff}!toString@{toString}}
+\index{toString@{toString}!Diff@{Diff}}
+\subsubsection[{toString}]{\setlength{\rightskip}{0pt plus 5cm}QString Diff::toString (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_diff_ad2d625057737fb1304a7811d6184ef8b}
+Display a human-\/readable version of this \doxyref{Diff}{p.}{class_diff}. \begin{DoxyReturn}{Returns}
+text version 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/diff\_\-match\_\-patch/diff\_\-match\_\-patch.h\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/diff\_\-match\_\-patch/diff\_\-match\_\-patch.cpp\end{DoxyCompactItemize}

@@ -1,0 +1,11 @@
+digraph G
+{
+  edge [fontname="FreeSans.ttf",fontsize="10",labelfontname="FreeSans.ttf",labelfontsize="10"];
+  node [fontname="FreeSans.ttf",fontsize="10",shape=record];
+  rankdir=LR;
+  Node1 [label="ShadowCopy::applyEdits",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir=back,color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="SyncThread::applyReceivedEditList",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_sync_thread.html#a15b6e123fe1c76643597836618256619"];
+  Node2 -> Node3 [dir=back,color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="SyncThread::processChanges",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_sync_thread.html#a5d627a46f2748963951890020902c81e"];
+}

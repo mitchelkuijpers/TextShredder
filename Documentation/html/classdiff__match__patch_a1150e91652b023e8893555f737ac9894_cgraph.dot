@@ -1,0 +1,18 @@
+digraph G
+{
+  edge [fontname="FreeSans.ttf",fontsize="10",labelfontname="FreeSans.ttf",labelfontsize="10"];
+  node [fontname="FreeSans.ttf",fontsize="10",shape=record];
+  rankdir=LR;
+  Node1 [label="diff_match_patch::diff_cleanupSemantic",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="FreeSans.ttf"];
+  Node2 [label="diff_match_patch::diff_cleanupMerge",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#ad64d391bc3f34cad326f869eedb748f9"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="FreeSans.ttf"];
+  Node3 [label="diff_match_patch::diff_commonPrefix",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#a6139ad292f602b8b9295fe0c48709e31"];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="FreeSans.ttf"];
+  Node4 [label="diff_match_patch::diff_commonSuffix",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#aed765d65d9e6fb78de3725416a262586"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="FreeSans.ttf"];
+  Node5 [label="diff_match_patch::diff_cleanupSemanticLossless",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#afd96870070c1dc460d1c261fa3f0f485"];
+  Node5 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="FreeSans.ttf"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="FreeSans.ttf"];
+  Node6 [label="diff_match_patch::diff_commonOverlap",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#aa47c81e235ed1609fb915f03316d21dc"];
+}

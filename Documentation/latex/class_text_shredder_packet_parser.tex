@@ -1,0 +1,46 @@
+\section{TextShredderPacketParser Class Reference}
+\label{class_text_shredder_packet_parser}\index{TextShredderPacketParser@{TextShredderPacketParser}}
+
+
+Collaboration diagram for TextShredderPacketParser:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf TextShredderPacket} $\ast$ {\bf makeAllocatedPacketFromBytes} (QByteArray $\ast$bytes)
+\item 
+void {\bfseries handleData} (QByteArray \&)\label{class_text_shredder_packet_parser_a332ffaa1da7aa61fc2e5fe3cbed15d5a}
+
+\item 
+bool {\bfseries hasMorePackets} ()\label{class_text_shredder_packet_parser_ae85e856e84575c9dd6f2eded008f76db}
+
+\item 
+{\bf TextShredderPacket} $\ast$ {\bfseries nextPacket} ()\label{class_text_shredder_packet_parser_ac1864046c4e91d749add7537a4c4c83b}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{TextShredderPacketParser@{TextShredderPacketParser}!makeAllocatedPacketFromBytes@{makeAllocatedPacketFromBytes}}
+\index{makeAllocatedPacketFromBytes@{makeAllocatedPacketFromBytes}!TextShredderPacketParser@{TextShredderPacketParser}}
+\subsubsection[{makeAllocatedPacketFromBytes}]{\setlength{\rightskip}{0pt plus 5cm}{\bf TextShredderPacket} $\ast$ TextShredderPacketParser::makeAllocatedPacketFromBytes (
+\begin{DoxyParamCaption}
+\item[{QByteArray $\ast$}]{ bytes}
+\end{DoxyParamCaption}
+)}\label{class_text_shredder_packet_parser_a7bba96646712ea2661f46d14a33eb9db}
+Convert a QByteArray to a \doxyref{TextShredderPacket}{p.}{class_text_shredder_packet}. Returns is NULL if something went wrong
+
+
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]raw packet \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The packet it created from a QByteArray. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em QString}]when the protocolVersion is wrong \end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/network/textshredderpacketparser.h\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/network/textshredderpacketparser.cpp\end{DoxyCompactItemize}

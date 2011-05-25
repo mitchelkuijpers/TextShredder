@@ -1,0 +1,736 @@
+\section{diff\_\-match\_\-patch Class Reference}
+\label{classdiff__match__patch}\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}}
+
+
+{\ttfamily \#include $<$diff\_\-match\_\-patch.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+QList$<$ {\bf Diff} $>$ {\bf diff\_\-main} (const QString \&text1, const QString \&text2)
+\item 
+QList$<$ {\bf Diff} $>$ {\bf diff\_\-main} (const QString \&text1, const QString \&text2, bool checklines)
+\item 
+int {\bf diff\_\-commonPrefix} (const QString \&text1, const QString \&text2)
+\item 
+int {\bf diff\_\-commonSuffix} (const QString \&text1, const QString \&text2)
+\item 
+void {\bf diff\_\-cleanupSemantic} (QList$<$ {\bf Diff} $>$ \&diffs)
+\item 
+void {\bf diff\_\-cleanupSemanticLossless} (QList$<$ {\bf Diff} $>$ \&diffs)
+\item 
+void {\bf diff\_\-cleanupEfficiency} (QList$<$ {\bf Diff} $>$ \&diffs)
+\item 
+void {\bf diff\_\-cleanupMerge} (QList$<$ {\bf Diff} $>$ \&diffs)
+\item 
+int {\bf diff\_\-xIndex} (const QList$<$ {\bf Diff} $>$ \&diffs, int loc)
+\item 
+QString {\bf diff\_\-prettyHtml} (const QList$<$ {\bf Diff} $>$ \&diffs)
+\item 
+QString {\bf diff\_\-text1} (const QList$<$ {\bf Diff} $>$ \&diffs)
+\item 
+QString {\bf diff\_\-text2} (const QList$<$ {\bf Diff} $>$ \&diffs)
+\item 
+int {\bf diff\_\-levenshtein} (const QList$<$ {\bf Diff} $>$ \&diffs)
+\item 
+QString {\bf diff\_\-toDelta} (const QList$<$ {\bf Diff} $>$ \&diffs)
+\item 
+QList$<$ {\bf Diff} $>$ {\bf diff\_\-fromDelta} (const QString \&text1, const QString \&delta)
+\item 
+int {\bf match\_\-main} (const QString \&text, const QString \&pattern, int loc)
+\item 
+QList$<$ {\bf Patch} $>$ {\bf patch\_\-make} (const QString \&text1, const QString \&text2)
+\item 
+QList$<$ {\bf Patch} $>$ {\bf patch\_\-make} (const QList$<$ {\bf Diff} $>$ \&diffs)
+\item 
+QList$<$ {\bf Patch} $>$ {\bf patch\_\-make} (const QString \&text1, const QString \&text2, const QList$<$ {\bf Diff} $>$ \&diffs)
+\item 
+QList$<$ {\bf Patch} $>$ {\bf patch\_\-make} (const QString \&text1, const QList$<$ {\bf Diff} $>$ \&diffs)
+\item 
+QList$<$ {\bf Patch} $>$ {\bf patch\_\-deepCopy} (QList$<$ {\bf Patch} $>$ \&patches)
+\item 
+QPair$<$ QString, QVector$<$ bool $>$ $>$ {\bf patch\_\-apply} (QList$<$ {\bf Patch} $>$ \&patches, const QString \&text)
+\item 
+QString {\bf patch\_\-addPadding} (QList$<$ {\bf Patch} $>$ \&patches)
+\item 
+void {\bf patch\_\-splitMax} (QList$<$ {\bf Patch} $>$ \&patches)
+\item 
+QString {\bf patch\_\-toText} (const QList$<$ {\bf Patch} $>$ \&patches)
+\item 
+QList$<$ {\bf Patch} $>$ {\bf patch\_\-fromText} (const QString \&textline)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float {\bfseries Diff\_\-Timeout}\label{classdiff__match__patch_aaa544a91d8555a780ab261fc1c15b3f9}
+
+\item 
+short {\bfseries Diff\_\-EditCost}\label{classdiff__match__patch_a3a7134ca63b7e4cb44a2432ef4c34121}
+
+\item 
+float {\bfseries Match\_\-Threshold}\label{classdiff__match__patch_a4e7c966c7c2a930a578cf7ac8edc0e86}
+
+\item 
+int {\bfseries Match\_\-Distance}\label{classdiff__match__patch_a57c49d8f3692157431ecd74fe6cd3f8f}
+
+\item 
+float {\bfseries Patch\_\-DeleteThreshold}\label{classdiff__match__patch_a45ecc3f1f3d865c8b1d1b2eb4f40ab33}
+
+\item 
+short {\bfseries Patch\_\-Margin}\label{classdiff__match__patch_a798d3ee5eb9bf60ed679f50fa9a42d9b}
+
+\item 
+short {\bfseries Match\_\-MaxBits}\label{classdiff__match__patch_aa99b26cfb171f9ca3d558db26c76346c}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+QList$<$ {\bf Diff} $>$ {\bf diff\_\-bisect} (const QString \&text1, const QString \&text2, clock\_\-t deadline)
+\item 
+QList$<$ QVariant $>$ {\bf diff\_\-linesToChars} (const QString \&text1, const QString \&text2)
+\item 
+int {\bf diff\_\-commonOverlap} (const QString \&text1, const QString \&text2)
+\item 
+QStringList {\bf diff\_\-halfMatch} (const QString \&text1, const QString \&text2)
+\item 
+int {\bf match\_\-bitap} (const QString \&text, const QString \&pattern, int loc)
+\item 
+QMap$<$ QChar, int $>$ {\bf match\_\-alphabet} (const QString \&pattern)
+\item 
+void {\bf patch\_\-addContext} ({\bf Patch} \&patch, const QString \&text)
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries diff\_\-match\_\-patch\_\-test}\label{classdiff__match__patch_ab85b721264b16d0a4d42230097d485ca}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class containing the diff, match and patch methods. Also contains the behaviour settings. 
+
+\subsection{Member Function Documentation}
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-bisect@{diff\_\-bisect}}
+\index{diff\_\-bisect@{diff\_\-bisect}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-bisect}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ {\bf Diff} $>$ diff\_\-match\_\-patch::diff\_\-bisect (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text1, }
+\item[{const QString \&}]{ text2, }
+\item[{clock\_\-t}]{ deadline}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [protected]}}\label{classdiff__match__patch_a10f6b81afc589a091a74d00d58ec1a5a}
+Find the 'middle snake' of a diff, split the problem in two and return the recursively constructed diff. See Myers 1986 paper: An O(ND) Difference Algorithm and Its Variations. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text1}]Old string to be diffed. \item[{\em text2}]New string to be diffed. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Linked List of \doxyref{Diff}{p.}{class_diff} objects. 
+\end{DoxyReturn}
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-cleanupEfficiency@{diff\_\-cleanupEfficiency}}
+\index{diff\_\-cleanupEfficiency@{diff\_\-cleanupEfficiency}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-cleanupEfficiency}]{\setlength{\rightskip}{0pt plus 5cm}void diff\_\-match\_\-patch::diff\_\-cleanupEfficiency (
+\begin{DoxyParamCaption}
+\item[{QList$<$ {\bf Diff} $>$ \&}]{ diffs}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a41df9d26471d7d9f4ca085ab9f5da945}
+Reduce the number of edits by eliminating operationally trivial equalities. 
+\begin{DoxyParams}{Parameters}
+\item[{\em diffs}]LinkedList of \doxyref{Diff}{p.}{class_diff} objects. \end{DoxyParams}
+
+
+Here is the call graph for this function:
+
+
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-cleanupMerge@{diff\_\-cleanupMerge}}
+\index{diff\_\-cleanupMerge@{diff\_\-cleanupMerge}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-cleanupMerge}]{\setlength{\rightskip}{0pt plus 5cm}void diff\_\-match\_\-patch::diff\_\-cleanupMerge (
+\begin{DoxyParamCaption}
+\item[{QList$<$ {\bf Diff} $>$ \&}]{ diffs}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_ad64d391bc3f34cad326f869eedb748f9}
+Reorder and merge like edit sections. Merge equalities. Any edit section can move as long as it doesn't cross an equality. 
+\begin{DoxyParams}{Parameters}
+\item[{\em diffs}]LinkedList of \doxyref{Diff}{p.}{class_diff} objects. \end{DoxyParams}
+
+
+Here is the call graph for this function:
+
+
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-cleanupSemantic@{diff\_\-cleanupSemantic}}
+\index{diff\_\-cleanupSemantic@{diff\_\-cleanupSemantic}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-cleanupSemantic}]{\setlength{\rightskip}{0pt plus 5cm}void diff\_\-match\_\-patch::diff\_\-cleanupSemantic (
+\begin{DoxyParamCaption}
+\item[{QList$<$ {\bf Diff} $>$ \&}]{ diffs}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a1150e91652b023e8893555f737ac9894}
+Reduce the number of edits by eliminating semantically trivial equalities. 
+\begin{DoxyParams}{Parameters}
+\item[{\em diffs}]LinkedList of \doxyref{Diff}{p.}{class_diff} objects. \end{DoxyParams}
+
+
+Here is the call graph for this function:
+
+
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-cleanupSemanticLossless@{diff\_\-cleanupSemanticLossless}}
+\index{diff\_\-cleanupSemanticLossless@{diff\_\-cleanupSemanticLossless}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-cleanupSemanticLossless}]{\setlength{\rightskip}{0pt plus 5cm}void diff\_\-match\_\-patch::diff\_\-cleanupSemanticLossless (
+\begin{DoxyParamCaption}
+\item[{QList$<$ {\bf Diff} $>$ \&}]{ diffs}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_afd96870070c1dc460d1c261fa3f0f485}
+Look for single edits surrounded on both sides by equalities which can be shifted sideways to align the edit to a word boundary. e.g: The c$<$ins$>$at c$<$/ins$>$ame. -\/$>$ The $<$ins$>$cat $<$/ins$>$came. 
+\begin{DoxyParams}{Parameters}
+\item[{\em diffs}]LinkedList of \doxyref{Diff}{p.}{class_diff} objects. \end{DoxyParams}
+
+
+Here is the call graph for this function:
+
+
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-commonOverlap@{diff\_\-commonOverlap}}
+\index{diff\_\-commonOverlap@{diff\_\-commonOverlap}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-commonOverlap}]{\setlength{\rightskip}{0pt plus 5cm}int diff\_\-match\_\-patch::diff\_\-commonOverlap (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text1, }
+\item[{const QString \&}]{ text2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [protected]}}\label{classdiff__match__patch_aa47c81e235ed1609fb915f03316d21dc}
+Determine if the suffix of one string is the prefix of another. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text1}]First string. \item[{\em text2}]Second string. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of characters common to the end of the first string and the start of the second string. 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-commonPrefix@{diff\_\-commonPrefix}}
+\index{diff\_\-commonPrefix@{diff\_\-commonPrefix}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-commonPrefix}]{\setlength{\rightskip}{0pt plus 5cm}int diff\_\-match\_\-patch::diff\_\-commonPrefix (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text1, }
+\item[{const QString \&}]{ text2}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a6139ad292f602b8b9295fe0c48709e31}
+Determine the common prefix of two strings. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text1}]First string. \item[{\em text2}]Second string. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of characters common to the start of each string. 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-commonSuffix@{diff\_\-commonSuffix}}
+\index{diff\_\-commonSuffix@{diff\_\-commonSuffix}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-commonSuffix}]{\setlength{\rightskip}{0pt plus 5cm}int diff\_\-match\_\-patch::diff\_\-commonSuffix (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text1, }
+\item[{const QString \&}]{ text2}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_aed765d65d9e6fb78de3725416a262586}
+Determine the common suffix of two strings. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text1}]First string. \item[{\em text2}]Second string. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of characters common to the end of each string. 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-fromDelta@{diff\_\-fromDelta}}
+\index{diff\_\-fromDelta@{diff\_\-fromDelta}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-fromDelta}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ {\bf Diff} $>$ diff\_\-match\_\-patch::diff\_\-fromDelta (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text1, }
+\item[{const QString \&}]{ delta}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a70e244439ed3261a2a2c2ce092c45bc0}
+Given the original text1, and an encoded string which describes the operations required to transform text1 into text2, compute the full diff. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text1}]Source string for the diff. \item[{\em delta}]Delta text. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array of diff tuples or null if invalid. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em QString}]If invalid input. \end{DoxyExceptions}
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-halfMatch@{diff\_\-halfMatch}}
+\index{diff\_\-halfMatch@{diff\_\-halfMatch}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-halfMatch}]{\setlength{\rightskip}{0pt plus 5cm}QStringList diff\_\-match\_\-patch::diff\_\-halfMatch (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text1, }
+\item[{const QString \&}]{ text2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [protected]}}\label{classdiff__match__patch_a34e2eabd2503e28eebe97a05dc3783dc}
+Do the two texts share a substring which is at least half the length of the longer text? This speedup can produce non-\/minimal diffs. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text1}]First string. \item[{\em text2}]Second string. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Five element String array, containing the prefix of text1, the suffix of text1, the prefix of text2, the suffix of text2 and the common middle. Or null if there was no match. 
+\end{DoxyReturn}
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-levenshtein@{diff\_\-levenshtein}}
+\index{diff\_\-levenshtein@{diff\_\-levenshtein}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-levenshtein}]{\setlength{\rightskip}{0pt plus 5cm}int diff\_\-match\_\-patch::diff\_\-levenshtein (
+\begin{DoxyParamCaption}
+\item[{const QList$<$ {\bf Diff} $>$ \&}]{ diffs}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a5183e0300c4fbe6b993cae9844f57c11}
+Compute the Levenshtein distance; the number of inserted, deleted or substituted characters. 
+\begin{DoxyParams}{Parameters}
+\item[{\em diffs}]LinkedList of \doxyref{Diff}{p.}{class_diff} objects. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of changes. 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-linesToChars@{diff\_\-linesToChars}}
+\index{diff\_\-linesToChars@{diff\_\-linesToChars}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-linesToChars}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ QVariant $>$ diff\_\-match\_\-patch::diff\_\-linesToChars (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text1, }
+\item[{const QString \&}]{ text2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [protected]}}\label{classdiff__match__patch_ab1f120b83d49948767de531ab2a4e15a}
+Split two texts into a list of strings. Reduce the texts to a string of hashes where each Unicode character represents one line. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text1}]First string. \item[{\em text2}]Second string. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Three element Object array, containing the encoded text1, the encoded text2 and the List of unique strings. The zeroth element of the List of unique strings is intentionally blank. 
+\end{DoxyReturn}
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-main@{diff\_\-main}}
+\index{diff\_\-main@{diff\_\-main}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-main}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ {\bf Diff} $>$ diff\_\-match\_\-patch::diff\_\-main (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text1, }
+\item[{const QString \&}]{ text2, }
+\item[{bool}]{ checklines}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a106a1cb355978e1d2c60fb6487667fe3}
+Find the differences between two texts. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text1}]Old string to be diffed. \item[{\em text2}]New string to be diffed. \item[{\em checklines}]Speedup flag. If false, then don't run a line-\/level diff first to identify the changed areas. If true, then run a faster slightly less optimal diff. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Linked List of \doxyref{Diff}{p.}{class_diff} objects. 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-main@{diff\_\-main}}
+\index{diff\_\-main@{diff\_\-main}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-main}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ {\bf Diff} $>$ diff\_\-match\_\-patch::diff\_\-main (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text1, }
+\item[{const QString \&}]{ text2}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a82fe78383b2fddf542fe83e057252e53}
+Find the differences between two texts. Run a faster slightly less optimal diff. This method allows the 'checklines' of \doxyref{diff\_\-main()}{p.}{classdiff__match__patch_a82fe78383b2fddf542fe83e057252e53} to be optional. Most of the time checklines is wanted, so default to true. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text1}]Old string to be diffed. \item[{\em text2}]New string to be diffed. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Linked List of \doxyref{Diff}{p.}{class_diff} objects. 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-prettyHtml@{diff\_\-prettyHtml}}
+\index{diff\_\-prettyHtml@{diff\_\-prettyHtml}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-prettyHtml}]{\setlength{\rightskip}{0pt plus 5cm}QString diff\_\-match\_\-patch::diff\_\-prettyHtml (
+\begin{DoxyParamCaption}
+\item[{const QList$<$ {\bf Diff} $>$ \&}]{ diffs}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a3eeaf8a99e5d6f53e8994128d64f57f1}
+Convert a \doxyref{Diff}{p.}{class_diff} list into a pretty HTML report. 
+\begin{DoxyParams}{Parameters}
+\item[{\em diffs}]LinkedList of \doxyref{Diff}{p.}{class_diff} objects. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+HTML representation. 
+\end{DoxyReturn}
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-text1@{diff\_\-text1}}
+\index{diff\_\-text1@{diff\_\-text1}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-text1}]{\setlength{\rightskip}{0pt plus 5cm}QString diff\_\-match\_\-patch::diff\_\-text1 (
+\begin{DoxyParamCaption}
+\item[{const QList$<$ {\bf Diff} $>$ \&}]{ diffs}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a6a1995ece702b50091f3883518864ea7}
+Compute and return the source text (all equalities and deletions). 
+\begin{DoxyParams}{Parameters}
+\item[{\em diffs}]LinkedList of \doxyref{Diff}{p.}{class_diff} objects. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Source text. 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-text2@{diff\_\-text2}}
+\index{diff\_\-text2@{diff\_\-text2}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-text2}]{\setlength{\rightskip}{0pt plus 5cm}QString diff\_\-match\_\-patch::diff\_\-text2 (
+\begin{DoxyParamCaption}
+\item[{const QList$<$ {\bf Diff} $>$ \&}]{ diffs}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a9d3e1424496704a7e1d1f7995d465f20}
+Compute and return the destination text (all equalities and insertions). 
+\begin{DoxyParams}{Parameters}
+\item[{\em diffs}]LinkedList of \doxyref{Diff}{p.}{class_diff} objects. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Destination text. 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-toDelta@{diff\_\-toDelta}}
+\index{diff\_\-toDelta@{diff\_\-toDelta}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-toDelta}]{\setlength{\rightskip}{0pt plus 5cm}QString diff\_\-match\_\-patch::diff\_\-toDelta (
+\begin{DoxyParamCaption}
+\item[{const QList$<$ {\bf Diff} $>$ \&}]{ diffs}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_acc6b4e2d43c1be99c291049810bfc654}
+Crush the diff into an encoded string which describes the operations required to transform text1 into text2. E.g. =3-\/2+ing -\/$>$ Keep 3 chars, delete 2 chars, insert 'ing'. Operations are tab-\/separated. Inserted text is escaped using xx notation. 
+\begin{DoxyParams}{Parameters}
+\item[{\em diffs}]Array of diff tuples. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Delta text. 
+\end{DoxyReturn}
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!diff\_\-xIndex@{diff\_\-xIndex}}
+\index{diff\_\-xIndex@{diff\_\-xIndex}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{diff\_\-xIndex}]{\setlength{\rightskip}{0pt plus 5cm}int diff\_\-match\_\-patch::diff\_\-xIndex (
+\begin{DoxyParamCaption}
+\item[{const QList$<$ {\bf Diff} $>$ \&}]{ diffs, }
+\item[{int}]{ loc}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a91474da17c89bab2ca34efa207fe85b4}
+loc is a location in text1, compute and return the equivalent location in text2. e.g. \char`\"{}The cat\char`\"{} vs \char`\"{}The big cat\char`\"{}, 1-\/$>$1, 5-\/$>$8 
+\begin{DoxyParams}{Parameters}
+\item[{\em diffs}]LinkedList of \doxyref{Diff}{p.}{class_diff} objects. \item[{\em loc}]Location within text1. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Location within text2. 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!match\_\-alphabet@{match\_\-alphabet}}
+\index{match\_\-alphabet@{match\_\-alphabet}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{match\_\-alphabet}]{\setlength{\rightskip}{0pt plus 5cm}QMap$<$ QChar, int $>$ diff\_\-match\_\-patch::match\_\-alphabet (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ pattern}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [protected]}}\label{classdiff__match__patch_a106c32e9978fc36cafe6f1bc8f81bf8d}
+Initialise the alphabet for the Bitap algorithm. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pattern}]The text to encode. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Hash of character locations. 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!match\_\-bitap@{match\_\-bitap}}
+\index{match\_\-bitap@{match\_\-bitap}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{match\_\-bitap}]{\setlength{\rightskip}{0pt plus 5cm}int diff\_\-match\_\-patch::match\_\-bitap (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text, }
+\item[{const QString \&}]{ pattern, }
+\item[{int}]{ loc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [protected]}}\label{classdiff__match__patch_a9d8ebaab2f4cd4fb2ab01a3110c56b86}
+Locate the best instance of 'pattern' in 'text' near 'loc' using the Bitap algorithm. Returns -\/1 if no match found. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text}]The text to search. \item[{\em pattern}]The pattern to search for. \item[{\em loc}]The location to search around. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Best match index or -\/1. 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function:
+
+
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!match\_\-main@{match\_\-main}}
+\index{match\_\-main@{match\_\-main}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{match\_\-main}]{\setlength{\rightskip}{0pt plus 5cm}int diff\_\-match\_\-patch::match\_\-main (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text, }
+\item[{const QString \&}]{ pattern, }
+\item[{int}]{ loc}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_aab1a27bfbb05e041a969617bf6594c23}
+Locate the best instance of 'pattern' in 'text' near 'loc'. Returns -\/1 if no match found. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text}]The text to search. \item[{\em pattern}]The pattern to search for. \item[{\em loc}]The location to search around. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Best match index or -\/1. 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function:
+
+
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!patch\_\-addContext@{patch\_\-addContext}}
+\index{patch\_\-addContext@{patch\_\-addContext}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{patch\_\-addContext}]{\setlength{\rightskip}{0pt plus 5cm}void diff\_\-match\_\-patch::patch\_\-addContext (
+\begin{DoxyParamCaption}
+\item[{{\bf Patch} \&}]{ patch, }
+\item[{const QString \&}]{ text}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [protected]}}\label{classdiff__match__patch_a330cc0e446453f69d18a90ba9887c7db}
+Increase the context until it is unique, but don't let the pattern expand beyond Match\_\-MaxBits. 
+\begin{DoxyParams}{Parameters}
+\item[{\em patch}]The patch to grow. \item[{\em text}]Source text. \end{DoxyParams}
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!patch\_\-addPadding@{patch\_\-addPadding}}
+\index{patch\_\-addPadding@{patch\_\-addPadding}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{patch\_\-addPadding}]{\setlength{\rightskip}{0pt plus 5cm}QString diff\_\-match\_\-patch::patch\_\-addPadding (
+\begin{DoxyParamCaption}
+\item[{QList$<$ {\bf Patch} $>$ \&}]{ patches}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a03d8b23bf20cbfc3e454aad38ff366d8}
+Add some padding on text start and end so that edges can match something. Intended to be called only from within patch\_\-apply. 
+\begin{DoxyParams}{Parameters}
+\item[{\em patches}]Array of patch objects. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The padding string added to each side. 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!patch\_\-apply@{patch\_\-apply}}
+\index{patch\_\-apply@{patch\_\-apply}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{patch\_\-apply}]{\setlength{\rightskip}{0pt plus 5cm}QPair$<$ QString, QVector$<$ bool $>$ $>$ diff\_\-match\_\-patch::patch\_\-apply (
+\begin{DoxyParamCaption}
+\item[{QList$<$ {\bf Patch} $>$ \&}]{ patches, }
+\item[{const QString \&}]{ text}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_acbdd755dfb40abc85760b4f8fbcdc98f}
+Merge a set of patches onto the text. Return a patched text, as well as an array of true/false values indicating which patches were applied. 
+\begin{DoxyParams}{Parameters}
+\item[{\em patches}]Array of patch objects. \item[{\em text}]Old text. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Two element Object array, containing the new text and an array of boolean values. 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!patch\_\-deepCopy@{patch\_\-deepCopy}}
+\index{patch\_\-deepCopy@{patch\_\-deepCopy}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{patch\_\-deepCopy}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ {\bf Patch} $>$ diff\_\-match\_\-patch::patch\_\-deepCopy (
+\begin{DoxyParamCaption}
+\item[{QList$<$ {\bf Patch} $>$ \&}]{ patches}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_aa4b405c41f79af23a8e60129c8e9a721}
+Given an array of patches, return another array that is identical. 
+\begin{DoxyParams}{Parameters}
+\item[{\em patches}]Array of patch objects. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array of patch objects. 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!patch\_\-fromText@{patch\_\-fromText}}
+\index{patch\_\-fromText@{patch\_\-fromText}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{patch\_\-fromText}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ {\bf Patch} $>$ diff\_\-match\_\-patch::patch\_\-fromText (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ textline}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a2d3d6460ce369b1f506a2c5d6b3fdee9}
+Parse a textual representation of patches and return a List of \doxyref{Patch}{p.}{class_patch} objects. 
+\begin{DoxyParams}{Parameters}
+\item[{\em textline}]Text representation of patches. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of \doxyref{Patch}{p.}{class_patch} objects. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em QString}]If invalid input. \end{DoxyExceptions}
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!patch\_\-make@{patch\_\-make}}
+\index{patch\_\-make@{patch\_\-make}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{patch\_\-make}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ {\bf Patch} $>$ diff\_\-match\_\-patch::patch\_\-make (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text1, }
+\item[{const QString \&}]{ text2}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_afb9335ec40ffb7b74a822a1210d90e19}
+Compute a list of patches to turn text1 into text2. A set of diffs will be computed. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text1}]Old text. \item[{\em text2}]New text. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+LinkedList of \doxyref{Patch}{p.}{class_patch} objects. 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function:
+
+
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!patch\_\-make@{patch\_\-make}}
+\index{patch\_\-make@{patch\_\-make}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{patch\_\-make}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ {\bf Patch} $>$ diff\_\-match\_\-patch::patch\_\-make (
+\begin{DoxyParamCaption}
+\item[{const QList$<$ {\bf Diff} $>$ \&}]{ diffs}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_ac5992f58192fc44530f33dd40202c165}
+Compute a list of patches to turn text1 into text2. text1 will be derived from the provided diffs. 
+\begin{DoxyParams}{Parameters}
+\item[{\em diffs}]Array of diff tuples for text1 to text2. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+LinkedList of \doxyref{Patch}{p.}{class_patch} objects. 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!patch\_\-make@{patch\_\-make}}
+\index{patch\_\-make@{patch\_\-make}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{patch\_\-make}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ {\bf Patch} $>$ diff\_\-match\_\-patch::patch\_\-make (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text1, }
+\item[{const QString \&}]{ text2, }
+\item[{const QList$<$ {\bf Diff} $>$ \&}]{ diffs}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_aaf3ea8fa0cd411d87dc465544fa68ac1}
+Compute a list of patches to turn text1 into text2. text2 is ignored, diffs are the delta between text1 and text2. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text1}]Old text. \item[{\em text2}]Ignored. \item[{\em diffs}]Array of diff tuples for text1 to text2. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+LinkedList of \doxyref{Patch}{p.}{class_patch} objects. 
+\end{DoxyReturn}
+\begin{Desc}
+\item[{\bf Deprecated}]Prefer \doxyref{patch\_\-make(const QString \&text1, const QList$<$Diff$>$ \&diffs)}{p.}{classdiff__match__patch_a7fe185270bdffc221bd36f3f72635298}. \end{Desc}
+
+
+Here is the call graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!patch\_\-make@{patch\_\-make}}
+\index{patch\_\-make@{patch\_\-make}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{patch\_\-make}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ {\bf Patch} $>$ diff\_\-match\_\-patch::patch\_\-make (
+\begin{DoxyParamCaption}
+\item[{const QString \&}]{ text1, }
+\item[{const QList$<$ {\bf Diff} $>$ \&}]{ diffs}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a7fe185270bdffc221bd36f3f72635298}
+Compute a list of patches to turn text1 into text2. text2 is not provided, diffs are the delta between text1 and text2. 
+\begin{DoxyParams}{Parameters}
+\item[{\em text1}]Old text. \item[{\em diffs}]Array of diff tuples for text1 to text2. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+LinkedList of \doxyref{Patch}{p.}{class_patch} objects. 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!patch\_\-splitMax@{patch\_\-splitMax}}
+\index{patch\_\-splitMax@{patch\_\-splitMax}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{patch\_\-splitMax}]{\setlength{\rightskip}{0pt plus 5cm}void diff\_\-match\_\-patch::patch\_\-splitMax (
+\begin{DoxyParamCaption}
+\item[{QList$<$ {\bf Patch} $>$ \&}]{ patches}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_a8b026488adde70dcc268fc50d170f4e3}
+Look through the patches and break up any which are longer than the maximum limit of the match algorithm. Intended to be called only from within patch\_\-apply. 
+\begin{DoxyParams}{Parameters}
+\item[{\em patches}]LinkedList of \doxyref{Patch}{p.}{class_patch} objects. \end{DoxyParams}
+
+
+Here is the call graph for this function:
+
+
+
+
+Here is the caller graph for this function:
+
+
+\index{diff\_\-match\_\-patch@{diff\_\-match\_\-patch}!patch\_\-toText@{patch\_\-toText}}
+\index{patch\_\-toText@{patch\_\-toText}!diff_match_patch@{diff\_\-match\_\-patch}}
+\subsubsection[{patch\_\-toText}]{\setlength{\rightskip}{0pt plus 5cm}QString diff\_\-match\_\-patch::patch\_\-toText (
+\begin{DoxyParamCaption}
+\item[{const QList$<$ {\bf Patch} $>$ \&}]{ patches}
+\end{DoxyParamCaption}
+)}\label{classdiff__match__patch_ab23a8022e207c5aa2fd2ee7dad604341}
+Take a list of patches and return a textual representation. 
+\begin{DoxyParams}{Parameters}
+\item[{\em patches}]List of \doxyref{Patch}{p.}{class_patch} objects. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Text representation of patches. 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function:
+
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/diff\_\-match\_\-patch/diff\_\-match\_\-patch.h\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/diff\_\-match\_\-patch/diff\_\-match\_\-patch.cpp\end{DoxyCompactItemize}

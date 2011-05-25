@@ -1,0 +1,35 @@
+digraph G
+{
+  edge [fontname="FreeSans.ttf",fontsize="10",labelfontname="FreeSans.ttf",labelfontsize="10"];
+  node [fontname="FreeSans.ttf",fontsize="10",shape=record];
+  rankdir=LR;
+  Node1 [label="diff_match_patch::patch_apply",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="diff_match_patch::diff_cleanupSemanticLossless",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#afd96870070c1dc460d1c261fa3f0f485"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="diff_match_patch::diff_commonSuffix",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#aed765d65d9e6fb78de3725416a262586"];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="diff_match_patch::diff_levenshtein",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#a5183e0300c4fbe6b993cae9844f57c11"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="diff_match_patch::diff_main",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#a82fe78383b2fddf542fe83e057252e53"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="diff_match_patch::diff_text1",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#a6a1995ece702b50091f3883518864ea7"];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="diff_match_patch::diff_text2",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#a9d3e1424496704a7e1d1f7995d465f20"];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="diff_match_patch::diff_xIndex",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#a91474da17c89bab2ca34efa207fe85b4"];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="diff_match_patch::match_main",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#aab1a27bfbb05e041a969617bf6594c23"];
+  Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="diff_match_patch::match_bitap",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#a9d8ebaab2f4cd4fb2ab01a3110c56b86"];
+  Node10 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="diff_match_patch::match_alphabet",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#a106c32e9978fc36cafe6f1bc8f81bf8d"];
+  Node1 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="diff_match_patch::patch_addPadding",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#a03d8b23bf20cbfc3e454aad38ff366d8"];
+  Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="diff_match_patch::patch_deepCopy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#aa4b405c41f79af23a8e60129c8e9a721"];
+  Node1 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="diff_match_patch::patch_splitMax",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdiff__match__patch.html#a8b026488adde70dcc268fc50d170f4e3"];
+  Node14 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+}

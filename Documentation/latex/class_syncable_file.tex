@@ -1,0 +1,116 @@
+\section{SyncableFile Class Reference}
+\label{class_syncable_file}\index{SyncableFile@{SyncableFile}}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries fileStoppedSharing} ()\label{class_syncable_file_a6f7d3887c7178af437011a3739528aa4}
+
+\item 
+void {\bfseries fileStartedSharing} ()\label{class_syncable_file_aa6f791c9ba6b6a334fb812049703a06f}
+
+\item 
+void {\bfseries fileRequestsForSync} ({\bf TextShredderPacket} \&)\label{class_syncable_file_af7e647ff2106c70dd088ba925796fa18}
+
+\item 
+void {\bfseries syncableFileChanged} ()\label{class_syncable_file_a13cc1700a5695b1cce76848d1741cc25}
+
+\item 
+void {\bfseries syncableFileShouldBeRemoved} ()\label{class_syncable_file_abd42e21e8c7e9c886d85675e1796580e}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries SyncableFile} (QObject $\ast$parent, QString \&path)\label{class_syncable_file_a526bff9bfae19da3eb36da1160d5fbe3}
+
+\item 
+{\bfseries SyncableFile} (QObject $\ast$parent, QString \&alias, FileType type)\label{class_syncable_file_a76a84186e9e262ede70f2362c4efc2b1}
+
+\item 
+{\bfseries SyncableFile} (const {\bf SyncableFile} \&other)\label{class_syncable_file_a07ed75f67e26b5f8a258c12c11209ee1}
+
+\item 
+{\bfseries SyncableFile} (QObject $\ast$parent, QString \&identifier, QString \&alias)\label{class_syncable_file_af420d72b6a6446840e2f6720343a53bc}
+
+\item 
+{\bf SyncableFile} \& {\bfseries operator=} (const {\bf SyncableFile} \&other)\label{class_syncable_file_ad28f7c64481102e24a9b92bdfa5d81d5}
+
+\item 
+bool {\bfseries operator==} (const {\bf SyncableFile} \&other)\label{class_syncable_file_ac7e8ec7d9b962ac3b8a03fc44ffe5f84}
+
+\item 
+void {\bf changeFileType} (FileType type)
+\item 
+void {\bfseries startSyncOn} (quint16, QSharedPointer$<$ {\bf TextShredderConnection} $>$ connection)\label{class_syncable_file_ad13755c7315c239c569af843997c0ffa}
+
+\item 
+void {\bfseries stopSync} ()\label{class_syncable_file_ac62b1f7bb6afa0489c76a047dab9b203}
+
+\item 
+QSharedPointer$<$ {\bf WorkingCopy} $>$ {\bfseries getWorkingCopy} ()\label{class_syncable_file_ab646e7a3e628ec2eaf0a00110eda20f8}
+
+\item 
+QString \& {\bfseries getFileAlias} ()\label{class_syncable_file_ab566d4933d0d04e9cd2551aa1c2f468a}
+
+\item 
+void {\bfseries setFileAlias} (QString \&)\label{class_syncable_file_a38be63e6cef6773c25d1c5f1daccc080}
+
+\item 
+QString \& {\bfseries getFileIdentifier} ()\label{class_syncable_file_a85be83dfe6ce5c3272aaef26bb45b1ef}
+
+\item 
+bool {\bfseries isShared} ()\label{class_syncable_file_a131f0d449bd537c81e8923f183cae7e2}
+
+\item 
+bool {\bfseries isOnServer} ()\label{class_syncable_file_a1e62d77fcf259e500198f4d77e28d498}
+
+\item 
+bool {\bfseries isOpened} ()\label{class_syncable_file_a2702330bcc15c3131455f5392106c088}
+
+\item 
+void {\bfseries setShared} (bool share)\label{class_syncable_file_a5f136cb23aaec934c688843a141cba92}
+
+\item 
+void {\bfseries setOnServer} (bool value)\label{class_syncable_file_a9e74d9db10a0b3199177509f3ed694ff}
+
+\item 
+void {\bfseries close} ()\label{class_syncable_file_a2c342b508a96733102f96e38cb289889}
+
+\item 
+void {\bfseries open} ()\label{class_syncable_file_a4e98844d45ce336813d2d7dc879c3f72}
+
+\item 
+void {\bfseries requestSync} ()\label{class_syncable_file_ab3ef540a235ffc7c479f07ad0b14f722}
+
+\item 
+QSharedPointer$<$ {\bf WorkingCopy} $>$ {\bfseries openWorkingCopyForGUI} ()\label{class_syncable_file_ab3dd03418165cb9dcaa5b8e831844d92}
+
+\item 
+void {\bfseries closeWorkingCopyFromGUI} ()\label{class_syncable_file_a4255c08954993cd032fb775a2b884199}
+
+\item 
+SyncableFileStatus {\bfseries calculateStatus} ()\label{class_syncable_file_aa1cca0675140234f5c68bd797abe2429}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bfseries doDeleteLater} ({\bf SyncableFile} $\ast$obj)\label{class_syncable_file_ae522f2ddafedca2b67d5883c3530293d}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{SyncableFile@{SyncableFile}!changeFileType@{changeFileType}}
+\index{changeFileType@{changeFileType}!SyncableFile@{SyncableFile}}
+\subsubsection[{changeFileType}]{\setlength{\rightskip}{0pt plus 5cm}void SyncableFile::changeFileType (
+\begin{DoxyParamCaption}
+\item[{FileType}]{ type}
+\end{DoxyParamCaption}
+)}\label{class_syncable_file_a7ddbefbcb6915bde00852900b240af23}
+Will change the file type for the \doxyref{SyncableFile}{p.}{class_syncable_file} 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/synchronization/models/syncablefile.h\item 
+/mpnacode/TextShredder/textshredder\_\-core/libraries/synchronization/models/syncablefile.cpp\end{DoxyCompactItemize}
