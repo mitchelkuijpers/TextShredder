@@ -48,7 +48,9 @@ private:
 	void emitNewIncomingPacket(TextShredderPacket &packet);
 
 signals:
-	void statusChanged(TextShredderConnectionStatus, QAbstractSocket::SocketError);
+	void socketConnectedSuccessfully();
+	void socketErrorReceived(QAbstractSocket::SocketError);
+
 	void queueChanged();
 	void clientDisconnected();
 

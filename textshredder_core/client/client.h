@@ -28,7 +28,8 @@ signals:
 
 private slots:
 	void connectionDidEncounterEnd();
-	void connectionStatusChanged(TextShredderConnectionStatus status, QAbstractSocket::SocketError error );
+	void connectionSuccessful();
+	void connectionError( QAbstractSocket::SocketError error );
 	void connectionReceivedOnlineUsersPacket(TextShredderPacket &packet);
 };
 
