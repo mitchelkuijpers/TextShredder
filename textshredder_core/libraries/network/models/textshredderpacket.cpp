@@ -116,3 +116,20 @@ bool TextShredderPacket::operator ==(TextShredderPacket &otherPacket)
 {
 	return (this->getContent() == otherPacket.getContent() && this->getHeader() == otherPacket.getHeader());
 }
+
+QByteArray TextShredderPacket::splitContentTillCharacter(QByteArray &original, char c)
+{
+	QByteArray returnValue;
+	int count = 0;
+	while ( count < original.size()) {
+		if (original.at(count) == c) {
+			returnValue.append(original.mid(0, count));
+			original.remove(0,count+1);
+			return returnValue;
+		}
+		count++;
+	}
+	returnValue.append(original);
+	original.clear();
+	return returnValue;
+}

@@ -71,9 +71,8 @@ public:
 	QByteArray & getContent();
 	TextShredderHeader & getHeader();
 
-signals:
+	static QByteArray splitContentTillCharacter(QByteArray &original, char c);
 
-public slots:
 
 private:
 	TextShredderHeader header;

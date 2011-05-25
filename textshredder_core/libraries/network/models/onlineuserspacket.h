@@ -14,13 +14,7 @@ public:
 	 * @param userList A Qlist which holds the online users
 	 */
 	OnlineUsersPacket(QObject *packet, QList<QString> userList);
-	/**
-	 * Searches the &original bytearray and splits it until it comes across the given char c.
-	 * @param &original The QByteArray whichs holds the original content.
-	 * @param c The character to find which ends the split
-	 * @return The QByteArray which holds the online users.
-	 */
-	static QByteArray splitContentTillCharacter(QByteArray &original, char c);
+
 	/**
 	 * Constructor,subtracts the online users from the packet parameter.
 	 * appends the users to the list and returns it.

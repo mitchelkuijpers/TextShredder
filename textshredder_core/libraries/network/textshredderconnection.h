@@ -66,7 +66,7 @@ private:
 	 */
 	void setupSignalsForSocket();
 	/**
-	 * Breaks down all the correct signals for the socket
+	 * Breaks down all the signals for the socket
 	 */
 	void breakDownSignalsForSocket();
 	/**

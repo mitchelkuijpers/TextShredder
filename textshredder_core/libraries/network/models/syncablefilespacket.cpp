@@ -50,20 +50,3 @@ void SyncableFilesPacket::fillListWithContentsOfPacket(QList <QSharedPointer<Syn
 		obj.clear();
 	}
 }
-
-QByteArray SyncableFilesPacket::splitContentTillCharacter(QByteArray &original, char c)
-{
-	QByteArray returnValue;
-	int count = 0;
-	while ( count < original.size()) {
-		if (original.at(count) == c) {
-			returnValue.append(original.mid(0, count));
-			original.remove(0,count+1);
-			return returnValue;
-		}
-		count++;
-	}
-	returnValue.append(original);
-	original.clear();
-	return returnValue;
-}

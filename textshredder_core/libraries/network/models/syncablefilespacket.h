@@ -31,13 +31,7 @@ public:
 	 * @param *file The syncablefile which holds the filedata
 	 */
 	void appendFileDataToArray(QByteArray &byteArray, SyncableFile *file);
-	/**
-	 * Searches the &original bytearray and splits it until it comes across the given char c.
-	 * @param &original The QByteArray whichs holds the original content.
-	 * @param c The character to find which ends the split
-	 * @return The QByteArray which holds the online users.
-	 */
-	static QByteArray splitContentTillCharacter(QByteArray &original, char c);
+
 private:
 	QByteArray contentForFiles(QList< QSharedPointer<SyncableFile> > &files);
 };
