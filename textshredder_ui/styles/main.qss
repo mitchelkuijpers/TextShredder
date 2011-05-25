@@ -1,6 +1,119 @@
+QPushButton {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+	stop: 0 #356bde,
+	stop: 0.4 #265dd6,
+	stop: 0.41 #1b50c2,
+	stop: 1 #1a50cb);
+	border:1px solid #163a87;
+	border-radius: 5px;
+	height:20px;
+	color: #ffffff;
+	padding:2px;
+}
+
+QPushButton:pressed {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+	stop: 0 #0095cc,
+	stop: 1 #00678e);
+	border:1px solid #3e3e3e;
+	border-radius: 5px;
+	height:20px;
+	color: #ffffff;
+	padding:2px;
+}
+
+QPushButton:default {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+	stop: 0 #00ADEE,
+	stop: 1 #0078A5);
+	border:1px solid #3e3e3e;
+	border-radius: 5px;
+	height:20px;
+	color: #ffffff;
+	padding:2px;
+}
+
+QPushButton:checked {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+	stop: 0 #0095cc,
+	stop: 1 #00678e);
+	border:1px solid #304460;
+	border-radius: 5px;
+	height:20px;
+	color: #ffffff;
+	padding:2px;
+}
+
+#ribbonDock QPushButton {
+	background: none;
+	border:0;
+	border-radius: 5px;
+	height:20px;
+	color: #ffffff;
+	padding:2px;
+}
+
+#ribbonDock QPushButton:hover {
+	background: none;
+	border:2px solid #5c83b8;
+	border-radius: 5px;
+	height:20px;
+	color: #ffffff;
+	padding:2px;
+}
+ 
+#ribbonDock QPushButton:pressed {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+	stop: 0 #0095cc,
+	stop: 1 #00678e);
+	border:1px solid #3e3e3e;
+	border-radius: 5px;
+	height:20px;
+	color: #ffffff;
+	padding:2px;
+}
+
+#ribbonDock QPushButton:default {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+	stop: 0 #00ADEE,
+	stop: 1 #0078A5);
+	border:0;
+	height:20px;
+	color: #ffffff;
+	padding:2px;
+}
+
+#ribbonDock QPushButton:checked {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+	stop: 0 #0095cc,
+	stop: 1 #00678e);
+	border:1px solid #3e3e3e;
+	border-radius: 5px;
+	height:20px;
+	color: #ffffff;
+	padding:2px;
+}
+
+#ribbonDock {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+	stop: 0 #0095cc,
+	stop: 1 #00678e);
+}
+
 QTreeView {
+	background:transparent;
+	outline:none;
 	font-size: 10px;
 	outline:0;
+	border:0;
+}
+
+QTreeView:focus {
+	background:transparent;
+	outline:none;
+	font-size: 10px;
+	outline:0;
+	border:0;
 }
 
 QTreeView::item {
