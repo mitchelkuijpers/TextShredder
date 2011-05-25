@@ -2,6 +2,8 @@
 #define FILEMANAGER_H
 
 #include <QObject>
+#include <QTimer>
+#include <QDir>
 #include "models/syncablefile.h"
 #include "../network/models/textshredderpacket.h"
 #include "../network/models/syncablefilespacket.h"
@@ -68,12 +70,14 @@ private:
 	QList< QSharedPointer<SyncableFile> > fileList;
 	static FileManager* sharedInstance;
 	bool isServer;
+	QDir backupDir;
 
 private slots:
 	void syncableFileStartedSharing();
 	void syncableFileStoppedSharing();
 	void shouldMakeRequestForSync(TextShredderPacket &packet);
 	void syncableFileDidChange();
+	void backupServerContent();
 
 public slots:
 	void handleReceivedSyncableFiles(QByteArray &content);

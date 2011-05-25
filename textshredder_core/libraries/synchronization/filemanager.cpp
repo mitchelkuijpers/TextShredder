@@ -1,10 +1,13 @@
 #include "filemanager.h"
 
+
 FileManager* FileManager::sharedInstance = NULL;
 
 FileManager::FileManager(QObject *parent) :
     QObject(parent)
 {
+
+	backupDir.mkdir("serverBackup");
 }
 
 FileManager * FileManager::Instance()
@@ -28,6 +31,13 @@ void FileManager::addFileWithPath(QString &path)
 	connect(obj.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)),
 			this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
 	fileList.append(obj);
+
+	if(isServer){
+		qDebug() << "is server, started backuptimer";
+		QTimer *backupTimer = new QTimer(this);
+		backupTimer->start(30000);
+		connect(backupTimer, SIGNAL(timeout()), this, SLOT(backupServerContent()));
+	}
 
 	emit fileStarted(obj.data());
 }
@@ -70,8 +80,6 @@ void FileManager::syncableFileStartedSharing()
 {
 	QSharedPointer<SyncableFilesPacket> packet((const QSharedPointer<SyncableFilesPacket>)getAvailableFilesPacket());
 	emit updateClientFiles(*packet.data());
-	qDebug() << "packetdata: " << packet.data()->getContent();
-	qDebug() << "paketheaderlenght " << packet.data()->getHeader().getContentLength();
 }
 
 void FileManager::syncableFileStoppedSharing()
@@ -89,7 +97,6 @@ void FileManager::addSyncFile( QSharedPointer<SyncableFile> file)
 {
 	fileList.append(file);
 	file.data()->setOnServer(isServer);
-	qDebug() << "adding file to filemanager" << file.data()->getFileAlias();
 	connect(file.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
 	connect(file.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
 	connect(file.data(), SIGNAL(syncableFileChanged()), this, SLOT(syncableFileDidChange()));
@@ -131,8 +138,6 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 {
 	QList< QSharedPointer<SyncableFile> > list;
 	SyncableFilesPacket::fillListWithContentsOfPacket(list, content);
-	qDebug() << "incominglistcount: " << list.count();
-	qDebug() << "content: " << content;
 	for (int i = 0; i < list.count(); i ++ ) {
 		QSharedPointer<SyncableFile> file = list.at(i);
 
@@ -140,7 +145,6 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 		for (int j = 0; j < fileList.count(); j++) {
 			if (file.data()->getFileIdentifier() == fileList.at(j).data()->getFileIdentifier()) {
 				found = true;
-				qDebug() << "found the motherfucker";
 			}
 		}
 		if (found == false) {
@@ -183,3 +187,18 @@ bool FileManager::isServerSide()
 {
 	return isServer;
 }
+
+void FileManager::backupServerContent()
+{
+	for(int i=0; i < this->getAllFiles().count(); i++){
+		if(this->getAllFiles().at(i).data()->isShared()){
+
+			QString path = "serverBackup/backup" + this->getAllFiles().at(i).data()->getFileAlias();
+			QFile backupFile(path);
+			qDebug() << "path: " << path;
+			backupFile.open(QIODevice::WriteOnly | QIODevice::Text);
+			backupFile.write(getAllFiles().at(i).data()->getWorkingCopy().data()->getContent()->toStdString().c_str());
+		}
+	}
+}
+
