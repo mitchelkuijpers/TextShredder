@@ -49,7 +49,8 @@ private:
 	EditorHighLighting * highlighter;
 
 	void removeDeletes();
-	int beforeRemovedEditsEditSize;
+	bool highlightingOn;
+
 
 private slots:
 	void on_saveFileButton_clicked();

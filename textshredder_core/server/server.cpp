@@ -4,6 +4,7 @@
 #include "../libraries/network/models/onlineuserspacket.h"
 #include "usermanager.h"
 
+
 Server * Server::sharedInstance = NULL;
 
 Server * Server::Instance() {
