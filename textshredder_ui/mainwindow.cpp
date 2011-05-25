@@ -164,8 +164,7 @@ void MainWindow::saveSettings()
 	configOptions.setServerPort((quint16) ui->serverPortInput->value());
 
 	if(ui->aliasInput->text().length() > 0) {
-		QString cleanedAlias = ui->aliasInput->text().remove(QRegExp(QString::fromUtf8("[-`~!@#$%^&*()_—+=|:;<>«»,.?/{}\'\"\\\[\\]\\\\]")));
-		configOptions.setLastUsedAlias(cleanedAlias);
+		configOptions.setLastUsedAlias(ui->aliasInput->text());
 	}
 	else {
 		Notification notification(this, "The specified alias can only contain alphanumeric characters and must be longer then 1 character!", 2, true);
