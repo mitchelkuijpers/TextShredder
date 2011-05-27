@@ -103,10 +103,10 @@ void SyncableFile::close()
 void SyncableFile::open()
 {
 	opened = true;
-	if (!onServer) {
-	}
 	emit syncableFileChanged();
-	requestSync();
+	if (!onServer) {
+		requestSync();
+	}
 }
 
 QSharedPointer<WorkingCopy> SyncableFile::getWorkingCopy()
@@ -152,6 +152,7 @@ void SyncableFile::setShared(bool share)
 
 void SyncableFile::stopSync()
 {
+	qDebug() << "syncTreads.count" << syncThreads.count();
 	for(int i = 0; i < syncThreads.count(); i++ ) {
 		QSharedPointer<SyncThread> syncPointer = syncThreads.at(i);
 		syncPointer.data()->stopSync();

@@ -231,10 +231,12 @@ void SyncThread::connectSignalsForSynchronization()
 void SyncThread::disconnectSignalsForSynchronization()
 {
 	qDebug("SyncThread::disconnectSignalsForSynchronization");
-	disconnect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
-	disconnect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
-	disconnect(connectionPointer.data(), SIGNAL(incomingEndSynchronizationPacket(quint16)), this, SLOT(receivedEndSynchronizationPacket(quint16)));
-	disconnect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
+	if(!connectionPointer.isNull()){
+		disconnect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
+		disconnect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
+		disconnect(connectionPointer.data(), SIGNAL(incomingEndSynchronizationPacket(quint16)), this, SLOT(receivedEndSynchronizationPacket(quint16)));
+		disconnect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
+	}
 }
 
 void SyncThread::beforeLock()
