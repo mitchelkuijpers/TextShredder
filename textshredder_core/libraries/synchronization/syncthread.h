@@ -58,13 +58,48 @@ public:
 	  * @param incomingEditList received editlist.
 	  */
 	void applyReceivedEditList(EditList &incomingEditList);
+
+	/**
+	  * Method called when download content is received.
+	  *
+	  * @param content The content from the received download.
+	  */
 	void receivedDownloadedContent(QByteArray & content);
+
+	/**
+	  * Method to send file data to connecting syncthread.
+	  */
 	void sendFileDataAndStart();
+
+	/**
+	  * Method will stop the sync.
+	  */
 	void stopSync();
+
+	/**
+	  * Method will start the sync.
+	  */
 	virtual void startSync();
 
+	/**
+	  * Setter for the destination of the packets.
+	  *
+	  * @param destination The destination new value.
+	  */
 	void setDestinationHandle(quint16 destination);
+
+	/**
+	  * Getter for the destination.
+	  *
+	  * @return The destination value.
+	  */
 	quint16 getDestinationHandle();
+
+	/**
+	  * Getter for the source.
+	  *
+	  * @return The sourve value.
+	  */
 	quint16 getSourceHandle();
 
 public slots:

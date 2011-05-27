@@ -20,7 +20,6 @@ SOURCES += main.cpp\
     ../textshredder_core/server/server.cpp \
     ../textshredder_core/libraries/synchronization/clientrepresentation.cpp \
     ../textshredder_core/libraries/synchronization/filemanager.cpp \
-    ../textshredder_core/libraries/synchronization/filesync.cpp \
     ../textshredder_core/libraries/synchronization/syncthread.cpp \
     ../textshredder_core/libraries/synchronization/models/backupcopy.cpp \
     ../textshredder_core/libraries/synchronization/models/edit.cpp \
@@ -42,7 +41,6 @@ SOURCES += main.cpp\
 	../textshredder_core/libraries/network/models/filerequestpacket.cpp \
     ../textshredder_core/client/client.cpp \
 	syncablefiletextfield.cpp \
-    ../textshredder_core/libraries/network/connectionlistener.cpp \
     editorhighlighting.cpp \
     ../textshredder_core/libraries/network/models/filedatapacket.cpp \
 	../textshredder_core/libraries/network/models/endsynchronizationpacket.cpp \
@@ -62,7 +60,6 @@ HEADERS  += mainwindow.h \
     ../textshredder_core/server/server.h \
     ../textshredder_core/libraries/synchronization/clientrepresentation.h \
     ../textshredder_core/libraries/synchronization/filemanager.h \
-    ../textshredder_core/libraries/synchronization/filesync.h \
     ../textshredder_core/libraries/synchronization/syncthread.h \
     ../textshredder_core/libraries/synchronization/models/backupcopy.h \
     ../textshredder_core/libraries/synchronization/models/edit.h \
@@ -84,7 +81,6 @@ HEADERS  += mainwindow.h \
 	../textshredder_core/libraries/network/models/filerequestpacket.h \
     ../textshredder_core/client/client.h \
 	syncablefiletextfield.h \
-    ../textshredder_core/libraries/network/connectionlistener.h \
     editorhighlighting.h \
     ../textshredder_core/libraries/network/models/filedatapacket.h \
 	../textshredder_core/libraries/network/models/endsynchronizationpacket.h \

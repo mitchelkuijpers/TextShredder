@@ -6,7 +6,6 @@
 
 #include "../network/textshredderconnection.h"
 #include "syncthread.h"
-#include "filesync.h"
 
 class ClientRepresentation : public QObject
 {
