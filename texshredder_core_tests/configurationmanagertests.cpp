@@ -15,7 +15,4 @@ void ConfigurationManagerTests::testSetNewOptions()
 
 	QVERIFY2(oldServerPort != configOptions.getServerPort(), "The serverport has not changed");
 	QVERIFY2(oldServerIp != configOptions.getLastKnownIp(), "The ip has not changed");
-
 }
-
-
