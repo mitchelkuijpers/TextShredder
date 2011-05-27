@@ -23,6 +23,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->aliasInput->setText(configOptions.getLastUsedAlias());
 	ui->aliasInput->setFocus();
 
+	if ( ui->aliasInput->text() == "" ) {
+		ui->connectButton->setEnabled(false);
+	} else {
+		ui->connectButton->setEnabled(true);
+	}
+
 	ui->serverIpInput->addItem(configOptions.getLastKnownIp());
 	int i;
 	for(i = 0; i < configOptions.getKnownHostsList().count(); i++){
@@ -121,7 +127,8 @@ bool MainWindow::validateAliasInput()
 void MainWindow::on_connectButton_clicked()
 {
 	if (!validateAliasInput()) {
-		qDebug() << "TODO: MainWindow::on_connectButton_clicked" << "Show info balloon or notification or even disable the connect if nothing is filled into the alias field";
+		Notification notification(this, "You have not entered a alias.\nPlease enter a alias and try again.", 0, true);
+		NotificationManager::Instance()->createNotificationDialog(notification);
 		return;
 	}
 	ui->connectButton->setEnabled(false);
@@ -261,4 +268,13 @@ void MainWindow::displayErrorNotification(QAbstractSocket::SocketError error)
 	}
 
 	NotificationManager::Instance()->createNotificationDialog(notification);
+}
+
+void MainWindow::on_aliasInput_textChanged(QString )
+{
+	if ( ui->aliasInput->text() == "" ) {
+		ui->connectButton->setEnabled(false);
+	} else {
+		ui->connectButton->setEnabled(true);
+	}
 }
