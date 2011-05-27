@@ -58,7 +58,11 @@ SOURCES += main.cpp \
     ../textshredder_core/libraries/network/models/filedatapacket.cpp \
     filedatapackettest.cpp \
     configurationmanagertests.cpp \
-    ../textshredder_core/libraries/network/models/endsynchronizationpacket.cpp
+    ../textshredder_core/libraries/network/models/endsynchronizationpacket.cpp \
+    ../textshredder_core/libraries/network/models/onlineuserspacket.cpp \
+	../textshredder_core/libraries/network/models/setaliaspacket.cpp \
+    ../textshredder_core/server/usermanager.cpp \
+    ../textshredder_core/libraries/performance/performancecalculator.cpp
 
 HEADERS += \
     autotest.h \
@@ -104,4 +108,8 @@ HEADERS += \
     ../textshredder_core/libraries/network/models/filedatapacket.h \
     filedatapackettest.h \
     configurationmanagertests.h \
-    ../textshredder_core/libraries/network/models/endsynchronizationpacket.h
+    ../textshredder_core/libraries/network/models/endsynchronizationpacket.h \
+    ../textshredder_core/libraries/network/models/onlineuserspacket.h \
+	../textshredder_core/libraries/network/models/setaliaspacket.h \
+    ../textshredder_core/server/usermanager.h \
+    ../textshredder_core/libraries/performance/performancecalculator.h

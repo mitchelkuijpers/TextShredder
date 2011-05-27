@@ -13,19 +13,17 @@ public:
 	void setupVariables();
 	void breakDownVariables();
 
+private Q_SLOTS:
 	void simpleSyncTest();
 	void doubleSyncEditList();
 	void multipleEditsOnBothSidesTest();
 	void mergedEditsOnBothSidesTest();
 
-private Q_SLOTS:
-
-
 private:
 	void doDeleteWorkingCopy(WorkingCopy *obj);
 
-	SyncThreadSub *leftSync;
-	SyncThreadSub *rightSync;
+	QSharedPointer<SyncThreadSub> leftSync;
+	QSharedPointer<SyncThreadSub> rightSync;
 
 	QSharedPointer<WorkingCopy> leftWorkingCopyPointer;
 	WorkingCopy *leftWorkingCopy;

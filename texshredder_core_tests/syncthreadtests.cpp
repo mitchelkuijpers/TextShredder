@@ -20,11 +20,10 @@ void SyncThreadTests::simpleSyncTest()
 	 "ShadowCopy content is not equal to WorkingCopyContent");
 
 	//validate leftBackup //localVersion =0 / text is beforeText;
-	QVERIFY2(leftShadowCopy->getBackupCopy()->getLocalVersion() == 0,
-	 "BackupVersion != 0");
+//	QVERIFY2(leftShadowCopy->getBackupCopy().getLocalVersion() == 0, "BackupVersion != 0");
 
 
-	QVERIFY2((*leftShadowCopy->getBackupCopy()->getContent()) == beforeText,
+	QVERIFY2((*leftShadowCopy->getBackupCopy().getContent()) == beforeText,
 		 "BackupCopy content != beforeText");
 
 	//validate leftEditList //Based version = 0, contains 1 edit. First edit local version = 0
@@ -46,11 +45,11 @@ void SyncThreadTests::simpleSyncTest()
 		 "rightshadowcopy localversion != 0");
 
 	//validate rightShadow.con == rightBackup.content
-	QVERIFY2(*rightShadowCopy->getContent() == *rightShadowCopy->getBackupCopy()->getContent(),
+	QVERIFY2(*rightShadowCopy->getContent() == *rightShadowCopy->getBackupCopy().getContent(),
 		 "rightshadow content != rightbackup content");
 
 	//validate rightBU.loc = 0;
-	QVERIFY2(rightShadowCopy->getBackupCopy()->getLocalVersion() == 0,
+	QVERIFY2(rightShadowCopy->getBackupCopy().getLocalVersion() == 0,
 		 "backupcopy localversion != 0");
 
 	//validate rightWC.con == righSh.con
@@ -82,9 +81,9 @@ void SyncThreadTests::simpleSyncTest()
 			 messageName.toStdString().c_str());
 
 	//validate leftBackup //localVersion = 1 / text is leftSH.con;
-		QVERIFY2(leftShadowCopy->getBackupCopy()->getLocalVersion() ==1,
+		QVERIFY2(leftShadowCopy->getBackupCopy().getLocalVersion() ==1,
 				 "backupcopy localversion != 1");
-		QVERIFY2(*leftShadowCopy->getBackupCopy()->getContent() == *leftShadowCopy->getContent(),
+		QVERIFY2(*leftShadowCopy->getBackupCopy().getContent() == *leftShadowCopy->getContent(),
 				 "leftbackupcopy content != shadowcopy content");
 
 	//validate leftEditList //Based version = 0, contains 0 edits.  count = 0
@@ -121,9 +120,9 @@ void SyncThreadTests::doubleSyncEditList()
 			 "leftWorkingCopy content != (beforeText +de)");
 
 	//validate leftBackup //localVersion =0 / text is beforeText;
-	QVERIFY2(leftShadowCopy->getBackupCopy()->getLocalVersion() == 0,
+	QVERIFY2(leftShadowCopy->getBackupCopy().getLocalVersion() == 0,
 			 "leftbackupcopy != 0");
-	QVERIFY2(*leftShadowCopy->getBackupCopy()->getContent() == beforeText,
+	QVERIFY2(*leftShadowCopy->getBackupCopy().getContent() == beforeText,
 			 "left backupcopy != beforetext");
 
 	//validate leftEditList //Based version = 0, contains 1 edit. First edit local version = 0
@@ -132,9 +131,9 @@ void SyncThreadTests::doubleSyncEditList()
 	QVERIFY2(leftEditList->getEdits().count() == 1,
 			 "leftEditList should contain 1 edit");
 	//validate leftBackup //localVersion =0 / text is same as shadow;
-	QVERIFY2(leftShadowCopy->getBackupCopy()->getLocalVersion() == 0,
+	QVERIFY2(leftShadowCopy->getBackupCopy().getLocalVersion() == 0,
 			 "leftbackupcopy != 0");
-	QVERIFY2(*leftShadowCopy->getBackupCopy()->getContent() == beforeText,
+	QVERIFY2(*leftShadowCopy->getBackupCopy().getContent() == beforeText,
 			 "leftbackupcopy content != leftshadowcontent");
 	//validate leftEditList //Based version = 0, contains 0 edit.
 	QVERIFY2(leftEditList->getRemoteVersion() == 0,
@@ -162,9 +161,9 @@ void SyncThreadTests::doubleSyncEditList()
 			 "shadowcopy localversion != 1");
 
 	//validate leftBU.local = 0 / leftBu.con = beforeText
-	QVERIFY2(leftShadowCopy->getBackupCopy()->getLocalVersion() == 0,
+	QVERIFY2(leftShadowCopy->getBackupCopy().getLocalVersion() == 0,
 			 "leftbackupversion != 0");
-	QVERIFY2(*leftShadowCopy->getBackupCopy()->getContent() == beforeText,
+	QVERIFY2(*leftShadowCopy->getBackupCopy().getContent() == beforeText,
 			 "leftbackupcopy content != beforetext");
 
 	//validate leftEL.rem = 0 /leftEL.contains 1 edit --> (leftEL == leftToRightFIrstEditList)
@@ -190,7 +189,7 @@ void SyncThreadTests::doubleSyncEditList()
 			 "rightShadowCopy remoteversion != 1");
 
 	//validate rightBackup.con = rightSh.con
-	QVERIFY2(*rightShadowCopy->getBackupCopy()->getContent() == *rightShadowCopy->getContent(),
+	QVERIFY2(*rightShadowCopy->getBackupCopy().getContent() == *rightShadowCopy->getContent(),
 			 "rightbackupcopy content != rightShadowCopy content");
 
 	//validate rightBackup.loc = 0;
@@ -220,7 +219,7 @@ void SyncThreadTests::doubleSyncEditList()
 			 "leftshadowcopy content != leftWorkingCopy content");
 
 	//validate leftBU.local = 0 / leftBu.con = beforeText
-	QVERIFY2(leftShadowCopy->getBackupCopy()->getLocalVersion() == 0,
+	QVERIFY2(leftShadowCopy->getBackupCopy().getLocalVersion() == 0,
 			 "leftBackupCopy localversion != 0");
 
 	//validate leftEL.rem = 0 /leftEL.contains 2 edits
@@ -261,15 +260,15 @@ void SyncThreadTests::doubleSyncEditList()
 			 "rightShadowCopy localversion != 0");
 
 	//validate rightBU.con = rightSh.con
-	QVERIFY2(*rightShadowCopy->getBackupCopy()->getContent() == *rightShadowCopy->getContent(),
+	QVERIFY2(*rightShadowCopy->getBackupCopy().getContent() == *rightShadowCopy->getContent(),
 			 "rightBackupCopy content != rightShadowCopy");
 
 	//validate rightBU.loc = 0
-	QVERIFY2(rightShadowCopy->getBackupCopy()->getLocalVersion() == 0,
+	QVERIFY2(rightShadowCopy->getBackupCopy().getLocalVersion() == 0,
 			 "rightbackupcopyr != 0");
 
 	//validate rightWC.con == rightBU.con
-	QVERIFY2(*rightWorkingCopy->getContent() == *rightShadowCopy->getBackupCopy()->getContent(),
+	QVERIFY2(*rightWorkingCopy->getContent() == *rightShadowCopy->getBackupCopy().getContent(),
 			 "rightworkingcopy content != rightbackupcopy content");
 
 	//validate.rightEL.rem == 2
@@ -286,11 +285,11 @@ void SyncThreadTests::doubleSyncEditList()
 
 	leftSync->applyReceivedEditList (rightToLeftSecondEditList);
 	//validate leftBU.con == beforeText.append("d")
-	QVERIFY2(*leftShadowCopy->getBackupCopy()->getContent() == (beforeText +"d"),
+	QVERIFY2(*leftShadowCopy->getBackupCopy().getContent() == (beforeText +"d"),
 			 "LeftBackupCopy content != (beforeText + d)");
 
 	//validate leftBU.loc == 1
-	QVERIFY2(leftShadowCopy->getBackupCopy()->getLocalVersion() == 1,
+	QVERIFY2(leftShadowCopy->getBackupCopy().getLocalVersion() == 1,
 			 "leftBackupCopy localversion != 1");
 
 	//validate leftSh.con == beforeText.append("d").append("e");
@@ -325,11 +324,11 @@ void SyncThreadTests::doubleSyncEditList()
 	leftSync->pushChanges();
 	EditList leftToRightThirdEditList(*leftEditList);
 	//validate leftBU.con == beforeText.append("d")
-	QVERIFY2(*leftShadowCopy->getBackupCopy()->getContent() == (beforeText + "d"),
+	QVERIFY2(*leftShadowCopy->getBackupCopy().getContent() == (beforeText + "d"),
 			 "leftBackUpcopy != (beforeText +d)");
 
 	//validate leftBU.loc == 1
-	QVERIFY2(leftShadowCopy->getBackupCopy()->getLocalVersion() == 1,
+	QVERIFY2(leftShadowCopy->getBackupCopy().getLocalVersion() == 1,
 			 "leftBackupCopy != 1");
 
 	//validate leftSh.con == beforeText.append("d").append("e");
@@ -365,7 +364,7 @@ void SyncThreadTests::doubleSyncEditList()
 	  */
 	leftSync->applyReceivedEditList (rightToLeftThirdEditList);
 	//validate leftBU.con == beforeText.append("d").append("e");
-	QVERIFY2(*leftShadowCopy->getBackupCopy()->getContent() == (beforeText + "de"),
+	QVERIFY2(*leftShadowCopy->getBackupCopy().getContent() == (beforeText + "de"),
 			 "leftBackupcopy content != (beforeText +de)");
 
 	//validate leftSh.con == beforeText.append("d").append("e");
@@ -377,7 +376,7 @@ void SyncThreadTests::doubleSyncEditList()
 			 "leftWorkingCopy content != (beforeText +de)");
 
 	//validate leftBU.loc == 2
-	QVERIFY2(leftShadowCopy->getBackupCopy()->getLocalVersion() == 2,
+	QVERIFY2(leftShadowCopy->getBackupCopy().getLocalVersion() == 2,
 			 "leftBackupCopy localversion != 2");
 
 
@@ -408,7 +407,7 @@ void SyncThreadTests::doubleSyncEditList()
 			 "rightShadowCopy content != (beforeText + de)");
 
 	//validate rightBU.con == rightSh.con
-	QVERIFY2(*rightShadowCopy->getBackupCopy()->getContent() == *rightShadowCopy->getContent(),
+	QVERIFY2(*rightShadowCopy->getBackupCopy().getContent() == *rightShadowCopy->getContent(),
 			 "rightBackupCopy content != rightShadowCopy content");
 
 	//validate rightWC.con == rightSh.con
@@ -422,7 +421,7 @@ void SyncThreadTests::doubleSyncEditList()
 			 "rightShadowCopy localversion != 0");
 
 	//validate rightBU.loc = 0
-	QVERIFY2(rightShadowCopy->getBackupCopy()->getLocalVersion() == 0,
+	QVERIFY2(rightShadowCopy->getBackupCopy().getLocalVersion() == 0,
 			 "righBackupCopy != 0");
 
 	//validate.rightEL.rem == 2
@@ -449,9 +448,9 @@ void SyncThreadTests::multipleEditsOnBothSidesTest()
 
 	QVERIFY(leftShadowCopy->getLocalVersion() == 1);
 	QVERIFY(leftShadowCopy->getRemoteVersion() == 0);
-	QVERIFY(leftShadowCopy->getBackupCopy()->getLocalVersion() == 0);
+	QVERIFY(leftShadowCopy->getBackupCopy().getLocalVersion() == 0);
 	QVERIFY(*leftShadowCopy->getContent() == *leftWorkingCopy->getContent());
-	QVERIFY(*leftShadowCopy->getBackupCopy ()->getContent () == beforeText);
+	QVERIFY(*leftShadowCopy->getBackupCopy().getContent () == beforeText);
 
 	//right is ''
 	(*rightWorkingCopy->getContent ()) = "";
@@ -459,9 +458,9 @@ void SyncThreadTests::multipleEditsOnBothSidesTest()
 	EditList rightToLeftFirstEditList(*rightEditList);
 	QVERIFY(rightShadowCopy->getLocalVersion() == 1);
 	QVERIFY(rightShadowCopy->getRemoteVersion() == 0);
-	QVERIFY(rightShadowCopy->getBackupCopy()->getLocalVersion() == 0);
+	QVERIFY(rightShadowCopy->getBackupCopy().getLocalVersion() == 0);
 	QVERIFY(*rightShadowCopy->getContent() == *rightWorkingCopy->getContent());
-	QVERIFY(*rightShadowCopy->getBackupCopy ()->getContent () == beforeText);
+	QVERIFY(*rightShadowCopy->getBackupCopy().getContent () == beforeText);
 
 	leftSync->applyReceivedEditList (rightToLeftFirstEditList);
 
@@ -469,8 +468,8 @@ void SyncThreadTests::multipleEditsOnBothSidesTest()
 
 	QVERIFY(leftShadowCopy->getRemoteVersion() == 1);
 	QVERIFY(leftShadowCopy->getLocalVersion() == 1);
-	QVERIFY(leftShadowCopy->getBackupCopy()->getLocalVersion() == 0);
-	QVERIFY(*leftShadowCopy->getBackupCopy()->getContent() == "");
+	QVERIFY(leftShadowCopy->getBackupCopy().getLocalVersion() == 0);
+	QVERIFY(*leftShadowCopy->getBackupCopy().getContent() == "");
 	QVERIFY(*leftShadowCopy->getContent () == "d");
 
 	QVERIFY(*leftShadowCopy->getContent () == *leftWorkingCopy->getContent());
@@ -494,11 +493,11 @@ void SyncThreadTests::multipleEditsOnBothSidesTest()
 	//leftWC.con == leftSh.con == leftBU.con == rightWC.con == rightSH.con == rightBU.con
 	QVERIFY2((*leftWorkingCopy->getContent ()) == (*leftShadowCopy->getContent()),
 			 "Left working copy should be equal to its shadow copy");
-	QVERIFY2((*leftWorkingCopy->getContent ()) == (*leftShadowCopy->getBackupCopy()->getContent()),
+	QVERIFY2((*leftWorkingCopy->getContent ()) == (*leftShadowCopy->getBackupCopy().getContent()),
 			 "Left working copy should be equal to the backup copy");
 	QVERIFY2((*rightWorkingCopy->getContent ()) == (*rightShadowCopy->getContent()),
 			 "Right working copy should be equal to its shadow copy");
-	QVERIFY2((*rightWorkingCopy->getContent ()) == (*rightShadowCopy->getBackupCopy()->getContent()),
+	QVERIFY2((*rightWorkingCopy->getContent ()) == (*rightShadowCopy->getBackupCopy().getContent()),
 			 "Right working copy should be equal to the backup copy");
 	QVERIFY2((*leftWorkingCopy->getContent()) == (*rightWorkingCopy->getContent()),
 			 "Both working copies should be equal");
@@ -516,11 +515,11 @@ void SyncThreadTests::multipleEditsOnBothSidesTest()
 			 "The remote version of the right shadow copy should be equal to 1");
 
 	//leftBU.loc == 1
-	QVERIFY2(leftShadowCopy->getBackupCopy()->getLocalVersion() == 1,
+	QVERIFY2(leftShadowCopy->getBackupCopy().getLocalVersion() == 1,
 			 "The local vesion of the backup on the left side should be equal to 1");
 
 	//rightBU.loc == 1
-	QVERIFY2(rightShadowCopy->getBackupCopy()->getLocalVersion() == 1,
+	QVERIFY2(rightShadowCopy->getBackupCopy().getLocalVersion() == 1,
 			 "The local vesion of the backup on the left side should be equal to 1");
 
 	//leftEL.count == 0
@@ -598,8 +597,8 @@ void SyncThreadTests::setupVariables()
 	rightWorkingCopy = rightWorkingCopyPointer.data();
 	rightWorkingCopy->getContent()->append (startText);
 
-	leftSync = new SyncThreadSub(this, leftWorkingCopyPointer);
-	rightSync = new SyncThreadSub(this, rightWorkingCopyPointer);
+	leftSync = QSharedPointer<SyncThreadSub> (new SyncThreadSub(this, leftWorkingCopyPointer));
+	rightSync = QSharedPointer<SyncThreadSub> (new SyncThreadSub(this, rightWorkingCopyPointer));
 
 	leftShadowCopy = leftSync->getShadowCopy ();
 	rightShadowCopy = rightSync->getShadowCopy ();
@@ -610,16 +609,8 @@ void SyncThreadTests::setupVariables()
 
 void SyncThreadTests::breakDownVariables()
 {
-	//delete leftSync;
-	//delete rightSync;
-
-	delete leftWorkingCopy;
-	delete rightWorkingCopy;
-
 	leftWorkingCopy = NULL;
 	rightWorkingCopy = NULL;
-	leftSync = NULL;
-	rightSync = NULL;
 	leftShadowCopy = NULL;
 	rightShadowCopy = NULL;
 	leftEditList = NULL;
