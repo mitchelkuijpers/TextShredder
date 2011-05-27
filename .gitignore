@@ -25,6 +25,7 @@
 *.log
 *.sql
 *.sqlite
+qt_testparser_tool/log_*
 
 # OS generated files #
 ######################
@@ -41,3 +42,4 @@ Thumbs.db
 
 # The main config file #
 default_config.txt
+
