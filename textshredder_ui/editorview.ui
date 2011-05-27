@@ -18,42 +18,60 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <property name="leftMargin">
-     <number>12</number>
+    <property name="margin">
+     <number>0</number>
     </property>
-    <property name="topMargin">
-     <number>12</number>
+    <property name="spacing">
+     <number>0</number>
     </property>
-    <item row="0" column="1">
-     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0">
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout">
       <property name="sizeConstraint">
        <enum>QLayout::SetDefaultConstraint</enum>
       </property>
-      <property name="horizontalSpacing">
+      <property name="spacing">
        <number>0</number>
       </property>
-      <item row="0" column="0">
+      <item row="0" column="1">
        <widget class="QTabWidget" name="tabWidget">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
+         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
         <property name="maximumSize">
          <size>
-          <width>270</width>
+          <width>250</width>
           <height>16777215</height>
          </size>
         </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="tabPosition">
-         <enum>QTabWidget::West</enum>
+         <enum>QTabWidget::North</enum>
         </property>
         <property name="tabShape">
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
          <number>0</number>
+        </property>
+        <property name="elideMode">
+         <enum>Qt::ElideLeft</enum>
         </property>
         <property name="usesScrollButtons">
          <bool>false</bool>
@@ -72,26 +90,20 @@
           <property name="margin">
            <number>0</number>
           </property>
-          <item row="1" column="0" colspan="2">
-           <widget class="QTreeView" name="fileTreeWidget">
-            <property name="editTriggers">
-             <set>QAbstractItemView::NoEditTriggers</set>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="4" column="0">
+           <widget class="QPushButton" name="addFileButton">
+            <property name="toolTip">
+             <string>Add file to share</string>
             </property>
-            <property name="indentation">
-             <number>0</number>
+            <property name="text">
+             <string>Add file</string>
             </property>
-            <attribute name="headerCascadingSectionResizes">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="headerDefaultSectionSize">
-             <number>100</number>
-            </attribute>
-            <attribute name="headerShowSortIndicator" stdset="0">
-             <bool>false</bool>
-            </attribute>
            </widget>
           </item>
-          <item row="2" column="1">
+          <item row="4" column="1">
            <widget class="QPushButton" name="addFolderButton">
             <property name="enabled">
              <bool>true</bool>
@@ -104,14 +116,92 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QPushButton" name="addFileButton">
-            <property name="toolTip">
-             <string>Add file to share</string>
+          <item row="0" column="0" colspan="2">
+           <widget class="QTreeView" name="fileTreeWidget">
+            <property name="sizeIncrement">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
             </property>
-            <property name="text">
-             <string>Add file</string>
+            <property name="font">
+             <font>
+              <stylestrategy>PreferDefault</stylestrategy>
+              <kerning>true</kerning>
+             </font>
             </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Sunken</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="midLineWidth">
+             <number>0</number>
+            </property>
+            <property name="verticalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
+            <property name="autoScroll">
+             <bool>true</bool>
+            </property>
+            <property name="autoScrollMargin">
+             <number>0</number>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="dragDropMode">
+             <enum>QAbstractItemView::NoDragDrop</enum>
+            </property>
+            <property name="verticalScrollMode">
+             <enum>QAbstractItemView::ScrollPerItem</enum>
+            </property>
+            <property name="autoExpandDelay">
+             <number>0</number>
+            </property>
+            <property name="indentation">
+             <number>0</number>
+            </property>
+            <property name="rootIsDecorated">
+             <bool>true</bool>
+            </property>
+            <property name="uniformRowHeights">
+             <bool>false</bool>
+            </property>
+            <property name="itemsExpandable">
+             <bool>false</bool>
+            </property>
+            <property name="sortingEnabled">
+             <bool>false</bool>
+            </property>
+            <property name="animated">
+             <bool>false</bool>
+            </property>
+            <attribute name="headerVisible">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="headerCascadingSectionResizes">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="headerDefaultSectionSize">
+             <number>100</number>
+            </attribute>
+            <attribute name="headerHighlightSections">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="headerShowSortIndicator" stdset="0">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="headerStretchLastSection">
+             <bool>true</bool>
+            </attribute>
            </widget>
           </item>
          </layout>
@@ -124,10 +214,7 @@
           <property name="margin">
            <number>0</number>
           </property>
-          <item row="0" column="0" rowspan="2" colspan="2">
-           <widget class="UserListView" name="listWidget"/>
-          </item>
-          <item row="2" column="1">
+          <item row="3" column="1">
            <widget class="QPushButton" name="disconnectButton">
             <property name="enabled">
              <bool>false</bool>
@@ -137,7 +224,7 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <widget class="QPushButton" name="changeAliasButton">
             <property name="enabled">
              <bool>false</bool>
@@ -147,12 +234,14 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="UserListView" name="listWidget"/>
+          </item>
          </layout>
-         <zorder>listWidget</zorder>
          <zorder>disconnectButton</zorder>
-         <zorder>listWidget</zorder>
          <zorder>disconnectButton</zorder>
          <zorder>changeAliasButton</zorder>
+         <zorder>listWidget</zorder>
         </widget>
         <widget class="QWidget" name="statisticsTab">
          <attribute name="title">
@@ -162,14 +251,7 @@
           <property name="margin">
            <number>0</number>
           </property>
-          <item row="0" column="0">
-           <widget class="QLabel" name="processingTimeLabel">
-            <property name="text">
-             <string>Currently no information available</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QProgressBar" name="healthBar">
             <property name="enabled">
              <bool>false</bool>
@@ -203,83 +285,75 @@
             </property>
            </widget>
           </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="processingTimeLabel">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Currently no information available</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </widget>
       </item>
+      <item row="0" column="0">
+       <widget class="QTabWidget" name="openedFileTabs">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>216</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="acceptDrops">
+         <bool>true</bool>
+        </property>
+        <property name="currentIndex">
+         <number>-1</number>
+        </property>
+        <property name="usesScrollButtons">
+         <bool>true</bool>
+        </property>
+        <property name="documentMode">
+         <bool>true</bool>
+        </property>
+        <property name="tabsClosable">
+         <bool>true</bool>
+        </property>
+        <property name="movable">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
-    </item>
-    <item row="0" column="2">
-     <widget class="QTabWidget" name="openedFileTabs">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>216</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="sizeIncrement">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="acceptDrops">
-       <bool>true</bool>
-      </property>
-      <property name="currentIndex">
-       <number>-1</number>
-      </property>
-      <property name="usesScrollButtons">
-       <bool>true</bool>
-      </property>
-      <property name="documentMode">
-       <bool>true</bool>
-      </property>
-      <property name="tabsClosable">
-       <bool>true</bool>
-      </property>
-      <property name="movable">
-       <bool>false</bool>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QDockWidget" name="ribbonDock">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>4</number>
-   </attribute>
-   <widget class="EditorRibbon" name="dockWidgetContents_2"/>
-  </widget>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>EditorRibbon</class>
-   <extends>QWidget</extends>
-   <header location="global">editorribbon.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>UserListView</class>
    <extends>QListWidget</extends>
