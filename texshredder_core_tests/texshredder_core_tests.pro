@@ -29,7 +29,6 @@ SOURCES += main.cpp \
     workingcopytests.cpp \
     ../textshredder_core/libraries/synchronization/clientrepresentation.cpp \
     ../textshredder_core/libraries/synchronization/filemanager.cpp \
-    ../textshredder_core/libraries/synchronization/filesync.cpp \
     ../textshredder_core/libraries/synchronization/syncthread.cpp \
     ../textshredder_core/libraries/synchronization/models/backupcopy.cpp \
     ../textshredder_core/libraries/synchronization/models/edit.cpp \
@@ -52,7 +51,6 @@ SOURCES += main.cpp \
     syncablefilespackettests.cpp \
     filemanagertest.cpp \
     filerequestpackettest.cpp \
-    ../textshredder_core/libraries/network/connectionlistener.cpp \
     ../textshredder_core/client/client.cpp \
     ../textshredder_core/server/server.cpp \
     ../textshredder_core/libraries/network/models/filedatapacket.cpp \
@@ -79,7 +77,6 @@ HEADERS += \
     workingcopytests.h \
     ../textshredder_core/libraries/synchronization/clientrepresentation.h \
     ../textshredder_core/libraries/synchronization/filemanager.h \
-    ../textshredder_core/libraries/synchronization/filesync.h \
     ../textshredder_core/libraries/synchronization/syncthread.h \
     ../textshredder_core/libraries/synchronization/models/backupcopy.h \
     ../textshredder_core/libraries/synchronization/models/edit.h \
@@ -102,7 +99,6 @@ HEADERS += \
     syncablefilespackettests.h \
     filemanagertest.h \
     filerequestpackettest.h \
-    ../textshredder_core/libraries/network/connectionlistener.h \
     ../textshredder_core/client/client.h \
     ../textshredder_core/server/server.h \
     ../textshredder_core/libraries/network/models/filedatapacket.h \
