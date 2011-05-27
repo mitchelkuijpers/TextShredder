@@ -182,10 +182,10 @@ void EditorView::setColumnWidths()
 {
 	if ( isServer ) {
 		ui->fileTreeWidget->setColumnWidth(0, 44);
-		ui->fileTreeWidget->setColumnWidth(1, 175);
+		ui->fileTreeWidget->setColumnWidth(1, 160);
 		ui->fileTreeWidget->setColumnWidth(2, 30);
 	} else {
-		ui->fileTreeWidget->setColumnWidth(0, 219);
+		ui->fileTreeWidget->setColumnWidth(0, 204);
 		ui->fileTreeWidget->setColumnWidth(1, 30);
 	}
 }

@@ -63,9 +63,10 @@ void FileManagerTest::testHandleReceivedSyncableFilesWithChangedAlias() {
 	QVERIFY2(manager->getAllFiles().at(0).data()->getFileAlias() == QString("file1.txt"),
 			 "first name is already wrong?");
 	QString newFileAlias("changedTheName.txt");
-	list.at(0).data()->setFileAlias(newFileAlias);
 
-	manager->handleReceivedSyncableFiles(packet.getContent());
+	list.at(0).data()->setFileAlias(newFileAlias);
+	SyncableFilesPacket secondPacket(this, list);
+	manager->handleReceivedSyncableFiles(secondPacket.getContent());
 
 	QVERIFY2(manager->getAllFiles().at(0).data()->getFileAlias() == QString("changedTheName.txt"),
 			 "Name change does not get synced");
