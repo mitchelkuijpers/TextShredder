@@ -24,17 +24,12 @@ void FileManager::addFileWithPath(QString &path)
 			QSharedPointer<SyncableFile>(new SyncableFile(this, path));
 
 	obj.data()->setOnServer(isServer);
+	connectSignalsForSyncableFile(obj.data());
 
-	connect(obj.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
-	connect(obj.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
-	connect(obj.data(), SIGNAL(syncableFileChanged()), this, SLOT(syncableFileDidChange()));
-	connect(obj.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)),
-			this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
 	fileList.append(obj);
 
 	if(isServer){
 		backupDir.mkdir("serverBackup");
-		qDebug() << "is server, started backuptimer";
 		QTimer *backupTimer = new QTimer(this);
 		backupTimer->start(30000);
 		connect(backupTimer, SIGNAL(timeout()), this, SLOT(backupServerContent()));
@@ -48,10 +43,7 @@ void FileManager::removeFile (QSharedPointer<SyncableFile> file)
 	for (int i = 0; i < fileList.count(); i++ ) {
 		QSharedPointer<SyncableFile> fileFromList = fileList.at(i);
 		if (fileFromList.data() == file.data()) {
-			disconnect(file.data(), SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
-			disconnect(file.data(), SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
-			disconnect(file.data(), SIGNAL(fileRequestsForSync(TextShredderPacket&)), this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
-			disconnect(file.data(), SIGNAL(syncableFileChanged()), this, SLOT(syncableFileDidChange()));
+			disconnectSignalsForSyncableFile(file.data());
 			file.data()->stopSync();
 			fileList.removeAt(i);
 			break;
@@ -146,6 +138,7 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 		for (int j = 0; j < fileList.count(); j++) {
 			if (file.data()->getFileIdentifier() == fileList.at(j).data()->getFileIdentifier()) {
 				fileList.at(j).data()->setShared(true);
+				file.data()->setFileAlias(fileList.at(j).data()->getFileAlias());
 				found = true;
 			}
 		}
@@ -190,16 +183,20 @@ bool FileManager::isServerSide()
 	return isServer;
 }
 
+void FileManager::backupSyncableFile( SyncableFile * file )
+{
+	QString path = "serverBackup/backup" + file->getFileAlias();
+	QFile backupFile(path);
+	qDebug() << "path: " << path;
+	backupFile.open(QIODevice::WriteOnly | QIODevice::Text);
+	backupFile.write(file->getWorkingCopy().data()->getContent()->toStdString().c_str());
+}
+
 void FileManager::backupServerContent()
 {
 	for(int i=0; i < this->getAllFiles().count(); i++){
-		if(this->getAllFiles().at(i).data()->isShared()){
-
-			QString path = "serverBackup/backup" + this->getAllFiles().at(i).data()->getFileAlias();
-			QFile backupFile(path);
-			qDebug() << "path: " << path;
-			backupFile.open(QIODevice::WriteOnly | QIODevice::Text);
-			backupFile.write(getAllFiles().at(i).data()->getWorkingCopy().data()->getContent()->toStdString().c_str());
+		if(fileList.at(i).data()->calculateStatus() == Syncing){
+			backupSyncableFile(fileList.at(i).data());
 		}
 	}
 }
@@ -217,3 +214,24 @@ void FileManager::syncableFileShouldBeRemoved()
 	}
 }
 
+void FileManager::connectSignalsForSyncableFile( SyncableFile *file )
+{
+	connect(file, SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
+	connect(file, SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
+	connect(file, SIGNAL(syncableFileChanged()), this, SLOT(syncableFileDidChange()));
+	connect(file, SIGNAL(fileRequestsForSync(TextShredderPacket&)),
+			this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
+	connect(file, SIGNAL(fileShouldBeBackedUp( SyncableFile * )),
+			this, SLOT(backupSyncableFile(SyncableFile*)));
+}
+
+void FileManager::disconnectSignalsForSyncableFile( SyncableFile *file )
+{
+	disconnect(file, SIGNAL(fileStartedSharing()), this, SLOT(syncableFileStartedSharing()));
+	disconnect(file, SIGNAL(fileStoppedSharing()), this, SLOT(syncableFileStoppedSharing()));
+	disconnect(file, SIGNAL(syncableFileChanged()), this, SLOT(syncableFileDidChange()));
+	disconnect(file, SIGNAL(fileRequestsForSync(TextShredderPacket&)),
+			   this, SLOT(shouldMakeRequestForSync(TextShredderPacket &)));
+	disconnect(file, SIGNAL(fileShouldBeBackedUp( SyncableFile * )),
+			   this, SLOT(backupSyncableFile(SyncableFile*)));
+}

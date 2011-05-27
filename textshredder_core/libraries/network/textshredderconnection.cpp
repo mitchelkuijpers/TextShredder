@@ -4,7 +4,8 @@
 
 TextShredderConnection::~TextShredderConnection()
 {
-	qDebug() << "Destructing TSConnection";
+	breakDownSignalsForSocket();
+	qDebug() << "TextShredderConnection::~TextShredderConnection";
 }
 
 TextShredderConnection::TextShredderConnection(QObject *parent,

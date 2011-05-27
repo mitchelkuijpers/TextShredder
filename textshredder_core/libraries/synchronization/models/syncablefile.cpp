@@ -210,9 +210,7 @@ void SyncableFile::syncThreadIsStoppedByOtherNode()
 
 void SyncableFile::saveFileToPath()
 {
-	qDebug() << "SyncableFile:: "
-			<< "Server side all syncs ended";
-	qDebug() << "Save file to local path";
+	fileShouldBeBackedUp();
 }
 
 bool SyncableFile::isOnServer()

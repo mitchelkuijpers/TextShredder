@@ -267,6 +267,9 @@ signals:
 
 	/** Emitted when the file should be cleared out of memory */
 	void syncableFileShouldBeRemoved();
+
+	/** Emitted when syncing ends on server */
+	void fileShouldBeBackedUp();
 };
 
 #endif // SYNCABLEFILE_H

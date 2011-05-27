@@ -1,6 +1,7 @@
 #include "clientrepresentation.h"
 #include "../network/models/syncablefilespacket.h"
 #include "../../server/usermanager.h"
+#include "filemanager.h"
 
 ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor) :
 	QObject(parent)

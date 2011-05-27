@@ -40,7 +40,7 @@ private:
 
 	QString serverAlias;
 
-	QList < QSharedPointer<ClientRepresentation> > clients;
+	QList < QWeakPointer<ClientRepresentation> > clients;
 	static Server * sharedInstance;
 
 private slots:
