@@ -8,6 +8,15 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 	this->connection = QSharedPointer<TextShredderConnection> (
 				new TextShredderConnection(this, socketDescriptor));
 
+
+	QSharedPointer<SyncableFilesPacket> packet = FileManager::Instance()->getAvailableFilesPacket();
+	sendPacket(*packet.data());
+
+	setupSignals();
+}
+
+void ClientRepresentation::setupSignals()
+{
 	connect(connection.data(), SIGNAL(clientDisconnected()), this, SLOT(getDisconnected()));
 
 	connect(connection.data(), SIGNAL(incomingFileRequestPacket(TextShredderPacket&)),
@@ -18,9 +27,6 @@ ClientRepresentation::ClientRepresentation(QObject *parent, int socketDescriptor
 
 	connect(FileManager::Instance(), SIGNAL(updateClientFiles(TextShredderPacket&)),
 			connection.data(), SLOT(write(TextShredderPacket&)));
-
-	QSharedPointer<SyncableFilesPacket> packet = FileManager::Instance()->getAvailableFilesPacket();
-	connection.data()->write(*packet.data());
 }
 
 void ClientRepresentation::processSetAliasPacketContent(QByteArray &bytes)
