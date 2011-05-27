@@ -92,13 +92,6 @@ void MainWindow::on_cancelButton_clicked()
 	this->close();
 }
 
-void MainWindow::functionToExecute()
-{
-	//Test function for notificationmanager
-	//Has to be executed when this function is assigned to a button (onclick)
-	qDebug("You clicked on a dialog button!");
-}
-
 void MainWindow::performTextSlideInAnimation()
 {
 	animationMoveTo(ui->titleLabelClient, QRect(350, 0, 451, 141), QRect(100, 0, 451, 141), 500);

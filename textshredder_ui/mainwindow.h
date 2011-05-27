@@ -29,18 +29,17 @@ public:
 	  * and shows an error if the font cannot be opened.
 	  */
 	void setDefaultFont();
-	void functionToExecute();
 	void displayErrorNotification(QAbstractSocket::SocketError error);
 
 private:
-    Ui::MainWindow *ui;
+	Ui::MainWindow *ui;
 	EditorView editorView;
 
 	bool validateAliasInput();
 
 private slots:
 	void on_aliasInput_textChanged(QString );
- void on_connectButton_clicked();
+	void on_connectButton_clicked();
 	void on_cancelButton_clicked();
 	void on_isServerInput_clicked();
 	void clientDidConnect();
