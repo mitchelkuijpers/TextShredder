@@ -244,7 +244,6 @@ void EditorView::setToClientMode()
 
 void EditorView::updateAveragePerformance(float averagePerformance)
 {
-	qDebug() << averagePerformance;
 	ui->processingTimeLabel->setText("Average processing time: " + QString::number(averagePerformance) + "ms");
 }
 
