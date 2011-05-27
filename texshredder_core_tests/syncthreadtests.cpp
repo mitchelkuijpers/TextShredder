@@ -600,8 +600,8 @@ void SyncThreadTests::setupVariables()
 	leftSync = QSharedPointer<SyncThreadSub> (new SyncThreadSub(this, leftWorkingCopyPointer));
 	rightSync = QSharedPointer<SyncThreadSub> (new SyncThreadSub(this, rightWorkingCopyPointer));
 
-	leftShadowCopy = leftSync->getShadowCopy ();
-	rightShadowCopy = rightSync->getShadowCopy ();
+	leftShadowCopy = leftSync->getShadowCopy();
+	rightShadowCopy = rightSync->getShadowCopy();
 
 	leftEditList = leftSync->getEditList ();
 	rightEditList = rightSync->getEditList ();

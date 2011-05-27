@@ -89,10 +89,10 @@ void EditListTests::testUpdateToRemoteVersion()
 
 	QVERIFY2(editList.getEdits().count() == 4, "The EditList edits count should be 4");
 
-	//editList.updateToRemote(1);
+	editList.setRemoteVersion(1);
 	QVERIFY2(editList.getRemoteVersion() == 1, "The EditList remote version should be 1");
 
-	//editList.updateToRemote(2);
+	editList.setRemoteVersion(2);
 	QVERIFY2(editList.getRemoteVersion() == 2, "The EditList remote version should be 2");
 }
 
