@@ -138,6 +138,7 @@ void FileManager::handleReceivedSyncableFiles(QByteArray &content)
 		for (int j = 0; j < fileList.count(); j++) {
 			if (file.data()->getFileIdentifier() == fileList.at(j).data()->getFileIdentifier()) {
 				fileList.at(j).data()->setShared(true);
+				file.data()->setFileAlias(fileList.at(j).data()->getFileAlias());
 				found = true;
 			}
 		}
