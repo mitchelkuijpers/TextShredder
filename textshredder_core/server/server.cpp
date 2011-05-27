@@ -21,7 +21,7 @@ Server::Server(QObject *parent):
 
 void Server::incomingConnection(int socketDescriptor)
 {
-	QSharedPointer<ClientRepresentation> rep = QSharedPointer<ClientRepresentation>(
+	QWeakPointer<ClientRepresentation> rep = QWeakPointer<ClientRepresentation>(
 			new ClientRepresentation(this, socketDescriptor));
 	connect(rep.data(), SIGNAL(clientRepresentationDidChangeAlias()), this, SLOT(processAliasChangeFromClientRepresentation()));
 	connect(rep.data(), SIGNAL(clientRepresentationEncounteredEnd()), this, SLOT(removeClientRepresentationSlot()));
@@ -45,7 +45,7 @@ void Server::sendUsersToAllClients()
 		if (clients.at(i).isNull()) {
 			qDebug() << "Object is null";
 		} else {
-			clients.at(i)->sendPacket(packet);
+			clients.at(i).data()->sendPacket(packet);
 		}
 	}
 }
@@ -64,17 +64,15 @@ void Server::removeClientRepresentationSlot()
 	ClientRepresentation *rep = (ClientRepresentation *) sender();
 
 	for (int i = 0; i < clients.count(); i ++ ) {
-		QSharedPointer <ClientRepresentation> internalRep = clients.at(i);
-		if (internalRep.isNull()) {
+		//QSharedPointer <ClientRepresentation> internalRep = clients.at(i);
+		if (rep == clients.at(i).data()) {
+			disconnect(clients.at(i).data(), SIGNAL(clientRepresentationDidChangeAlias()),
+					   this, SLOT(processAliasChangeFromClientRepresentation()));
+			disconnect(clients.at(i).data(), SIGNAL(clientRepresentationEncounteredEnd()),
+					   this, SLOT(removeClientRepresentationSlot()));
+			clients.at(i).data()->deleteLater();
 			clients.removeAt(i);
-			i--;
-		}
-		else if (rep == internalRep.data()) {
-			qDebug() << "Server::removeClientRepresentationSlot() error when uncommentign following line";
-			//When uncommenting the following line there will be a crash.
-			//The TextShredderConnectionWill be deallocated even when not uncommenting this line...
-			//clients.removeAt(i);
-			internalRep.clear();
+			qDebug() << this->clients.count();
 			sendUsersToAllClients();
 			return;
 		}
