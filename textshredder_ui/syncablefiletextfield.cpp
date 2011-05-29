@@ -32,10 +32,9 @@ SyncableFileTextField::~SyncableFileTextField()
 void SyncableFileTextField::openFileInTextEditor()
 {
 	QFileInfo info(syncFile.data()->getFileAlias());
-	QString fileExtension(info.suffix());
+	fileExtension = info.suffix();
 
 	if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
-		ui->textEditorField->setText("");
 		ui->textEditorField->setAcceptRichText(true);
 		ui->textEditorField->setHtml(*(syncFile.data()->getWorkingCopy().data()->getContent()));
 	} else {
@@ -68,7 +67,12 @@ void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 		QString temp = ui->textEditorField->toPlainText();
 		patches = syncFile.data()->getWorkingCopy().data()->getPatchesToConvertString(temp);
 	}
-	ui->textEditorField->setPlainText(*syncFile.data()->getWorkingCopy().data()->getContent());
+
+	if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
+		ui->textEditorField->setHtml(*syncFile.data()->getWorkingCopy().data()->getContent());
+	} else {
+		ui->textEditorField->setPlainText(*syncFile.data()->getWorkingCopy().data()->getContent());
+	}
 
 	if(!patches.isEmpty() && highlightingOn == true){
 		EditDeleteColor();
@@ -98,7 +102,12 @@ void SyncableFileTextField::EditDeleteColor()
 				deletedEdit = ui->textEditorField->toPlainText();
 				deletedEdit.insert(patches.first().start1 + beforeDiffSize,
 										patches.first().diffs.at(i).text);
-				ui->textEditorField->setPlainText(deletedEdit);
+
+				if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
+					ui->textEditorField->setHtml(deletedEdit);
+				} else {
+					ui->textEditorField->setPlainText(deletedEdit);
+				}
 				deletes =true;
 			}
 			beforeDiffSize += patches.first().diffs.at(i).text.size();
@@ -145,7 +154,11 @@ void SyncableFileTextField::removeDeletes()
 				temp = ui->textEditorField->toPlainText();
 				temp.remove(patches.first().start1 + patchSize, patches.first().diffs.at(i).text.size());
 				patchSize -= patches.first().diffs.at(i).text.size();
-				ui->textEditorField->setPlainText(temp);
+				if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
+					ui->textEditorField->setHtml(temp);
+				} else {
+					ui->textEditorField->setPlainText(temp);
+				}
 			}else{
 				patchSize += patches.first().diffs.at(i).text.size();
 			}

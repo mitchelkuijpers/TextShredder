@@ -34,6 +34,8 @@ private:
 	void getContentDiffSize();
 	void updateCursorPosition();
 
+	QString fileExtension;
+
 	int oldEditWindowSize;
 	int diffSize;
 	int cursorPosition;
