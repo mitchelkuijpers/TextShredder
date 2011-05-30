@@ -20,24 +20,6 @@ public:
 	EditList( QObject *parent, int remoteVersion = 0 );
 
 	/**
-	  * Constructor which makes an EditList with QByteArray.
-	  * This byte array should be conform to the byte representation of an EditList object.
-	  *
-	  * @param parent The parent object.
-	  * @param content The content on which the new EditList is based.
-	  */
-	EditList(QObject *parent, QByteArray &content);
-
-	/**
-	  * Constructor which makes an EditList with a TextShredderPacket object.
-	  * The content of this packet will be used for constructing the packet.
-	  *
-	  * @param parent The parent object.
-	  * @param packet The packet on which this the EditList object is based on.
-	  */
-	EditList(QObject *parent, TextShredderPacket &packet);
-
-	/**
 	  * Copy constructor.
 	  * The list of Edits and the remoteVersion will be copied.
 	  *
@@ -83,13 +65,6 @@ public:
 	  * @param edit The Edit object that should be added to the list.
 	  */
 	void addEdit( const Edit & edit );
-
-	/**
-	  * Method will return a allocated packet based on the byte representation of the EditList object.
-	  *
-	  * @return The allocated TextShredderPacket pointer.
-	  */
-	TextShredderPacket * getAllocatedPacket();
 
 	/**
 	  * Method will remove the edits up to a local version from the edits variable.

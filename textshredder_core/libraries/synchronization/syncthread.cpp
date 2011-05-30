@@ -59,12 +59,13 @@ void SyncThread::processChanges(QByteArray & content)
 {
 	QString procesChangesMessage("SyncThread::processChanges");
 	logging.writeLog (procesChangesMessage, DEBUG);
-	EditList incomingEditList(this, content);
-	this->applyReceivedEditList(incomingEditList);
+	EditList *incomingEditList = EditListPacket::GetAllocatedEditListFromPacketContent(content);
+	this->applyReceivedEditList(*incomingEditList);
+	delete incomingEditList;
+
 }
 void SyncThread::receivedDownloadedContent(QByteArray & content)
 {
-	qDebug("Received download content");
 	QString string(content);
 	workingCopyPointer.data()->setContent(string);
 	shadowCopy.setContent(string);
@@ -103,10 +104,11 @@ void SyncThread::pushChanges()
 void SyncThread::writePacketOfEditList()
 {
 	editList.lock();
-	TextShredderPacket *newPacket = editList.getAllocatedPacket();
+	EditListPacket newPacket(this, editList);
+	//TextShredderPacket *newPacket = editList.getAllocatedPacket();
 	editList.unlock();
-	writePacketOnConnection(*newPacket);
-	newPacket->deleteLater();
+	writePacketOnConnection(newPacket);
+	//newPacket->deleteLater();
 }
 
 void SyncThread::writePacketOnConnection(TextShredderPacket &packet)
@@ -233,7 +235,7 @@ void SyncThread::disconnectSignalsForSynchronization()
 {
 	qDebug("SyncThread::disconnectSignalsForSynchronization");
 	if(!connectionPointer.isNull()){
-		disconnect(connectionPointer.data()), SIGNAL(clientDisconnected()), this, SLOT(deleteLater());
+		disconnect(connectionPointer.data(), SIGNAL(clientDisconnected()), this, SLOT(deleteLater()));
 		disconnect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
 		disconnect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
 		disconnect(connectionPointer.data(), SIGNAL(incomingEndSynchronizationPacket(quint16)), this, SLOT(receivedEndSynchronizationPacket(quint16)));
