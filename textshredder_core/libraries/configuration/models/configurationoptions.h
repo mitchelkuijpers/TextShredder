@@ -23,12 +23,12 @@ public:
 	ConfigurationOptions(const ConfigurationOptions &);
 	/**
 	 * Gets the knownhostList
-	 * @return a qlist which holds the known hosts
+	 * @return a qlist Which holds the known hosts
 	 */
 	QStringList getKnownHostsList();
 	/**
 	 * Gets the lastknownipindex
-	 * @return quint16 which holds the lastknownipindex
+	 * @return quint16 Which holds the lastknownipindex
 	 */
 	quint16 getLastKnownIpIndex();
 	/**
@@ -38,7 +38,7 @@ public:
 	QString getLastKnownIp();
 	/**
 	 * Gets the server port which was last used
-	 * @return the serverport
+	 * @return The serverport
 	 */
 	quint16 getServerPort();
 	/**
@@ -53,7 +53,7 @@ public:
 	void addHostToKnownHostsList(QString hostEntry);
 	/**
 	 * Sets the knownHosts list to the list given as the parameter
-	 * @param knownHosts list which holds the knownhosts
+	 * @param knownHosts List which holds the knownhosts
 	 */
 	void setKnownHostsList(QStringList knownHosts);
 	/**
@@ -92,8 +92,8 @@ private:
 QDataStream &operator<<(QDataStream &out, ConfigurationOptions & options);
 /**
  * The >> operator is overloaded to handle the configuration options
- * @param &in where to write from
- * @param options the configurationOptions
+ * @param &in Where to write from
+ * @param options The configurationOptions
  */
 QDataStream &operator>>(QDataStream &in, ConfigurationOptions & options);
 
