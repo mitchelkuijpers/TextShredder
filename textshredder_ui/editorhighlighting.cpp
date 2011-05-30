@@ -41,6 +41,8 @@ void EditorHighLighting::highlightBlock(const QString &text)
 
 }
 
+
+
 void EditorHighLighting::setPatches(QList<Patch> patches)
 {
 	editPosition = 0;

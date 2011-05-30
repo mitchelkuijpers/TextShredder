@@ -16,7 +16,7 @@ public:
 
 	void setPatches(QList<Patch> patches);
 	void clearPatches();
-
+	void setHighlighting(bool HighLightingOn);
 
 private:
 	QList<Patch> patches;

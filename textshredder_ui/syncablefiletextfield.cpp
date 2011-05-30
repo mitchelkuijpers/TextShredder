@@ -59,13 +59,19 @@ void SyncableFileTextField::textChanged(int position, int charsRemoved, int char
 void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 {
 	qDebug("ClientEditingWindow::updateTextFieldToWorkingCopyContent()");
+	deleteTimer->start(1);
 	updateCursorPosition();
+	qDebug() << "cursorPosition: " << cursorPosition;
 	disconnect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
 
-	if(highlightingOn == true){
-		QString temp = ui->textEditorField->toPlainText();
-		patches = syncFile.data()->getWorkingCopy().data()->getPatchesToConvertString(temp);
+	QString temp = ui->textEditorField->toPlainText();
+	patches = syncFile.data()->getWorkingCopy().data()->getPatchesToConvertString(temp);
+	qDebug() << patches.first().toString();
+	if(temp.size() > 100000){
+		highlightingOn = false;
+	}else{
+		highlightingOn = true;
 	}
 
 	if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
@@ -74,26 +80,23 @@ void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 		ui->textEditorField->setPlainText(*syncFile.data()->getWorkingCopy().data()->getContent());
 	}
 
+	updateTextCursor();
 	if(!patches.isEmpty() && highlightingOn == true){
 		EditDeleteColor();
 		highlighter->setPatches(patches);
 		highlighter->rehighlight();
 		highlighter->clearPatches();
-
 		connect(timer, SIGNAL(timeout()), this, SLOT(clearHighlights()));
 		timer->start(2000);
 	}
+
 	connect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
 
-	getContentDiffSize();
-	updateTextCursor();
-	ui->textEditorField->setTextCursor(cursor);
 }
 
 void SyncableFileTextField::EditDeleteColor()
 {
-
 	if(!patches.isEmpty()){
 		int beforeDiffSize =0;
 		bool deletes = false;
@@ -103,20 +106,21 @@ void SyncableFileTextField::EditDeleteColor()
 				deletedEdit.insert(patches.first().start1 + beforeDiffSize,
 										patches.first().diffs.at(i).text);
 
+
 				if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
 					ui->textEditorField->setHtml(deletedEdit);
 				} else {
 					ui->textEditorField->setPlainText(deletedEdit);
 				}
+				lockCursorPostion();
+
 				deletes =true;
 			}
 			beforeDiffSize += patches.first().diffs.at(i).text.size();
-
 		}
 		if(deletes){
 			startDeleteColorTimer();
 		}
-
 	}
 }
 
@@ -138,7 +142,6 @@ void SyncableFileTextField::deleteEdits()
 			this, SLOT(textChanged(int, int, int)));
 
 	removeDeletes();
-
 	deleteTimer->blockSignals(true);
 	connect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
@@ -148,22 +151,28 @@ void SyncableFileTextField::removeDeletes()
 {
 	QString temp;
 	int patchSize = 0;
+
 	if(!patches.isEmpty()){
+		updateCursorPosition();
 		for(int i=0; i<patches.first().diffs.count(); i++){
 			if(patches.first().diffs.at(i).operation == 1){
 				temp = ui->textEditorField->toPlainText();
 				temp.remove(patches.first().start1 + patchSize, patches.first().diffs.at(i).text.size());
 				patchSize -= patches.first().diffs.at(i).text.size();
+
 				if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
 					ui->textEditorField->setHtml(temp);
 				} else {
 					ui->textEditorField->setPlainText(temp);
 				}
+				cursor.setPosition(cursorPosition);
+				ui->textEditorField->setTextCursor(cursor);
+
 			}else{
 				patchSize += patches.first().diffs.at(i).text.size();
 			}
-
 		}
+
 		patches.clear();
 		qDebug() << "patches cleared";
 	}
@@ -171,28 +180,24 @@ void SyncableFileTextField::removeDeletes()
 
 void SyncableFileTextField::updateTextCursor()
 {
-	for( int i=0; i <= diffSize; i++){
 
-		if(beforeCursorText == ui->textEditorField->toPlainText().mid(cursorPosition -CURSORUPDATESIZE -i, CURSORUPDATESIZE) ||
-		   afterCursorText == ui->textEditorField->toPlainText().mid(cursorPosition -i ,CURSORUPDATESIZE)){
-			cursor.setPosition(cursorPosition -i, QTextCursor::MoveAnchor);
-			break;
-		}else if(afterCursorText == ui->textEditorField->toPlainText().mid(cursorPosition + i ,CURSORUPDATESIZE) ||
-				 beforeCursorText == ui->textEditorField->toPlainText().mid(cursorPosition -CURSORUPDATESIZE + i ,CURSORUPDATESIZE)){
-			cursor.setPosition(cursorPosition +i, QTextCursor::MoveAnchor);
-			break;
-		}else{
-			cursor.setPosition(cursorPosition, QTextCursor::MoveAnchor);
+	if(!patches.isEmpty()){
+
+		int prevDiffSize = patches.first().start1;
+		for(int i=0; prevDiffSize < cursorPosition && i<patches.first().diffs.count(); i++){
+			qDebug() << "prevDiff: " << prevDiffSize << " cursor: " << cursorPosition;
+			if(patches.first().diffs.at(i).operation == 0){
+				cursorPosition += patches.first().diffs.at(i).text.size();
+				cursor.setPosition(cursorPosition, QTextCursor::MoveAnchor);
+				ui->textEditorField->setTextCursor(cursor);
+			}else if(patches.first().diffs.at(i).operation == 1){
+				lockCursorPostion();
+				cursorPosition -= patches.first().diffs.at(i).text.size();
+			}
+			prevDiffSize += patches.first().diffs.at(i).text.size();
 		}
-	}
-}
+		qDebug() << "prevDiffSize: " << prevDiffSize;
 
-void SyncableFileTextField::getContentDiffSize()
-{
-	if(ui->textEditorField->toPlainText().size() > oldEditWindowSize){
-		diffSize = ui->textEditorField->toPlainText().size() - oldEditWindowSize;
-	}else{
-		diffSize = oldEditWindowSize - ui->textEditorField->toPlainText().size();
 	}
 
 }
@@ -200,12 +205,15 @@ void SyncableFileTextField::getContentDiffSize()
 void SyncableFileTextField::updateCursorPosition()
 {
 	cursor = ui->textEditorField->textCursor();
-	oldEditWindowSize = ui->textEditorField->toPlainText().size();
-
 	cursorPosition = cursor.position();
+	oldCursorPosition = cursorPosition;
+	qDebug() << "cursorPos: " << cursor.position();
+}
 
-	beforeCursorText = ui->textEditorField->toPlainText().mid(cursorPosition -CURSORUPDATESIZE, CURSORUPDATESIZE);
-	afterCursorText = ui->textEditorField->toPlainText().mid(cursorPosition, CURSORUPDATESIZE);
+void SyncableFileTextField::lockCursorPostion()
+{
+	cursor.setPosition(oldCursorPosition);
+	ui->textEditorField->setTextCursor(cursor);
 }
 
 void SyncableFileTextField::workingCopyChanged()

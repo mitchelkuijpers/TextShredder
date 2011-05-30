@@ -36,11 +36,10 @@ private:
 
 	QString fileExtension;
 
-	int oldEditWindowSize;
-	int diffSize;
+
 	int cursorPosition;
-	QString beforeCursorText;
-	QString afterCursorText;
+	int oldCursorPosition;
+	void lockCursorPostion();
 
 	QTimer * timer;
 	QTimer * deleteTimer;
