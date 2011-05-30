@@ -8,9 +8,8 @@ void ShadowCopyTests::revertTest()
 	testShadow = new ShadowCopy(this, text1);
 	testShadow->setContent(text2);
 	testShadow->revert();
-	//QVERIFY2(QString::compare(*(testShadow->getContent()), text1) == 0, "Revert failed");
-	//QVERIFY2(testShadow->getLocalVersion() == testShadow->getBackupCopy()->getLocalVersion(), "LocalVersion has not been reversed");
-
+	QVERIFY2(QString::compare(*(testShadow->getContent()), text1) == 0, "Revert failed");
+	QVERIFY2(testShadow->getLocalVersion() == testShadow->getBackupCopy().getLocalVersion(), "LocalVersion has not been reversed");
 }
 
 void ShadowCopyTests::backupTest()
@@ -18,11 +17,11 @@ void ShadowCopyTests::backupTest()
 	QString text1 = "ABC";
 	QString text2 = "XYZ";
 	ShadowCopy * testShadow;
-	//testShadow = new ShadowCopy(this, text1);
-	//testShadow->getBackupCopy()->setContent(text2);
-	//testShadow->backup();
-	//QVERIFY2(QString::compare(*(testShadow->getBackupCopy()->getContent()), text1) == 0, "Backup failed");
-	//QVERIFY2(testShadow->getLocalVersion() == testShadow->getBackupCopy()->getLocalVersion(),"backupversion has not been updated");
+	testShadow = new ShadowCopy(this, text1);
+	testShadow->getBackupCopy().setContent(text2);
+	testShadow->backup();
+	QVERIFY2(QString::compare(*(testShadow->getBackupCopy().getContent()), text1) == 0, "Backup failed");
+	QVERIFY2(testShadow->getLocalVersion() == testShadow->getBackupCopy().getLocalVersion(),"backupversion has not been updated");
 }
 
 void ShadowCopyTests::applyEditsTestWithOnePatch()

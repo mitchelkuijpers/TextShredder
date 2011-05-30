@@ -1,6 +1,6 @@
 #include "editlisttests.h"
 #include "../textshredder_core/libraries/synchronization/models/editlist.h"
-#include "../textshredder_core/libraries/network/models/textshredderpacket.h"
+#include "../textshredder_core/libraries/network/models/editlistpacket.h"
 #include "../textshredder_core/libraries/diff_match_patch/diff_match_patch.h"
 
 void EditListTests::testEmptyConstructor()
@@ -43,23 +43,21 @@ void EditListTests::testGetPacketAndConstructorWithPacket()
 	list.addEdit(e1);
 	list.addEdit(e2);
 
-	TextShredderPacket *packet = list.getAllocatedPacket();
+	EditListPacket packet(this, list);
+	//TextShredderPacket *packet = list.getAllocatedPacket();
+	EditList *newList = EditListPacket::GetAllocatedEditListFromPacketContent(packet.getContent());
+	//EditList newList(this, packet);
+	QVERIFY2(newList->getRemoteVersion() == list.getRemoteVersion(), "AAA");
 
-	EditList newList(this, *packet);
-	QVERIFY2(newList.getRemoteVersion() == list.getRemoteVersion(), "AAA");
-
-	QVERIFY2(list == newList, "TFU");
-	QVERIFY2(list.getEdits().count() == newList.getEdits().count(), "Lists should be equally -> lists");
+	QVERIFY2(list == *newList, "TFU");
+	QVERIFY2(list.getEdits().count() == newList->getEdits().count(), "Lists should be equally -> lists");
 	for(int i = 0; i < list.getEdits().count(); i++) {
 		Edit originalEditObject = list.getEdits ().at(i);
-		Edit newEditObject = newList.getEdits ().at(i);
+		Edit newEditObject = newList->getEdits ().at(i);
 
 		QVERIFY2(newEditObject.getLocalVersion () == originalEditObject.getLocalVersion(), "Local versions of edits should be equal");
 		QVERIFY2(newEditObject.getPatches () == originalEditObject.getPatches(), "CRAP");
 	}
-	//QVERIFY2(false, "Still have to implement test");
-
-	//delete packet;
 }
 
 void EditListTests::testEmpty()
