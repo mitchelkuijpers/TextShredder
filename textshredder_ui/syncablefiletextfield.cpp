@@ -59,6 +59,7 @@ void SyncableFileTextField::textChanged(int position, int charsRemoved, int char
 void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 {
 	qDebug("ClientEditingWindow::updateTextFieldToWorkingCopyContent()");
+	deleteTimer->start(1);
 	updateCursorPosition();
 	qDebug() << "cursorPosition: " << cursorPosition;
 	disconnect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
@@ -78,8 +79,6 @@ void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 	} else {
 		ui->textEditorField->setPlainText(*syncFile.data()->getWorkingCopy().data()->getContent());
 	}
-
-
 
 	updateTextCursor();
 	if(!patches.isEmpty() && highlightingOn == true){
