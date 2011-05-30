@@ -59,7 +59,6 @@ void SyncableFileTextField::textChanged(int position, int charsRemoved, int char
 void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 {
 	qDebug("ClientEditingWindow::updateTextFieldToWorkingCopyContent()");
-	deleteTimer->start(1);
 	updateCursorPosition();
 	qDebug() << "cursorPosition: " << cursorPosition;
 	disconnect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
@@ -153,7 +152,6 @@ void SyncableFileTextField::removeDeletes()
 	int patchSize = 0;
 
 	if(!patches.isEmpty()){
-		updateCursorPosition();
 		for(int i=0; i<patches.first().diffs.count(); i++){
 			if(patches.first().diffs.at(i).operation == 1){
 				temp = ui->textEditorField->toPlainText();
@@ -166,6 +164,7 @@ void SyncableFileTextField::removeDeletes()
 					ui->textEditorField->setPlainText(temp);
 				}
 				cursor.setPosition(cursorPosition);
+				qDebug() << "fuck cursor: " << cursorPosition;
 				ui->textEditorField->setTextCursor(cursor);
 
 			}else{
