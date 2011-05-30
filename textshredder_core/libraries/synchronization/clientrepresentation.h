@@ -35,6 +35,7 @@ public:
 	  */
 	void sendPacket(TextShredderPacket &packet);
 
+	~ClientRepresentation();
 private:
 	/**
 	  * Method will setup all the signals needed.

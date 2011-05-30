@@ -111,7 +111,7 @@ void SyncThread::writePacketOfEditList()
 
 void SyncThread::writePacketOnConnection(TextShredderPacket &packet)
 {
-	qDebug() << connectionPointer.isNull();
+	qDebug() << "SyncThread::writePacketOnConnection connectionPointer.isNull = " << connectionPointer.isNull();
 	packet.getHeader().setConnectionHandle(destinationSyncThreadHandle);
 	connectionPointer.data()->write(packet);
 }
@@ -222,6 +222,7 @@ void SyncThread::sendFileDataAndStart()
 void SyncThread::connectSignalsForSynchronization()
 {
 	qDebug("SyncThread::connectSignalsForSynchronization");
+	connect(connectionPointer.data(), SIGNAL(clientDisconnected()), this, SLOT(deleteLater()));
 	connect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
 	connect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
 	connect(connectionPointer.data(), SIGNAL(incomingEndSynchronizationPacket(quint16)), this, SLOT(receivedEndSynchronizationPacket(quint16)));
@@ -232,6 +233,7 @@ void SyncThread::disconnectSignalsForSynchronization()
 {
 	qDebug("SyncThread::disconnectSignalsForSynchronization");
 	if(!connectionPointer.isNull()){
+		disconnect(connectionPointer.data()), SIGNAL(clientDisconnected()), this, SLOT(deleteLater());
 		disconnect(connectionPointer.data(), SIGNAL(incomingEditPacketContent(QByteArray&, quint16)), this, SLOT(receivedEditPacketContent(QByteArray&, quint16)));
 		disconnect(connectionPointer.data(), SIGNAL(incomingFileDataPacket(TextShredderPacket&, quint16)), this, SLOT(receivedFileDataPacket(TextShredderPacket &, quint16)));
 		disconnect(connectionPointer.data(), SIGNAL(incomingEndSynchronizationPacket(quint16)), this, SLOT(receivedEndSynchronizationPacket(quint16)));

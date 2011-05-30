@@ -1,13 +1,13 @@
 QTreeView {
 	outline:none;
-	font-size: 10px;
+	font-size: 12px;
 	outline:0;
 	border:0;
 }
 
 QTreeView:focus {
 	outline:none;
-	font-size: 10px;
+	font-size: 12px;
 	outline:0;
 	border:0;
 }
@@ -36,5 +36,48 @@ QTreeView::item:selected:active{
 }
 
 QTreeView::item:selected:!active {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6b9be8, stop: 1 #577fbf);
+}
+
+
+
+QListWidget {
+	outline:none;
+	font-size: 12px;
+	outline:0;
+	border:0;
+}
+
+QListWidget:focus {
+	outline:none;
+	font-size: 12px;
+	outline:0;
+	border:0;
+}
+
+QListWidget::item {
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+	border: 1px solid transparent;
+}
+
+QListWidget::item:hover {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #e7effd, stop: 1 #cbdaf1);
+	border-top: 1px solid #bfcde4;
+	border-bottom: 1px solid #bfcde4;
+}
+
+QListWidget::item:selected {
+	border-top: 1px solid #567dbc;
+	border-bottom: 1px solid #567dbc;
+}
+
+QListWidget::item:selected:active{
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+	stop: 0 #6ea1f1,
+	stop: 1 #567dbc);
+}
+
+QListWidget::item:selected:!active {
 	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6b9be8, stop: 1 #577fbf);
 }

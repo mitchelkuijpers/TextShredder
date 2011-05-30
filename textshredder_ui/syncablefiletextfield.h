@@ -34,6 +34,9 @@ private:
 	void getContentDiffSize();
 	void updateCursorPosition();
 
+	QString fileExtension;
+
+
 	int cursorPosition;
 	int oldCursorPosition;
 	void lockCursorPostion();

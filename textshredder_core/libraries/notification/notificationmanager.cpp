@@ -28,8 +28,10 @@ void NotificationManager::createNotificationDialog( Notification & notification 
 
 	addButtonsToNotificationDialog( notification );
 
-	messageLabel = new QLabel(notification.getMessage());
-	gridLayout->addWidget(messageLabel, 0, 0, 2, totalAmountOfButtons);
+	messageLabel = new QLabel( notification.getMessage() );
+	messageLabel->setMaximumWidth(600);
+	messageLabel->setWordWrap(true);
+	gridLayout->addWidget(messageLabel, 0, 0, 2, 1);
 
 	notificationDialog->exec();
 	notificationDialog->deleteLater();
@@ -72,9 +74,9 @@ void NotificationManager::addButtonsToNotificationDialog( Notification & notific
 {
 	if ( notification.getHasCancelButton() ) {
 		QPushButton * button = new QPushButton("Ok");
-		gridLayout->addWidget(button, 1, 0);
+		button->setMaximumWidth(100);
+		button->raise();
+		gridLayout->addWidget(button, 2, 0);
 		connect(button, SIGNAL(clicked()), notificationDialog, SLOT(close()));
 	}
-
-	totalAmountOfButtons = 1;
 }

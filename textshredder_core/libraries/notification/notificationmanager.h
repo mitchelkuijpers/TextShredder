@@ -27,7 +27,6 @@ private:
 	QLabel * messageLabel;
 	enum NotificationType { SUCCESS, WARNING, ERROR, FATAL, INFO };
 	static NotificationManager* sharedInstance;
-	int totalAmountOfButtons;
 
 signals:
 

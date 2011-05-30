@@ -73,5 +73,10 @@ void ClientRepresentation::sendPacket(TextShredderPacket &packet)
 	connection.data()->write(packet);
 }
 
+ClientRepresentation::~ClientRepresentation()
+{
+	qDebug() << "ClientRepresentation::~ClientRepresentation";
+}
+
 
 

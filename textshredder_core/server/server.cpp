@@ -64,7 +64,6 @@ void Server::removeClientRepresentationSlot()
 	ClientRepresentation *rep = (ClientRepresentation *) sender();
 
 	for (int i = 0; i < clients.count(); i ++ ) {
-		//QSharedPointer <ClientRepresentation> internalRep = clients.at(i);
 		if (rep == clients.at(i).data()) {
 			disconnect(clients.at(i).data(), SIGNAL(clientRepresentationDidChangeAlias()),
 					   this, SLOT(processAliasChangeFromClientRepresentation()));

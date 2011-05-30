@@ -32,10 +32,9 @@ SyncableFileTextField::~SyncableFileTextField()
 void SyncableFileTextField::openFileInTextEditor()
 {
 	QFileInfo info(syncFile.data()->getFileAlias());
-	QString fileExtension(info.suffix());
+	fileExtension = info.suffix();
 
 	if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
-		ui->textEditorField->setText("");
 		ui->textEditorField->setAcceptRichText(true);
 		ui->textEditorField->setHtml(*(syncFile.data()->getWorkingCopy().data()->getContent()));
 	} else {
@@ -74,7 +73,12 @@ void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 		highlightingOn = true;
 	}
 
-	ui->textEditorField->setPlainText(*syncFile.data()->getWorkingCopy().data()->getContent());
+	if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
+		ui->textEditorField->setHtml(*syncFile.data()->getWorkingCopy().data()->getContent());
+	} else {
+		ui->textEditorField->setPlainText(*syncFile.data()->getWorkingCopy().data()->getContent());
+	}
+
 
 
 	updateTextCursor();
@@ -103,8 +107,14 @@ void SyncableFileTextField::EditDeleteColor()
 				deletedEdit.insert(patches.first().start1 + beforeDiffSize,
 										patches.first().diffs.at(i).text);
 
-				ui->textEditorField->setPlainText(deletedEdit);
+
+				if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
+					ui->textEditorField->setHtml(deletedEdit);
+				} else {
+					ui->textEditorField->setPlainText(deletedEdit);
+				}
 				lockCursorPostion();
+
 				deletes =true;
 			}
 			beforeDiffSize += patches.first().diffs.at(i).text.size();
@@ -151,9 +161,14 @@ void SyncableFileTextField::removeDeletes()
 				temp.remove(patches.first().start1 + patchSize, patches.first().diffs.at(i).text.size());
 				patchSize -= patches.first().diffs.at(i).text.size();
 
-				ui->textEditorField->setPlainText(temp);
+				if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
+					ui->textEditorField->setHtml(temp);
+				} else {
+					ui->textEditorField->setPlainText(temp);
+				}
 				cursor.setPosition(cursorPosition);
 				ui->textEditorField->setTextCursor(cursor);
+
 			}else{
 				patchSize += patches.first().diffs.at(i).text.size();
 			}
