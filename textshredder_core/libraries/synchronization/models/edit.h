@@ -24,14 +24,6 @@ public:
 	Edit( QObject *parent, unsigned int localVersion, QList<Patch> & patches );
 
 	/**
-	  * Constructor to make Edit from bytes. Normally used to send an edit
-	  * for synchronization, but can also be used for persistence.
-	  *
-	  * @param the bytes used to make the edit.
-	  */
-	Edit( QObject *parent, QByteArray & byteRepresentation );
-
-	/**
 	  * Copy constructor.
 	  *
 	  * @param copy The edit which will be copied. The local version and the edits will be copied.
@@ -58,13 +50,6 @@ public:
 	  * @return A boolean value if both object are equal. Returns true if so.
 	  */
 	bool operator==( const Edit & other );
-
-	/**
-	  * Method will append the byte representation of this Edit object to the QByteArray passed as parameter.
-	  *
-	  * @param bytesArray The QByteArray in which this Edit object is stored.
-	  */
-	void appendEditBytesToByteArray(QByteArray &bytesArray);
 
 	/**
 	  * Method will set the local version of this Edit to a new local version.

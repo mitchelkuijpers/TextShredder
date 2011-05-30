@@ -48,7 +48,8 @@ SOURCES += main.cpp\
     ../textshredder_core/libraries/network/models/onlineuserspacket.cpp \
     ../textshredder_core/server/usermanager.cpp \
 	userlistview.cpp \
-	../textshredder_core/libraries/performance/performancecalculator.cpp
+	../textshredder_core/libraries/performance/performancecalculator.cpp \
+    ../textshredder_core/libraries/network/models/editlistpacket.cpp
 
 HEADERS  += mainwindow.h \
     editorview.h \
@@ -88,7 +89,8 @@ HEADERS  += mainwindow.h \
     ../textshredder_core/libraries/network/models/onlineuserspacket.h \
     ../textshredder_core/server/usermanager.h \
 	userlistview.h \
-	../textshredder_core/libraries/performance/performancecalculator.h
+	../textshredder_core/libraries/performance/performancecalculator.h \
+    ../textshredder_core/libraries/network/models/editlistpacket.h
 
 FORMS    += mainwindow.ui \
     editorview.ui \

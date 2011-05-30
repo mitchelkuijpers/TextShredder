@@ -12,6 +12,7 @@
 #include "../network/textshredderconnection.h"
 #include "../network/models/filedatapacket.h"
 #include "../network/models/endsynchronizationpacket.h"
+#include "../network/models/editlistpacket.h"
 
 #include "../logging/textshredderlogging.h"
 #include "../performance/performancecalculator.h"
