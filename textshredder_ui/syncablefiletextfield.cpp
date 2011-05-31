@@ -248,7 +248,10 @@ void SyncableFileTextField::on_saveFileButton_clicked()
 
 void SyncableFileTextField::showEndSharingNotification()
 {
-	QString message("The server stopped sharing this file. Your edits will not be synced anymore.");
+	QString message("The server stopped sharing the following file: \n");
+	message.append(" - ");
+	message.append(syncFile.data()->getFileAlias());
+	message.append("\n\nYour edits will not be synced anymore.\nYou can still save this file locally.");
 	Notification notification(this, message, NotificationTypeWARNING);
 	NotificationManager::Instance()->createNotificationDialog(notification);
 }
