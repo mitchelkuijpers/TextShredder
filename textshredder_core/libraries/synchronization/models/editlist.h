@@ -107,6 +107,9 @@ private:
 	  * This is the version on which edits are based on.
 	  */
 	int remoteVersion;
+
+signals:
+	void editListIsEmpty();
 };
 
 #endif // EDITLIST_H

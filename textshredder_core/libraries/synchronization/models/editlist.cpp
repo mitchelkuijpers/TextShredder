@@ -52,6 +52,7 @@ bool EditList::isEmpty()
 
 void EditList::empty() {
 	edits.empty();
+	editListIsEmpty();
 }
 
 QList<Edit> EditList::popEditsUpToLocalVersion( unsigned int version ) {
