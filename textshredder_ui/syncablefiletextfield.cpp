@@ -183,20 +183,21 @@ void SyncableFileTextField::updateTextCursor()
 	if(!patches.isEmpty()){
 
 		int prevDiffSize = patches.first().start1;
-		for(int i=0; prevDiffSize < cursorPosition && i<patches.first().diffs.count(); i++){
-			qDebug() << "prevDiff: " << prevDiffSize << " cursor: " << cursorPosition;
-			if(patches.first().diffs.at(i).operation == 0){
-				cursorPosition += patches.first().diffs.at(i).text.size();
-				cursor.setPosition(cursorPosition, QTextCursor::MoveAnchor);
-				ui->textEditorField->setTextCursor(cursor);
-			}else if(patches.first().diffs.at(i).operation == 1){
-				lockCursorPostion();
-				cursorPosition -= patches.first().diffs.at(i).text.size();
+		if(prevDiffSize > cursorPosition){
+			lockCursorPostion();
+		}else{
+			for(int i=0; prevDiffSize < cursorPosition && i<patches.first().diffs.count(); i++){
+				if(patches.first().diffs.at(i).operation == 0){
+					cursorPosition += patches.first().diffs.at(i).text.size();
+					cursor.setPosition(cursorPosition, QTextCursor::MoveAnchor);
+					ui->textEditorField->setTextCursor(cursor);
+				}else if(patches.first().diffs.at(i).operation == 1){
+					lockCursorPostion();
+					cursorPosition -= patches.first().diffs.at(i).text.size();
+				}
+				prevDiffSize += patches.first().diffs.at(i).text.size();
 			}
-			prevDiffSize += patches.first().diffs.at(i).text.size();
 		}
-		qDebug() << "prevDiffSize: " << prevDiffSize;
-
 	}
 
 }
