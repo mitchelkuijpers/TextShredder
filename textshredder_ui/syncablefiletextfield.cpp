@@ -183,7 +183,7 @@ void SyncableFileTextField::updateTextCursor()
 	if(!patches.isEmpty()){
 
 		int prevDiffSize = patches.first().start1;
-		if(prevDiffSize > cursorPosition){
+		if(prevDiffSize >= cursorPosition){
 			lockCursorPostion();
 		}else{
 			for(int i=0; prevDiffSize < cursorPosition && i<patches.first().diffs.count(); i++){
