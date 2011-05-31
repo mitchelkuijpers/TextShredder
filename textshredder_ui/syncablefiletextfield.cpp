@@ -1,6 +1,7 @@
 #include "syncablefiletextfield.h"
 #include "ui_syncablefiletextfield.h"
 #include <QFileDialog>
+#include "../textshredder_core/libraries/notification/notificationmanager.h"
 
 SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<SyncableFile> file) :
     QWidget(parent),
@@ -12,6 +13,7 @@ SyncableFileTextField::SyncableFileTextField(QWidget *parent, QSharedPointer<Syn
 	syncFile = file;
 	connect(syncFile.data()->getWorkingCopy().data(), SIGNAL(workingCopyChanged()),
 			this, SLOT(workingCopyChanged()));
+	connect(syncFile.data(), SIGNAL(fileShouldNotifyEndOfSharing()), this, SLOT(showEndSharingNotification()));
 
 	openFileInTextEditor();
 
@@ -242,4 +244,14 @@ void SyncableFileTextField::on_saveFileButton_clicked()
 		}
 
 	}
+}
+
+void SyncableFileTextField::showEndSharingNotification()
+{
+	QString message("The server stopped sharing the following file: \n");
+	message.append(" - ");
+	message.append(syncFile.data()->getFileAlias());
+	message.append("\n\nYour edits will not be synced anymore.\nYou can still save this file locally.");
+	Notification notification(this, message, NotificationTypeWARNING);
+	NotificationManager::Instance()->createNotificationDialog(notification);
 }

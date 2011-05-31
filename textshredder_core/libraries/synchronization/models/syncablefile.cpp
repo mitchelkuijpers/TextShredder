@@ -197,7 +197,7 @@ void SyncableFile::syncThreadIsStoppedByOtherNode()
 		if (syncPointer.data() == sender()) {
 			syncThreads.removeAt(i);
 			if( isOpened() && !onServer ) {
-				qDebug() << "SyncableFile::syncThreadIsStoppedByOtherNode -> notification if client && isOpened";
+				emit fileShouldNotifyEndOfSharing();
 			}
 			break;
 		}
