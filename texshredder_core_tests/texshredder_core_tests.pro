@@ -60,7 +60,8 @@ SOURCES += main.cpp \
     ../textshredder_core/libraries/network/models/onlineuserspacket.cpp \
 	../textshredder_core/libraries/network/models/setaliaspacket.cpp \
     ../textshredder_core/server/usermanager.cpp \
-    ../textshredder_core/libraries/performance/performancecalculator.cpp
+    ../textshredder_core/libraries/performance/performancecalculator.cpp \
+    ../textshredder_core/libraries/network/models/editlistpacket.cpp
 
 HEADERS += \
     autotest.h \
@@ -108,4 +109,5 @@ HEADERS += \
     ../textshredder_core/libraries/network/models/onlineuserspacket.h \
 	../textshredder_core/libraries/network/models/setaliaspacket.h \
     ../textshredder_core/server/usermanager.h \
-    ../textshredder_core/libraries/performance/performancecalculator.h
+    ../textshredder_core/libraries/performance/performancecalculator.h \
+    ../textshredder_core/libraries/network/models/editlistpacket.h
