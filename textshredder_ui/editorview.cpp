@@ -252,3 +252,24 @@ void EditorView::updateAveragePerformancePercentage(float averagePerformance)
 	ui->healthBar->setDisabled(false);
 	ui->healthBar->setValue(averagePerformance);
 }
+
+void EditorView::on_syntaxHighlightingOffInput_toggled(bool checked)
+{
+	if ( checked ) {
+		qDebug("Syntax off");
+	}
+}
+
+void EditorView::on_syntaxHighightingCPPInput_toggled(bool checked)
+{
+	if ( checked ) {
+		qDebug("Syntax C++");
+	}
+}
+
+void EditorView::on_showModificationsInput_toggled(bool checked)
+{
+	if( checked ) {
+		//show text modifications
+	}
+}

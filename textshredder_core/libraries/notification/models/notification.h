@@ -4,6 +4,14 @@
 #include <QObject>
 #include "notificationoption.h"
 
+enum NotificationType {
+	NotificationTypeSUCCESS,
+	NotificationTypeWARNING,
+	NotificationTypeERROR,
+	NotificationTypeFATAL,
+	NotificationTypeINFO
+};
+
 class Notification : public QObject
 {
     Q_OBJECT
@@ -71,7 +79,6 @@ public:
 private:
 	QString message;
 	int notificationType;
-	enum NotificationType { SUCCESS, WARNING, ERROR, FATAL, INFO };
 	QList<NotificationOption>& options;
 	bool hasCancelButton;
 

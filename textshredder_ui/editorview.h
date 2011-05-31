@@ -47,6 +47,8 @@ private:
 	void setClientStatusIcons(SyncableFile * syncableFile, QStandardItem *status);
 
 private slots:
+ void on_syntaxHighightingCPPInput_toggled(bool checked);
+ void on_syntaxHighlightingOffInput_toggled(bool checked);
  void on_fileTreeWidget_doubleClicked(QModelIndex index);
  void on_openedFileTabs_tabCloseRequested(int index);
  void on_fileTreeWidget_clicked(QModelIndex index);
