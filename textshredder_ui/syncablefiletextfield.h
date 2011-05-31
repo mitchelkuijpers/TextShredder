@@ -57,6 +57,7 @@ private slots:
 	void on_saveFileButton_clicked();
 	void textChanged(int position, int charsRemoved, int charsAdded );
 	void workingCopyChanged();
+	void showEndSharingNotification();
 
 	void clearHighlights();
 	void deleteEdits();

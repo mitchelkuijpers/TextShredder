@@ -270,6 +270,9 @@ signals:
 
 	/** Emitted when syncing ends on server */
 	void fileShouldBeBackedUp();
+
+	/** Emitted when client has opened a file and syncing ends */
+	void fileShouldNotifyEndOfSharing();
 };
 
 #endif // SYNCABLEFILE_H
