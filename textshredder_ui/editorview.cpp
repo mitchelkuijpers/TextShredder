@@ -257,7 +257,9 @@ void EditorView::on_syntaxHighlightingOffInput_toggled(bool checked)
 {
 	if ( checked ) {
 		qDebug("Syntax off");
-		textfield.data()->setCPPHighlighting(false);
+		if(!textfield.isNull()){
+			textfield.data()->setCPPHighlighting(false);
+		}
 	}
 }
 
@@ -265,8 +267,9 @@ void EditorView::on_syntaxHighightingCPPInput_toggled(bool checked)
 {
 	if ( checked ) {
 		qDebug("Syntax C++");
-		textfield.data()->setCPPHighlighting(true);
-
+		if(!textfield.isNull()){
+			textfield.data()->setCPPHighlighting(true);
+		}
 	}
 
 
@@ -274,7 +277,7 @@ void EditorView::on_syntaxHighightingCPPInput_toggled(bool checked)
 
 void EditorView::on_showModificationsInput_toggled(bool checked)
 {
-	if( checked ) {
-		//show text modifications
+	if(!textfield.isNull()){
+		textfield.data()->setModificationHighlighting(checked);
 	}
 }

@@ -22,6 +22,9 @@ public:
 	SyncableFileTextField(QWidget *parent, QSharedPointer<SyncableFile> file);
 	~SyncableFileTextField();
 
+	void setCPPHighlighting(bool cppHighlighting);
+	void setModificationHighlighting(bool modificationHighlighting);
+
 private:
 	void updateTextFieldToWorkingCopyContent();
 	void openFileInTextEditor();
@@ -62,8 +65,7 @@ private slots:
 	void clearHighlights();
 	void deleteEdits();
 
-public slots:
-	void setCPPHighlighting(bool cppHighlighting);
+
 };
 
 #endif // TEXTFIELD_H

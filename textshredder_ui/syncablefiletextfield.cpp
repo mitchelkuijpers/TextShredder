@@ -102,6 +102,11 @@ void SyncableFileTextField::setCPPHighlighting(bool cppHighlighting)
 	highlighter->setcppHighlighting(cppHighlighting);
 }
 
+void SyncableFileTextField::setModificationHighlighting(bool modificationHighlighting)
+{
+	highlighter->setModificationHighlighting(modificationHighlighting);
+}
+
 void SyncableFileTextField::EditDeleteColor()
 {
 	if(!patches.isEmpty()){
