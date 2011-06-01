@@ -23,10 +23,6 @@ SyncableFile::SyncableFile(QObject *parent, QString &path) :
 	QString contentString(file.readAll());
 	workingCopy->setContent(contentString);
 
-	connect(&editList, SIGNAL(editListEmpty()),
-			this, SIGNAL(editListEmpty()));
-	connect(&editList, SIGNAL(editListNotEmpty()),
-			this, SIGNAL(editListNotEmpty()));
 }
 
 SyncableFile::SyncableFile(QObject *parent, QString &identifier, QString &alias) :
