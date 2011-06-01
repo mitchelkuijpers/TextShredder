@@ -99,7 +99,7 @@ void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 
 void SyncableFileTextField::setCPPHighlighting(bool cppHighlighting)
 {
-	highlighter->setHighlighting(cppHighlighting);
+	highlighter->setcppHighlighting(cppHighlighting);
 }
 
 void SyncableFileTextField::EditDeleteColor()
