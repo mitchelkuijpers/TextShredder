@@ -22,6 +22,7 @@ SyncableFile::SyncableFile(QObject *parent, QString &path) :
 
 	QString contentString(file.readAll());
 	workingCopy->setContent(contentString);
+
 }
 
 SyncableFile::SyncableFile(QObject *parent, QString &identifier, QString &alias) :

@@ -115,6 +115,10 @@ signals:
 	#ifdef QT_DEBUG
 		void addToAverageLockTime(uint);
 	#endif
+
+	void editListEmpty();
+	void editListNotEmpty();
+
 protected://Must be protected for test purposes
 	/**
 	  * Will change the current editlist into a packet

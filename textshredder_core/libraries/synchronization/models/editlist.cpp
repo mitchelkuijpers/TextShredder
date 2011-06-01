@@ -32,6 +32,7 @@ bool EditList::operator==( EditList & otherList )
 void EditList::addEdit( const Edit & e )
 {
 	this->edits.push_back(e);
+	editListNotEmpty();
 }
 
 
@@ -52,7 +53,6 @@ bool EditList::isEmpty()
 
 void EditList::empty() {
 	edits.empty();
-	editListIsEmpty();
 }
 
 QList<Edit> EditList::popEditsUpToLocalVersion( unsigned int version ) {
@@ -67,5 +67,10 @@ QList<Edit> EditList::popEditsUpToLocalVersion( unsigned int version ) {
 			count++;
 		}
 	}
+
+	if ( count == 0 ) {
+		editListEmpty();
+	}
+
 	return returnEdits;
 }

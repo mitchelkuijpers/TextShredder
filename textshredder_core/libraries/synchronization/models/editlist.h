@@ -109,7 +109,8 @@ private:
 	int remoteVersion;
 
 signals:
-	void editListIsEmpty();
+	void editListEmpty();
+	void editListNotEmpty();
 };
 
 #endif // EDITLIST_H
