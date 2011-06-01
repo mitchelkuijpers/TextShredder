@@ -18,6 +18,10 @@ SyncThread::SyncThread(QObject * parent, QSharedPointer<TextShredderConnection>c
 
 	connectSignalsForSynchronization();
 
+	connect(&editList, SIGNAL(editListEmpty()),
+			this, SIGNAL(editListEmpty()));
+	connect(&editList, SIGNAL(editListNotEmpty()),
+			this, SIGNAL(editListNotEmpty()));
 
 	sourceSyncThreadHandle = nextSyncThreadHandle;
 	nextSyncThreadHandle++;
@@ -231,6 +235,7 @@ void SyncThread::connectSignalsForSynchronization()
 	connect(&timer, SIGNAL(timeout()), this, SLOT(pushChanges()));
 	connect(this, SIGNAL(addToAverageLockTime(uint)), PerformanceCalculator::Instance(), SLOT(addNewLockTime(uint)));
 }
+
 void SyncThread::disconnectSignalsForSynchronization()
 {
 	qDebug("SyncThread::disconnectSignalsForSynchronization");
