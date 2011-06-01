@@ -216,7 +216,7 @@ void EditorView::on_fileTreeWidget_doubleClicked(QModelIndex index)
 
 void EditorView::openFileInEditor( QSharedPointer<SyncableFile> file )
 {
-	QSharedPointer<SyncableFileTextField> textfield = QSharedPointer<SyncableFileTextField>(new SyncableFileTextField(this, file));
+	textfield = QSharedPointer<SyncableFileTextField>(new SyncableFileTextField(this, file));
 	ui->openedFileTabs->addTab(textfield.data(), file.data()->getFileAlias());
 
 	openedFilesList.append(textfield);
@@ -257,6 +257,7 @@ void EditorView::on_syntaxHighlightingOffInput_toggled(bool checked)
 {
 	if ( checked ) {
 		qDebug("Syntax off");
+		textfield.data()->setCPPHighlighting(false);
 	}
 }
 
@@ -264,7 +265,11 @@ void EditorView::on_syntaxHighightingCPPInput_toggled(bool checked)
 {
 	if ( checked ) {
 		qDebug("Syntax C++");
+		textfield.data()->setCPPHighlighting(true);
+
 	}
+
+
 }
 
 void EditorView::on_showModificationsInput_toggled(bool checked)

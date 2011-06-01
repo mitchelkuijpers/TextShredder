@@ -39,6 +39,7 @@ private:
 	QStandardItemModel model;
 	bool isServer;
 	QList< QSharedPointer<SyncableFileTextField> > openedFilesList;
+	QSharedPointer<SyncableFileTextField> textfield;
 
 	void addCheckBoxToSharedFilesListTreeView( int row, SyncableFile * syncableFile );
 	void addFileNameToSharedFilesListTreeView( int row, SyncableFile * syncableFile );

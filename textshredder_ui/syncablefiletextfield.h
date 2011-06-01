@@ -61,6 +61,9 @@ private slots:
 
 	void clearHighlights();
 	void deleteEdits();
+
+public slots:
+	void setCPPHighlighting(bool cppHighlighting);
 };
 
 #endif // TEXTFIELD_H

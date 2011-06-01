@@ -16,13 +16,14 @@ public:
 
 	void setPatches(QList<Patch> patches);
 	void clearPatches();
-	void setHighlighting(bool HighLightingOn);
+	void setHighlighting(bool cppHighLightingOn);
 
 private:
 	QList<Patch> patches;
 	QList<Diff> diffs;
 	int editPosition;
 	bool highlightingOn;
+	bool cppHighlighting;
 
 	struct HighlightingRule
 		 {

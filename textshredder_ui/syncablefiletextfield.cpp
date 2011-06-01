@@ -69,11 +69,12 @@ void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 	QString temp = ui->textEditorField->toPlainText();
 	patches = syncFile.data()->getWorkingCopy().data()->getPatchesToConvertString(temp);
 	qDebug() << patches.first().toString();
-	if(temp.size() > 100000){
-		highlightingOn = false;
-	}else{
-		highlightingOn = true;
-	}
+//	if(temp.size() > 100000){
+//		highlightingOn = false;
+//	}else{
+//		highlightingOn = true;
+//	}
+
 
 	if( fileExtension == "htm"  || fileExtension == "html"  || fileExtension == "tsd" ) {
 		ui->textEditorField->setHtml(*syncFile.data()->getWorkingCopy().data()->getContent());
@@ -94,6 +95,11 @@ void SyncableFileTextField::updateTextFieldToWorkingCopyContent()
 	connect(ui->textEditorField->document(), SIGNAL(contentsChange(int,int,int)),
 			this, SLOT(textChanged(int, int, int)));
 
+}
+
+void SyncableFileTextField::setCPPHighlighting(bool cppHighlighting)
+{
+	highlighter->setHighlighting(cppHighlighting);
 }
 
 void SyncableFileTextField::EditDeleteColor()
