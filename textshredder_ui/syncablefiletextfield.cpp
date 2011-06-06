@@ -194,7 +194,6 @@ void SyncableFileTextField::updateTextCursor()
 {
 
 	if(!patches.isEmpty()){
-
 		int prevDiffSize = patches.first().start1;
 		if(prevDiffSize >= cursorPosition){
 			lockCursorPostion();
@@ -225,7 +224,7 @@ void SyncableFileTextField::updateCursorPosition()
 
 void SyncableFileTextField::lockCursorPostion()
 {
-	cursor.setPosition(oldCursorPosition);
+	cursor.setPosition(cursorPosition, QTextCursor::MoveAnchor);
 	ui->textEditorField->setTextCursor(cursor);
 }
 
