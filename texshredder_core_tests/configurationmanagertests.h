@@ -13,6 +13,7 @@ class ConfigurationManagerTests: public QObject
 private Q_SLOTS:
 	void testSetNewOptions();
 };
+
 DECLARE_TEST(ConfigurationManagerTests);
 
 #endif // CONFIGURATIONMANAGERTESTS_H
