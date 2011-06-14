@@ -25,7 +25,7 @@ void EditorView::on_addFileButton_clicked()
 {
 	QString openedFilePath = QFileDialog::getOpenFileName(this, tr("TextShredder File Selector"),
 												 QDir::currentPath(),
-												 QString("Text File (*.txt);;TextShredder Document (*.tsd);;HTML File (*.html)"));
+												 QString("Text File (*.txt);;TextShredder Document (*.tsd);;HTML File (*.html);;C++ source file (*.cpp)"));
 
 	if ( !openedFilePath.isEmpty() ) {
 		addFileToFileTreeWidget( openedFilePath );
@@ -61,7 +61,8 @@ void EditorView::addFolderToFileTreeWidget( QString directoryPath )
 {
 	QDir dir;
 	dir.setPath(directoryPath);
-	QStringList filters("*.txt");
+	QStringList filters;
+	filters << "*.txt" << "*.cpp" << "*.h";
 	QStringList list = dir.entryList(filters);
 
 	int i = 0;
