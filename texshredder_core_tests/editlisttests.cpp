@@ -11,7 +11,8 @@ void EditListTests::testEmptyConstructor()
 	QVERIFY2( list != NULL, "EditList should be initialized" );
 	QVERIFY2( list->getRemoteVersion() == expectedRemoteVersion,
 			  "Remote version should be 0");
-	QVERIFY2( list->getEdits().count() == 0, "EditList should have a list with 0 edit objects");
+	QVERIFY2( list->getEdits().count() == 0,
+			  "EditList should have a list with 0 edit objects");
 
 	delete list;
 }
@@ -28,7 +29,7 @@ void EditListTests::testConstructorWithRemoteVersion()
 	delete list;
 }
 
-void EditListTests::testGetPacketAndConstructorWithPacket()
+void EditListTests::testGetPacketAndConstructorWithPacket()›
 {
 	EditList list(this);
 	diff_match_patch dmp;
